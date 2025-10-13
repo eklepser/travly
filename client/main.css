@@ -1,0 +1,51 @@
+.main-page {
+    display: flex;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.filter-item {
+
+}
+
+.tours-section {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 24px;
+
+    justify-content: center;
+    width: 100%;
+
+
+    background: rgba(169, 245, 245, 0.3);
+}
+
+.tours-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    border-radius: 32px;
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 8.66%,
+                rgba(0, 0, 0, 0.2) 46.61%),
+                linear-gradient(135deg, #459292, #275858);
+}
+
+.tours-banner-overlay {
+    background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.tours-banner span {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 55px;
+    color: #FFFFFF;
+}
