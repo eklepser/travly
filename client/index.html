@@ -5,11 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
     <title>Travly</title>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
     <div class="logo">
         <span class="logo-text">Travly</span>
@@ -27,6 +29,10 @@
     </nav>
 </header>
 
+<!-- PAGE CONTENT -->
+<div id="page-content"></div>
+
+<!-- FOOTER -->
 <footer>
     <div class="contacts">
         <h3>Контактные данные:</h3>
@@ -59,9 +65,21 @@
             Сумма, отображаемая на сайте, включает в себя стоимость туристического продукта и размер лицензионного вознаграждения.
         </p>
     </div>
-
 </footer>
 
 </body>
 
 </html>
+
+<!-- PAGE CONTENT LOADING -->
+<script>
+    fetch('main.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('page-content').innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки контента:', error);
+            document.getElementById('page-content').innerHTML = '<p>Не удалось загрузить контент.</p>';
+        });
+</script>
