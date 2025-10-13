@@ -1,0 +1,151 @@
+body {
+    font-family: 'Inter', sans-serif;
+    color: #1E1E1E;
+}
+
+/* HEADER SETUP */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    height: 90px;
+    gap: 20px;
+    padding: 20px 20px;
+
+    background: #FF000010; /* debug color */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-text {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: 0.16em;
+    color: #303030;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.logo-image {
+    width: 56px;
+    height: 56px;
+    background: url("resources/palm_icon.png") no-repeat center / 56px 56px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* maybe change */
+}
+
+.nav-button {
+    width: 170px;
+    height: 35px;
+
+    border: none;
+    border-radius: 10px;
+
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+
+    transition: all 0.3s ease;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.account-image {
+    width: 32px;
+    height: 32px;
+    background: #1D1B20;
+    border-radius: 50%;
+}
+
+.account-text {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
+
+/* FOOTER SETUP */
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 100%;
+    height: 195px;
+    padding: 12px 12px;
+
+    font-size: 20px;
+
+    background: #00FF0010; /* debug color */
+}
+
+.contacts {
+    display: flex;
+    flex-direction: column;
+}
+
+.contacts h3,
+.social-media h3 {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: #1E1E1E;
+    margin-bottom: 12px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-item span {
+    font-size: 16px;
+    color: #1E1E1E;
+    white-space: nowrap;
+}
+
+.contact-icon {
+    min-width: 28px;
+    min-height: 28px;
+    background: url("resources/palm_icon.png") no-repeat center / 28px 28px;
+}
+
+.social-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.social-icon {
+    width: 56px;
+    height: 56px;
+    background: url("resources/palm_icon.png") no-repeat center / 56px 56px;
+}
+
+.disclaimer {
+    max-width: 60%;
+}
+
+
