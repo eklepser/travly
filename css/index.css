@@ -1,3 +1,8 @@
+@import "main.css";
+@import "booking.css";
+@import "about.css";
+@import "help.css";
+
 body {
     font-family: 'Inter', sans-serif;
     color: #1E1E1E;
@@ -35,7 +40,7 @@ header {
 .logo-image {
     width: 56px;
     height: 56px;
-    background: url("../../resources/icons/palm_icon.png") no-repeat center / 56px 56px;
+    background: url("../resources/icons/palm_icon.png") no-repeat center / 56px 56px;
 }
 
 .nav {
@@ -123,7 +128,7 @@ footer {
 .contact-icon {
     min-width: 28px;
     min-height: 28px;
-    background: url("../../resources/icons/palm_icon.png") no-repeat center / 28px 28px;
+    background: url("../resources/icons/palm_icon.png") no-repeat center / 28px 28px;
 }
 
 .social-media {
@@ -142,7 +147,7 @@ footer {
 .social-icon {
     width: 56px;
     height: 56px;
-    background: url("../../resources/icons/palm_icon.png") no-repeat center / 56px 56px;
+    background: url("../resources/icons/palm_icon.png") no-repeat center / 56px 56px;
 }
 
 .disclaimer {

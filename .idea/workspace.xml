@@ -4,27 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add help page prototype">
-      <change afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: move css files into separate folder">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/about.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/about-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/booking-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/booking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/help.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/help-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/help.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/help.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/main-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/resources/beach_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/icons/beach_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/resources/destination_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/icons/destination_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/resources/flaticon.MD" beforeDir="false" afterPath="$PROJECT_DIR$/resources/icons/flaticon.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/resources/laguna_image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/laguna_image.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/resources/mountain_image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/images/mountain_image.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/resources/palm_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/icons/palm_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/resources/travel_distance_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/icons/travel_distance_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/resources/traveling_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/icons/traveling_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/about-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/about.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/booking-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/booking.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/help-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/help.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/main-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,11 +76,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\images" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\html" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\layout" />
     </key>
   </component>
   <component name="RunManager">
@@ -186,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760465839141</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="refactor: move css files into separate folder">
+      <option name="closed" value="true" />
+      <created>1760466256222</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1760466256222</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,6 +208,7 @@
     <MESSAGE value="feat: add about page prototype" />
     <MESSAGE value="feat: add booking page prototype" />
     <MESSAGE value="feat: add help page prototype" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add help page prototype" />
+    <MESSAGE value="refactor: move css files into separate folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: move css files into separate folder" />
   </component>
 </project>
