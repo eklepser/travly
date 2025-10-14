@@ -25,7 +25,7 @@
     margin-bottom: 16px;
 }
 
-.filter-selection {
+.select-field {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,10 +39,51 @@
     transition: all 0.3s ease;
 }
 
-.filter-selection span {
+.chevron {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #1E1E1E;
+    border-top: none;
+    border-right: none;
+    transform: rotate(-45deg);
+}
+
+.select-field span {
     font-weight: normal;
     font-size: 20px;
     line-height: 140%;
+}
+
+.range-slider {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+.range-slider .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #ddd;
+    outline: none;
+    border-radius: 3px;
+}
+
+.range-slider .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #007bff;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.range-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #333;
 }
 
 /* TOURS SECTION */
@@ -59,6 +100,7 @@
     background: rgba(169, 245, 245, 0.3);
 }
 
+/* banner */
 .tours-banner {
     display: flex;
     align-items: center;
@@ -83,3 +125,124 @@
     line-height: 55px;
     color: #FFFFFF;
 }
+
+/* tours title */
+.tours-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.tours-title h2 {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 55px;
+
+    color: #000000;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.tours-icon {
+    width: 56px;
+    height: 56px;
+}
+
+.travel-icon {
+    background: url("resources/palm_icon.png") no-repeat center / 56px 56px;
+}
+
+/* cards */
+.cards-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 16px;
+    gap: 16px;
+    border-radius: 24px;
+
+    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
+}
+
+.card {
+    position: relative;
+    width: 30%;
+    height: 240px;
+    border-radius: 16px;
+    overflow: hidden;
+
+    background: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(135deg, #459292, #275858);
+}
+
+.card-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.158654) 47.6%, #000000 100%);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+
+    color: #FFFFFF;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 55px;
+    margin-bottom: 4px;
+}
+
+.card-price {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: right;
+    margin-bottom: 8px;
+}
+
+.card-rating {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.star {
+    color: #FEF7FF;
+    font-size: 20px;
+}
+
+/* sorting options */
+.sorting-options {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin: 16px 0;
+}
+
+.sort-field {
+    width: 30%;
+}
+
+.sort-icon {
+    width: 32px;
+    height: 32px;
+    background: url("resources/palm_icon.png") no-repeat center / 32px 32px;
+}
+
