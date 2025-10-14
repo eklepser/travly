@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add page loading script">
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add simple banner on main page">
+      <change afterPath="$PROJECT_DIR$/client/about.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/help.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/reservation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/main.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/style.css" afterDir="false" />
@@ -18,8 +23,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -50,7 +56,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Debug&quot;,
     &quot;JavaScript Debug.main.html.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -64,7 +70,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;liveEdit&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -75,7 +81,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" engineId="37cae5b9-e8b2-4949-9172-aafa37fbc09c" uri="http://localhost:63342/travly/client/index.html" useBuiltInWebServerPort="true">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/travly/client/index.html" useBuiltInWebServerPort="true">
       <mapping url="http://localhost:63342/travly/client" local-file="$PROJECT_DIR$/../../../../Program Files/Firefox Developer Edition/firefox.exe" />
       <method v="2" />
     </configuration>
@@ -105,7 +111,10 @@
       <workItem from="1760382221803" duration="2445000" />
       <workItem from="1760384793593" duration="368000" />
       <workItem from="1760385177013" duration="525000" />
-      <workItem from="1760385718444" duration="327000" />
+      <workItem from="1760385718444" duration="370000" />
+      <workItem from="1760427788363" duration="1735000" />
+      <workItem from="1760433847093" duration="290000" />
+      <workItem from="1760434995550" duration="1331000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -123,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760382989958</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: add simple banner on main page">
+      <option name="closed" value="true" />
+      <created>1760386087093</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1760386087093</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,6 +160,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: initial commit" />
     <MESSAGE value="feat: add page loading script" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add page loading script" />
+    <MESSAGE value="feat: add simple banner on main page" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add simple banner on main page" />
   </component>
 </project>

@@ -18,10 +18,10 @@
         <div class="logo-image"></div>
     </div>
     <nav class="nav">
-        <button class="nav-button">Главная</button>
-        <button class="nav-button">Бронирование</button>
-        <button class="nav-button">О нас</button>
-        <button class="nav-button">Помощь</button>
+        <button class="nav-button" data-page="main.html">Главная</button>
+        <button class="nav-button" data-page="reservation.html">Бронирование</button>
+        <button class="nav-button" data-page="about.html">О нас</button>
+        <button class="nav-button" data-page="help.html">Помощь</button>
         <div class="account">
             <div class="account-image"></div>
             <span class="account-text">Войти</span>
@@ -67,19 +67,9 @@
     </div>
 </footer>
 
+<script src="menu.js"></script>
+
 </body>
 
 </html>
 
-<!-- PAGE CONTENT LOADING -->
-<script>
-    fetch('main.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('page-content').innerHTML = data;
-        })
-        .catch(error => {
-            console.error('Ошибка загрузки контента:', error);
-            document.getElementById('page-content').innerHTML = '<p>Не удалось загрузить контент.</p>';
-        });
-</script>
