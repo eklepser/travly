@@ -1,0 +1,325 @@
+/* Уникальные стили для страницы бронирования */
+
+.booking-main {
+    min-height: calc(100vh - 285px);
+    background: #FFFFFF;
+    padding: 0 32px;
+}
+
+.booking-hero {
+    background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(26, 238, 238, 0.3) 100%);
+    padding: 32px;
+    height: auto;
+    min-height: 472px;
+    margin-bottom: 32px;
+}
+
+.booking-header h1 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 44px;
+    text-align: left;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.booking-header h2 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    color: #000000;
+    margin-bottom: 32px;
+}
+
+.booking-content {
+    display: flex;
+    gap: 32px;
+    margin-top: 0;
+}
+
+.booking-card {
+    position: relative;
+    width: 449px;
+    height: 322px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.card-image-large {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #459292, #275858);
+    z-index: 1;
+}
+
+.card-content-large {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 2;
+    color: #FFFFFF;
+}
+
+.card-content-large h3 {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 55px;
+    margin-bottom: 8px;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nights,
+.price {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.tour-info {
+    flex: 1;
+    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
+    border-radius: 16px;
+    padding: 32px;
+    height: fit-content;
+}
+
+.tour-info h3 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 120%;
+    color: #000000;
+    margin-bottom: 24px;
+}
+
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+}
+
+.info-label,
+.info-value {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #000000;
+}
+
+.info-value {
+    text-align: right;
+    max-width: 423px;
+}
+
+.info-item.total-cost {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px solid rgba(39, 88, 88, 0.3);
+}
+
+.info-item.total-cost .info-label,
+.info-item.total-cost .info-value {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 120%;
+}
+
+.customer-form {
+    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
+    border-radius: 16px;
+    margin: 0 0 32px 0;
+    padding: 32px;
+    width: 100%;
+}
+
+.customer-form h3 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 120%;
+    color: #000000;
+    margin-bottom: 32px;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    align-items: flex-start;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.form-group.wide {
+    flex: 1.5;
+}
+
+.form-group.extra-wide {
+    flex: 2;
+}
+
+.form-group label {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #000000;
+    height: 34px;
+}
+
+.input-field {
+    position: relative;
+    width: 100%;
+    height: 43px;
+}
+
+.input-field input {
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding: 0 16px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #AEAEAE;
+}
+
+.input-field input::placeholder {
+    color: #AEAEAE;
+    text-align: center;
+}
+
+.input-field input:focus {
+    outline: none;
+    color: #1E1E1E;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 32px;
+    justify-content: space-between;
+    margin-top: 32px;
+}
+
+.clear-btn,
+.book-btn {
+    width: 320px;
+    height: 65px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 140%;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-btn {
+    background: #627878;
+}
+
+.book-btn {
+    background: #275858;
+}
+
+.clear-btn:hover {
+    background: #4a5a5a;
+}
+
+.book-btn:hover {
+    background: #1a4040;
+}
+
+/* Media queries — только для уникальных секций */
+
+@media (max-width: 1200px) {
+    .booking-content {
+        flex-direction: column;
+    }
+
+    .booking-card {
+        width: 100%;
+        max-width: 449px;
+    }
+
+    .form-row {
+        flex-wrap: wrap;
+    }
+
+    .form-group {
+        min-width: calc(50% - 8px);
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-hero {
+        padding: 16px;
+        height: auto;
+    }
+
+    .customer-form {
+        margin: 16px;
+        padding: 16px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .clear-btn,
+    .book-btn {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .info-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .info-label,
+    .info-value {
+        text-align: left;
+    }
+}
