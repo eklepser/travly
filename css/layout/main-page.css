@@ -149,7 +149,7 @@
 }
 
 .travel-icon {
-    background: url("resources/palm_icon.png") no-repeat center / 56px 56px;
+    background: url("../../resources/icons/palm_icon.png") no-repeat center / 56px 56px;
 }
 
 /* cards */
@@ -243,6 +243,6 @@
 .sort-icon {
     width: 32px;
     height: 32px;
-    background: url("resources/palm_icon.png") no-repeat center / 32px 32px;
+    background: url("../../resources/icons/palm_icon.png") no-repeat center / 32px 32px;
 }
 
