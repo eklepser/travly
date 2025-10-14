@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: move css files into separate folder">
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: optimize styles code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/about-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/about.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/booking-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/booking.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/help-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/help.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/main-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/about.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/about.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/booking.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/help.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/help.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760466256222</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="refactor: rename css files">
+      <option name="closed" value="true" />
+      <created>1760466697527</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1760466697527</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +212,8 @@
     <MESSAGE value="feat: add booking page prototype" />
     <MESSAGE value="feat: add help page prototype" />
     <MESSAGE value="refactor: move css files into separate folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: move css files into separate folder" />
+    <MESSAGE value="refactor: rename css files" />
+    <MESSAGE value="refactor: optimize styles code" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: optimize styles code" />
   </component>
 </project>

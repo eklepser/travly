@@ -1,7 +1,6 @@
 /* Уникальные стили для страницы помощи (FAQ) */
 
 .help-hero {
-    width: 100%;
     min-height: 100vh;
     background: linear-gradient(135deg, #1a535c, #4ecdc4);
     display: flex;

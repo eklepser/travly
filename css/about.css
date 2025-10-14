@@ -1,7 +1,5 @@
-/* Уникальные стили для страницы "О нас" */
-
 .about-hero {
-    width: 100%;
+    max-width: 100%;
     height: 950px;
     background:
             linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 0.01%),
@@ -23,48 +21,12 @@
     padding: 40px 20px;
 }
 
-.hero-title-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+.hero-text,
+.philosophy-section,
+.activity-section {
     width: 100%;
     max-width: 1420px;
-    height: auto;
-}
-
-.hero-main-title {
-    width: 100%;
-    height: 48px;
-    font-family: 'Inter';
-    font-style: italic;
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 48px;
-    text-align: center;
-    letter-spacing: 0.16em;
-    color: #FFFFFF;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin-bottom: 20px;
-}
-
-.hero-text {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 10px;
-    gap: 10px;
-    width: 100%;
-    max-width: 1420px;
-    height: auto;
-    border-radius: 8px;
-}
-
-.hero-text p {
-    width: 100%;
-    max-width: 1400px;
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: italic;
     font-weight: 700;
     font-size: 24px;
@@ -72,65 +34,68 @@
     letter-spacing: 0.16em;
     color: #FFFFFF;
     text-align: center;
+}
+
+.hero-text {
+    padding: 0 10px;
+    border-radius: 8px;
+}
+
+.hero-text p,
+.philosophy-section p,
+.activity-section p {
+    margin: 0;
 }
 
 .philosophy-section,
 .activity-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* выравнивание по центру, как и текст */
     gap: 10px;
+}
+
+/* Заголовки */
+.hero-main-title,
+.philosophy-section h2,
+.activity-section h2 {
     width: 100%;
-    max-width: 1384px;
-    height: auto;
+    font-family: 'Inter', serif;
+    font-style: italic;
+    font-weight: bold;
+    letter-spacing: 0.16em;
+    color: #FFFFFF;
+    text-align: center;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 10px;
+}
+
+.hero-main-title {
+    font-size: 40px;
+    line-height: 48px;
+    height: 48px;
+    margin-bottom: 20px;
 }
 
 .philosophy-section h2,
 .activity-section h2 {
-    width: 100%;
-    height: 44px;
-    font-family: 'Inter';
-    font-style: italic;
-    font-weight: 700;
     font-size: 36px;
     line-height: 44px;
-    text-align: center;
-    letter-spacing: 0.16em;
-    color: #FFFFFF;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin-bottom: 10px;
+    height: 44px;
 }
 
-.philosophy-section p,
-.activity-section p {
-    width: 100%;
-    font-family: 'Inter';
-    font-style: italic;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
-    letter-spacing: 0.16em;
-    color: #FFFFFF;
-    text-align: center;
-}
+/* Фиксированные min-height для параграфов */
+.philosophy-section p { min-height: 87px; }
+.activity-section p { min-height: 145px; }
 
-.philosophy-section p {
-    height: auto;
-    min-height: 87px;
-}
-
-.activity-section p {
-    height: auto;
-    min-height: 145px;
-}
-
+/* Кнопка */
 .back-to-main-btn {
     width: 459px;
     height: 91px;
     background: rgba(30, 30, 30, 0.7);
     border: none;
     border-radius: 8px;
-    font-family: 'Inter';
+    font-family: 'Inter', serif;
     font-style: italic;
     font-weight: 400;
     font-size: 32px;
@@ -138,7 +103,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
     color: #FFFFFF;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -150,6 +114,7 @@
     transform: translateY(-2px);
 }
 
+/* Disclaimer */
 .disclaimer p {
     font-style: italic;
     font-weight: 700;
@@ -159,16 +124,15 @@
     color: #1E1E1E;
 }
 
-/* Media queries — оставлены только для уникальных секций */
-
+/* Media queries */
 @media (max-width: 1200px) {
     .hero-content {
         padding: 20px;
     }
 
-    .hero-text p,
-    .philosophy-section p,
-    .activity-section p {
+    .hero-text,
+    .philosophy-section,
+    .activity-section {
         font-size: 20px;
         line-height: 26px;
     }
@@ -186,11 +150,13 @@
 
     .hero-main-title {
         font-size: 32px;
+        line-height: 38px;
+        height: auto;
     }
 
-    .hero-text p,
-    .philosophy-section p,
-    .activity-section p {
+    .hero-text,
+    .philosophy-section,
+    .activity-section {
         font-size: 18px;
         line-height: 24px;
     }
