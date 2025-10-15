@@ -4,8 +4,7 @@
     justify-content: center;
 
     max-width: 100%;
-    min-height: 950px;
-    height: auto;
+    min-height: 100vh;
 
     background:
             linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),

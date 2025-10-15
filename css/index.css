@@ -45,6 +45,7 @@ header {
     font-size: 40px;
     line-height: 48px;
     letter-spacing: 0.16em;
+
     color: #303030;
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -53,16 +54,18 @@ header {
     color: #00b9b0;
 }
 
-.logo-image {
+.logo-icon {
     width: 56px;
     height: 56px;
-    background: url("../resources/icons/palm_icon.png") no-repeat center / 56px 56px;
+    background: url("../resources/icons/common/palm.png") no-repeat center / 56px 56px;
 }
 
 .nav {
     display: flex;
     align-items: center;
     gap: 40px; /* maybe change */
+
+    font-size: 20px;
 }
 
 .nav-button {
@@ -76,6 +79,9 @@ header {
     font-weight: bold;
     font-size: 20px;
 
+    color: white;
+    background: #275858;
+
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -87,11 +93,10 @@ header {
     cursor: pointer;
 }
 
-.account-image {
-    width: 32px;
-    height: 32px;
-    background: #1D1B20;
-    border-radius: 50%;
+.account-icon {
+    width: 56px;
+    height: 56px;
+    background: url("../resources/icons/common/account.svg") no-repeat center / 56px 56px;
 }
 
 .account-text {
@@ -145,7 +150,7 @@ footer {
 .contact-icon {
     min-width: 28px;
     min-height: 28px;
-    background: url("../resources/icons/palm_icon.png") no-repeat center / 28px 28px;
+    background: url("../resources/icons/common/palm.png") no-repeat center / 28px 28px;
 }
 
 .location {

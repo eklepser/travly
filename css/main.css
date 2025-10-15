@@ -257,7 +257,7 @@
 .tours-section {
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    padding-left: 16px;
     margin-bottom: 16px;
     gap: 24px;
 
@@ -345,9 +345,18 @@
     height: 56px;
 }
 
-.travel-icon {
-    background: url("../resources/icons/palm_icon.png") no-repeat center / 56px 56px;
+.discount-icon{
+    background: url('../resources/icons/travel/discount.svg') no-repeat center / 56px 56px;
 }
+
+.beach-icon {
+    background: url('../resources/icons/travel/beach.svg') no-repeat center / 56px 56px;
+}
+
+.map-icon {
+    background: url('../resources/icons/travel/map.svg') no-repeat center / 56px 56px;
+}
+
 
 /* cards */
 .cards-panel {

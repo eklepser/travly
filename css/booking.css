@@ -1,12 +1,11 @@
 .booking-main {
-    background: #FFFFFF;
-    padding: 0 32px;
-}
+    display: flex;
+    flex-direction: column;
 
-.booking-hero {
-    background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(26, 238, 238, 0.3) 100%);
     padding: 32px;
-    margin-bottom: 32px;
+    gap: 32px;
+
+    background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(155, 225, 225, 0.3) 48.56%, rgba(39, 88, 88, 0.3) 100%);
 }
 
 .booking-header h1,
