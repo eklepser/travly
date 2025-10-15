@@ -4,7 +4,6 @@
     justify-content: center;
 
     min-height: 100vh;
-    padding: 20px;
 
     background:
             linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
@@ -19,7 +18,7 @@
     width: 100%;
     max-width: 1200px;
     border-radius: 16px;
-    padding: 40px;
+    padding: 20px;
 
     font-size: 20px;
     font-family: 'Inter', sans-serif;
@@ -35,17 +34,23 @@
     font-weight: bold;
     font-size: 36px;
     line-height: 44px;
+    margin: 36px;
 }
 
 .faq-section {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 50px;
     margin-bottom: 40px;
 }
 
-.faq-item p {
+.faq-item {
+    text-align: left;
+}
+
+.faq-item h2 {
     line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 .rating-examples {
