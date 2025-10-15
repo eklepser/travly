@@ -4,23 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add icons in header &amp; footer">
-      <change afterPath="$PROJECT_DIR$/resources/icons/common/account.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/icons/travel/beach.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/icons/travel/discount.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/icons/travel/map.svg" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: improve header buttons style">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/about.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/about.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/booking.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/beach_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/destination_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/palm_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/icons/common/palm.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/travel_distance_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/icons/traveling_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/help.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/help.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +56,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.index.html.executor": "Debug",
+    "JavaScript Debug.index.html.executor": "Run",
     "JavaScript Debug.main.html.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -234,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760559103265</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat: improve header buttons style">
+      <option name="closed" value="true" />
+      <created>1760563562214</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1760563562214</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +263,7 @@
     <MESSAGE value="feat: improve banner and card view on main page" />
     <MESSAGE value="feat: add background for header &amp; footer" />
     <MESSAGE value="feat: add icons in header &amp; footer" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add icons in header &amp; footer" />
+    <MESSAGE value="feat: improve header buttons style" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: improve header buttons style" />
   </component>
 </project>
