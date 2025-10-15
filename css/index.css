@@ -49,6 +49,10 @@ header {
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.logo-text-highlight {
+    color: #00b9b0;
+}
+
 .logo-image {
     width: 56px;
     height: 56px;
@@ -144,6 +148,18 @@ footer {
     background: url("../resources/icons/palm_icon.png") no-repeat center / 28px 28px;
 }
 
+.location {
+    background: url("../resources/icons/contacts/location.svg") no-repeat center / 28px 28px;
+}
+
+.phone {
+    background: url("../resources/icons/contacts/phone.svg") no-repeat center / 28px 28px;
+}
+
+.email {
+    background: url("../resources/icons/contacts/email.svg") no-repeat center / 28px 28px;
+}
+
 .social-media {
     display: flex;
     flex-direction: column;
@@ -153,6 +169,8 @@ footer {
 .social-icons {
     display: flex;
     align-items: center;
+
+    height: 56px;
     gap: 16px;
     margin-top: 8px;
 }
@@ -160,7 +178,18 @@ footer {
 .social-icon {
     width: 56px;
     height: 56px;
-    background: url("../resources/icons/palm_icon.png") no-repeat center / 56px 56px;
+}
+
+.telegram {
+    background: url("../resources/icons/social/tg.svg") no-repeat center / 56px 56px;
+}
+
+.vk {
+    background: url("../resources/icons/social/vk.svg") no-repeat center / 56px 56px;
+}
+
+.whatsapp {
+    background: url("../resources/icons/social/whatsapp.svg") no-repeat center / 56px 56px;
 }
 
 .disclaimer {
