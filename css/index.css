@@ -3,6 +3,11 @@
 @import "about.css";
 @import "help.css";
 
+html {
+    scrollbar-width: none;
+    scrollbar-color: rgba(128, 128, 128, 0.4) transparent;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -24,7 +29,7 @@ header {
     gap: 20px;
     padding: 20px 20px;
 
-    background: #FF000010; /* debug color */
+    background: rgba(169, 245, 245, 0.3);
 }
 
 .logo {
@@ -102,7 +107,7 @@ footer {
 
     font-size: 20px;
 
-    background: #00FF0010; /* debug color */
+    background: linear-gradient(180deg, rgba(39, 88, 88, 0.3) 0%, rgba(7, 200, 200, 0.3) 100%);
 }
 
 .contacts {
