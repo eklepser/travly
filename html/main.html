@@ -1,31 +1,89 @@
 <main class="main-page">
 
     <div class="filters">
-        <span>Подобрать тур</span>
-        <div class="select-field">
-            <span>Тип отдыха</span>
-            <div class="chevron"></div>
-        </div>
-        <div class="select-field">
-            <span>Направление</span>
-            <div class="chevron"></div>
-        </div>
-        <div class="select-field">
-            <span>Количество туристов</span>
-            <div class="chevron"></div>
-        </div>
-        <div class="select-field">
-            <span>Отель</span>
-            <div class="chevron"></div>
+        <h2 class="filters-title">Подобрать тур</h2>
+
+        <div class="filter-group">
+            <div class="filter-item">
+                <span class="filter-label">Тип отдыха</span>
+                <div class="filter-chevron"></div>
+            </div>
+
+            <div class="filter-item">
+                <span class="filter-label">Направление</span>
+                <div class="filter-chevron"></div>
+            </div>
+
+            <div class="filter-item">
+                <span class="filter-label">Количество туристов</span>
+                <div class="filter-chevron"></div>
+            </div>
+
+            <div class="filter-item">
+                <span class="filter-label">Отель</span>
+                <div class="filter-chevron"></div>
+            </div>
         </div>
 
+        <div class="budget-section">
+            <span class="section-title">Бюджет</span>
+            <div class="budget-inputs">
+                <div class="input-group">
+                    <span class="input-label">от</span>
+                    <input type="text" class="input-field" placeholder="0">
+                </div>
+                <div class="input-group">
+                    <span class="input-label">до</span>
+                    <input type="text" class="input-field" placeholder="100000">
+                </div>
+            </div>
+        </div>
+
+        <div class="range-section">
+            <span class="section-title">Стоимость тура (руб)</span>
+            <div class="range-slider">
+                <input type="range" class="slider" min="0" max="100000" value="50000">
+            </div>
+        </div>
+
+        <div class="duration-section">
+            <span class="section-title">Длительность тура</span>
+            <div class="duration-inputs">
+                <div class="input-group">
+                    <span class="input-label">от</span>
+                    <input type="text" class="input-field" placeholder="3">
+                </div>
+                <div class="input-group">
+                    <span class="input-label">до</span>
+                    <input type="text" class="input-field" placeholder="30">
+                </div>
+            </div>
+        </div>
+
+        <div class="range-section">
+            <span class="section-title">Длительность тура (ночей)</span>
+            <div class="range-slider">
+                <input type="range" class="slider" min="3" max="30" value="14">
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <span class="filter-label">Рейтинг</span>
+            <div class="filter-chevron"></div>
+        </div>
+
+        <button class="apply-btn">Подобрать!</button>
     </div>
 
     <div class="tours-section">
 
         <div class="tours-banner">
             <div class="tours-banner-overlay">
-                <span>Отправляйтесь в ваше лучшее путешествие уже сейчас!</span>
+                <div class="tours-banner-text">
+                    <span class="line1">Отправляйтесь в</span>
+                    <span class="line2">Ваше лучшее путешествие</span>
+                    <span class="line3">уже сейчас!</span>
+                </div>
             </div>
         </div>
 
@@ -35,36 +93,30 @@
         </div>
 
         <div class="cards-panel">
+
             <div class="card">
                 <div class="card-image"></div>
                 <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
+                <div class="card-rating">
+                    <span class="star">★★★★★</span>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
+                <div class="card-bottom">
+                    <div class="card-location">
+                        <div class="card-country">Турция</div>
+                        <div class="card-city">Стамбул</div>
                     </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
+                    <div class="card-info">
+                        <div class="card-details">
+                            <div class="detail-item">
+                                <span class="icon">🌙</span>
+                                <span class="value">5</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">👥</span>
+                                <span class="value">2-5</span>
+                            </div>
+                        </div>
+                        <div class="card-price">от 40000 руб</div>
                     </div>
                 </div>
             </div>
@@ -75,41 +127,7 @@
             <div class="tours-icon travel-icon"></div>
         </div>
 
-        <div class="cards-panel">
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="cards-panel"></div>
 
         <div class="tours-title">
             <h2>Туры для вас</h2>
@@ -117,90 +135,28 @@
         </div>
 
         <div class="sorting-options">
-            <div class="sort-icon"></div>
-            <div class="select-field sort-field">
-                <span>Популярность</span>
-                <div class="chevron"></div>
-            </div>
-            <div class="select-field sort-field">
-                <span>Цена</span>
-                <div class="chevron"></div>
-            </div>
-            <div class="select-field sort-field">
-                <span>Рейтинг</span>
-                <div class="chevron"></div>
-            </div>
+            <span class="filter-icon">☰</span>
+
+            <select class="select-field">
+                <option value="" disabled selected>По популярности</option>
+                <option value="asc">По возрастанию</option>
+                <option value="desc">По убыванию</option>
+            </select>
+
+            <select class="select-field">
+                <option value="" disabled selected>По цене</option>
+                <option value="cheap">От дешёвых</option>
+                <option value="expensive">От дорогих</option>
+            </select>
+
+            <select class="select-field">
+                <option value="" disabled selected>По рейтингу</option>
+                <option value="low">От низкого</option>
+                <option value="high">От высокого</option>
+            </select>
         </div>
 
-        <div class="cards-panel">
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image"></div>
-                <div class="card-overlay"></div>
-                <div class="card-content">
-                    <h3 class="card-title">Турция Стамбул</h3>
-                    <div class="card-price">5 ночей от 40000 рублей</div>
-                    <div class="card-rating">
-                        <span class="star">★★★★★</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        <div class="cards-panel"></div>
 
     </div>
 

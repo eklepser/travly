@@ -1,89 +1,254 @@
 .main-page {
     display: flex;
+    padding: 20px;
+    background: #f5f5f5;
 }
-
-/* FILTERS SECTION */
 
 .filters {
+    width: 340px; /* Увеличил ширину */
+    padding: 28px; /* Увеличил отступы */
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filters-title {
+    font-size: 22px; /* Увеличил шрифт */
+    font-weight: bold;
+    margin-bottom: 24px;
+    text-align: center;
+    color: #333;
+}
+
+.filter-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    width: 25%;
-    border-radius: 16px;
-    padding: 16px;
-
-    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
+    gap: 14px; /* Увеличил отступы */
+    margin-bottom: 24px;
 }
 
-.filters span {
-    font-style: italic;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
-    text-align: center;
-    color: #000000;
-    margin-bottom: 16px;
-}
-
-.select-field {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.filter-item {
     position: relative;
-    width: 100%;
-    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-
-    background: #FFFFFF;
+    background: white;
     cursor: pointer;
     transition: all 0.3s ease;
+    user-select: none;
 }
 
-.chevron {
-    width: 16px;
-    height: 16px;
-    border: 2px solid #1E1E1E;
-    border-top: none;
-    border-right: none;
-    transform: rotate(-45deg);
+.filter-item:hover {
+    border-color: #459292;
 }
 
-.select-field span {
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 140%;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #459292;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 101;
+    margin-top: 4px;
+    max-height: 250px;
+    overflow-y: auto;
 }
 
-.range-slider {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 8px 0;
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
-.range-slider .slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 6px;
-    background: #ddd;
-    outline: none;
+.dropdown:hover .filter-chevron {
+    transform: rotate(-135deg);
+    margin-top: -4px;
+}
+
+.filter-chevron {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease, margin-top 0.3s ease;
+    margin-top: 0;
+}
+
+.dropdown-item {
+    padding: 12px 18px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #459292;
+}
+
+/* Стили для скроллбара */
+.dropdown-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
     border-radius: 3px;
 }
 
-.range-slider .slider::-webkit-slider-thumb {
+.dropdown-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.dropdown-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Чтобы избежать наложения при близком расположении */
+.filter-group {
+    position: relative;
+    z-index: 1;
+}
+
+.filter-group .dropdown {
+    position: relative;
+}
+
+.filter-group .dropdown-content {
+    z-index: 102;
+}
+
+.filter-item:hover {
+    border-color: #459292;
+}
+
+.filter-label {
+    font-size: 16px; /* Увеличил шрифт */
+    color: #333;
+}
+
+.filter-chevron {
+    width: 10px; /* Увеличил размер */
+    height: 10px;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
+    transform: rotate(45deg);
+}
+
+.section-title {
+    display: block;
+    font-size: 16px; /* Увеличил шрифт */
+    color: #333;
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+
+.budget-section,
+.duration-section,
+.range-section {
+    margin-bottom: 24px;
+}
+
+.budget-inputs,
+.duration-inputs {
+    display: flex;
+    gap: 14px; /* Увеличил отступы */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Увеличил отступы */
+    flex: 1;
+}
+
+.input-label {
+    font-size: 14px; /* Увеличил шрифт */
+    color: #666;
+    min-width: 24px;
+}
+
+.input-field {
+    flex: 1;
+    height: 40px; /* Увеличил высоту */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    padding: 0 12px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.input-field:focus {
+    border-color: #459292;
+}
+
+.input-field::placeholder {
+    color: #999;
+}
+
+.range-slider {
+    padding: 10px 0; /* Увеличил отступы */
+}
+
+.slider {
+    width: 100%;
+    height: 5px; /* Увеличил высоту */
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 18px;
     height: 18px;
-    background: #007bff;
-    cursor: pointer;
+    background: #459292;
     border-radius: 50%;
+    cursor: pointer;
 }
 
-.range-values {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    color: #333;
+.slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #459292;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.apply-btn {
+    width: 100%;
+    padding: 16px; /* Увеличил отступы */
+    background: #459292;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px; /* Увеличил шрифт */
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.apply-btn:hover {
+    background: #3a7c7c;
 }
 
 /* TOURS SECTION */
@@ -102,28 +267,60 @@
 
 /* banner */
 .tours-banner {
+    position: relative;
+    width: 100%;
+    height: 280px; /* можно адаптировать под дизайн */
+    border-radius: 32px;
+    overflow: hidden;
+    background: url("../resources/images/mountain_image.jpg") no-repeat center / cover; /* твой путь к изображению */
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+/* Оверлей — затемнение фона */
+.tours-banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* полупрозрачный чёрный */
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     text-align: center;
-    border-radius: 32px;
-
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 8.66%,
-                rgba(0, 0, 0, 0.2) 46.61%),
-                linear-gradient(135deg, #459292, #275858);
+    padding: 0 32px; /* отступы по бокам, чтобы текст не упирался в края */
+    box-sizing: border-box;
 }
 
-.tours-banner-overlay {
-    background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-}
-
-.tours-banner span {
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 55px;
+/* Контейнер текста */
+.tours-banner-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px; /* небольшой зазор между строками */
     color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Строки текста */
+.tours-banner-text .line1 {
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.4;
+}
+
+.tours-banner-text .line2 {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.3;
+}
+
+.tours-banner-text .line3 {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.4;
+    /* Можно добавить курсив: */
+    /* font-style: italic; */
 }
 
 /* tours title */
@@ -166,83 +363,154 @@
 
 .card {
     position: relative;
-    width: 30%;
+    width: 100%;
+    max-width: 450px;
     height: 240px;
     border-radius: 16px;
     overflow: hidden;
-
     background: #FFFFFF;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .card-image {
     position: absolute;
     width: 100%;
     height: 100%;
-
-    background: linear-gradient(135deg, #459292, #275858);
+    background-image: url("../resources/images/mountain_image.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 .card-overlay {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.158654) 47.6%, #000000 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.9) 100%);
 }
 
-.card-content {
+/* Звезды - правый верхний угол */
+.card-rating {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 4px;
+    z-index: 10;
+}
+
+.star {
+    color: #FFFFFF;
+    font-size: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Контейнер для нижнего содержимого */
+.card-bottom {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 10;
+}
 
+/* Левый нижний угол - Локация */
+.card-location {
     color: #FFFFFF;
 }
 
-.card-title {
-    font-weight: bold;
+.card-country {
     font-size: 36px;
-    line-height: 55px;
-    margin-bottom: 4px;
-}
-
-.card-price {
+    line-height: 1.2;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 24px;
-    text-align: right;
-    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.card-rating {
+.card-city {
+    font-size: 20px;
+    font-style: italic;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card-info {
+    color: #FFFFFF;
+    text-align: right;
+}
+
+.card-details {
     display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
     justify-content: flex-end;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
     gap: 4px;
 }
 
+.icon {
+    font-size: 18px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.value {
+    font-size: 18px;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card-price {
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
 .star {
-    color: #FEF7FF;
+    color: #FFFFFF;
     font-size: 20px;
 }
 
 /* sorting options */
 .sorting-options {
-    width: 50%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 14px;
-    margin: 16px 0;
 }
 
-.sort-field {
-    width: 30%;
+.filter-icon {
+    font-size: 24px;
+    color: #2a5555;
 }
 
-.sort-icon {
-    width: 32px;
-    height: 32px;
-    background: url("../resources/icons/palm_icon.png") no-repeat center / 32px 32px;
+.select-field {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #333;
+    appearance: none; /* убирает стандартную стрелку (в некоторых браузерах) */
+    background: #f9f9f9 url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23555'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 0.7em top 50%;
+    background-size: 16px;
+    padding: 8px 32px 8px 12px;
+}
+
+/* Убираем стрелку в WebKit */
+.select-field::-ms-expand {
+    display: none;
+}
+
+.select-field:hover {
+    background: white;
+    border-color: #90c0c0;
+}
+
+.select-field:focus {
+    outline: none;
+    border-color: #60a0a0;
 }
 
