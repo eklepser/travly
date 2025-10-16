@@ -1,18 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('button[data-page]');
-
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            const page = button.getAttribute('data-page');
-            loadPage(page);
-        });
-    });
-
-    if (document.getElementById('page-content').innerHTML.trim() === '') {
-        loadPage('main.html');
-    }
-});
-
+// Функция загрузки страницы (без изменений)
 function loadPage(pagePath) {
     fetch(pagePath)
         .then(response => {
@@ -22,10 +8,35 @@ function loadPage(pagePath) {
             return response.text();
         })
         .then(data => {
-            document.getElementById('page-content').innerHTML = data;
+            const pageContent = document.getElementById('page-content');
+            if (pageContent) {
+                pageContent.innerHTML = data;
+            }
         })
         .catch(error => {
             console.error('Content loading error:', error);
-            document.getElementById('page-content').innerHTML = '<p>Не удалось загрузить содержимое страницы.</p>';
+            const pageContent = document.getElementById('page-content');
+            if (pageContent) {
+                pageContent.innerHTML = '<p>Не удалось загрузить содержимое страницы.</p>';
+            }
         });
 }
+
+// Делегирование кликов на весь документ (или на #page-content)
+document.addEventListener('click', (event) => {
+    // Ищем ближайший элемент с data-page (включая сам target)
+    const pageElement = event.target.closest('[data-page]');
+    if (pageElement) {
+        const page = pageElement.getAttribute('data-page');
+        loadPage(page);
+        event.preventDefault(); // на случай, если это <a> или другая интерактивная метка
+    }
+});
+
+// Загрузка главной страницы при старте
+document.addEventListener('DOMContentLoaded', () => {
+    const pageContent = document.getElementById('page-content');
+    if (pageContent && pageContent.innerHTML.trim() === '') {
+        loadPage('layout/main.html');
+    }
+});
