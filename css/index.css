@@ -76,6 +76,7 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-left: 10px;
 }
 
 .logo-text {
@@ -135,6 +136,7 @@ header {
     align-items: center;
     gap: 12px;
     cursor: pointer;
+    margin-right: 20px;
 }
 
 .account-icon {

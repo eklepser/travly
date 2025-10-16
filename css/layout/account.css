@@ -188,7 +188,7 @@
     color: #FFFFFF;
 }
 
-.tours-section {
+.account-main .tours-section {
     display: flex;
     flex-direction: column;
     background: linear-gradient(0deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
