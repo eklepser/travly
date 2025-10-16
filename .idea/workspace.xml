@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: improve header buttons style">
+      <change afterPath="$PROJECT_DIR$/css/components/card.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/booking.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/about.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/about.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/booking.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/help.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/help.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/help.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/help.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +29,13 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="86f7597ebf7016bccccf95058c752041c9c21acd" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -76,11 +84,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\layout" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\common" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\travel" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\contacts" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\social" />
     </key>
   </component>
   <component name="RunManager">
@@ -90,6 +98,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="JavaScript Debug.index.html" />
       </list>
     </recent_temporary>

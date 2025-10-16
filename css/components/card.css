@@ -1,0 +1,115 @@
+.card {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    height: 240px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.card-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../resources/images/mountain_image.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.card-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+/* Верхняя часть карточки */
+.card-top {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 10;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-location .card-country {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.card-location .card-city {
+    font-size: 24px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.card-rating {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Нижняя часть карточки */
+.card-bottom {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 10;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-hotel-info {
+    flex: 1;
+}
+
+.hotel-stars {
+    font-size: 24px;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+}
+
+.hotel-name {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    gap: 4px;
+    font-size: 14px;
+}
+
+.detail-item .icon {
+    font-size: 16px;
+}
+
+.card-price {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 8px;
+}

@@ -8,7 +8,7 @@
 
     background:
             linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
-            url("../resources/images/laguna_image.jpg") center/cover no-repeat;
+            url("../../resources/images/laguna_image.jpg") center/cover no-repeat;
 }
 
 .about-content {

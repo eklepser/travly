@@ -1,7 +1,8 @@
-@import "main.css";
-@import "booking.css";
-@import "about.css";
-@import "help.css";
+@import "layout/main.css";
+@import "layout/booking.css";
+@import "layout/about.css";
+@import "layout/help.css";
+@import "components/card.css";
 
 * {
     margin: 0;
@@ -82,8 +83,13 @@ header {
     color: white;
     background: #275858;
 
+
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    background: #1a4040;
 }
 
 .account {
