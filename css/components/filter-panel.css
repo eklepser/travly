@@ -163,21 +163,22 @@
     gap: 14px; /* Увеличил отступы */
 }
 
-.input-group {
+.filters .input-group {
     display: flex;
     align-items: center;
     gap: 10px; /* Увеличил отступы */
     flex: 1;
 }
 
-.input-label {
+.filters .input-label {
     font-size: 14px; /* Увеличил шрифт */
     color: #666;
     min-width: 24px;
 }
 
-.input-field {
+.filters .input-field {
     flex: 1;
+    max-width: 100px;
     height: 40px; /* Увеличил высоту */
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -189,11 +190,11 @@
     transition: border-color 0.2s ease;
 }
 
-.input-field:focus {
+.filters .input-field:focus {
     border-color: #459292;
 }
 
-.input-field::placeholder {
+.filters .input-field::placeholder {
     color: #999;
 }
 

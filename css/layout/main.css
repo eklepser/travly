@@ -2,8 +2,6 @@
     display: flex;
     padding: 20px;
     min-height: 100vh;
-
-    background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(155, 225, 225, 0.3) 48.56%, rgba(39, 88, 88, 0.3) 100%);
 }
 
 /* TOURS SECTION */

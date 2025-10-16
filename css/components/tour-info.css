@@ -1,5 +1,5 @@
 .tour-info,
-.customer-form {
+.booking-form {
     background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
     border-radius: 13px; /* 16 / 1.2 ≈ 13.33 → 13px */
     padding: 27px; /* 32 / 1.2 ≈ 26.66 → 27px */
@@ -11,7 +11,7 @@
 }
 
 .tour-info h3,
-.customer-form h3 {
+.booking-form h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 27px; /* 32 / 1.2 ≈ 26.66 → 27px */

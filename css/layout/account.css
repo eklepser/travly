@@ -1,0 +1,393 @@
+.account-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.account-icon {
+    width: 32px;
+    height: 32px;
+    background: #1D1B20;
+    border-radius: 50%;
+}
+
+.account-header span {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #1E1E1E;
+}
+
+.account-main {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 32px;
+}
+
+.profile-section {
+    background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(26, 238, 238, 0.3) 100%);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 40px;
+}
+
+.profile-title {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    color: #000000;
+    margin-bottom: 32px;
+}
+
+.profile-content {
+    display: flex;
+    gap: 60px;
+}
+
+.user-info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-group label {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #000000;
+}
+
+.info-field {
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.info-field span {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #1E1E1E;
+}
+
+.promo-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.promo-input {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.promo-input input {
+    flex: 1;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: none;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #1E1E1E;
+}
+
+.activate-btn {
+    background: #275858;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFFFFF;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.account-status {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.status-item label {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #000000;
+}
+
+.status-value {
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #1E1E1E;
+}
+
+.account-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.edit-btn, .logout-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #275858;
+    color: #FFFFFF;
+}
+
+.logout-btn {
+    background: #627878;
+    color: #FFFFFF;
+}
+
+.tours-section {
+    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.tours-title {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    color: #000000;
+    margin-bottom: 32px;
+}
+
+.tours-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.tour-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tour-header h3 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.tour-preview {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.preview-image {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #459292, #275858);
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.preview-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tour-location {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.tour-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.nights, .price {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+}
+
+.tour-details-full {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+}
+
+.detail-label {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+    flex: 1;
+}
+
+.detail-value {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+    flex: 2;
+    text-align: right;
+}
+
+.tour-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-top: 2px solid rgba(39, 88, 88, 0.3);
+    margin-top: 8px;
+}
+
+.total-label {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.total-value {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.cancel-btn {
+    width: 100%;
+    background: #627878;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .profile-content {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .account-main {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-section,
+    .tours-section {
+        padding: 20px;
+    }
+
+    .tour-preview {
+        flex-direction: column;
+    }
+
+    .preview-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .detail-item {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .detail-label,
+    .detail-value {
+        text-align: left;
+    }
+}

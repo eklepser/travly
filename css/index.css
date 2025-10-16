@@ -8,7 +8,7 @@
 
 @import "layout/about.css";
 @import "layout/help.css";
-
+@import "layout/auth.css";
 
 * {
     margin: 0;
@@ -24,6 +24,10 @@ html {
 body {
     font-family: 'Inter', sans-serif;
     color: #1E1E1E;
+}
+
+main {
+    background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(155, 225, 225, 0.3) 48.56%, rgba(39, 88, 88, 0.3) 100%);
 }
 
 /* HEADER SETUP */
