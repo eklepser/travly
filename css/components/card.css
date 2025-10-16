@@ -99,7 +99,6 @@
 .detail-item {
     display: flex;
     align-items: center;
-    margin-bottom: 4px;
     gap: 4px;
     font-size: 14px;
 }

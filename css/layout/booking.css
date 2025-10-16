@@ -1,11 +1,15 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
 .booking-main {
     display: flex;
     flex-direction: column;
-
     min-height: 100vh;
     padding: 32px;
     gap: 32px;
-
     background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(155, 225, 225, 0.3) 48.56%, rgba(39, 88, 88, 0.3) 100%);
 }
 
@@ -37,8 +41,8 @@
 }
 
 .booking-card {
-    width: 449px;
-    height: 322px;
+    width: 550px;
+    height: 400px;
     background: #FFFFFF;
     border-radius: 16px;
     overflow: hidden;
@@ -147,111 +151,6 @@
     line-height: 120%;
 }
 
-.customer-form {
-    margin: 0 0 32px 0;
-    max-width: 100%;
-}
-
-.form-row {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 32px;
-    align-items: flex-start;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-}
-
-.form-group.wide {
-    flex: 1.5;
-}
-
-.form-group.extra-wide {
-    flex: 2;
-}
-
-.form-group label {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 140%;
-    color: #000000;
-    height: 34px;
-}
-
-.input-field {
-    position: relative;
-    width: 100%;
-    height: 43px;
-}
-
-.input-field input {
-    width: 100%;
-    height: 100%;
-    background: #FFFFFF;
-    border-radius: 8px;
-    border: none;
-    padding: 0 16px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 140%;
-    color: #AEAEAE;
-}
-
-.input-field input::placeholder {
-    color: #AEAEAE;
-    text-align: center;
-}
-
-.input-field input:focus {
-    outline: none;
-    color: #1E1E1E;
-}
-
-.form-buttons {
-    display: flex;
-    gap: 32px;
-    justify-content: space-between;
-    margin-top: 32px;
-}
-
-.clear-btn,
-.book-btn {
-    width: 320px;
-    height: 65px;
-    border: none;
-    border-radius: 8px;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 140%;
-    text-align: center;
-    color: #FFFFFF;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.clear-btn {
-    background: #627878;
-}
-
-.book-btn {
-    background: #275858;
-}
-
-.clear-btn:hover {
-    background: #4a5a5a;
-}
-
-.book-btn:hover {
-    background: #1a4040;
-}
-
 /* Адаптив */
 @media (max-width: 1200px) {
     .booking-content {
@@ -261,14 +160,6 @@
     .booking-card {
         width: 100%;
         max-width: 449px;
-    }
-
-    .form-row {
-        flex-wrap: wrap;
-    }
-
-    .form-group {
-        min-width: calc(50% - 8px);
     }
 }
 
@@ -280,6 +171,14 @@
     .customer-form {
         margin: 16px;
         padding: 16px;
+    }
+
+    .form-row {
+        flex-wrap: wrap;
+    }
+
+    .form-group {
+        min-width: calc(50% - 8px);
     }
 
     .form-buttons {

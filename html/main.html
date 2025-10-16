@@ -172,24 +172,14 @@
 
         <div class="sorting-options">
             <span class="filter-icon">☰</span>
-
-            <select class="select-field">
-                <option value="" disabled selected>По популярности</option>
-                <option value="asc">По возрастанию</option>
-                <option value="desc">По убыванию</option>
-            </select>
-
-            <select class="select-field">
-                <option value="" disabled selected>По цене</option>
-                <option value="cheap">От дешёвых</option>
-                <option value="expensive">От дорогих</option>
-            </select>
-
-            <select class="select-field">
-                <option value="" disabled selected>По рейтингу</option>
-                <option value="low">От низкого</option>
-                <option value="high">От высокого</option>
-            </select>
+            <details class="sort-dropdown">
+                <summary class="sort-summary">Сортировка</summary>
+                <div class="sort-list">
+                    <div class="sort-item">По популярности</div>
+                    <div class="sort-item">По рейтингу</div>
+                    <div class="sort-item">По цене</div>
+                </div>
+            </details>
         </div>
 
         <div class="cards-panel">

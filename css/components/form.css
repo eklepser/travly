@@ -1,0 +1,214 @@
+.tour-info,
+.customer-form {
+    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.tour-info {
+    flex: 1;
+    height: fit-content;
+}
+
+.tour-info h3,
+.customer-form h3 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 120%;
+    color: #000000;
+    margin-bottom: 24px;
+}
+
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+}
+
+.info-label,
+.info-value {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #000000;
+}
+
+.info-value {
+    text-align: right;
+    max-width: 423px;
+}
+
+.info-item.total-cost {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px solid rgba(39, 88, 88, 0.3);
+}
+
+.info-item.total-cost .info-label,
+.info-item.total-cost .info-value {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 120%;
+}
+
+.customer-form {
+    margin: 0 0 32px 0;
+    max-width: 100%;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    align-items: flex-start;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    max-width: 280px;
+}
+
+.form-group.wide {
+    flex: 1.5;
+    max-width: 350px;
+}
+
+.form-group.extra-wide {
+    flex: 2;
+    max-width: 500px;
+}
+
+.form-group label {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #000000;
+    height: 34px;
+    text-align: left;
+}
+
+.input-field {
+    position: relative;
+    width: 100%;
+    height: 43px;
+}
+
+.input-field input {
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding: 0 16px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #AEAEAE;
+    text-align: left;
+}
+
+.input-field input::placeholder {
+    color: #AEAEAE;
+    text-align: left;
+}
+
+.input-field input:focus {
+    outline: none;
+    color: #1E1E1E;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 32px;
+    justify-content: flex-start;
+    margin-top: 32px;
+}
+
+.final-button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.clear-btn,
+.book-btn {
+    width: 320px;
+    height: 65px;
+    border: none;
+    border-radius: 8px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 140%;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-btn {
+    background: #627878;
+}
+
+.book-btn {
+    background: #275858;
+}
+
+.clear-btn:hover {
+    background: #4a5a5a;
+}
+
+.book-btn:hover {
+    background: #1a4040;
+}
+
+/* Адаптив для форм */
+@media (max-width: 768px) {
+    .customer-form {
+        margin: 16px;
+        padding: 16px;
+    }
+
+    .form-row {
+        flex-wrap: wrap;
+    }
+
+    .form-group {
+        min-width: calc(50% - 8px);
+    }
+
+    .form-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .clear-btn,
+    .book-btn {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .info-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .info-label,
+    .info-value {
+        text-align: left;
+    }
+}

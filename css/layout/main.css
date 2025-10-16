@@ -377,22 +377,84 @@
     display: flex;
     align-items: center;
     gap: 14px;
+    margin-bottom: 16px;
 }
 
-.filter-icon {
-    font-size: 24px;
-    color: #2a5555;
+/* Стили для details */
+.sort-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 200px; /* или как нужно */
 }
 
-.select-field {
-    border-radius: 8px;
+/* Стили для summary (заголовок выпадашки) */
+.sort-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background: #f9f9f9;
     border: 1px solid #ccc;
+    border-radius: 8px;
     font-size: 16px;
     color: #333;
-    appearance: none; /* убирает стандартную стрелку (в некоторых браузерах) */
-    background: #f9f9f9 url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23555'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 0.7em top 50%;
-    background-size: 16px;
-    padding: 8px 32px 8px 12px;
+    cursor: pointer;
+    outline: none;
+    list-style: none; /* убирает стандартную стрелку в некоторых браузерах */
+}
+
+/* Убираем стандартную стрелку details */
+.sort-dropdown > summary::marker,
+.sort-dropdown > summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Добавляем свою стрелку */
+.sort-summary::after {
+    content: "▼";
+    font-size: 12px;
+    color: #666;
+    transform: rotate(0deg);
+    transition: transform 0.2s ease;
+}
+
+/* Стрелка при открытом состоянии */
+.sort-dropdown[open] .sort-summary::after {
+    transform: rotate(180deg);
+}
+
+/* Список вариантов */
+.sort-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.sort-item {
+    padding: 10px 16px;
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sort-item:last-child {
+    border-bottom: none;
+}
+
+.sort-item:hover {
+    background: #f0f9ff;
+    color: #459292;
 }
 
 /* Убираем стрелку в WebKit */
