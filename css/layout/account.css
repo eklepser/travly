@@ -1,3 +1,11 @@
+.account-main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 32px;
+    gap: 32px;
+}
+
 .account-header {
     display: flex;
     align-items: center;
@@ -19,22 +27,14 @@
     color: #1E1E1E;
 }
 
-.account-main {
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 40px 32px;
-}
-
 .profile-section {
-    background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(26, 238, 238, 0.3) 100%);
+    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
     border-radius: 16px;
     padding: 32px;
     margin-bottom: 40px;
 }
 
 .profile-title {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 36px;
@@ -62,7 +62,6 @@
 }
 
 .info-group label {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -80,7 +79,6 @@
 }
 
 .info-field span {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -106,7 +104,6 @@
     border-radius: 8px;
     padding: 12px 16px;
     border: none;
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -119,7 +116,6 @@
     border: none;
     border-radius: 8px;
     padding: 12px 24px;
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -143,7 +139,6 @@
 }
 
 .status-item label {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -158,7 +153,6 @@
     min-height: 50px;
     display: flex;
     align-items: center;
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -177,7 +171,6 @@
     padding: 12px 24px;
     border: none;
     border-radius: 8px;
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -196,198 +189,10 @@
 }
 
 .tours-section {
-    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(0deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
     border-radius: 16px;
     padding: 32px;
-}
-
-.tours-title {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 44px;
-    color: #000000;
-    margin-bottom: 32px;
-}
-
-.tours-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
-
-.tour-card {
-    background: #FFFFFF;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.tour-header h3 {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 34px;
-    color: #000000;
-    margin-bottom: 16px;
-}
-
-.tour-preview {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 24px;
-}
-
-.preview-image {
-    width: 120px;
-    height: 120px;
-    background: linear-gradient(135deg, #459292, #275858);
-    border-radius: 8px;
-    flex-shrink: 0;
-}
-
-.preview-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.tour-location {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
-    color: #000000;
-}
-
-.tour-details {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-}
-
-.nights, .price {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 22px;
-    color: #000000;
-}
-
-.tour-details-full {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 24px;
-}
-
-.detail-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 8px 0;
-}
-
-.detail-label {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    color: #000000;
-    flex: 1;
-}
-
-.detail-value {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    color: #000000;
-    flex: 2;
-    text-align: right;
-}
-
-.tour-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 0;
-    border-top: 2px solid rgba(39, 88, 88, 0.3);
-    margin-top: 8px;
-}
-
-.total-label {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
-    color: #000000;
-}
-
-.total-value {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
-    color: #000000;
-}
-
-.cancel-btn {
-    width: 100%;
-    background: #627878;
-    border: none;
-    border-radius: 8px;
-    padding: 16px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-    color: #FFFFFF;
-    cursor: pointer;
-}
-
-@media (max-width: 1200px) {
-    .profile-content {
-        flex-direction: column;
-        gap: 32px;
-    }
-
-    .account-main {
-        padding: 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .profile-section,
-    .tours-section {
-        padding: 20px;
-    }
-
-    .tour-preview {
-        flex-direction: column;
-    }
-
-    .preview-image {
-        width: 100%;
-        height: 200px;
-    }
-
-    .detail-item {
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .detail-label,
-    .detail-value {
-        text-align: left;
-    }
+    gap: 64px;
 }

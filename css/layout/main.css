@@ -6,7 +6,7 @@
 
 /* TOURS SECTION */
 
-.tours-section {
+.main-page .tours-section {
     display: flex;
     flex-direction: column;
     padding-left: 16px;
@@ -71,8 +71,6 @@
     font-weight: 500;
     font-size: 36px;
     line-height: 1.4;
-    /* Можно добавить курсив: */
-    /* font-style: italic; */
 }
 
 /* tours title */
@@ -80,11 +78,22 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    margin-top: 32px;
 }
 
 .tours-title h2 {
     font-style: italic;
-    font-weight: bold;
+    font-weight: normal;
+    font-size: 32px;
+    line-height: 55px;
+
+    color: #000000;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.tours-title h2 {
+    font-style: italic;
+
     font-size: 32px;
     line-height: 55px;
 

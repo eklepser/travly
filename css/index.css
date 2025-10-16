@@ -7,8 +7,12 @@
 @import "components/booking-form.css";
 
 @import "layout/about.css";
+
 @import "layout/help.css";
+
 @import "layout/auth.css";
+
+@import "layout/account.css";
 
 * {
     margin: 0;

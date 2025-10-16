@@ -37,6 +37,6 @@ document.addEventListener('click', (event) => {
 document.addEventListener('DOMContentLoaded', () => {
     const pageContent = document.getElementById('page-content');
     if (pageContent && pageContent.innerHTML.trim() === '') {
-        loadPage('layout/main.html');
+        loadPage('layout/account.html');
     }
 });
