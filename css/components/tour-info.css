@@ -1,0 +1,61 @@
+.tour-info,
+.customer-form {
+    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.tour-info {
+    flex: 1;
+    height: fit-content;
+}
+
+.tour-info h3,
+.customer-form h3 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 120%;
+    color: #000000;
+    margin-bottom: 24px;
+}
+
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+}
+
+.info-label,
+.info-value {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #000000;
+}
+
+.info-value {
+    text-align: right;
+    max-width: 423px;
+}
+
+.info-item.total-cost {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px solid rgba(39, 88, 88, 0.3);
+}
+
+.info-item.total-cost .info-label,
+.info-item.total-cost .info-value {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 120%;
+}

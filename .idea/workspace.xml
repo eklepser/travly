@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: improve card style">
-      <change afterPath="$PROJECT_DIR$/css/components/form.css" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: improve booking form style">
+      <change afterPath="$PROJECT_DIR$/css/components/filter-panel.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/components/tour-info.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/components/card.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/components/card.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/layout/booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/booking.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/help.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/help.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/layout/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/booking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +248,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760610909312</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat: improve booking form style">
+      <option name="closed" value="true" />
+      <created>1760613007942</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1760613007942</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -282,6 +289,7 @@
     <MESSAGE value="feat: add icons in header &amp; footer" />
     <MESSAGE value="feat: improve header buttons style" />
     <MESSAGE value="feat: improve card style" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: improve card style" />
+    <MESSAGE value="feat: improve booking form style" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: improve booking form style" />
   </component>
 </project>

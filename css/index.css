@@ -1,7 +1,9 @@
 @import "layout/main.css";
+@import "components/filter-panel.css";
 @import "components/card.css";
 
 @import "layout/booking.css";
+@import "components/tour-info.css";
 @import "components/form.css";
 
 @import "layout/about.css";

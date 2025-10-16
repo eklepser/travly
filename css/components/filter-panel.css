@@ -1,0 +1,247 @@
+.filters {
+    width: 340px; /* Увеличил ширину */
+    padding: 28px; /* Увеличил отступы */
+    border-radius: 12px;
+
+    background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filters-title {
+    font-size: 22px; /* Увеличил шрифт */
+    font-weight: bold;
+    margin-bottom: 24px;
+    text-align: center;
+    color: #333;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px; /* Увеличил отступы */
+    margin-bottom: 24px;
+}
+
+.filter-item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.filter-item:hover {
+    border-color: #459292;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #459292;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 101;
+    margin-top: 4px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .filter-chevron {
+    transform: rotate(-135deg);
+    margin-top: -4px;
+}
+
+.filter-chevron {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease, margin-top 0.3s ease;
+    margin-top: 0;
+}
+
+.dropdown-item {
+    padding: 12px 18px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #459292;
+}
+
+/* Стили для скроллбара */
+.dropdown-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.dropdown-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.dropdown-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Чтобы избежать наложения при близком расположении */
+.filter-group {
+    position: relative;
+    z-index: 1;
+}
+
+.filter-group .dropdown {
+    position: relative;
+}
+
+.filter-group .dropdown-content {
+    z-index: 102;
+}
+
+.filter-item:hover {
+    border-color: #459292;
+}
+
+.filter-label {
+    font-size: 16px; /* Увеличил шрифт */
+    color: #333;
+}
+
+.filter-chevron {
+    width: 10px; /* Увеличил размер */
+    height: 10px;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
+    transform: rotate(45deg);
+}
+
+.section-title {
+    display: block;
+    font-size: 16px; /* Увеличил шрифт */
+    color: #333;
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+
+.budget-section,
+.duration-section,
+.range-section {
+    margin-bottom: 24px;
+}
+
+.budget-inputs,
+.duration-inputs {
+    display: flex;
+    gap: 14px; /* Увеличил отступы */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Увеличил отступы */
+    flex: 1;
+}
+
+.input-label {
+    font-size: 14px; /* Увеличил шрифт */
+    color: #666;
+    min-width: 24px;
+}
+
+.input-field {
+    flex: 1;
+    height: 40px; /* Увеличил высоту */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    padding: 0 12px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.input-field:focus {
+    border-color: #459292;
+}
+
+.input-field::placeholder {
+    color: #999;
+}
+
+.range-slider {
+    padding: 10px 0; /* Увеличил отступы */
+}
+
+.slider {
+    width: 100%;
+    height: 5px; /* Увеличил высоту */
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #459292;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #459292;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.apply-btn {
+    width: 100%;
+    padding: 16px; /* Увеличил отступы */
+    background: #275858;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px; /* Увеличил шрифт */
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.apply-btn:hover {
+    background: #1a4040;
+}
