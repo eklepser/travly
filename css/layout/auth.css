@@ -4,7 +4,6 @@
 
 .auth-main {
     min-height: calc(100vh - 285px);
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,11 +12,12 @@
 
 .auth-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 30%;
 }
 
 .auth-card {
-    background: #FFFFFF;
+    margin: 40px;
+    background: linear-gradient(to bottom, #518c8c, #E8F4F3);
     border-radius: 16px;
     padding: 40px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -25,12 +25,12 @@
 
 .auth-title {
     font-family: 'Inter', sans-serif;
-    font-style: normal;
+    font-style: italic;
     font-weight: 700;
     font-size: 36px;
     line-height: 44px;
     text-align: center;
-    color: #000000;
+    color: white;
     margin-bottom: 32px;
 }
 
@@ -40,52 +40,17 @@
     margin-bottom: 24px;
 }
 
-.type-btn {
-    flex: 1;
-    padding: 12px 16px;
-    border: 2px solid #275858;
-    border-radius: 8px;
-    background: transparent;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
-    color: #275858;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.organizator {
+    background: white;
+    color: #1a4040;
 }
 
 .submit-btn:hover {
     background: #1a4040;
 }
 
-.type-btn.active {
-    background: #275858;
-    color: #FFFFFF;
-}
-
-.vk-auth-btn {
-    width: 100%;
-    padding: 16px 16px;
-    background: #275858;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
-    color: #FFFFFF;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.vk-auth-btn:hover {
-    background: #1a4040;
-}
-
 .divider {
+    color: white;
     position: relative;
     text-align: center;
     margin: 24px 0;
@@ -94,15 +59,23 @@
 .auth-form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 20px;
 }
 
-.form-group {
+.form-row {
     display: flex;
-    flex-direction: column;
+    gap: 15px; /* Расстояние между полями */
+}
+
+.form-group {
+    flex: 1; /* Равномерное распределение ширины */
 }
 
 .form-group input {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box; /* Учитываем padding и border в ширине */
     padding: 14px 16px;
     border: 2px solid #E0E0E0;
     border-radius: 8px;
@@ -130,6 +103,19 @@
     margin-bottom: 8px;
 }
 
+.auth-form .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    gap: 10px;
+    margin: 0 10px;
+}
+
+.form-row {
+    display: flex;
+}
+
 .forgot-password {
     font-family: 'Inter', sans-serif;
     font-style: normal;
@@ -142,23 +128,6 @@
 
 .forgot-password:hover {
     text-decoration: underline;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 16px;
-    background: #275858;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 22px;
-    color: #FFFFFF;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    margin-top: 8px;
 }
 
 .submit-btn:hover {

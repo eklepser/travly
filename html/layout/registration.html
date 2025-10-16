@@ -4,33 +4,30 @@
             <h1 class="auth-title">Регистрация</h1>
 
             <div class="user-type-selector">
-                <button class="type-btn active">Как турист</button>
-                <button class="type-btn">Как организатор</button>
+                <button class="tourist">Как турист</button>
+                <button class="organizator">Как организатор</button>
             </div>
 
             <button class="vk-auth-btn">
                 Продолжить с VK
             </button>
 
-            <div class="divider">
-                <span>Или</span>
-            </div>
+            <div class="divider">Или</div>
 
             <form class="auth-form">
-                <div class="form-group">
-                    <input type="text" placeholder="Фамилия" required>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="Фамилия" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" placeholder="Имя" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="text" placeholder="Имя" required>
-                </div>
-
-                <div class="form-group">
-                    <input type="email" placeholder="E-mail" required>
-                </div>
-
-                <div class="form-group">
-                    <input type="tel" placeholder="Номер телефона" required>
+                    <input type="email" placeholder="E-mail или номер телефона" required>
                 </div>
 
                 <div class="form-group">
@@ -41,11 +38,16 @@
                     <input type="password" placeholder="Подтвердите пароль" required>
                 </div>
 
+                <div class="logo">
+                    <span class="logo-text">Trav<span class="logo-text-highlight">ly</span></span>
+                    <div class="logo-icon"></div>
+                </div>
+
                 <button type="submit" class="submit-btn">Зарегистрироваться</button>
             </form>
 
             <div class="auth-footer">
-                <p>Уже есть аккаунт? <a href="auth.html">Войти</a></p>
+                <p>Уже есть аккаунт? <a data-page="layout/auth.html">Войти</a></p>
             </div>
         </div>
     </div>

@@ -1,16 +1,9 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
 .booking-main {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     padding: 32px;
     gap: 32px;
-    background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(155, 225, 225, 0.3) 48.56%, rgba(39, 88, 88, 0.3) 100%);
 }
 
 .booking-header h1,
