@@ -34,39 +34,16 @@
 }
 
 .booking-card {
-    width: 550px;
+    width: 40%;
     height: 400px;
-    background: #FFFFFF;
+    background-image: url("../../resources/images/mountain_image.jpg");
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
-    position: relative;
-}
-
-.card-image-large {
-    position: absolute;
-    max-width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #459292, #275858);
-    z-index: 1;
-}
-
-.card-content-large {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    z-index: 2;
-    color: #FFFFFF;
-}
-
-.card-content-large h3 {
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 55px;
-    margin-bottom: 8px;
+    position: relative;     /* ← показывает изображение целиком */
+    background-size: cover;
+    background-position: center;
 }
 
 .card-details {
@@ -126,5 +103,94 @@
     .info-label,
     .info-value {
         text-align: left;
+    }
+}
+
+.hotel-details {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.hotel-details h3 {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+    color: #000000;
+    margin-bottom: 24px;
+}
+
+.hotel-card {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.hotel-image {
+    width: 240px;
+    height: 160px;
+    background: linear-gradient(135deg, #459292, #275858);
+    /* Или реальное изображение:
+    background-image: url("../../resources/images/hotel.jpg");
+    background-size: cover;
+    background-position: center;
+    */
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.hotel-info h4 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #000;
+}
+
+.hotel-rating {
+    color: #FFD700;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.hotel-location {
+    color: #555;
+    font-style: italic;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.hotel-features {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.hotel-features li {
+    background: rgba(69, 146, 146, 0.15);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 15px;
+    color: #275858;
+    font-weight: 600;
+}
+
+.hotel-description {
+    color: #333;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+
+/* Адаптив */
+@media (max-width: 900px) {
+    .hotel-card {
+        flex-direction: column;
+    }
+
+    .hotel-image {
+        width: 100%;
+        height: 200px;
     }
 }

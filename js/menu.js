@@ -29,7 +29,8 @@ document.addEventListener('click', (event) => {
     if (pageElement) {
         const page = pageElement.getAttribute('data-page');
         loadPage(page);
-        event.preventDefault(); // на случай, если это <a> или другая интерактивная метка
+        event.preventDefault();
+        window.scrollTo(0, 0);
     }
 });
 

@@ -4,12 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="fix: move header closer to center">
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: set elements on account page">
+      <change afterPath="$PROJECT_DIR$/css/layout/search.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/layout/selection.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html/layout/hotel-selection.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html/layout/search.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/layout/account.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/account.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/auth.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/booking.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/layout/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/layout/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/auth.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/booking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/menu.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +137,7 @@
       <workItem from="1760433847093" duration="290000" />
       <workItem from="1760434995550" duration="1331000" />
       <workItem from="1760546269799" duration="8127000" />
-      <workItem from="1760691687841" duration="3716000" />
+      <workItem from="1760691687841" duration="14575000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -311,7 +323,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760632691826</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="feat: set elements on account page">
+      <option name="closed" value="true" />
+      <created>1760695515040</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1760695515040</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -352,6 +372,7 @@
     <MESSAGE value="feat: improve style on login and registration pages" />
     <MESSAGE value="feat: add account.css" />
     <MESSAGE value="fix: move header closer to center" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: move header closer to center" />
+    <MESSAGE value="feat: set elements on account page" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: set elements on account page" />
   </component>
 </project>

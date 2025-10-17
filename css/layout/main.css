@@ -93,16 +93,6 @@
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.tours-title h2 {
-    font-style: italic;
-
-    font-size: 32px;
-    line-height: 55px;
-
-    color: #000000;
-    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-
 .tours-icon {
     width: 56px;
     height: 56px;
@@ -150,11 +140,11 @@
 
 /* Стили для summary (заголовок выпадашки) */
 .sort-summary {
+    background: #90c0c0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 16px;
-    background: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
@@ -190,8 +180,7 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: white;
-    border: 1px solid #ccc;
+    background: #90c0c0;
     border-top: none;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
