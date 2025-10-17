@@ -3,59 +3,64 @@
         <h1 class="profile-title">Личный кабинет</h1>
 
         <div class="profile-content">
-            <div class="user-info">
-                <div class="info-group">
-                    <label>Фамилия</label>
-                    <div class="info-field">
-                        <span>Tishkov</span>
+            <!-- Левая колонка -->
+            <div class="profile-left">
+                <!-- Пара: Фамилия — Имя -->
+                <div class="info-row">
+                    <div class="info-group">
+                        <label>Фамилия</label>
+                        <div class="info-field"><span>Tishkov</span></div>
+                    </div>
+                    <div class="info-group">
+                        <label>Имя</label>
+                        <div class="info-field"><span>Nikita</span></div>
                     </div>
                 </div>
 
-                <div class="info-group">
-                    <label>Имя</label>
-                    <div class="info-field">
-                        <span>Nikita</span>
+                <!-- Пара: Телефон — Email -->
+                <div class="info-row">
+                    <div class="info-group">
+                        <label>Номер телефона</label>
+                        <div class="info-field"><span>+7 (929) 066-66-56</span></div>
+                    </div>
+                    <div class="info-group">
+                        <label>E-mail адрес</label>
+                        <div class="info-field"><span>nikitos@gmail.com</span></div>
                     </div>
                 </div>
 
-                <div class="info-group">
-                    <label>Номер телефона</label>
-                    <div class="info-field">
-                        <span>+7 (929) 066-66-56</span>
+                <!-- Пара: Статус — Дата регистрации -->
+                <div class="info-row">
+                    <div class="info-group">
+                        <label>Статус</label>
+                        <div class="info-field"><span>Турист</span></div>
+                    </div>
+                    <div class="info-group">
+                        <label>Дата регистрации</label>
+                        <div class="info-field"><span>02.05.2025</span></div>
                     </div>
                 </div>
 
-                <div class="info-group">
-                    <label>E-mail адрес</label>
-                    <div class="info-field">
-                        <span>nikitos@gmail.com</span>
-                    </div>
-                </div>
-
-                <div class="promo-section">
-                    <label>Активировать промокод</label>
-                    <div class="promo-input">
-                        <input type="text" value="TRAVLYPROMO" readonly>
-                        <button class="activate-btn">Активировать</button>
-                    </div>
+                <!-- Кнопки -->
+                <div class="account-actions">
+                    <button class="edit-btn">Изменить</button>
+                    <button class="extra-button logout-btn">Выйти</button>
                 </div>
             </div>
 
-            <div class="account-status">
-                <div class="status-item">
-                    <label>Статус</label>
-                    <div class="status-value">Турист</div>
+            <!-- Правая колонка (без изменений) -->
+            <div class="profile-right">
+                <div class="logo">
+                    <span class="logo-text">Trav<span class="logo-text-highlight">ly</span></span>
+                    <div class="logo-icon"></div>
                 </div>
 
-                <div class="status-item">
-                    <label>Дата регистрации</label>
-                    <div class="status-value">02.05.2025</div>
+                <div class="promo-section">
+                    <label class="promo-label">Активировать промокод</label>
+                    <input type="text" value="TRAVLYPROMO">
+                    <button class="activate-btn">Активировать</button>
                 </div>
 
-                <div class="account-actions">
-                    <button class="edit-btn">Изменить данные</button>
-                    <button class="logout-btn" onclick="window.location.href='auth.html'">Выйти</button>
-                </div>
             </div>
         </div>
     </section>
@@ -65,7 +70,6 @@
 
         <section class="booking-hero">
             <div class="booking-header">
-                <h1>Бронирование тура</h1>
                 <h2>Турция, Стамбул</h2>
             </div>
 
@@ -136,7 +140,6 @@
 
         <section class="booking-hero">
             <div class="booking-header">
-                <h1>Бронирование тура</h1>
                 <h2>Турция, Стамбул</h2>
             </div>
 

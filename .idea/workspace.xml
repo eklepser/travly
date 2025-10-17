@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: improve booking form style">
-      <change afterPath="$PROJECT_DIR$/css/components/filter-panel.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css/components/tour-info.css" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="fix: move header closer to center">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/booking.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/help.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/help.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/account.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/account.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/layout/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/account.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,34 +58,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.index.html.executor": "Run",
-    "JavaScript Debug.main.html.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "liveEdit",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.main.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;liveEdit&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\layout" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\html\layout" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\html" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\common" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\travel" />
     </key>
   </component>
   <component name="RunManager">
@@ -127,6 +125,7 @@
       <workItem from="1760433847093" duration="290000" />
       <workItem from="1760434995550" duration="1331000" />
       <workItem from="1760546269799" duration="8127000" />
+      <workItem from="1760691687841" duration="3716000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -256,7 +255,63 @@
       <option name="project" value="LOCAL" />
       <updated>1760613007942</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="refactor: move separate components in specific folder">
+      <option name="closed" value="true" />
+      <created>1760613762172</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1760613762172</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat: add account page (html only)">
+      <option name="closed" value="true" />
+      <created>1760615625940</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1760615625940</updated>
+    </task>
+    <task id="LOCAL-00019" summary="style: reduce info panel and form size by 20%">
+      <option name="closed" value="true" />
+      <created>1760615982500</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1760615982500</updated>
+    </task>
+    <task id="LOCAL-00020" summary="feat: add style for auth page">
+      <option name="closed" value="true" />
+      <created>1760623040521</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1760623040521</updated>
+    </task>
+    <task id="LOCAL-00021" summary="feat: improve style on login and registration pages">
+      <option name="closed" value="true" />
+      <created>1760626429363</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1760626429363</updated>
+    </task>
+    <task id="LOCAL-00022" summary="feat: add account.css">
+      <option name="closed" value="true" />
+      <created>1760629507399</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1760629507399</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fix: move header closer to center">
+      <option name="closed" value="true" />
+      <created>1760632691826</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1760632691826</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -290,6 +345,13 @@
     <MESSAGE value="feat: improve header buttons style" />
     <MESSAGE value="feat: improve card style" />
     <MESSAGE value="feat: improve booking form style" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: improve booking form style" />
+    <MESSAGE value="refactor: move separate components in specific folder" />
+    <MESSAGE value="feat: add account page (html only)" />
+    <MESSAGE value="style: reduce info panel and form size by 20%" />
+    <MESSAGE value="feat: add style for auth page" />
+    <MESSAGE value="feat: improve style on login and registration pages" />
+    <MESSAGE value="feat: add account.css" />
+    <MESSAGE value="fix: move header closer to center" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: move header closer to center" />
   </component>
 </project>

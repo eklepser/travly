@@ -31,6 +31,7 @@ body {
 }
 
 main {
+    overflow: hidden;
     background: linear-gradient(180deg, rgba(169, 245, 245, 0.3) 0%, rgba(155, 225, 225, 0.3) 48.56%, rgba(39, 88, 88, 0.3) 100%);
 }
 
@@ -54,8 +55,17 @@ button {
     transition: background 0.3s ease;
 }
 
+button:hover {
+    background: #1a4040;
+}
+
+
 .extra-button {
     background: #627878;
+}
+
+.extra-button:hover {
+    background: #4a5a5a;
 }
 
 /* HEADER SETUP */
