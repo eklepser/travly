@@ -8,7 +8,6 @@
 
 .booking-header h1,
 .booking-header h2 {
-    color: #000000;
     margin-bottom: 16px;
 }
 
@@ -33,17 +32,44 @@
     gap: 32px;
 }
 
-.booking-card {
+/* Левая секция с изображением и кнопкой */
+.booking-left-section {
     width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.booking-card {
+    width: 100%;
     height: 400px;
     background-image: url("../../resources/images/mountain_image.jpg");
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
-    position: relative;     /* ← показывает изображение целиком */
+    position: relative;
     background-size: cover;
     background-position: center;
+}
+
+/* Кнопка изменения доп услуг */
+.change-services-btn {
+    padding: 14px 24px;
+    background: #627878;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+    width: auto;
+}
+
+.change-services-btn:hover {
+    background: #4a5a5a;
 }
 
 .card-details {
@@ -65,13 +91,17 @@
         flex-direction: column;
     }
 
-    .booking-card {
+    .booking-left-section {
         width: 100%;
         max-width: 449px;
     }
 }
 
 @media (max-width: 768px) {
+    .booking-main {
+        padding: 16px;
+    }
+
     .booking-hero {
         padding: 16px;
     }
@@ -120,25 +150,6 @@
     margin-bottom: 24px;
 }
 
-.hotel-card {
-    display: flex;
-    gap: 32px;
-    align-items: flex-start;
-}
-
-.hotel-image {
-    width: 240px;
-    height: 160px;
-    background: linear-gradient(135deg, #459292, #275858);
-    /* Или реальное изображение:
-    background-image: url("../../resources/images/hotel.jpg");
-    background-size: cover;
-    background-position: center;
-    */
-    border-radius: 12px;
-    flex-shrink: 0;
-}
-
 .hotel-info h4 {
     font-size: 24px;
     font-weight: 700;
@@ -185,12 +196,20 @@
 
 /* Адаптив */
 @media (max-width: 900px) {
-    .hotel-card {
-        flex-direction: column;
-    }
 
     .hotel-image {
         width: 100%;
         height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .booking-left-section {
+        gap: 16px;
+    }
+
+    .change-services-btn {
+        padding: 12px 20px;
+        font-size: 16px;
     }
 }

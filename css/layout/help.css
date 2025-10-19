@@ -97,3 +97,9 @@
     line-height: 1.5;
     text-align: center;
 }
+
+.contact-method {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}

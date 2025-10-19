@@ -235,6 +235,14 @@ footer {
     background: url("../resources/icons/contacts/email.svg") no-repeat center / 28px 28px;
 }
 
+.phone-white {
+    background: url("../resources/icons/contacts/phone_white.svg") no-repeat center / 28px 28px;
+}
+
+.email-white {
+    background: url("../resources/icons/contacts/email_white.svg") no-repeat center / 28px 28px;
+}
+
 .social-media {
     display: flex;
     flex-direction: column;

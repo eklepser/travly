@@ -205,8 +205,8 @@
 }
 
 /* Стили карточки с изображением (без изменений, но уточним размер) */
-.booking-card {
-    width: 550px;
+.booking-card-wrapper .booking-card {
+    width: 640px;
     height: 400px;
     border-radius: 16px;
     overflow: hidden;
