@@ -4,8 +4,6 @@
     min-height: 100vh;
 }
 
-/* TOURS SECTION */
-
 .main-page .tours-section {
     background: none;
     padding-top: 0;
@@ -14,49 +12,44 @@
     padding-left: 16px;
     margin-bottom: 16px;
     gap: 24px;
-
     justify-content: flex-start;
     width: 100%;
 }
 
-/* banner */
 .tours-banner {
     position: relative;
     width: 100%;
-    height: 280px; /* можно адаптировать под дизайн */
+    height: 280px;
     border-radius: 32px;
     overflow: hidden;
-    background: url("../../resources/images/mountain_image.jpg") no-repeat center / cover; /* твой путь к изображению */
+    background: url("../../resources/images/mountain_image.jpg") no-repeat center / cover;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-/* Оверлей — затемнение фона */
 .tours-banner-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3); /* полупрозрачный чёрный */
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 32px; /* отступы по бокам, чтобы текст не упирался в края */
+    padding: 0 32px;
     box-sizing: border-box;
 }
 
-/* Контейнер текста */
 .tours-banner-text {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px; /* небольшой зазор между строками */
+    gap: 4px;
     color: #FFFFFF;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Строки текста */
 .tours-banner-text .line1 {
     font-weight: 400;
     font-size: 36px;
@@ -75,7 +68,6 @@
     line-height: 1.4;
 }
 
-/* tours title */
 .tours-title {
     display: flex;
     align-items: center;
@@ -88,7 +80,6 @@
     font-weight: normal;
     font-size: 32px;
     line-height: 55px;
-
     color: #000000;
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -98,7 +89,7 @@
     height: 56px;
 }
 
-.discount-icon{
+.discount-icon {
     background: url('../../resources/icons/travel/discount.svg') no-repeat center / 56px 56px;
 }
 
@@ -110,8 +101,6 @@
     background: url('../../resources/icons/travel/map.svg') no-repeat center / 56px 56px;
 }
 
-
-/* cards */
 .cards-panel {
     display: flex;
     flex-wrap: wrap;
@@ -119,11 +108,9 @@
     padding: 16px;
     gap: 16px;
     border-radius: 24px;
-
     background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
 }
 
-/* sorting options */
 .sorting-options {
     display: flex;
     align-items: center;
@@ -131,14 +118,12 @@
     margin-bottom: 16px;
 }
 
-/* Стили для details */
 .sort-dropdown {
     position: relative;
     display: inline-block;
-    width: 200px; /* или как нужно */
+    width: 200px;
 }
 
-/* Стили для summary (заголовок выпадашки) */
 .sort-summary {
     background: #90c0c0;
     display: flex;
@@ -151,16 +136,14 @@
     color: #333;
     cursor: pointer;
     outline: none;
-    list-style: none; /* убирает стандартную стрелку в некоторых браузерах */
+    list-style: none;
 }
 
-/* Убираем стандартную стрелку details */
 .sort-dropdown > summary::marker,
 .sort-dropdown > summary::-webkit-details-marker {
     display: none;
 }
 
-/* Добавляем свою стрелку */
 .sort-summary::after {
     content: "▼";
     font-size: 12px;
@@ -169,12 +152,10 @@
     transition: transform 0.2s ease;
 }
 
-/* Стрелка при открытом состоянии */
 .sort-dropdown[open] .sort-summary::after {
     transform: rotate(180deg);
 }
 
-/* Список вариантов */
 .sort-list {
     position: absolute;
     top: 100%;
@@ -207,7 +188,6 @@
     color: #459292;
 }
 
-/* Убираем стрелку в WebKit */
 .select-field::-ms-expand {
     display: none;
 }

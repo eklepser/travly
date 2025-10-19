@@ -22,13 +22,11 @@
     margin-bottom: 32px;
 }
 
-/* Основной контент: изображение + информация */
 .selection-content {
     display: flex;
     gap: 32px;
 }
 
-/* Левая секция с изображением и кнопкой */
 .hotel-left-section {
     width: 40%;
     display: flex;
@@ -36,7 +34,6 @@
     gap: 20px;
 }
 
-/* Кнопка смены отеля */
 .change-hotel-btn {
     background: #627878;
     color: white;
@@ -74,8 +71,6 @@
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
-
-/* Дополнительные услуги — как формы */
 .extra-services-section {
     background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
     border-radius: 16px;
@@ -130,7 +125,6 @@
     cursor: pointer;
 }
 
-/* Итоговая стоимость */
 .selection-summary {
     background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
     border-radius: 16px;
@@ -179,7 +173,6 @@
     background: #1a4040;
 }
 
-/* Адаптивность */
 @media (max-width: 1200px) {
     .selection-content {
         flex-direction: column;

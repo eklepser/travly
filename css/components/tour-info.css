@@ -1,8 +1,8 @@
 .tour-info,
 .booking-form {
     background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
-    border-radius: 13px; /* 16 / 1.2 ≈ 13.33 → 13px */
-    padding: 27px; /* 32 / 1.2 ≈ 26.66 → 27px */
+    border-radius: 13px;
+    padding: 27px;
 }
 
 .tour-info {
@@ -14,48 +14,48 @@
 .booking-form h3 {
     font-style: normal;
     font-weight: 700;
-    font-size: 27px; /* 32 / 1.2 ≈ 26.66 → 27px */
+    font-size: 27px;
     line-height: 120%;
     color: #000000;
-    margin-bottom: 20px; /* 24 / 1.2 = 20px */
+    margin-bottom: 20px;
 }
 
 .info-grid {
     display: flex;
     flex-direction: column;
-    gap: 13px; /* 16 / 1.2 ≈ 13.33 → 13px */
+    gap: 13px;
 }
 
 .info-item {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 7px 0; /* 8 / 1.2 ≈ 6.66 → 7px */
+    padding: 7px 0;
 }
 
 .info-label,
 .info-value {
     font-style: normal;
     font-weight: 400;
-    font-size: 20px; /* 24 / 1.2 = 20px */
+    font-size: 20px;
     line-height: 140%;
     color: #000000;
 }
 
 .info-value {
     text-align: right;
-    max-width: 353px; /* 423 / 1.2 ≈ 352.5 → 353px */
+    max-width: 353px;
 }
 
 .info-item.total-cost {
-    margin-top: 13px; /* 16 / 1.2 ≈ 13.33 */
+    margin-top: 13px;
     padding-top: 13px;
-    border-top: 2px solid rgba(39, 88, 88, 0.3); /* толщина линии не уменьшена */
+    border-top: 2px solid rgba(39, 88, 88, 0.3);
 }
 
 .info-item.total-cost .info-label,
 .info-item.total-cost .info-value {
     font-weight: 700;
-    font-size: 27px; /* 32 / 1.2 ≈ 26.66 → 27px */
+    font-size: 27px;
     line-height: 120%;
 }

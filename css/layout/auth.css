@@ -58,19 +58,19 @@
     gap: 20px;
 }
 
-.form-row {
+.auth-form .form-row {
     display: flex;
-    gap: 15px; /* Расстояние между полями */
+    gap: 15px;
 }
 
-.form-group {
-    flex: 1; /* Равномерное распределение ширины */
+.auth-form .form-group {
+    flex: 1;
 }
 
-.form-group input {
+.auth-form .form-group input {
     width: 100%;
     text-align: left;
-    box-sizing: border-box; /* Учитываем padding и border в ширине */
+    box-sizing: border-box;
     padding: 14px 16px;
     border: 2px solid #E0E0E0;
     border-radius: 8px;
@@ -83,12 +83,12 @@
     transition: border-color 0.3s ease;
 }
 
-.form-group input:focus {
+.auth-form .form-group input:focus {
     outline: none;
     border-color: #275858;
 }
 
-.form-group input::placeholder {
+.auth-form .form-group input::placeholder {
     color: #999999;
 }
 
@@ -107,10 +107,6 @@
     margin: 0 10px;
 }
 
-.form-row {
-    display: flex;
-}
-
 .forgot-password {
     font-family: 'Inter', sans-serif;
     font-style: normal;
@@ -123,10 +119,6 @@
 
 .forgot-password:hover {
     text-decoration: underline;
-}
-
-.submit-btn:hover {
-    background: #1a4040;
 }
 
 .auth-footer {

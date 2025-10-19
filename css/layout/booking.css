@@ -32,7 +32,6 @@
     gap: 32px;
 }
 
-/* Левая секция с изображением и кнопкой */
 .booking-left-section {
     width: 40%;
     display: flex;
@@ -53,7 +52,6 @@
     background-position: center;
 }
 
-/* Кнопка изменения доп услуг */
 .change-services-btn {
     padding: 14px 24px;
     background: #627878;
@@ -83,57 +81,6 @@
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
-}
-
-/* Адаптив */
-@media (max-width: 1200px) {
-    .booking-content {
-        flex-direction: column;
-    }
-
-    .booking-left-section {
-        width: 100%;
-        max-width: 449px;
-    }
-}
-
-@media (max-width: 768px) {
-    .booking-main {
-        padding: 16px;
-    }
-
-    .booking-hero {
-        padding: 16px;
-    }
-
-    .from-row {
-        flex-wrap: wrap;
-    }
-
-    .form-group {
-        min-width: calc(50% - 8px);
-    }
-
-    .form-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .clear-btn,
-    .book-btn {
-        width: 100%;
-        max-width: 320px;
-    }
-
-    .info-item {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .info-label,
-    .info-value {
-        text-align: left;
-    }
 }
 
 .hotel-details {
@@ -194,12 +141,60 @@
     margin-top: 12px;
 }
 
-/* Адаптив */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+    .booking-content {
+        flex-direction: column;
+    }
 
+    .booking-left-section {
+        width: 100%;
+        max-width: 449px;
+    }
+}
+
+@media (max-width: 900px) {
     .hotel-image {
         width: 100%;
         height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-main {
+        padding: 16px;
+    }
+
+    .booking-hero {
+        padding: 16px;
+    }
+
+    .from-row {
+        flex-wrap: wrap;
+    }
+
+    .form-group {
+        min-width: calc(50% - 8px);
+    }
+
+    .form-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .clear-btn,
+    .book-btn {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .info-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .info-label,
+    .info-value {
+        text-align: left;
     }
 }
 

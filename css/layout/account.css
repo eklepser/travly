@@ -24,37 +24,36 @@
 
 .profile-content {
     display: flex;
-    flex-wrap: wrap;       /* ← разрешаем перенос колонок */
+    flex-wrap: wrap;
     gap: 32px;
     flex: 1;
 }
 
 .profile-left,
 .profile-right {
-    flex: 1 1 300px;       /* ← растягиваются, но не уже 300px */
+    flex: 1 1 300px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    min-width: 0;          /* ← важно для корректного сжатия */
+    min-width: 0;
 }
 
 .profile-right {
     align-items: center;
 }
 
-/* === НОВОЕ: строки с парами полей === */
 .info-row {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap; /* ← разрешаем перенос на новую строку */
+    flex-wrap: wrap;
 }
 
 .info-row .info-group {
-    flex: 1 1 280px; /* ← растягивается, но не уже 280px */
+    flex: 1 1 280px;
     display: flex;
     flex-direction: column;
-    gap: 4px; /* ← уменьшено в 2 раза, как вы просили ранее */
-    min-width: 0; /* предотвращает overflow */
+    gap: 4px;
+    min-width: 0;
 }
 
 .info-group label {
@@ -80,7 +79,6 @@
     color: #1E1E1E;
 }
 
-/* Кнопки */
 .account-actions {
     display: flex;
     gap: 12px;
@@ -99,10 +97,16 @@
     cursor: pointer;
 }
 
-.edit-btn { background: #275858; color: #FFFFFF; }
-.logout-btn { background: #627878; color: #FFFFFF; }
+.edit-btn {
+    background: #275858;
+    color: #FFFFFF;
+}
 
-/* Правая колонка */
+.logout-btn {
+    background: #627878;
+    color: #FFFFFF;
+}
+
 .profile-right .logo {
     display: flex;
     align-items: center;
@@ -117,17 +121,6 @@
 
 .profile-right .logo .logo-icon {
     scale: 1.5;
-}
-
-.logo-text-highlight {
-    color: #1D1B20;
-}
-
-.logo-icon {
-    width: 40px;
-    height: 40px;
-    background: #ddd; /* замените на реальный логотип при необходимости */
-    border-radius: 8px;
 }
 
 .promo-section {
@@ -169,11 +162,10 @@
     color: #FFFFFF;
     cursor: pointer;
     white-space: nowrap;
-    overflow: hidden;      /* Скрывает всё, что выходит за границы */
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Секция туров */
 .tours-title {
     font-weight: 700;
     font-size: 36px;
@@ -197,14 +189,13 @@
     flex-shrink: 0;
 }
 
-.booking-card-wrapper h2{
+.booking-card-wrapper h2 {
     align-self: self-start;
     font-weight: 700;
     font-size: 36px;
     line-height: 44px;
 }
 
-/* Стили карточки с изображением (без изменений, но уточним размер) */
 .booking-card-wrapper .booking-card {
     width: 640px;
     height: 400px;
@@ -214,12 +205,11 @@
     position: relative;
 }
 
-/* Кнопка отмены */
 .cancel-btn {
     width: 100%;
     max-width: 550px;
     padding: 12px;
-    background: #d32f2f; /* красный для "опасного" действия */
+    background: #d32f2f;
     color: white;
     border: none;
     border-radius: 8px;
