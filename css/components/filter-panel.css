@@ -64,67 +64,6 @@
     margin-top: 0;
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .filter-chevron {
-    transform: rotate(-135deg);
-    margin-top: -4px;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #459292;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 101;
-    margin-top: 4px;
-    max-height: 250px;
-    overflow-y: auto;
-}
-
-.dropdown-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.dropdown-content::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
-}
-
-.dropdown-content::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 3px;
-}
-
-.dropdown-content::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-}
-
-.dropdown-item {
-    padding: 12px 18px;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.dropdown-item:last-child {
-    border-bottom: none;
-}
-
-.dropdown-item:hover {
-    background-color: #f8f9fa;
-    color: #459292;
-}
-
 .section-title {
     display: block;
     font-size: 16px;
