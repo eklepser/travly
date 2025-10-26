@@ -1,0 +1,151 @@
+@import "../variables.less";
+@import "../mixins.less";
+
+.main-page {
+  display: flex;
+  padding: @spacing-xxxl;
+  min-height: 100vh;
+
+  .tours-section {
+    background: none;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    padding-left: @spacing-xxl;
+    margin-bottom: @spacing-xxl;
+    gap: @spacing-huge;
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
+
+.tours-title {
+  .flex-center();
+  gap: @spacing-xxl;
+  margin-top: @spacing-mega;
+
+  h2 {
+    font-style: italic;
+    font-weight: normal;
+    font-size: @font-size-xxxl;
+    line-height: 55px;
+    color: @black;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.tours-icon {
+  width: 56px;
+  height: 56px;
+
+  &.discount-icon {
+    background: url('../../resources/icons/travel/discount.svg') no-repeat center / 56px 56px;
+  }
+  &.beach-icon {
+    background: url('../../resources/icons/travel/beach.svg') no-repeat center / 56px 56px;
+  }
+  &.map-icon {
+    background: url('../../resources/icons/travel/map.svg') no-repeat center / 56px 56px;
+  }
+}
+
+.cards-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: @spacing-xxl;
+  gap: @spacing-xxl;
+  border-radius: @spacing-huge;
+  background: @profile-gradient;
+}
+
+.sorting-options {
+  .flex-center();
+  gap: 14px;
+  margin-bottom: @spacing-xxl;
+}
+
+.sort-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+}
+
+.sort-summary {
+  background: @light-color;
+  .flex-center();
+  justify-content: space-between;
+  padding: @spacing-md @spacing-xxl;
+  border: 1px solid #ccc;
+  border-radius: @border-radius-lg;
+  font-size: @font-size-sm;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  list-style: none;
+
+  &::marker,
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::after {
+    content: "▼";
+    font-size: @font-size-xs;
+    color: #666;
+    transform: rotate(0deg);
+    transition: transform 0.2s ease;
+  }
+}
+
+.sort-dropdown[open] .sort-summary::after {
+  transform: rotate(180deg);
+}
+
+.sort-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: @light-color;
+  border-top: none;
+  border-radius: 0 0 @border-radius-lg @border-radius-lg;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.sort-item {
+  padding: @spacing-lg @spacing-xxl;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: #f0f9ff;
+    color: @accent-color;
+  }
+}
+
+.select-field {
+  &::-ms-expand {
+    display: none;
+  }
+
+  &:hover {
+    background: @white;
+    border-color: @light-color;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #60a0a0;
+  }
+}

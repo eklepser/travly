@@ -1,0 +1,114 @@
+@import "../variables.less";
+@import "../mixins.less";
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  height: 240px;
+  border-radius: @border-radius-xxl;
+  overflow: hidden;
+  background: @white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+
+  &-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../resources/images/mountain_image.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  &-overlay {
+    .card-overlay();
+  }
+
+  &-top {
+    position: absolute;
+    top: @spacing-xxl;
+    left: @spacing-xxl;
+    right: @spacing-xxl;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 10;
+    color: @white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  &-location {
+    .card-country {
+      font-size: @font-size-huge;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .card-city {
+      font-size: @font-size-xl;
+      font-style: italic;
+      opacity: 0.9;
+    }
+  }
+
+  &-rating {
+    background: rgba(0, 0, 0, 0.6);
+    color: @white;
+    padding: @spacing-xs @spacing-xl;
+    border-radius: @border-radius-sm;
+    font-weight: bold;
+    font-size: @font-size-sm;
+  }
+
+  &-bottom {
+    position: absolute;
+    bottom: @spacing-xxl;
+    left: @spacing-xxl;
+    right: @spacing-xxl;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 10;
+    color: @white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  &-hotel-info {
+    flex: 1;
+  }
+
+  .hotel-stars {
+    font-size: @font-size-xl;
+    color: @white;
+    margin-bottom: @spacing-xs;
+  }
+
+  .hotel-name {
+    font-size: @font-size-sm;
+    opacity: 0.9;
+  }
+
+  &-details {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: @spacing-xs;
+    font-size: @font-size-xs;
+
+    .icon {
+      font-size: @font-size-sm;
+    }
+  }
+
+  .card-price {
+    font-size: @font-size-sm;
+    font-weight: bold;
+    margin-top: @spacing-md;
+  }
+}

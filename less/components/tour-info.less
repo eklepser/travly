@@ -1,0 +1,72 @@
+@import "../variables.less";
+@import "../mixins.less";
+
+.tour-info,
+.booking-form {
+  background: @profile-gradient;
+  border-radius: 13px;
+  padding: @spacing-giant;
+}
+
+.tour-info {
+  flex: 1;
+  height: fit-content;
+
+  h3 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: @font-size-xxl;
+    line-height: 120%;
+    color: @black;
+    margin-bottom: @spacing-xxxl;
+  }
+}
+
+.booking-form h3 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: @font-size-xxl;
+  line-height: 120%;
+  color: @black;
+  margin-bottom: @spacing-xxxl;
+}
+
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: @spacing-xl;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: @spacing-sm 0;
+
+  &.total-cost {
+    margin-top: @spacing-xl;
+    padding-top: @spacing-xl;
+    border-top: 2px solid rgba(39, 88, 88, 0.3);
+
+    .info-label,
+    .info-value {
+      font-weight: 700;
+      font-size: @font-size-xxl;
+      line-height: 120%;
+    }
+  }
+}
+
+.info-label,
+.info-value {
+  font-style: normal;
+  font-weight: 400;
+  font-size: @font-size-lg;
+  line-height: 140%;
+  color: @black;
+}
+
+.info-value {
+  text-align: right;
+  max-width: 353px;
+}

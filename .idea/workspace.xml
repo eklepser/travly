@@ -4,24 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: set elements on account page">
-      <change afterPath="$PROJECT_DIR$/css/layout/search.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css/layout/selection.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/layout/hotel-selection.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/html/layout/search.html" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add animated slider">
+      <change afterPath="$PROJECT_DIR$/less/base.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/components/booking-form.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/components/card.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/components/filter-panel.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/components/tour-info.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/components/tours-banner.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/layout/about.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/layout/account.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/layout/auth.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/layout/booking.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/layout/help.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/layout/main.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/layout/selection.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/mixins.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/styles.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/less/variables.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/account.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/account.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/booking.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/booking.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/search.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/html/layout/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/layout/auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/auth.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/layout/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/booking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/layout/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/layout/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/menu.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,34 +73,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.main.html.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;liveEdit&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.index.html.executor": "Run",
+    "JavaScript Debug.main.html.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Nikitos/WebstormProjects/travly/less/components",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "watcher.settings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\less\components" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\html\layout" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\layout" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\components" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\contacts" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\layout" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\html\layout" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\html" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\common" />
     </key>
   </component>
   <component name="RunManager">
@@ -137,7 +148,12 @@
       <workItem from="1760433847093" duration="290000" />
       <workItem from="1760434995550" duration="1331000" />
       <workItem from="1760546269799" duration="8127000" />
-      <workItem from="1760691687841" duration="14575000" />
+      <workItem from="1760691687841" duration="18808000" />
+      <workItem from="1760863303800" duration="182000" />
+      <workItem from="1760865568585" duration="15000" />
+      <workItem from="1760865612748" duration="4123000" />
+      <workItem from="1760951612841" duration="46000" />
+      <workItem from="1761461408418" duration="2786000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -331,7 +347,47 @@
       <option name="project" value="LOCAL" />
       <updated>1760695515040</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="feat: add hotel selection page">
+      <option name="closed" value="true" />
+      <created>1760710360476</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1760710360476</updated>
+    </task>
+    <task id="LOCAL-00026" summary="fix: fix cards size">
+      <option name="closed" value="true" />
+      <created>1760863475885</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1760863475885</updated>
+    </task>
+    <task id="LOCAL-00027" summary="refactor: remove css-code duplication">
+      <option name="closed" value="true" />
+      <created>1760865924344</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1760865924344</updated>
+    </task>
+    <task id="LOCAL-00028" summary="fix: restore search.html">
+      <option name="closed" value="true" />
+      <created>1760866254387</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1760866254387</updated>
+    </task>
+    <task id="LOCAL-00029" summary="feat: add animated slider">
+      <option name="closed" value="true" />
+      <created>1760869217555</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1760869217555</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,10 +405,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: initial commit" />
-    <MESSAGE value="feat: add page loading script" />
-    <MESSAGE value="feat: add simple banner on main page" />
-    <MESSAGE value="feat: add cards panel" />
     <MESSAGE value="feat: add about page prototype" />
     <MESSAGE value="feat: add booking page prototype" />
     <MESSAGE value="feat: add help page prototype" />
@@ -373,6 +425,11 @@
     <MESSAGE value="feat: add account.css" />
     <MESSAGE value="fix: move header closer to center" />
     <MESSAGE value="feat: set elements on account page" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: set elements on account page" />
+    <MESSAGE value="feat: add hotel selection page" />
+    <MESSAGE value="fix: fix cards size" />
+    <MESSAGE value="refactor: remove css-code duplication" />
+    <MESSAGE value="fix: restore search.html" />
+    <MESSAGE value="feat: add animated slider" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add animated slider" />
   </component>
 </project>

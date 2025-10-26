@@ -1,0 +1,85 @@
+@import "../variables.less";
+@import "../mixins.less";
+
+.help-page {
+  .page-with-bg(@overlay-medium, "../../resources/images/mountain_image.jpg");
+}
+
+.help-content {
+  .content-section();
+  max-width: 1200px;
+  font-size: @font-size-lg;
+}
+
+.faq-title {
+  font-weight: bold;
+  font-size: @font-size-huge;
+  line-height: 44px;
+  margin: @spacing-jumbo;
+}
+
+.faq-section {
+  display: flex;
+  flex-direction: column;
+  gap: @spacing-titan;
+  margin-bottom: @spacing-colossal;
+}
+
+.faq-item {
+  text-align: left;
+
+  h2 {
+    line-height: 1.6;
+    margin-bottom: @spacing-xxxl;
+  }
+}
+
+.rating-examples {
+  display: flex;
+  flex-direction: column;
+  gap: @spacing-xl;
+  margin-top: @spacing-xl;
+  padding-left: @spacing-xxxl;
+}
+
+.rating-item {
+  display: flex;
+  align-items: flex-start;
+  gap: @spacing-xl;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.rating-text {
+  line-height: 1.5;
+}
+
+.support-section {
+  margin-top: @spacing-colossal;
+  padding-top: @spacing-mega;
+  border-top: 1px solid #ddd;
+}
+
+.support-title {
+  text-align: center;
+  margin-bottom: @spacing-xl;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 34px;
+}
+
+.support-description {
+  font-family: @font-family;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.contact-method {
+  display: flex;
+  gap: @spacing-lg;
+  justify-content: center;
+}

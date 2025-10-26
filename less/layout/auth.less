@@ -1,0 +1,138 @@
+@import "../variables.less";
+@import "../mixins.less";
+
+.auth-btn {
+  .button-style(#1E1E1E);
+}
+
+.auth-main {
+  min-height: calc(100vh - 285px);
+  .flex-center();
+  padding: @spacing-colossal @spacing-xxxl;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.auth-card {
+  margin: @spacing-colossal;
+  background: @auth-gradient;
+  border-radius: @border-radius-xxl;
+  padding: @spacing-colossal;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+  font-family: @font-family;
+  font-style: italic;
+  font-weight: 700;
+  font-size: @font-size-huge;
+  line-height: 44px;
+  text-align: center;
+  color: @white;
+  margin-bottom: @spacing-mega;
+}
+
+.user-type-selector {
+  display: flex;
+  gap: @spacing-xl;
+  margin-bottom: @spacing-huge;
+}
+
+.submit-btn:hover {
+  background: #1a4040;
+}
+
+.divider {
+  color: @white;
+  position: relative;
+  text-align: center;
+  margin: @spacing-huge 0;
+}
+
+.auth-form {
+  .auth-form-styles();
+}
+
+.form-options {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: @spacing-md;
+}
+
+.auth-form .logo {
+  .flex-center();
+  padding-left: 30px;
+  gap: @spacing-lg;
+  margin: 0 @spacing-lg;
+}
+
+.forgot-password {
+  font-family: @font-family;
+  font-weight: 400;
+  font-size: @font-size-xs;
+  line-height: 17px;
+  color: @primary-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: @spacing-huge;
+  padding-top: @spacing-huge;
+  border-top: 1px solid #E0E0E0;
+
+  p {
+    font-family: @font-family;
+    font-weight: 400;
+    font-size: @font-size-xs;
+    line-height: 17px;
+    color: #666666;
+  }
+
+  a {
+    color: @primary-color;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.respond-to(mobile, {
+  .auth-card {
+    padding: @spacing-huge;
+  }
+
+  .auth-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .user-type-selector {
+    flex-direction: column;
+  }
+});
+
+.respond-to(480px, {
+  .auth-main {
+    padding: @spacing-xxxl @spacing-lg;
+  }
+
+  .auth-card {
+    padding: @spacing-xxxl;
+  }
+
+  .auth-title {
+    font-size: @font-size-xl;
+    line-height: 29px;
+  }
+});
