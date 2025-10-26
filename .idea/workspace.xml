@@ -4,27 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add animated slider">
-      <change afterPath="$PROJECT_DIR$/less/base.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/components/booking-form.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/components/card.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/components/filter-panel.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/components/tour-info.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/components/tours-banner.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/layout/about.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/layout/account.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/layout/auth.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/layout/booking.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/layout/help.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/layout/main.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/layout/selection.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/mixins.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/styles.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/less/variables.less" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add less based styles">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/search.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/layout/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/components/booking-form.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/components/card.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/components/filter-panel.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/components/tour-info.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/components/tours-banner.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/about.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/account.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/auth.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/booking.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/help.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/selection.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/auth.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/base.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/account.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/auth.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/main.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/variables.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/variables.less" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +156,7 @@
       <workItem from="1760865568585" duration="15000" />
       <workItem from="1760865612748" duration="4123000" />
       <workItem from="1760951612841" duration="46000" />
-      <workItem from="1761461408418" duration="2786000" />
+      <workItem from="1761461408418" duration="5292000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -387,7 +390,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760869217555</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="feat: add less based styles">
+      <option name="closed" value="true" />
+      <created>1761465564078</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1761465564078</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -405,7 +416,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: add about page prototype" />
     <MESSAGE value="feat: add booking page prototype" />
     <MESSAGE value="feat: add help page prototype" />
     <MESSAGE value="refactor: move css files into separate folder" />
@@ -430,6 +440,7 @@
     <MESSAGE value="refactor: remove css-code duplication" />
     <MESSAGE value="fix: restore search.html" />
     <MESSAGE value="feat: add animated slider" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add animated slider" />
+    <MESSAGE value="feat: add less based styles" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add less based styles" />
   </component>
 </project>

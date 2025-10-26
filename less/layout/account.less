@@ -15,8 +15,12 @@
   flex-direction: column;
 }
 
+// ВОССТАНАВЛИВАЕМ БОЛЬШОЙ РАЗМЕР ШРИФТА ДЛЯ "ЛИЧНЫЙ КАБИНЕТ"
 .profile-title {
-  .section-title();
+  font-weight: 700;
+  font-size: @font-size-huge;
+  line-height: 44px;
+  color: @black;
   margin-bottom: @spacing-mega;
 }
 
@@ -96,15 +100,23 @@
   gap: @spacing-xl;
   margin-top: auto;
 
-  .edit-btn { .button-style(); }
-  .logout-btn { .button-style(@secondary-color, #4a5a5a); }
-
   .edit-btn,
   .logout-btn {
     flex: 1;
     padding: @spacing-xl @spacing-huge;
+    border: none;
+    border-radius: @border-radius-lg;
+    font-weight: 700;
     font-size: @font-size-lg;
     line-height: 24px;
+    cursor: pointer;
+  }
+
+  .edit-btn {
+    .button-style();
+  }
+  .logout-btn {
+    .button-style(@secondary-color, #4a5a5a);
   }
 }
 
@@ -141,10 +153,12 @@
   text-overflow: ellipsis;
 }
 
+// ВЫРАВНИВАЕМ "ЗАБРОНИРОВАННЫЕ ТУРЫ" ПО ЦЕНТРУ
 .tours-title {
   font-weight: 700;
   font-size: @font-size-huge;
   line-height: 44px;
+  text-align: center;
 }
 
 .account-main .tours-section {

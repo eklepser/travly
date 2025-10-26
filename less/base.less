@@ -80,10 +80,26 @@ header {
     width: 170px;
     height: 40px;
     padding: 0 @spacing-xl;
-    .button-style();
+    // ВОССТАНАВЛИВАЕМ СПЕЦИФИЧНЫЕ СТИЛИ ДЛЯ КНОПОК В ХЕДЕРЕ
+    background: @primary-color;
+    border: none;
+    border-radius: 10px;
+    font-family: @font-family;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: normal;
+    color: @white;
+    cursor: pointer;
+    transition: all 0.3s ease;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex-shrink: 1;
+    flex-grow: 0;
+
+    &:hover {
+      background: #1a4040;
+    }
   }
 }
 
@@ -102,6 +118,8 @@ header {
   &-text {
     text-align: center;
     font-weight: bold;
+    // ВОССТАНАВЛИВАЕМ РАЗМЕР ШРИФТА
+    font-size: 16px;
   }
 }
 
@@ -117,9 +135,26 @@ footer {
   background: linear-gradient(180deg, rgba(39, 88, 88, 0.3) 0%, rgba(7, 200, 200, 0.3) 100%);
 }
 
-.contacts, .social-media {
+.contacts {
   display: flex;
   flex-direction: column;
+  // ВЫРАВНИВАЕМ ПО ЛЕВОМУ КРАЮ
+  align-items: flex-start;
+  text-align: left;
+
+  h3 {
+    font-weight: bold;
+    font-size: @font-size-lg;
+    line-height: 24px;
+    color: @dark-gray;
+    margin-bottom: @spacing-xl;
+  }
+}
+
+.social-media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   h3 {
     font-weight: bold;
@@ -132,6 +167,7 @@ footer {
 
 .contact-item {
   .flex-center();
+  justify-content: flex-start; // ВЫРАВНИВАЕМ ПО ЛЕВОМУ КРАЮ
   gap: @spacing-lg;
 
   span {
@@ -214,8 +250,45 @@ footer {
   justify-content: center;
 }
 
-.clear-btn { .button-style(@secondary-color, #4a5a5a); }
-.book-btn { .button-style(); }
+// ВОССТАНАВЛИВАЕМ РАЗМЕРЫ ДЛЯ EXTRA-КНОПОК
+.clear-btn,
+.extra-button {
+  width: 100%;
+  height: 54px;
+  background: @secondary-color;
+  border: none;
+  border-radius: @border-radius-lg;
+  font-family: @font-family;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: @white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #4a5a5a;
+  }
+}
+
+.book-btn {
+  width: 100%;
+  height: 54px;
+  background: @primary-color;
+  border: none;
+  border-radius: @border-radius-lg;
+  font-family: @font-family;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: @white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #1a4040;
+  }
+}
 
 .section-title {
   font-weight: 700;
