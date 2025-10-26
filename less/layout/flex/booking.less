@@ -1,9 +1,8 @@
-@import "../variables.less";
-@import "../mixins.less";
+@import "../../variables.less";
+@import "../../mixins.less";
 
 .booking-main {
-  display: flex;
-  flex-direction: column;
+  .flex-column();
   min-height: 100vh;
   padding: @spacing-mega;
   gap: @spacing-mega;
@@ -15,18 +14,13 @@
   }
 
   h1 {
-    font-style: normal;
+    .heading-large();
     font-weight: 400;
-    font-size: @font-size-huge;
-    line-height: 44px;
     text-align: left;
   }
 
   h2 {
-    font-style: normal;
-    font-weight: 700;
-    font-size: @font-size-huge;
-    line-height: 44px;
+    .heading-large();
     margin-bottom: @spacing-mega;
   }
 }
@@ -46,7 +40,7 @@
 .booking-card {
   width: 100%;
   height: @booking-card-height;
-  background-image: url("../../resources/images/mountain_image.jpg");
+  background-image: url("../../../resources/images/mountain_image.jpg");
   border-radius: @border-radius-xxl;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -57,7 +51,7 @@
 }
 
 .change-services-btn {
-  .button-style(@secondary-color, #4a5a5a);
+  .button-secondary();
   padding: 14px @spacing-huge;
   font-size: @font-size-md;
   text-align: center;

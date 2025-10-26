@@ -1,9 +1,8 @@
-@import "../variables.less";
-@import "../mixins.less";
+@import "../../variables.less";
+@import "../../mixins.less";
 
 .account-main {
-  display: flex;
-  flex-direction: column;
+  .flex-column();
   min-height: 100vh;
   padding: @spacing-mega;
   gap: @spacing-mega;
@@ -11,17 +10,11 @@
 
 .profile-section {
   .profile-card();
-  display: flex;
-  flex-direction: column;
+  .flex-column();
 }
 
-// ВОССТАНАВЛИВАЕМ БОЛЬШОЙ РАЗМЕР ШРИФТА ДЛЯ "ЛИЧНЫЙ КАБИНЕТ"
 .profile-title {
-  font-weight: 700;
-  font-size: @font-size-huge;
-  line-height: 44px;
-  color: @black;
-  margin-bottom: @spacing-mega;
+  .heading-large();
 }
 
 .profile-content {
@@ -31,11 +24,9 @@
   flex: 1;
 }
 
-.profile-left,
-.profile-right {
+.profile-left, .profile-right {
+  .flex-column();
   flex: 1 1 300px;
-  display: flex;
-  flex-direction: column;
   gap: @spacing-xxxl;
   min-width: 0;
 }
@@ -60,14 +51,13 @@
 }
 
 .info-row {
-  display: flex;
+  .flex-row();
   gap: @spacing-xxxl;
   flex-wrap: wrap;
 
   .info-group {
+    .flex-column();
     flex: 1 1 280px;
-    display: flex;
-    flex-direction: column;
     gap: @spacing-xs;
     min-width: 0;
 
@@ -100,29 +90,24 @@
   gap: @spacing-xl;
   margin-top: auto;
 
-  .edit-btn,
-  .logout-btn {
+  .edit-btn, .logout-btn {
     flex: 1;
     padding: @spacing-xl @spacing-huge;
-    border: none;
-    border-radius: @border-radius-lg;
-    font-weight: 700;
     font-size: @font-size-lg;
     line-height: 24px;
-    cursor: pointer;
   }
 
   .edit-btn {
     .button-style();
   }
+  
   .logout-btn {
-    .button-style(@secondary-color, #4a5a5a);
+    .button-secondary();
   }
 }
 
 .promo-section {
-  display: flex;
-  flex-direction: column;
+  .flex-column();
   width: 50%;
   gap: @spacing-xl;
 
@@ -136,8 +121,7 @@
   }
 
   input {
-    .form-field();
-    padding: @spacing-xl @spacing-xxl;
+    .form-field(@spacing-xl @spacing-xxl);
     font-size: @font-size-xl;
   }
 }
@@ -153,11 +137,8 @@
   text-overflow: ellipsis;
 }
 
-// ВЫРАВНИВАЕМ "ЗАБРОНИРОВАННЫЕ ТУРЫ" ПО ЦЕНТРУ
 .tours-title {
-  font-weight: 700;
-  font-size: @font-size-huge;
-  line-height: 44px;
+  .heading-large();
   text-align: center;
 }
 

@@ -4,29 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add less based styles">
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: remove old css files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/components/booking-form.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/components/card.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/components/filter-panel.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/components/tour-info.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/components/tours-banner.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/about.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/account.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/auth.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/booking.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/help.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/main.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/selection.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/layout/auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/auth.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/layout/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/registration.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/less/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/base.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/account.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/auth.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/main.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/booking-form.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/booking-form.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/card.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/card.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/filter-panel.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/about.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/about.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/account.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/auth.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/booking.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/booking.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/help.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/help.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/main.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/selection.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/selection.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/mixins.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/mixins.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/styles.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/styles.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/less/variables.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/variables.less" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,28 +68,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.index.html.executor": "Run",
-    "JavaScript Debug.main.html.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Nikitos/WebstormProjects/travly/less/components",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "watcher.settings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.main.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Nikitos/WebstormProjects/travly/less/components&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\less\components" />
@@ -107,11 +99,11 @@
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\contacts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\less\layout" />
+      <recent name="C:\Users\Nikitos\WebstormProjects\travly\less\layout\flex" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\css" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\layout" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\html\layout" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\html" />
     </key>
   </component>
   <component name="RunManager">
@@ -156,7 +148,8 @@
       <workItem from="1760865568585" duration="15000" />
       <workItem from="1760865612748" duration="4123000" />
       <workItem from="1760951612841" duration="46000" />
-      <workItem from="1761461408418" duration="5292000" />
+      <workItem from="1761461408418" duration="5628000" />
+      <workItem from="1761468621255" duration="1934000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -398,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761465564078</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="refactor: remove old css files">
+      <option name="closed" value="true" />
+      <created>1761468044218</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1761468044218</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -416,7 +417,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: add booking page prototype" />
     <MESSAGE value="feat: add help page prototype" />
     <MESSAGE value="refactor: move css files into separate folder" />
     <MESSAGE value="refactor: rename css files" />
@@ -441,6 +441,7 @@
     <MESSAGE value="fix: restore search.html" />
     <MESSAGE value="feat: add animated slider" />
     <MESSAGE value="feat: add less based styles" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add less based styles" />
+    <MESSAGE value="refactor: remove old css files" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: remove old css files" />
   </component>
 </project>

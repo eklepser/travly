@@ -1,21 +1,53 @@
-// Button mixin
-.button-style(@bg-color: @primary-color, @hover-color: darken(@bg-color, 10%)) {
-  background: @bg-color;
+.button-base() {
   border: none;
   border-radius: @border-radius-lg;
   font-family: @font-family;
   font-weight: 700;
-  color: @white;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.button-style(@bg-color: @primary-color, @hover-color: darken(@bg-color, 10%)) {
+  .button-base();
+  background: @bg-color;
+  color: @white;
 
   &:hover {
     background: @hover-color;
   }
 }
 
-// Form field mixin
-.form-field() {
+.button-large() {
+  height: 54px;
+  font-size: @font-size-lg;
+  line-height: 22px;
+}
+
+.button-secondary() {
+  .button-style(@secondary-color, #4a5a5a);
+}
+
+.cancel-button() {
+  .button-style(@error-color, @error-hover);
+}
+
+.flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-column() {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row() {
+  display: flex;
+  flex-direction: row;
+}
+
+.form-field-base() {
   width: 100%;
   background: @white;
   border-radius: @border-radius-md;
@@ -23,24 +55,44 @@
   font-family: @font-family;
   font-weight: 400;
   color: @dark-gray;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
   }
+}
+
+.form-field(@padding: 0) {
+  .form-field-base();
+  padding: @padding;
 
   &::placeholder {
     color: @gray;
   }
 }
 
-// Flex center mixin
-.flex-center() {
+.form-group() {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: @spacing-md;
+  flex: 1;
 }
 
-// Card overlay mixin
+.form-group-with-label() {
+  .form-group();
+
+  label {
+    font-weight: 400;
+    font-size: @font-size-xl;
+    line-height: 140%;
+    color: @black;
+  }
+
+  input, select, textarea {
+    .form-field(@spacing-xl @spacing-xxl);
+  }
+}
+
 .card-overlay() {
   position: absolute;
   width: 100%;
@@ -48,7 +100,84 @@
   background: @card-gradient;
 }
 
-// Responsive mixin
+.card-container(@bg: @white, @radius: @border-radius-xxl, @padding: @spacing-mega) {
+  background: @bg;
+  border-radius: @radius;
+  padding: @padding;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gradient-card() {
+  .card-container(@profile-gradient);
+}
+
+.page-with-bg(@overlay: @overlay-dark, @image: "") {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+
+  & when not (@image = "") {
+    background: @overlay, url(@image) center/cover no-repeat;
+  }
+}
+
+.content-section() {
+  .flex-column();
+  align-items: center;
+  width: 100%;
+  border-radius: @border-radius-xxl;
+  padding: @spacing-xxxl;
+  font-family: @font-family;
+  font-style: italic;
+  text-align: center;
+  letter-spacing: 0.16em;
+  color: @white;
+}
+
+.profile-card() {
+  .gradient-card();
+}
+
+.heading-large() {
+  font-weight: 700;
+  font-size: @font-size-huge;
+  line-height: 44px;
+  color: @black;
+  margin-bottom: @spacing-huge;
+}
+
+.heading-medium() {
+  font-weight: 700;
+  font-size: @font-size-xxxl;
+  line-height: 44px;
+}
+
+.heading-small() {
+  font-weight: 700;
+  font-size: @font-size-xl;
+  line-height: 140%;
+}
+
+.section-title() {
+  .heading-large();
+  margin-bottom: @spacing-mega;
+}
+
+.info-item-base() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: @spacing-md 0;
+}
+
+.info-label, .info-value {
+  font-weight: 400;
+  font-size: @font-size-xl;
+  line-height: 140%;
+  color: @black;
+}
+
 .respond-to(@device, @content) {
   & when (@device = mobile) {
     @media (max-width: @mobile) {
@@ -62,54 +191,13 @@
   }
 }
 
-// Миксин для кнопок отмены/ошибки
-.cancel-button() {
-  .button-style(@error-color, @error-hover);
-}
-
-// Миксин для страниц с фоновым изображением
-.page-with-bg(@overlay: @overlay-dark, @image: "") {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  min-height: 100vh;
-
-  & when not (@image = "") {
-    background: @overlay, url(@image) center/cover no-repeat;
-  }
-}
-
-// Миксин для карточек профиля
-.profile-card() {
-  background: @profile-gradient;
-  border-radius: @border-radius-xxl;
-  padding: @spacing-mega;
-}
-
-// Миксин для секций с контентом
-.content-section() {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  border-radius: @border-radius-xxl;
-  padding: @spacing-xxxl;
-  font-family: @font-family;
-  font-style: italic;
-  text-align: center;
-  letter-spacing: 0.16em;
-  color: @white;
-}
-
-// Миксин для форм авторизации
 .auth-form-styles() {
-  display: flex;
-  flex-direction: column;
+  .flex-column();
   justify-content: center;
   gap: @spacing-xxxl;
 
   .form-row {
-    display: flex;
+    .flex-row();
     gap: 15px;
   }
 

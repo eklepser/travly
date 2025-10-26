@@ -1,16 +1,13 @@
-@import "../variables.less";
-@import "../mixins.less";
+@import "../../variables.less";
+@import "../../mixins.less";
 
-// Используем существующие переменные и миксины
 .auth-btn {
   .button-style(@dark-gray, #1a4040);
 }
 
 .auth-main {
+  .flex-center();
   min-height: calc(100vh - 285px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: @spacing-xxl @spacing-md;
 }
 
@@ -20,19 +17,14 @@
 }
 
 .auth-card {
+  .card-container(linear-gradient(to bottom, #518c8c, #E8F4F3), @border-radius-xxl, @spacing-xxl);
   margin: @spacing-xxl;
-  background: linear-gradient(to bottom, #518c8c, #E8F4F3);
-  border-radius: @border-radius-xxl;
-  padding: @spacing-xxl;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .auth-title {
-  font-family: @font-family;
+  .heading-medium();
   font-style: italic;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 44px;
   text-align: center;
   color: @white;
   margin-bottom: @spacing-xxl;
@@ -44,27 +36,22 @@
   margin-bottom: @spacing-xl;
 
   .respond-to(mobile, {
-    flex-direction: column;
+    .flex-column();
   });
 
-  .tourist,
-  .organizator {
-    flex: 1; // ← главная строка: обе кнопки растягиваются поровну
-    min-width: 0; // ← предотвращает переполнение при длинном тексте
+  .tourist, .organizator {
+    flex: 1;
+    min-width: 0;
+    font-size: 18px;
+    line-height: 22px;
   }
 }
 
-.auth-btn,
-.submit-btn {
-  .button-style(@primary-color, #1a4040);
+.auth-btn, .submit-btn {
+  .button-style();
+  .button-large();
   width: 100%;
-  height: 54px;                      // ← как у .book-btn
-  padding: 0;                        // ← height + line-height лучше, чем padding
-  font-size: 18px;                   // ← как у других кнопок
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0;
 }
 
 .divider {
@@ -129,8 +116,6 @@
   }
 }
 
-// Адаптив — выносим в миксин или оставляем как медиа-запросы
-// Но так как у тебя уже есть .respond-to(), используем его
 .respond-to(tablet, {
   .auth-card {
     padding: @spacing-xl;

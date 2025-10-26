@@ -2,11 +2,10 @@
 @import "../mixins.less";
 
 .filters {
+  .gradient-card();
   width: 340px;
   padding: 28px;
   border-radius: @border-radius-xl;
-  background: @profile-gradient;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .filters-title {
@@ -18,8 +17,7 @@
 }
 
 .filter-group {
-  display: flex;
-  flex-direction: column;
+  .flex-column();
   gap: 14px;
   margin-bottom: @spacing-huge;
   position: relative;
@@ -155,8 +153,8 @@
 
 .apply-btn {
   .button-style();
+  .button-large();
   width: 100%;
   padding: @spacing-xxl;
-  font-size: @font-size-md;
   margin-top: @spacing-lg;
 }

@@ -30,12 +30,13 @@ button {
   .button-style();
 
   &.extra-button {
-    .button-style(@secondary-color, #4a5a5a);
+    .button-secondary();
   }
 }
 
 header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   max-width: 100%;
   height: 90px;
@@ -45,7 +46,8 @@ header {
 }
 
 .logo {
-  .flex-center();
+  display: flex;
+  align-items: center;
   gap: @spacing-lg;
   margin-left: @spacing-lg;
 
@@ -70,41 +72,31 @@ header {
 }
 
 .nav {
-  .flex-center();
+  display: flex;
+  align-items: center;
   gap: @spacing-xxxl;
   min-width: 0;
   overflow: hidden;
 
   &-button {
+    .button-style();
     min-width: 80px;
     width: 170px;
     height: 40px;
     padding: 0 @spacing-xl;
-    // ВОССТАНАВЛИВАЕМ СПЕЦИФИЧНЫЕ СТИЛИ ДЛЯ КНОПОК В ХЕДЕРЕ
-    background: @primary-color;
-    border: none;
-    border-radius: 10px;
-    font-family: @font-family;
-    font-weight: bold;
     font-size: 16px;
-    line-height: normal;
-    color: @white;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    border-radius: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     flex-shrink: 1;
     flex-grow: 0;
-
-    &:hover {
-      background: #1a4040;
-    }
   }
 }
 
 .account {
-  .flex-center();
+  display: flex;
+  align-items: center;
   gap: @spacing-xl;
   cursor: pointer;
   margin-right: @spacing-xxxl;
@@ -118,14 +110,13 @@ header {
   &-text {
     text-align: center;
     font-weight: bold;
-    // ВОССТАНАВЛИВАЕМ РАЗМЕР ШРИФТА
     font-size: 16px;
   }
 }
 
 footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   gap: 40px;
   max-width: 100%;
   height: 195px;
@@ -135,39 +126,41 @@ footer {
   background: linear-gradient(180deg, rgba(39, 88, 88, 0.3) 0%, rgba(7, 200, 200, 0.3) 100%);
 }
 
-.contacts {
+.disclaimer {
+  p {
+    font-size: @font-size-xs;
+    line-height: 1.5;
+    color: @dark-gray;
+    text-align: justify;
+  }
+}
+
+.contacts, .social-media {
   display: flex;
   flex-direction: column;
-  // ВЫРАВНИВАЕМ ПО ЛЕВОМУ КРАЮ
+}
+
+.contacts {
   align-items: flex-start;
   text-align: left;
-
-  h3 {
-    font-weight: bold;
-    font-size: @font-size-lg;
-    line-height: 24px;
-    color: @dark-gray;
-    margin-bottom: @spacing-xl;
-  }
 }
 
 .social-media {
-  display: flex;
-  flex-direction: column;
   align-items: center;
+}
 
-  h3 {
-    font-weight: bold;
-    font-size: @font-size-lg;
-    line-height: 24px;
-    color: @dark-gray;
-    margin-bottom: @spacing-xl;
-  }
+.contacts h3, .social-media h3 {
+  font-weight: bold;
+  font-size: @font-size-lg;
+  line-height: 24px;
+  color: @dark-gray;
+  margin-bottom: @spacing-xl;
 }
 
 .contact-item {
-  .flex-center();
-  justify-content: flex-start; // ВЫРАВНИВАЕМ ПО ЛЕВОМУ КРАЮ
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   gap: @spacing-lg;
 
   span {
@@ -193,7 +186,8 @@ footer {
 }
 
 .social-icons {
-  .flex-center();
+  display: flex;
+  align-items: center;
   height: 56px;
   gap: @spacing-xxl;
   margin-top: @spacing-md;
@@ -214,13 +208,9 @@ footer {
   }
 }
 
-// Common components
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: @spacing-md;
-  flex: 1;
-
+  .form-group();
+  
   label {
     font-weight: 400;
     font-size: @font-size-xl;
@@ -229,8 +219,7 @@ footer {
   }
 
   input {
-    .form-field();
-    padding: @spacing-xl @spacing-xxl;
+    .form-field(@spacing-xl @spacing-xxl);
     font-size: @font-size-xl;
 
     &:focus {
@@ -250,59 +239,24 @@ footer {
   justify-content: center;
 }
 
-// ВОССТАНАВЛИВАЕМ РАЗМЕРЫ ДЛЯ EXTRA-КНОПОК
-.clear-btn,
-.extra-button {
+.clear-btn, .extra-button {
+  .button-secondary();
+  .button-large();
   width: 100%;
-  height: 54px;
-  background: @secondary-color;
-  border: none;
-  border-radius: @border-radius-lg;
-  font-family: @font-family;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: @white;
-  cursor: pointer;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: #4a5a5a;
-  }
 }
 
 .book-btn {
+  .button-style();
+  .button-large();
   width: 100%;
-  height: 54px;
-  background: @primary-color;
-  border: none;
-  border-radius: @border-radius-lg;
-  font-family: @font-family;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: @white;
-  cursor: pointer;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: #1a4040;
-  }
 }
 
 .section-title {
-  font-weight: 700;
-  font-size: @font-size-huge;
-  line-height: 44px;
-  color: @black;
-  margin-bottom: @spacing-huge;
+  .heading-large();
 }
 
 .info-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: @spacing-md 0;
+  .info-item-base();
 }
 
 .info-label, .info-value {
