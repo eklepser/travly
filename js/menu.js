@@ -1,4 +1,3 @@
-// Функция загрузки страницы (без изменений)
 function loadPage(pagePath) {
     fetch(pagePath)
         .then(response => {

@@ -5,21 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: remove old css files">
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/base.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/booking-form.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/booking-form.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/card.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/card.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/filter-panel.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/about.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/about.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/account.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/auth.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/booking.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/booking.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/help.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/help.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/main.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/selection.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/flex/selection.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/mixins.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/mixins.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/flex/about.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/flex/account.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/flex/auth.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/flex/booking.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/flex/help.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/flex/main.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/flex/selection.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/grid/about.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/grid/account.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/grid/auth.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/grid/booking.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/grid/help.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/grid/main.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/grid/selection.less" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/less/styles.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/styles.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/variables.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/variables.less" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,11 +103,11 @@
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\contacts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nikitos\Desktop\travly\less\layout\common" />
+      <recent name="C:\Users\Nikitos\Desktop\travly\less" />
+      <recent name="C:\Users\Nikitos\Desktop\travly\less\layout" />
+      <recent name="C:\Users\Nikitos\Desktop\travly\less\view" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\less\layout" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\less\layout\flex" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\layout" />
     </key>
   </component>
   <component name="RunManager">
