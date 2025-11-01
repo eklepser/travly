@@ -1,0 +1,194 @@
+// Main page
+@import "common/main.less";
+.main-page {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  align-items: start;
+  .tours-section {
+    display: grid;
+  }
+}
+.tours-title {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+.cards-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.sorting-options {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+}
+.sort-summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+// Booking page
+@import "common/booking.less";
+.booking-main {
+  display: grid;
+}
+.booking-content {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+}
+.booking-left-section {
+  display: grid;
+}
+.card-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.hotel-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+// About page
+@import "common/about.less";
+.about-content {
+  display: grid;
+}
+.info-section, .philosophy-section, .activity-section {
+  display: grid;
+}
+
+// Help page
+@import "common/help.less";
+.faq-section {
+  display: grid;
+}
+.rating-examples {
+  display: grid;
+}
+.rating-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+}
+.stars {
+  display: grid;
+  grid-auto-flow: column;
+}
+.contact-method {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+// Auth page
+@import "common/auth.less";
+.auth-main {
+  display: grid;
+  place-items: center;
+}
+.user-type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.auth-form {
+  .form-options {
+    display: grid;
+    justify-content: end;
+  }
+  .logo {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    place-content: center;
+  }
+}
+
+// Account page
+@import "common/account.less";
+.account-main {
+  display: grid;
+}
+.profile-section {
+  display: grid;
+}
+.profile-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.profile-left, .profile-right {
+  display: grid;
+}
+.profile-right {
+  justify-items: center;
+  .logo {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.info-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  .info-group {
+    display: grid;
+  }
+}
+.info-field {
+  display: grid;
+  place-items: center;
+}
+.account-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.account-main .tours-section {
+  display: grid;
+}
+.booking-card-wrapper {
+  display: grid;
+  h2 {
+    justify-self: start;
+  }
+  .booking-card {
+    justify-self: center;
+  }
+}
+.promo-section {
+  display: grid;
+}
+
+// Selection page
+@import "common/selection.less";
+.selection-main {
+  display: grid;
+}
+.selection-content {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+}
+.hotel-left-section {
+  display: grid;
+}
+.hotel-info {
+  display: grid;
+}
+.services-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.service-group label {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: center;
+}
+.summary-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.cost-item, .cost-total {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+

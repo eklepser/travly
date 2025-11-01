@@ -1,0 +1,125 @@
+@import "../../variables.less";
+@import "../../mixins.less";
+
+.selection-main {
+  min-height: 100vh;
+  padding: @spacing-mega;
+  gap: @spacing-mega;
+}
+
+.selection-header {
+  h1 {
+    .heading-large();
+    font-weight: 400;
+    margin-bottom: @spacing-md;
+  }
+
+  h2 {
+    .heading-large();
+    margin-bottom: @spacing-mega;
+  }
+}
+
+.selection-content {
+  gap: @spacing-mega;
+}
+
+.hotel-left-section {
+  gap: @spacing-xxxl;
+}
+
+.change-hotel-btn {
+  .button-secondary();
+  text-align: center;
+  width: 100%;
+}
+
+.hotel-info {
+  .profile-card();
+  gap: @spacing-xxl;
+
+  h3 {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+    color: @black;
+    margin: 0;
+    padding-bottom: @spacing-xxl;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+}
+
+.extra-services-section {
+  .profile-card();
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+    color: @black;
+    margin-bottom: @spacing-huge;
+  }
+}
+
+.services-row {
+  gap: @spacing-xxxl;
+  margin-bottom: @spacing-xxxl;
+}
+
+.service-group {
+  min-width: 200px;
+
+  label {
+    gap: @spacing-xl;
+    font-weight: 400;
+    font-size: @font-size-lg;
+    color: @dark-gray;
+    cursor: pointer;
+    padding: @spacing-md 0;
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+}
+
+.form-select {
+  .form-field(@spacing-xl @spacing-xxl);
+  font-size: @font-size-lg;
+  cursor: pointer;
+}
+
+.selection-summary {
+  .profile-card();
+}
+
+.cost-breakdown {
+  margin-bottom: @spacing-huge;
+}
+
+.summary-buttons {
+  gap: @spacing-xxxl;
+  justify-items: center;
+}
+
+.proceed-btn {
+  .button-style();
+  padding: 14px @spacing-mega;
+  font-size: @font-size-lg;
+}
+
+.cost-item, .cost-total {
+  padding: @spacing-md 0;
+  font-size: @font-size-xl;
+  color: @dark-gray;
+}
+
+.cost-total {
+  font-weight: 700;
+  color: @black;
+  border-top: 2px solid @primary-color;
+  padding-top: @spacing-xxl;
+}

@@ -1,0 +1,162 @@
+@import "../../variables.less";
+@import "../../mixins.less";
+
+.account-main {
+  min-height: 100vh;
+  padding: @spacing-mega;
+  gap: @spacing-mega;
+}
+
+.profile-section {
+  .profile-card();
+}
+
+.profile-title {
+  .heading-large();
+}
+
+.profile-content {
+  gap: @spacing-mega;
+  flex: 1;
+}
+
+.profile-left, .profile-right {
+  gap: @spacing-xxxl;
+  min-width: 0;
+}
+
+.profile-right {
+  .logo {
+    gap: @spacing-huge;
+    margin-bottom: @spacing-huge;
+
+    .logo-text {
+      font-size: 64px;
+      font-weight: 700;
+    }
+
+    .logo-icon {
+      scale: 1.5;
+    }
+  }
+}
+
+.info-row {
+  gap: @spacing-xxxl;
+
+  .info-group {
+    gap: @spacing-xs;
+    min-width: 0;
+
+    label {
+      font-weight: 400;
+      font-size: @font-size-xl;
+      line-height: 140%;
+      color: @black;
+    }
+  }
+}
+
+.info-field {
+  background: @white;
+  border-radius: @border-radius-lg;
+  padding: @spacing-xl @spacing-xxl;
+  min-height: 50px;
+
+  span {
+    font-weight: 400;
+    font-size: @font-size-xl;
+    line-height: 140%;
+    color: @dark-gray;
+  }
+}
+
+.account-actions {
+  gap: @spacing-xl;
+  margin-top: auto;
+
+  .edit-btn, .logout-btn {
+    padding: @spacing-xl @spacing-huge;
+    font-size: @font-size-lg;
+    line-height: 24px;
+  }
+
+  .edit-btn {
+    .button-style();
+  }
+  
+  .logout-btn {
+    .button-secondary();
+  }
+}
+
+.promo-section {
+  width: 50%;
+  gap: @spacing-xl;
+
+  .promo-label {
+    font-weight: 400;
+    font-size: @font-size-xl;
+    line-height: 140%;
+    color: @black;
+    display: block;
+    margin-bottom: @spacing-md;
+  }
+
+  input {
+    .form-field(@spacing-xl @spacing-xxl);
+    font-size: @font-size-xl;
+  }
+}
+
+.activate-btn {
+  .button-style();
+  padding: @spacing-xl @spacing-huge;
+  font-size: @font-size-lg;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tours-title {
+  .heading-large();
+  text-align: center;
+}
+
+.account-main .tours-section {
+  background: @tours-gradient;
+  border-radius: @border-radius-xxl;
+  padding: @spacing-mega;
+  gap: @spacing-behemoth;
+}
+
+.booking-card-wrapper {
+  gap: @spacing-xxl;
+  flex-shrink: 0;
+
+  h2 {
+    font-weight: 700;
+    font-size: @font-size-huge;
+    line-height: 44px;
+  }
+
+  .booking-card {
+    width: @booking-card-width;
+    height: @booking-card-height;
+    border-radius: @border-radius-xxl;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+}
+
+.cancel-btn {
+  .cancel-button();
+  width: 100%;
+  max-width: 550px;
+  padding: @spacing-xl;
+  font-size: @font-size-md;
+  line-height: 1.4;
+}
+

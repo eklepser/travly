@@ -1,0 +1,195 @@
+// Main page
+@import "common/main.less";
+.main-page {
+  display: flex;
+  .tours-section {
+    .flex-column();
+    justify-content: flex-start;
+  }
+}
+.tours-title {
+  .flex-center();
+  justify-content: flex-start;
+}
+.cards-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.sorting-options {
+  .flex-center();
+}
+.sort-summary {
+  .flex-center();
+  justify-content: space-between;
+}
+
+// Booking page
+@import "common/booking.less";
+.booking-main {
+  .flex-column();
+}
+.booking-content {
+  display: flex;
+}
+.booking-left-section {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.booking-card {
+  flex-shrink: 0;
+}
+.card-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hotel-features {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// About page
+@import "common/about.less";
+.info-section, .philosophy-section, .activity-section {
+  .flex-column();
+  align-items: flex-start;
+}
+
+// Help page
+@import "common/help.less";
+.faq-section {
+  display: flex;
+  flex-direction: column;
+}
+.rating-examples {
+  display: flex;
+  flex-direction: column;
+}
+.rating-item {
+  display: flex;
+  align-items: flex-start;
+}
+.stars {
+  display: flex;
+}
+.contact-method {
+  display: flex;
+}
+
+// Auth page
+@import "common/auth.less";
+.auth-main {
+  .flex-center();
+}
+.user-type-selector {
+  display: flex;
+  .tourist, .organizator {
+    flex: 1;
+  }
+}
+.auth-form {
+  .form-options {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .logo {
+    .flex-center();
+  }
+}
+
+// Account page
+@import "common/account.less";
+.account-main {
+  .flex-column();
+}
+.profile-section {
+  .flex-column();
+}
+.profile-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+.profile-left, .profile-right {
+  .flex-column();
+  flex: 1 1 300px;
+}
+.profile-right {
+  align-items: center;
+  .logo {
+    .flex-center();
+  }
+}
+.info-row {
+  .flex-row();
+  flex-wrap: wrap;
+  .info-group {
+    .flex-column();
+    flex: 1 1 280px;
+  }
+}
+.info-field {
+  .flex-center();
+}
+.account-actions {
+  display: flex;
+  .edit-btn, .logout-btn {
+    flex: 1;
+  }
+}
+.account-main .tours-section {
+  display: flex;
+  flex-direction: column;
+}
+.booking-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2 {
+    align-self: self-start;
+  }
+}
+.promo-section {
+  .flex-column();
+}
+.activate-btn {
+  flex: 1;
+}
+
+// Selection page
+@import "common/selection.less";
+.selection-main {
+  .flex-column();
+}
+.selection-content {
+  display: flex;
+}
+.hotel-left-section {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.hotel-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.services-row {
+  .flex-row();
+  flex-wrap: wrap;
+}
+.service-group {
+  flex: 1;
+  label {
+    .flex-center();
+  }
+}
+.summary-buttons {
+  display: flex;
+  justify-content: center;
+}
+.cost-item, .cost-total {
+  .info-item-base();
+}
+
