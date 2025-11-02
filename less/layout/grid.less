@@ -15,7 +15,19 @@
 }
 .cards-panel {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  gap: @spacing-xxl;
+  justify-items: stretch;
+  
+  > * {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .card {
+    max-width: 100%;
+  }
 }
 .sorting-options {
   display: grid;
@@ -114,10 +126,14 @@
 }
 .profile-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
+  gap: @spacing-mega;
+  align-items: start;
 }
 .profile-left, .profile-right {
   display: grid;
+  min-width: 0;
+  overflow: hidden;
 }
 .profile-right {
   justify-items: center;
@@ -146,13 +162,32 @@
 .account-main .tours-section {
   display: grid;
 }
+
+.account-main .booking-content {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
+  gap: @spacing-mega;
+  align-items: start;
+  
+  > * {
+    min-width: 0;
+    overflow: hidden;
+  }
+}
+
 .booking-card-wrapper {
   display: grid;
+  min-width: 0;
+  overflow: hidden;
+  
   h2 {
     justify-self: start;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
   .booking-card {
     justify-self: center;
+    max-width: 100%;
   }
 }
 .promo-section {

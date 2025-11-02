@@ -4,25 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="fix: remove duplicate code">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/base.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/booking-form.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/booking-form.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/card.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/card.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/filter-panel.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/tour-info.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/tour-info.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/tours-banner.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/tours-banner.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/about.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/about.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/account.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/auth.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/booking.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/booking.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/help.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/help.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/main.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/selection.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/selection.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/mixins.less" beforeDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: move common code in base.less">
+      <change beforePath="$PROJECT_DIR$/less/layout/grid.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/grid.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/less/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/less/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/styles.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/styles.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/variables.less" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "ff5d6451",
+    "git-widget-placeholder": "0e2e1d7b",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/Nikitos/WebstormProjects/travly/less/components",
     "list.type.of.created.stylesheet": "CSS",
@@ -410,7 +394,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762104665997</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="refactor: move common code in base.less">
+      <option name="closed" value="true" />
+      <created>1762105070628</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1762105070628</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,7 +427,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor: move css files into separate folder" />
     <MESSAGE value="refactor: rename css files" />
     <MESSAGE value="refactor: optimize styles code" />
     <MESSAGE value="feat: improve banner and card view on main page" />
@@ -460,6 +451,7 @@
     <MESSAGE value="feat: add less based styles" />
     <MESSAGE value="refactor: remove old css files" />
     <MESSAGE value="fix: remove duplicate code" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: remove duplicate code" />
+    <MESSAGE value="refactor: move common code in base.less" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: move common code in base.less" />
   </component>
 </project>
