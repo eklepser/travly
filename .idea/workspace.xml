@@ -5,25 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: remove old css files">
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/layout/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/layout/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/flex/about.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/flex/account.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/flex/auth.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/flex/booking.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/flex/help.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/flex/main.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/flex/selection.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/grid/about.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/grid/account.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/grid/auth.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/grid/booking.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/grid/help.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/grid/main.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/grid/selection.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/base.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/booking-form.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/booking-form.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/filter-panel.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/common/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/account.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/common/selection.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/selection.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/mixins.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/mixins.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/less/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/less/styles.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/styles.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/variables.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/variables.less" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,28 +63,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.main.html.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Nikitos/WebstormProjects/travly/less/components&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.index.html.executor": "Run",
+    "JavaScript Debug.main.html.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "9a4629f7",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Nikitos/WebstormProjects/travly/less/components",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "watcher.settings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\less\components" />
@@ -414,7 +405,14 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="109" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="148" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

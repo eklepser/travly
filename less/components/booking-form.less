@@ -95,37 +95,3 @@
     font-size: @font-size-lg;
   }
 }
-
-.respond-to(mobile, {
-  .booking-form {
-    margin: @spacing-xl;
-    padding: @spacing-xl;
-
-    .from-row {
-      flex-wrap: wrap;
-    }
-
-    .form-group {
-      min-width: calc(50% - @spacing-sm);
-    }
-
-    .form-buttons {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .clear-btn, .book-btn {
-      width: 100%;
-      max-width: 267px;
-    }
-
-    .info-item {
-      flex-direction: column;
-      gap: @spacing-sm;
-    }
-
-    .info-label, .info-value {
-      text-align: left;
-    }
-  }
-});

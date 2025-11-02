@@ -253,6 +253,7 @@ footer {
 
 .section-title {
   .heading-large();
+  margin-bottom: @spacing-mega;
 }
 
 .info-item {
@@ -269,32 +270,3 @@ footer {
 .info-value {
   text-align: right;
 }
-
-.respond-to(mobile, {
-  .form-row {
-    flex-wrap: wrap;
-  }
-
-  .form-group {
-    min-width: calc(50% - 8px);
-  }
-
-  .form-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .clear-btn, .book-btn {
-    width: 100%;
-    max-width: 320px;
-  }
-
-  .info-item {
-    flex-direction: column;
-    gap: @spacing-md;
-  }
-
-  .info-label, .info-value {
-    text-align: left;
-  }
-});
