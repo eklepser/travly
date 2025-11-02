@@ -471,34 +471,31 @@ footer {
   color: #459292;
 }
 .main-page {
-  display: flex;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  align-items: start;
 }
 .main-page .tours-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  display: grid;
 }
 .tours-title {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  justify-content: center;
-  justify-content: flex-start;
 }
 .cards-panel {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 .sorting-options {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
   align-items: center;
-  justify-content: center;
 }
 .sort-summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: center;
-  justify-content: space-between;
 }
 .booking-main {
   min-height: 100vh;
@@ -615,28 +612,23 @@ footer {
   margin-top: 13px;
 }
 .booking-main {
-  display: flex;
-  flex-direction: column;
+  display: grid;
 }
 .booking-content {
-  display: flex;
+  display: grid;
+  grid-template-columns: 40% 1fr;
 }
 .booking-left-section {
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-}
-.booking-card {
-  flex-shrink: 0;
+  display: grid;
 }
 .card-details {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
 }
 .hotel-features {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 .about-page {
   display: flex;
@@ -710,12 +702,13 @@ footer {
 .back-to-main-btn:hover {
   transform: translateY(-2px);
 }
+.about-content {
+  display: grid;
+}
 .info-section,
 .philosophy-section,
 .activity-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
 }
 .help-page {
   display: flex;
@@ -793,22 +786,23 @@ footer {
   justify-content: center;
 }
 .faq-section {
-  display: flex;
-  flex-direction: column;
+  display: grid;
 }
 .rating-examples {
-  display: flex;
-  flex-direction: column;
+  display: grid;
 }
 .rating-item {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
 }
 .stars {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
 }
 .contact-method {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
 }
 .auth-btn {
   border: none;
@@ -959,25 +953,22 @@ footer {
   text-decoration: underline;
 }
 .auth-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 }
 .user-type-selector {
-  display: flex;
-}
-.user-type-selector .tourist,
-.user-type-selector .organizator {
-  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 .auth-form .form-options {
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  justify-content: end;
 }
 .auth-form .logo {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   align-items: center;
-  justify-content: center;
+  place-content: center;
 }
 .account-main {
   min-height: 100vh;
@@ -1177,71 +1168,57 @@ footer {
   background: #b71c1c;
 }
 .account-main {
-  display: flex;
-  flex-direction: column;
+  display: grid;
 }
 .profile-section {
-  display: flex;
-  flex-direction: column;
+  display: grid;
 }
 .profile-content {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 .profile-left,
 .profile-right {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 300px;
+  display: grid;
 }
 .profile-right {
-  align-items: center;
+  justify-items: center;
 }
 .profile-right .logo {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   align-items: center;
   justify-content: center;
 }
 .info-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 .info-row .info-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 280px;
+  display: grid;
 }
 .info-field {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 }
 .account-actions {
-  display: flex;
-}
-.account-actions .edit-btn,
-.account-actions .logout-btn {
-  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 .account-main .tours-section {
-  display: flex;
-  flex-direction: column;
+  display: grid;
 }
 .booking-card-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
 }
 .booking-card-wrapper h2 {
-  align-self: self-start;
+  justify-self: start;
+}
+.booking-card-wrapper .booking-card {
+  justify-self: center;
 }
 .promo-section {
-  display: flex;
-  flex-direction: column;
-}
-.activate-btn {
-  flex: 1;
+  display: grid;
 }
 .selection-main {
   min-height: 100vh;
@@ -1395,45 +1372,35 @@ footer {
   padding-top: 16px;
 }
 .selection-main {
-  display: flex;
-  flex-direction: column;
+  display: grid;
 }
 .selection-content {
-  display: flex;
+  display: grid;
+  grid-template-columns: 40% 1fr;
 }
 .hotel-left-section {
-  width: 40%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
 }
 .hotel-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: grid;
 }
 .services-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.service-group {
-  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 .service-group label {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px 1fr;
   align-items: center;
-  justify-content: center;
 }
 .summary-buttons {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 .cost-item,
 .cost-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 .filters {
   background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
