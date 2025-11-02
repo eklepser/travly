@@ -14,33 +14,6 @@
 @card-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.9) 100%);
 
 @font-family: 'Inter', sans-serif;
-@font-size-xs: 14px;
-@font-size-sm: 16px;
-@font-size-md: 18px;
-@font-size-lg: 20px;
-@font-size-xl: 24px;
-@font-size-xxl: 27px;
-@font-size-xxxl: 32px;
-@font-size-huge: 36px;
-@font-size-giant: 48px;
-
-@spacing-xs: 4px;
-@spacing-sm: 7px;
-@spacing-md: 8px;
-@spacing-lg: 12px;
-@spacing-xl: 13px;
-@spacing-xxl: 16px;
-@spacing-xxxl: 20px;
-@spacing-huge: 24px;
-@spacing-giant: 27px;
-@spacing-mega: 32px;
-
-@border-radius-sm: 6px;
-@border-radius-md: 7px;
-@border-radius-lg: 8px;
-@border-radius-xl: 12px;
-@border-radius-xxl: 16px;
-@border-radius-xxxl: 32px;
 
 @error-color: #d32f2f;
 @gray-dark: #666666;
@@ -56,16 +29,11 @@
 @profile-gradient: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
 @tours-gradient: linear-gradient(0deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
 
-@spacing-jumbo: 36px;
-@spacing-colossal: 40px;
-@spacing-titan: 50px;
-@spacing-gargantuan: 60px;
-@spacing-behemoth: 64px;
 
 // Mixins
 .button-base() {
   border: none;
-  border-radius: @border-radius-lg;
+  border-radius: 8px;
   font-family: @font-family;
   font-weight: 700;
   cursor: pointer;
@@ -84,7 +52,7 @@
 
 .button-large() {
   height: 54px;
-  font-size: @font-size-lg;
+  font-size: 20px;
   line-height: 22px;
 }
 
@@ -115,7 +83,7 @@
 .form-field-base() {
   width: 100%;
   background: @white;
-  border-radius: @border-radius-md;
+  border-radius: 7px;
   border: none;
   font-family: @font-family;
   font-weight: 400;
@@ -139,7 +107,7 @@
 .form-group() {
   display: flex;
   flex-direction: column;
-  gap: @spacing-md;
+  gap: 8px;
   flex: 1;
 }
 
@@ -148,13 +116,13 @@
 
   label {
     font-weight: 400;
-    font-size: @font-size-xl;
+    font-size: 24px;
     line-height: 140%;
     color: @black;
   }
 
   input, select, textarea {
-    .form-field(@spacing-xl @spacing-xxl);
+    .form-field(13px 16px);
   }
 }
 
@@ -165,7 +133,7 @@
   background: @card-gradient;
 }
 
-.card-container(@bg: @white, @radius: @border-radius-xxl, @padding: @spacing-mega) {
+.card-container(@bg: @white, @radius: 16px, @padding: 32px) {
   background: @bg;
   border-radius: @radius;
   padding: @padding;
@@ -185,8 +153,8 @@
   .flex-column();
   align-items: center;
   width: 100%;
-  border-radius: @border-radius-xxl;
-  padding: @spacing-xxxl;
+  border-radius: 16px;
+  padding: 20px;
   font-family: @font-family;
   font-style: italic;
   text-align: center;
@@ -196,21 +164,21 @@
 
 .heading-large() {
   font-weight: 700;
-  font-size: @font-size-huge;
+  font-size: 36px;
   line-height: 44px;
   color: @black;
-  margin-bottom: @spacing-huge;
+  margin-bottom: 24px;
 }
 
 .heading-medium() {
   font-weight: 700;
-  font-size: @font-size-xxxl;
+  font-size: 32px;
   line-height: 44px;
 }
 
 .heading-small() {
   font-weight: 700;
-  font-size: @font-size-xl;
+  font-size: 24px;
   line-height: 140%;
 }
 
@@ -218,13 +186,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: @spacing-md 0;
+  padding: 8px 0;
 }
 
 .auth-form-styles() {
   .flex-column();
   justify-content: center;
-  gap: @spacing-xxxl;
+  gap: 20px;
 
   .form-row {
     .flex-row();
@@ -240,10 +208,10 @@
       box-sizing: border-box;
       padding: 14px 16px;
       border: 2px solid #E0E0E0;
-      border-radius: @border-radius-lg;
+      border-radius: 8px;
       font-family: @font-family;
       font-weight: 400;
-      font-size: @font-size-sm;
+      font-size: 16px;
       color: @dark-gray;
       transition: border-color 0.3s ease;
 
@@ -298,16 +266,16 @@ header {
   justify-content: space-between;
   max-width: 100%;
   height: 90px;
-  gap: @spacing-xxxl;
-  padding: @spacing-xxxl;
+  gap: 20px;
+  padding: 20px;
   background: rgba(169, 245, 245, 0.3);
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: @spacing-lg;
-  margin-left: @spacing-lg;
+  gap: 12px;
+  margin-left: 12px;
 
   &-text {
     font-style: italic;
@@ -332,7 +300,7 @@ header {
 .nav {
   display: flex;
   align-items: center;
-  gap: @spacing-xxxl;
+  gap: 20px;
   min-width: 0;
   overflow: hidden;
 
@@ -341,7 +309,7 @@ header {
     min-width: 80px;
     width: 170px;
     height: 40px;
-    padding: 0 @spacing-xl;
+    padding: 0 13px;
     font-size: 16px;
     border-radius: 10px;
     white-space: nowrap;
@@ -355,9 +323,9 @@ header {
 .account {
   display: flex;
   align-items: center;
-  gap: @spacing-xl;
+  gap: 13px;
   cursor: pointer;
-  margin-right: @spacing-xxxl;
+  margin-right: 20px;
 
   &-icon {
     width: 56px;
@@ -378,15 +346,15 @@ footer {
   gap: 40px;
   max-width: 100%;
   height: 195px;
-  padding: @spacing-xl;
+  padding: 13px;
   overflow: hidden;
-  font-size: @font-size-lg;
+  font-size: 20px;
   background: linear-gradient(180deg, rgba(39, 88, 88, 0.3) 0%, rgba(7, 200, 200, 0.3) 100%);
 }
 
 .disclaimer {
   p {
-    font-size: @font-size-xs;
+    font-size: 14px;
     line-height: 1.5;
     color: @dark-gray;
     text-align: justify;
@@ -409,20 +377,20 @@ footer {
 
 .contacts h3, .social-media h3 {
   font-weight: bold;
-  font-size: @font-size-lg;
+  font-size: 20px;
   line-height: 24px;
   color: @dark-gray;
-  margin-bottom: @spacing-xl;
+  margin-bottom: 13px;
 }
 
 .contact-item {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: @spacing-lg;
+  gap: 12px;
 
   span {
-    font-size: @font-size-sm;
+    font-size: 16px;
     color: @dark-gray;
     white-space: nowrap;
   }
@@ -447,8 +415,8 @@ footer {
   display: flex;
   align-items: center;
   height: 56px;
-  gap: @spacing-xxl;
-  margin-top: @spacing-md;
+  gap: 16px;
+  margin-top: 8px;
 }
 
 .social-icon {
@@ -471,14 +439,14 @@ footer {
   
   label {
     font-weight: 400;
-    font-size: @font-size-xl;
+    font-size: 24px;
     line-height: 140%;
     color: @black;
   }
 
   input {
-    .form-field(@spacing-xl @spacing-xxl);
-    font-size: @font-size-xl;
+    .form-field(13px 16px);
+    font-size: 24px;
 
     &:focus {
       border-color: @primary-color;
@@ -493,7 +461,7 @@ footer {
 
 .form-buttons {
   display: flex;
-  gap: @spacing-xxxl;
+  gap: 20px;
   justify-content: center;
 }
 
@@ -511,7 +479,7 @@ footer {
 
 .section-title {
   .heading-large();
-  margin-bottom: @spacing-mega;
+  margin-bottom: 32px;
 }
 
 .info-item {
@@ -520,7 +488,7 @@ footer {
 
 .info-label, .info-value {
   font-weight: 400;
-  font-size: @font-size-xl;
+  font-size: 24px;
   line-height: 140%;
   color: @black;
 }
