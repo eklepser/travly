@@ -571,3 +571,75 @@ footer {
     }
   }
 }
+
+// Стили для валидации - минимальные изменения
+.input-field {
+  position: relative;
+
+  input {
+    transition: all 0.3s ease;
+    color: @dark-gray !important; // Темный цвет для введенного текста
+
+    &::placeholder {
+      color: @gray !important; // Серый только для плейсхолдера
+    }
+
+    &.valid {
+      border-color: #4CAF50 !important;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+    }
+
+    &.invalid {
+      border-color: @error-color !important;
+      box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.1);
+    }
+  }
+}
+
+// Сообщения об ошибках - позиционируем правильно
+.form-group {
+  position: relative;
+  margin-bottom: 8px; // Добавляем место для ошибок
+
+  .error-message {
+    color: @error-color;
+    font-size: 12px;
+    margin-top: 4px;
+    font-family: @font-family;
+    font-weight: 400;
+    display: block;
+    min-height: 16px; // Резервируем место для текста ошибки
+  }
+}
+
+// Для форм бронирования - сохраняем оригинальные отступы
+.booking-form {
+  .form-group {
+    margin-bottom: 8px; // Сохраняем оригинальные отступы
+
+    .error-message {
+      position: static; // Убираем absolute позиционирование
+      margin-top: 4px;
+      min-height: 16px;
+    }
+  }
+}
+
+// Для форм авторизации
+.auth-form {
+  .form-group {
+    .error-message {
+      margin-top: 4px;
+      min-height: 16px;
+    }
+  }
+}
+
+// Убедимся, что цвет текста правильный во всех случаях
+input, textarea {
+  color: @dark-gray !important;
+
+  &::placeholder {
+    color: @gray !important;
+  }
+}

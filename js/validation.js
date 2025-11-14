@@ -35,6 +35,13 @@ class FormValidator {
     setupGlobalEventHandlers() {
         // Глобальные обработчики через делегирование
         $(document)
+            .on('input', 'input', (e) => {
+                // При вводе текста обновляем цвет
+                const $input = $(e.target);
+                if ($input.val().trim() !== '') {
+                    $input.css('color', '#1E1E1E');
+                }
+            })
             .on('blur', '.auth-form input[type="text"]', (e) => {
                 const $input = $(e.target);
                 const placeholder = $input.attr('placeholder');
@@ -257,10 +264,12 @@ class FormValidator {
         return day >= 1 && day <= daysInMonth;
     }
 
-    // Установка состояния валидации
     setValidationState($input, isValid, message) {
+        // Находим родительский .input-field или .form-group
+        const $container = $input.closest('.input-field');
+
         // Удаляем предыдущие сообщения об ошибках
-        $input.siblings('.error-message').remove();
+        $container.find('.error-message').remove();
 
         // Удаляем предыдущие классы
         $input.removeClass('valid invalid');
@@ -271,7 +280,7 @@ class FormValidator {
             $input.addClass('invalid');
 
             // Добавляем сообщение об ошибке
-            if (message && $input.val().trim() !== '') {
+            if (message) {
                 const $errorElement = $('<div>')
                     .addClass('error-message')
                     .text(message)
@@ -279,12 +288,37 @@ class FormValidator {
                         color: '#d32f2f',
                         fontSize: '12px',
                         marginTop: '4px',
-                        fontFamily: 'Inter, sans-serif'
+                        fontFamily: 'Inter, sans-serif',
+                        display: 'block',
+                        minHeight: '16px'
                     });
 
+                // Добавляем после input внутри .input-field
                 $input.after($errorElement);
             }
         }
+    }
+
+// Добавим метод для исправления цвета текста
+    fixInputTextColor() {
+        $('input').each(function() {
+            const $input = $(this);
+            // Если в поле есть текст, убедимся что он темный
+            if ($input.val().trim() !== '') {
+                $input.css('color', '#1E1E1E');
+            }
+        });
+    }
+
+// Обновим setupValidation
+    setupValidation() {
+        console.log('Initializing validation for dynamically loaded content...');
+        this.fixInputTextColor();
+
+        // Дополнительная инициализация для специфических случаев
+        this.setupAuthValidation();
+        this.setupRegistrationValidation();
+        this.setupBookingValidation();
     }
 
     // Проверка всей формы авторизации

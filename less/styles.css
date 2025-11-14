@@ -210,6 +210,27 @@ footer {
   flex-direction: column;
   gap: 8px;
   flex: 1;
+  position: relative;
+  margin-bottom: 8px;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #275858;
+}
+.form-group input:focus.invalid {
+  border-color: #d32f2f !important;
+}
+.form-group input:focus.valid {
+  border-color: #4CAF50 !important;
+}
+.form-group .error-message {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  display: block;
+  min-height: 16px;
 }
 .form-group label {
   font-weight: 400;
@@ -306,6 +327,106 @@ footer {
 }
 .info-value {
   text-align: right;
+}
+.input-field {
+  position: relative;
+}
+.input-field input {
+  transition: all 0.3s ease;
+}
+.input-field input.valid {
+  border-color: #4CAF50 !important;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+.input-field input.invalid {
+  border-color: #d32f2f !important;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.1);
+}
+.error-message {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+.auth-form .form-group {
+  position: relative;
+}
+.auth-form .form-group input.valid {
+  border-color: #4CAF50 !important;
+}
+.auth-form .form-group input.invalid {
+  border-color: #d32f2f !important;
+}
+.booking-form .form-group {
+  position: relative;
+}
+.booking-form .form-group .error-message {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  font-size: 11px;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #275858;
+}
+.form-group input:focus.invalid {
+  border-color: #d32f2f !important;
+}
+.form-group input:focus.valid {
+  border-color: #4CAF50 !important;
+}
+.input-field {
+  position: relative;
+}
+.input-field input {
+  transition: all 0.3s ease;
+  color: #1E1E1E !important;
+}
+.input-field input::placeholder {
+  color: #AEAEAE !important;
+}
+.input-field input.valid {
+  border-color: #4CAF50 !important;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+.input-field input.invalid {
+  border-color: #d32f2f !important;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.1);
+}
+.form-group {
+  position: relative;
+  margin-bottom: 8px;
+}
+.form-group .error-message {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  display: block;
+  min-height: 16px;
+}
+.booking-form .form-group {
+  margin-bottom: 8px;
+}
+.booking-form .form-group .error-message {
+  position: static;
+  margin-top: 4px;
+  min-height: 16px;
+}
+.auth-form .form-group .error-message {
+  margin-top: 4px;
+  min-height: 16px;
+}
+input,
+textarea {
+  color: #1E1E1E !important;
+}
+input::placeholder,
+textarea::placeholder {
+  color: #AEAEAE !important;
 }
 .main-page {
   gap: 20px;
@@ -471,41 +592,34 @@ footer {
   color: #459292;
 }
 .main-page {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  align-items: start;
+  display: flex;
 }
 .main-page .tours-section {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 .tours-title {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  justify-content: flex-start;
 }
 .cards-panel {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  justify-items: stretch;
-}
-.cards-panel > * {
-  min-width: 0;
-  width: 100%;
-  max-width: 100%;
-}
-.cards-panel .card {
-  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .sorting-options {
-  display: grid;
-  grid-auto-flow: column;
+  display: flex;
   align-items: center;
+  justify-content: center;
 }
 .sort-summary {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  justify-content: space-between;
 }
 .booking-main {
   min-height: 100vh;
@@ -622,23 +736,28 @@ footer {
   margin-top: 13px;
 }
 .booking-main {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 .booking-content {
-  display: grid;
-  grid-template-columns: 40% 1fr;
+  display: flex;
 }
 .booking-left-section {
-  display: grid;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.booking-card {
+  flex-shrink: 0;
 }
 .card-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 .hotel-features {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
 }
 .about-page {
   display: flex;
@@ -712,13 +831,12 @@ footer {
 .back-to-main-btn:hover {
   transform: translateY(-2px);
 }
-.about-content {
-  display: grid;
-}
 .info-section,
 .philosophy-section,
 .activity-section {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .help-page {
   display: flex;
@@ -796,23 +914,22 @@ footer {
   justify-content: center;
 }
 .faq-section {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 .rating-examples {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 .rating-item {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: start;
+  display: flex;
+  align-items: flex-start;
 }
 .stars {
-  display: grid;
-  grid-auto-flow: column;
+  display: flex;
 }
 .contact-method {
-  display: grid;
-  grid-auto-flow: column;
+  display: flex;
 }
 .auth-btn {
   border: none;
@@ -963,22 +1080,25 @@ footer {
   text-decoration: underline;
 }
 .auth-main {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .user-type-selector {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+}
+.user-type-selector .tourist,
+.user-type-selector .organizator {
+  flex: 1;
 }
 .auth-form .form-options {
-  display: grid;
-  justify-content: end;
+  display: flex;
+  justify-content: flex-end;
 }
 .auth-form .logo {
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
   align-items: center;
-  place-content: center;
+  justify-content: center;
 }
 .account-main {
   min-height: 100vh;
@@ -1178,76 +1298,71 @@ footer {
   background: #b71c1c;
 }
 .account-main {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 .profile-section {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 .profile-content {
-  display: grid;
-  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
-  gap: 32px;
-  align-items: start;
+  display: flex;
+  flex-wrap: wrap;
 }
 .profile-left,
 .profile-right {
-  display: grid;
-  min-width: 0;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 300px;
 }
 .profile-right {
-  justify-items: center;
+  align-items: center;
 }
 .profile-right .logo {
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 .info-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .info-row .info-group {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 280px;
 }
 .info-field {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .account-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+}
+.account-actions .edit-btn,
+.account-actions .logout-btn {
+  flex: 1;
 }
 .account-main .tours-section {
-  display: grid;
-}
-.account-main .booking-content {
-  display: grid;
-  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
-  gap: 32px;
-  align-items: start;
-}
-.account-main .booking-content > * {
-  min-width: 0;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .booking-card-wrapper {
-  display: grid;
-  min-width: 0;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .booking-card-wrapper h2 {
-  justify-self: start;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-}
-.booking-card-wrapper .booking-card {
-  justify-self: center;
-  max-width: 100%;
+  align-self: self-start;
 }
 .promo-section {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+}
+.activate-btn {
+  flex: 1;
 }
 .selection-main {
   min-height: 100vh;
@@ -1401,35 +1516,45 @@ footer {
   padding-top: 16px;
 }
 .selection-main {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 .selection-content {
-  display: grid;
-  grid-template-columns: 40% 1fr;
+  display: flex;
 }
 .hotel-left-section {
-  display: grid;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
 }
 .hotel-info {
-  display: grid;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 .services-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.service-group {
+  flex: 1;
 }
 .service-group label {
-  display: grid;
-  grid-template-columns: 20px 1fr;
+  display: flex;
   align-items: center;
+  justify-content: center;
 }
 .summary-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: center;
 }
 .cost-item,
 .cost-total {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
 }
 .filters {
   background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
@@ -1868,8 +1993,29 @@ footer {
   flex-direction: column;
   gap: 8px;
   flex: 1;
+  position: relative;
+  margin-bottom: 8px;
   gap: 7px;
   max-width: 233px;
+}
+.booking-form .form-group input:focus {
+  outline: none;
+  border-color: #275858;
+}
+.booking-form .form-group input:focus.invalid {
+  border-color: #d32f2f !important;
+}
+.booking-form .form-group input:focus.valid {
+  border-color: #4CAF50 !important;
+}
+.booking-form .form-group .error-message {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  display: block;
+  min-height: 16px;
 }
 .booking-form .form-group label {
   font-weight: 400;
@@ -1897,6 +2043,25 @@ footer {
 }
 .booking-form .form-group input:focus {
   border-color: #275858;
+}
+.booking-form .form-group input:focus {
+  outline: none;
+  border-color: #275858;
+}
+.booking-form .form-group input:focus.invalid {
+  border-color: #d32f2f !important;
+}
+.booking-form .form-group input:focus.valid {
+  border-color: #4CAF50 !important;
+}
+.booking-form .form-group .error-message {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  display: block;
+  min-height: 16px;
 }
 .booking-form .form-group.wide {
   flex: 1.5;
