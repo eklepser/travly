@@ -496,3 +496,78 @@ footer {
 .info-value {
   text-align: right;
 }
+
+// jQuery
+
+.input-field {
+  position: relative;
+
+  input {
+    transition: all 0.3s ease;
+
+    &.valid {
+      border-color: #4CAF50 !important;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+    }
+
+    &.invalid {
+      border-color: @error-color !important;
+      box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.1);
+    }
+  }
+}
+
+.error-message {
+  color: @error-color;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: @font-family;
+  font-weight: 400;
+}
+
+// Адаптация для форм авторизации
+.auth-form {
+  .form-group {
+    position: relative;
+
+    input {
+      &.valid {
+        border-color: #4CAF50 !important;
+      }
+
+      &.invalid {
+        border-color: @error-color !important;
+      }
+    }
+  }
+}
+
+// Для форм бронирования
+.booking-form {
+  .form-group {
+    position: relative;
+
+    .error-message {
+      position: absolute;
+      bottom: -18px;
+      left: 0;
+      font-size: 11px;
+    }
+  }
+}
+
+// Специфические стили для разных типов форм
+.form-group {
+  input:focus {
+    outline: none;
+    border-color: @primary-color;
+
+    &.invalid {
+      border-color: @error-color !important;
+    }
+
+    &.valid {
+      border-color: #4CAF50 !important;
+    }
+  }
+}

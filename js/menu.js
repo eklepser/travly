@@ -1,5 +1,6 @@
+// menu.js
 function loadPage(pagePath) {
-    fetch(pagePath)
+    return fetch(pagePath)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network error: ' + response.status);
@@ -10,7 +11,20 @@ function loadPage(pagePath) {
             const pageContent = document.getElementById('page-content');
             if (pageContent) {
                 pageContent.innerHTML = data;
+
+                // Вызываем колбэк после загрузки контента
+                if (window.onPageContentLoaded) {
+                    window.onPageContentLoaded();
+                }
+
+                // Инициализируем валидацию для нового контента
+                if (window.formValidator) {
+                    setTimeout(() => {
+                        window.formValidator.setupValidation();
+                    }, 50);
+                }
             }
+            return data;
         })
         .catch(error => {
             console.error('Content loading error:', error);
@@ -18,12 +32,12 @@ function loadPage(pagePath) {
             if (pageContent) {
                 pageContent.innerHTML = '<p>Не удалось загрузить содержимое страницы.</p>';
             }
+            throw error;
         });
 }
 
-// Делегирование кликов на весь документ (или на #page-content)
+// Делегирование кликов на весь документ
 document.addEventListener('click', (event) => {
-    // Ищем ближайший элемент с data-page (включая сам target)
     const pageElement = event.target.closest('[data-page]');
     if (pageElement) {
         const page = pageElement.getAttribute('data-page');
