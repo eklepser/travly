@@ -1,0 +1,43 @@
+// validation.less
+.error-message {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: 'Inter', sans-serif;
+  display: block;
+  min-height: 16px;
+}
+
+.input-field {
+  input {
+    &.valid {
+      border-color: #4CAF50 !important;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+    }
+
+    &.invalid {
+      border-color: #d32f2f !important;
+      box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.1);
+    }
+  }
+}
+
+// Для форм авторизации
+.auth-form {
+  .form-group {
+    .error-message {
+      margin-top: 4px;
+      min-height: 16px;
+    }
+  }
+}
+
+// Для форм бронирования
+.booking-form {
+  .form-group {
+    .error-message {
+      margin-top: 4px;
+      min-height: 16px;
+    }
+  }
+}

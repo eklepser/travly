@@ -18,10 +18,6 @@ function interceptPageLoad() {
     }
 }
 
-function setupValidation() {
-    fixInputTextColor();
-}
-
 function setupGlobalEventHandlers() {
     $(document)
         .on('input', 'input', function(e) {
@@ -227,28 +223,11 @@ function setValidationState($input, isValid, message) {
         if (message && $input.val().trim() !== '') {
             const $errorElement = $('<div>')
                 .addClass('error-message')
-                .text(message)
-                .css({
-                    color: '#d32f2f',
-                    fontSize: '12px',
-                    marginTop: '4px',
-                    fontFamily: 'Inter, sans-serif',
-                    display: 'block',
-                    minHeight: '16px'
-                });
+                .text(message);
 
             $formGroup.append($errorElement);
         }
     }
-}
-
-function fixInputTextColor() {
-    $('input').each(function() {
-        const $input = $(this);
-        if ($input.val().trim() !== '') {
-            $input.css('color', '#1E1E1E');
-        }
-    });
 }
 
 function validateAuthForm() {
@@ -268,10 +247,6 @@ function validateAuthForm() {
         isValid = validatePassword($passwordInput) && isValid;
     }
 
-    if (!isValid) {
-        alert('Пожалуйста, исправьте ошибки в форме');
-    }
-
     return isValid;
 }
 
@@ -286,10 +261,6 @@ function validateRegistrationForm() {
     isValid = validateEmailOrPhone($('#reg-email')) && isValid;
     isValid = validatePassword($('#reg-password')) && isValid;
     isValid = validateConfirmPassword($('#reg-confirm-password')) && isValid;
-
-    if (!isValid) {
-        alert('Пожалуйста, исправьте ошибки в форме регистрации');
-    }
 
     return isValid;
 }
@@ -306,10 +277,6 @@ function validateAllBookingForms() {
             }
         });
     });
-
-    if (!allValid) {
-        alert('Пожалуйста, исправьте ошибки в форме бронирования');
-    }
 
     return allValid;
 }
