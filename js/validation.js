@@ -93,6 +93,7 @@ class FormValidator {
 
     setupValidation() {
         console.log('Initializing validation for dynamically loaded content...');
+        this.fixInputTextColor();
 
         // Дополнительная инициализация для специфических случаев
         this.setupAuthValidation();
@@ -264,12 +265,13 @@ class FormValidator {
         return day >= 1 && day <= daysInMonth;
     }
 
+    // ИСПРАВЛЕННЫЙ МЕТОД - теперь ищет сообщения в правильном месте
     setValidationState($input, isValid, message) {
-        // Находим родительский .input-field или .form-group
-        const $container = $input.closest('.input-field');
+        // Находим родительский .form-group для всех типов форм
+        const $formGroup = $input.closest('.form-group');
 
         // Удаляем предыдущие сообщения об ошибках
-        $container.find('.error-message').remove();
+        $formGroup.find('.error-message').remove();
 
         // Удаляем предыдущие классы
         $input.removeClass('valid invalid');
@@ -280,7 +282,7 @@ class FormValidator {
             $input.addClass('invalid');
 
             // Добавляем сообщение об ошибке
-            if (message) {
+            if (message && $input.val().trim() !== '') {
                 const $errorElement = $('<div>')
                     .addClass('error-message')
                     .text(message)
@@ -293,13 +295,13 @@ class FormValidator {
                         minHeight: '16px'
                     });
 
-                // Добавляем после input внутри .input-field
-                $input.after($errorElement);
+                // Добавляем в конец .form-group (после .input-field)
+                $formGroup.append($errorElement);
             }
         }
     }
 
-// Добавим метод для исправления цвета текста
+    // Метод для исправления цвета текста
     fixInputTextColor() {
         $('input').each(function() {
             const $input = $(this);
@@ -308,17 +310,6 @@ class FormValidator {
                 $input.css('color', '#1E1E1E');
             }
         });
-    }
-
-// Обновим setupValidation
-    setupValidation() {
-        console.log('Initializing validation for dynamically loaded content...');
-        this.fixInputTextColor();
-
-        // Дополнительная инициализация для специфических случаев
-        this.setupAuthValidation();
-        this.setupRegistrationValidation();
-        this.setupBookingValidation();
     }
 
     // Проверка всей формы авторизации
@@ -406,7 +397,8 @@ class FormValidator {
             const $input = $(input);
             $input.val('');
             $input.removeClass('valid invalid');
-            $input.siblings('.error-message').remove();
+            // Удаляем сообщения об ошибках из .form-group
+            $input.closest('.form-group').find('.error-message').remove();
         });
     }
 }
