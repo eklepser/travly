@@ -69,12 +69,12 @@ function validateBookingField($input) {
 
         case 'phone':
             valid = isValidPhone(v);
-            message = 'Введите корректный номер телефона';
+            message = 'Введите корректный номер телефона (например, +7 (999) 123-45-67)';
             break;
 
         case 'email':
             valid = isValidEmail(v);
-            message = 'Введите корректный email';
+            message = 'Введите корректный email (например, example@domain.com)';
             break;
 
         case 'address':
@@ -107,10 +107,10 @@ function validateAuthField($input) {
                 message = 'Введите email или номер телефона';
             } else if (trimmed.includes('@')) {
                 valid = isValidEmail(trimmed);
-                message = valid ? '' : 'Введите корректный email';
+                message = valid ? '' : 'Введите корректный email (например, example@domain.com)';
             } else {
                 valid = isValidPhone(trimmed);
-                message = valid ? '' : 'Введите корректный номер телефона';
+                message = valid ? '' : 'Введите корректный номер телефона (например, +7 (999) 123-45-67)';
             }
             break;
 
