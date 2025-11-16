@@ -1,25 +1,19 @@
 function setupGlobalEventHandlers() {
     $(document)
-        // обработчики полей ввода
         .on('blur', '.booking-form input', e => validateBookingField($(e.target)))
-
-        .on('blur', '.auth-form input', e => validateBookingField($(e.target)))
-
-        // обработчики кнопок подвтерждения
+        .on('blur', '.auth-form input', e => validateAuthField($(e.target)))
         .on('click', '.book-btn', e => {
             e.preventDefault();
             if (validateForm($('.booking-form'))) alert('Бронирование прошло успешно!');
         })
-
         .on('click', '.submit-btn', e => {
             e.preventDefault();
             if (validateForm($('.auth-form'))) alert('Регистрация прошла успешно!');
         })
-
         .on('click', '.booking-form .clear-btn', e => {
             e.preventDefault();
             clearForm($(e.target).closest('.booking-form'));
-    });
+        });
 }
 
 function setValidationState($input, isValid, message = '') {
@@ -94,24 +88,28 @@ function validateBookingField($input) {
             message = 'Это поле обязательно для заполнения';
     }
 
-    setValidationState($input, valid, valid ? '' : message);
+    setValidationState($input, valid, message);
     return valid;
 }
 
 function validateAuthField($input) {
     const id = $input.attr('id');
-    const v = $input.val().trim();
+    const v = $input.val();
 
     let valid = false, message = '';
 
     switch (id) {
         case 'auth-email':
         case 'reg-email':
-            if (v.includes('@')) {
-                valid = isValidEmail(v);
+            const trimmed = v.trim();
+            if (trimmed === '') {
+                valid = false;
+                message = 'Введите email или номер телефона';
+            } else if (trimmed.includes('@')) {
+                valid = isValidEmail(trimmed);
                 message = valid ? '' : 'Введите корректный email';
             } else {
-                valid = isValidPhone(v);
+                valid = isValidPhone(trimmed);
                 message = valid ? '' : 'Введите корректный номер телефона';
             }
             break;
@@ -123,18 +121,26 @@ function validateAuthField($input) {
             break;
 
         case 'reg-confirm-password':
-            valid = v === $('#reg-password').val();
-            message = 'Пароли не совпадают';
+            const pass = $('#reg-password').val();
+            if (pass.length === 0) {
+                valid = false;
+                message = 'Сначала введите пароль';
+            } else {
+                valid = v === pass;
+                message = 'Пароли не совпадают';
+            }
             break;
 
         case 'reg-lastname':
         case 'reg-firstname':
-            valid = /^[A-Za-zА-Яа-яЁё\s\-]+$/.test(v) && v.length >= 2;
+            const nameVal = v.trim();
+            valid = /^[A-Za-zА-Яа-яЁё\s\-]+$/.test(nameVal) && nameVal.length >= 2;
             message = 'Поле должно содержать только буквы (мин. 2 символа)';
             break;
 
         default:
-            valid = true;
+            valid = v.trim().length > 0;
+            message = 'Это поле обязательно для заполнения';
     }
 
     setValidationState($input, valid, message);
@@ -179,33 +185,6 @@ function isValidDate(date) {
     const [d, m, y] = date.split('.').map(Number);
     if (y < 1900 || y > new Date().getFullYear() || m < 1 || m > 12) return false;
     return d >= 1 && d <= new Date(y, m, 0).getDate();
-}
-
-function validateEmailOrPhone($input) {
-    const v = $input.val().trim();
-    const valid = v.includes('@') ? isValidEmail(v) : isValidPhone(v);
-    setValidationState($input, valid, valid ? '' : 'Введите корректный email или номер телефона');
-    return valid;
-}
-
-function validateName($input) {
-    const v = $input.val().trim();
-    const valid = /^[A-Za-zА-Яа-яЁё\s\-]+$/.test(v) && v.length >= 2;
-    setValidationState($input, valid, valid ? '' : 'Имя должно содержать только буквы и быть не короче 2 символов');
-    return valid;
-}
-
-function validatePassword($input) {
-    const v = $input.val();
-    const valid = v.length >= 6;
-    setValidationState($input, valid, valid ? '' : 'Пароль должен быть не короче 6 символов');
-    return valid;
-}
-
-function validateConfirmPassword($input) {
-    const valid = $input.val() === $('#reg-password').val();
-    setValidationState($input, valid, valid ? '' : 'Пароли не совпадают');
-    return valid;
 }
 
 setupGlobalEventHandlers();
