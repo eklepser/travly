@@ -1,5 +1,5 @@
 // Main page
-@import "common/main.less";
+@import "main.less";
 .main-page {
   display: flex;
   .tours-section {
@@ -12,9 +12,20 @@
   justify-content: flex-start;
 }
 .cards-panel {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  justify-items: stretch;
+
+  > * {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .card {
+    max-width: 100%;
+  }
 }
 .sorting-options {
   .flex-center();
@@ -25,7 +36,7 @@
 }
 
 // Booking page
-@import "common/booking.less";
+@import "booking.less";
 .booking-main {
   .flex-column();
 }
@@ -51,14 +62,14 @@
 }
 
 // About page
-@import "common/about.less";
+@import "about.less";
 .info-section, .philosophy-section, .activity-section {
   .flex-column();
   align-items: flex-start;
 }
 
 // Help page
-@import "common/help.less";
+@import "help.less";
 .faq-section {
   display: flex;
   flex-direction: column;
@@ -79,7 +90,7 @@
 }
 
 // Auth page
-@import "common/auth.less";
+@import "auth.less";
 .auth-main {
   .flex-center();
 }
@@ -100,7 +111,7 @@
 }
 
 // Account page
-@import "common/account.less";
+@import "account.less";
 .account-main {
   .flex-column();
 }
@@ -158,7 +169,7 @@
 }
 
 // Selection page
-@import "common/selection.less";
+@import "selection.less";
 .selection-main {
   .flex-column();
 }

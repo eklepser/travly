@@ -84,7 +84,6 @@
   width: 100%;
   background: @white;
   border-radius: 7px;
-  border: none;
   font-family: @font-family;
   font-weight: 400;
   color: @dark-gray;
@@ -506,7 +505,7 @@ footer {
     transition: all 0.3s ease;
 
     &.valid {
-      border-color: #4CAF50 !important;
+      border-color: @primary-color !important;
       box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
     }
 
@@ -532,7 +531,7 @@ footer {
 
     input {
       &.valid {
-        border-color: #4CAF50 !important;
+        border-color: @primary-color !important;
       }
 
       &.invalid {
@@ -542,7 +541,6 @@ footer {
   }
 }
 
-// Для форм бронирования
 .booking-form {
   .form-group {
     position: relative;
@@ -556,7 +554,6 @@ footer {
   }
 }
 
-// Специфические стили для разных типов форм
 .form-group {
   input:focus {
     outline: none;
@@ -567,7 +564,7 @@ footer {
     }
 
     &.valid {
-      border-color: #4CAF50 !important;
+      border-color: @primary-color !important;
     }
   }
 }
@@ -585,7 +582,7 @@ footer {
     }
 
     &.valid {
-      border-color: #4CAF50 !important;
+      border-color: @primary-color !important;
       box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
     }
 
@@ -596,10 +593,9 @@ footer {
   }
 }
 
-// Сообщения об ошибках - позиционируем правильно
 .form-group {
   position: relative;
-  margin-bottom: 8px; // Добавляем место для ошибок
+  margin-bottom: 8px;
 
   .error-message {
     color: @error-color;

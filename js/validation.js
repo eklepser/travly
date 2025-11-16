@@ -1,21 +1,33 @@
-$(document).ready(function () {
-    interceptPageLoad();
-});
+function setupGlobalEventHandlers() {
+    $(document)
+        .on('blur', '#auth-email, #reg-email, #auth-password, #reg-password, #reg-confirm-password, #reg-lastname, #reg-firstname', e => {
+            const $in = $(e.target);
+            const id = $in.attr('id');
+            if (id.includes('email')) validateEmailOrPhone($in);
+            else if (id.includes('password')) {
+                if (id === 'reg-confirm-password') validateConfirmPassword($in);
+                else validatePassword($in);
+            }
+            else validateName($in);
+        })
 
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+        .on('blur', '.booking-form input', e => validateBookingField($(e.target)))
 
-function isValidPhone(phone) {
-    const cleaned = phone.replace(/\D/g, '');
-    return cleaned.length >= 10 && cleaned.length <= 15;
-}
+        .on('submit', '.auth-form', e => {
+            e.preventDefault();
+            const $form = $(e.target);
+            if (validateForm($form)) $form[0].submit();
+        })
 
-function isValidDate(date) {
-    if (!/^\d{2}\.\d{2}\.\d{4}$/.test(date)) return false;
-    const [d, m, y] = date.split('.').map(Number);
-    if (y < 1900 || y > new Date().getFullYear() || m < 1 || m > 12) return false;
-    return d >= 1 && d <= new Date(y, m, 0).getDate();
+        .on('click', '.booking-form .clear-btn', e => {
+            e.preventDefault();
+            clearForm($(e.target).closest('.booking-form'));
+        })
+
+        .on('click', '.book-btn', e => {
+            e.preventDefault();
+            if (validateForm($('.booking-form'))) alert('Бронирование прошло успешно!');
+        });
 }
 
 function setValidationState($input, isValid, message = '') {
@@ -28,33 +40,7 @@ function setValidationState($input, isValid, message = '') {
     }
 }
 
-function validateEmailOrPhone($input) {
-    const v = $input.val().trim();
-    const valid = v.includes('@') ? isValidEmail(v) : isValidPhone(v);
-    setValidationState($input, valid, valid ? '' : 'Введите корректный email или номер телефона');
-    return valid;
-}
-
-function validateName($input) {
-    const v = $input.val().trim();
-    const valid = /^[A-Za-zА-Яа-яЁё\s\-]+$/.test(v) && v.length >= 2;
-    setValidationState($input, valid, valid ? '' : 'Имя должно содержать только буквы и быть не короче 2 символов');
-    return valid;
-}
-
-function validatePassword($input) {
-    const v = $input.val();
-    const valid = v.length >= 6;
-    setValidationState($input, valid, valid ? '' : 'Пароль должен быть не короче 6 символов');
-    return valid;
-}
-
-function validateConfirmPassword($input) {
-    const valid = $input.val() === $('#reg-password').val();
-    setValidationState($input, valid, valid ? '' : 'Пароли не совпадают');
-    return valid;
-}
-
+// Валидация на странице бронирования:
 function validateBookingField($input) {
     const id = $input.attr('id');
     const v = $input.val().trim();
@@ -121,6 +107,7 @@ function validateBookingField($input) {
     return valid;
 }
 
+// Валидация на странице авторизации:
 function validateForm($form) {
     let valid = true;
 
@@ -153,50 +140,48 @@ function clearForm($form) {
     $form.find('.error-message').remove();
 }
 
-function setupGlobalEventHandlers() {
-    $(document)
-        .on('input', 'input', e => {
-            const $in = $(e.target);
-            if ($in.val().trim()) $in.css('color', '#1E1E1E');
-        })
-
-        .on('blur', '#auth-email, #reg-email, #auth-password, #reg-password, #reg-confirm-password, #reg-lastname, #reg-firstname', e => {
-            const $in = $(e.target);
-            const id = $in.attr('id');
-            if (id.includes('email')) validateEmailOrPhone($in);
-            else if (id.includes('password')) {
-                if (id === 'reg-confirm-password') validateConfirmPassword($in);
-                else validatePassword($in);
-            }
-            else validateName($in);
-        })
-
-        .on('blur', '.booking-form input', e => validateBookingField($(e.target)))
-
-        .on('submit', '.auth-form', e => {
-            e.preventDefault();
-            const $form = $(e.target);
-            if (validateForm($form)) $form[0].submit();
-        })
-
-        .on('click', '.booking-form .clear-btn', e => {
-            e.preventDefault();
-            clearForm($(e.target).closest('.booking-form'));
-        })
-
-        .on('click', '.book-btn', e => {
-            e.preventDefault();
-            if (validateForm($('.booking-form'))) alert('Бронирование прошло успешно!');
-        });
+// Проверка данных:
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function interceptPageLoad() {
-    const orig = window.loadPage;
-    if (orig) {
-        window.loadPage = function (page) {
-            return orig.call(this, page).then(() => setTimeout(setupValidation, 100));
-        };
-    }
+function isValidPhone(phone) {
+    const cleaned = phone.replace(/\D/g, '');
+    return cleaned.length >= 10 && cleaned.length <= 15;
+}
+
+function isValidDate(date) {
+    if (!/^\d{2}\.\d{2}\.\d{4}$/.test(date)) return false;
+    const [d, m, y] = date.split('.').map(Number);
+    if (y < 1900 || y > new Date().getFullYear() || m < 1 || m > 12) return false;
+    return d >= 1 && d <= new Date(y, m, 0).getDate();
+}
+
+function validateEmailOrPhone($input) {
+    const v = $input.val().trim();
+    const valid = v.includes('@') ? isValidEmail(v) : isValidPhone(v);
+    setValidationState($input, valid, valid ? '' : 'Введите корректный email или номер телефона');
+    return valid;
+}
+
+function validateName($input) {
+    const v = $input.val().trim();
+    const valid = /^[A-Za-zА-Яа-яЁё\s\-]+$/.test(v) && v.length >= 2;
+    setValidationState($input, valid, valid ? '' : 'Имя должно содержать только буквы и быть не короче 2 символов');
+    return valid;
+}
+
+function validatePassword($input) {
+    const v = $input.val();
+    const valid = v.length >= 6;
+    setValidationState($input, valid, valid ? '' : 'Пароль должен быть не короче 6 символов');
+    return valid;
+}
+
+function validateConfirmPassword($input) {
+    const valid = $input.val() === $('#reg-password').val();
+    setValidationState($input, valid, valid ? '' : 'Пароли не совпадают');
+    return valid;
 }
 
 setupGlobalEventHandlers();

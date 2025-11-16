@@ -1,3 +1,5 @@
+@import "base.less";
+
 // validation.less
 .error-message {
   color: #d32f2f;
@@ -11,7 +13,7 @@
 .input-field {
   input {
     &.valid {
-      border-color: #4CAF50 !important;
+      border-color: @primary-color !important;
       box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
     }
 
