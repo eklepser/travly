@@ -618,8 +618,8 @@ textarea::placeholder {
 }
 .sorting-options {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: start;
+  justify-content: start;
 }
 .sort-summary {
   display: flex;

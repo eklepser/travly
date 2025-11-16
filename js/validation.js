@@ -1,33 +1,25 @@
 function setupGlobalEventHandlers() {
     $(document)
-        .on('blur', '#auth-email, #reg-email, #auth-password, #reg-password, #reg-confirm-password, #reg-lastname, #reg-firstname', e => {
-            const $in = $(e.target);
-            const id = $in.attr('id');
-            if (id.includes('email')) validateEmailOrPhone($in);
-            else if (id.includes('password')) {
-                if (id === 'reg-confirm-password') validateConfirmPassword($in);
-                else validatePassword($in);
-            }
-            else validateName($in);
-        })
-
+        // обработчики полей ввода
         .on('blur', '.booking-form input', e => validateBookingField($(e.target)))
 
-        .on('submit', '.auth-form', e => {
+        .on('blur', '.auth-form input', e => validateBookingField($(e.target)))
+
+        // обработчики кнопок подвтерждения
+        .on('click', '.book-btn', e => {
             e.preventDefault();
-            const $form = $(e.target);
-            if (validateForm($form)) $form[0].submit();
+            if (validateForm($('.booking-form'))) alert('Бронирование прошло успешно!');
+        })
+
+        .on('click', '.submit-btn', e => {
+            e.preventDefault();
+            if (validateForm($('.auth-form'))) alert('Регистрация прошла успешно!');
         })
 
         .on('click', '.booking-form .clear-btn', e => {
             e.preventDefault();
             clearForm($(e.target).closest('.booking-form'));
-        })
-
-        .on('click', '.book-btn', e => {
-            e.preventDefault();
-            if (validateForm($('.booking-form'))) alert('Бронирование прошло успешно!');
-        });
+    });
 }
 
 function setValidationState($input, isValid, message = '') {
@@ -35,12 +27,11 @@ function setValidationState($input, isValid, message = '') {
     $group.find('.error-message').remove();
     $input.removeClass('valid invalid').addClass(isValid ? 'valid' : 'invalid');
 
-    if (!isValid && message && $input.val().trim()) {
+    if (!isValid && message) {
         $group.append(`<div class="error-message">${message}</div>`);
     }
 }
 
-// Валидация на странице бронирования:
 function validateBookingField($input) {
     const id = $input.attr('id');
     const v = $input.val().trim();
@@ -107,22 +98,56 @@ function validateBookingField($input) {
     return valid;
 }
 
-// Валидация на странице авторизации:
+function validateAuthField($input) {
+    const id = $input.attr('id');
+    const v = $input.val().trim();
+
+    let valid = false, message = '';
+
+    switch (id) {
+        case 'auth-email':
+        case 'reg-email':
+            if (v.includes('@')) {
+                valid = isValidEmail(v);
+                message = valid ? '' : 'Введите корректный email';
+            } else {
+                valid = isValidPhone(v);
+                message = valid ? '' : 'Введите корректный номер телефона';
+            }
+            break;
+
+        case 'auth-password':
+        case 'reg-password':
+            valid = v.length >= 6;
+            message = 'Пароль должен быть не короче 6 символов';
+            break;
+
+        case 'reg-confirm-password':
+            valid = v === $('#reg-password').val();
+            message = 'Пароли не совпадают';
+            break;
+
+        case 'reg-lastname':
+        case 'reg-firstname':
+            valid = /^[A-Za-zА-Яа-яЁё\s\-]+$/.test(v) && v.length >= 2;
+            message = 'Поле должно содержать только буквы (мин. 2 символа)';
+            break;
+
+        default:
+            valid = true;
+    }
+
+    setValidationState($input, valid, message);
+    return valid;
+}
+
 function validateForm($form) {
     let valid = true;
 
     if ($form.hasClass('auth-form')) {
-        if ($form.find('#auth-email').length) {
-            valid = validateEmailOrPhone($('#auth-email')) && validatePassword($('#auth-password')) && valid;
-        }
-        else if ($form.find('#reg-lastname').length) {
-            valid = validateName($('#reg-lastname'))
-                && validateName($('#reg-firstname'))
-                && validateEmailOrPhone($('#reg-email'))
-                && validatePassword($('#reg-password'))
-                && validateConfirmPassword($('#reg-confirm-password'))
-                && valid;
-        }
+        $form.find('input').each((_, el) => {
+            if (!validateAuthField($(el))) valid = false;
+        });
     }
     else if ($form.hasClass('booking-form')) {
         $form.find('input').each((_, el) => {
@@ -140,7 +165,6 @@ function clearForm($form) {
     $form.find('.error-message').remove();
 }
 
-// Проверка данных:
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
