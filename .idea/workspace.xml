@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: remove variables for font and spacing">
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: remove duplicated logic from validation.js">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/base.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/booking-form.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/booking-form.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/card.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/card.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/filter-panel.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/components/tour-info.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/tour-info.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/less/components/tours-banner.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/components/tours-banner.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/about.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/about.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/account.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/auth.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/booking.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/booking.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/help.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/help.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/main.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/common/selection.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/common/selection.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/less/layout/grid.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/layout/grid.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/validation.less" beforeDir="false" afterPath="$PROJECT_DIR$/less/validation.less" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,8 +40,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/eklepser/travly.git&quot;,
-    &quot;accountId&quot;: &quot;ac6a3215-dea5-4912-b0e9-9eba26beda1c&quot;
+    &quot;url&quot;: &quot;https://github.com/eklepser/travly&quot;,
+    &quot;accountId&quot;: &quot;8cd914b8-3ac2-4a88-829d-509171c855f8&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -79,7 +67,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Nikitos/WebstormProjects/travly/less/components",
+    "last_opened_file_path": "C:/Server/data/htdocs/travly",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -121,7 +109,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-WS-252.26830.93" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-WS-252.26199.162" />
       </set>
     </attachedChunks>
   </component>
@@ -150,6 +138,22 @@
       <workItem from="1760951612841" duration="46000" />
       <workItem from="1761461408418" duration="5628000" />
       <workItem from="1761468621255" duration="1934000" />
+      <workItem from="1762183948955" duration="10000" />
+      <workItem from="1762184180283" duration="329000" />
+      <workItem from="1762184526404" duration="96000" />
+      <workItem from="1762186501798" duration="68000" />
+      <workItem from="1762186885226" duration="190000" />
+      <workItem from="1762351669188" duration="14000" />
+      <workItem from="1763183229000" duration="9091000" />
+      <workItem from="1763321451061" duration="2557000" />
+      <workItem from="1763376561292" duration="439000" />
+      <workItem from="1763393351364" duration="1369000" />
+      <workItem from="1763394963657" duration="96000" />
+      <workItem from="1763395225858" duration="46000" />
+      <workItem from="1763395845910" duration="133000" />
+      <workItem from="1763407654117" duration="1000" />
+      <workItem from="1763801156065" duration="81000" />
+      <workItem from="1764394287863" duration="548000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -415,13 +419,68 @@
       <option name="project" value="LOCAL" />
       <updated>1762105070628</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="fix: fix error messages inserting on booking page">
+      <option name="closed" value="true" />
+      <created>1763191413841</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1763191413841</updated>
+    </task>
+    <task id="LOCAL-00035" summary="feat: replace placeholder validation with id">
+      <option name="closed" value="true" />
+      <created>1763192709513</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1763192709513</updated>
+    </task>
+    <task id="LOCAL-00036" summary="refactor: move error message style into validation.less">
+      <option name="closed" value="true" />
+      <created>1763193546049</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1763193546049</updated>
+    </task>
+    <task id="LOCAL-00037" summary="refactor: remove unnecessary functions from validation.js">
+      <option name="closed" value="true" />
+      <created>1763194956358</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1763194956358</updated>
+    </task>
+    <task id="LOCAL-00038" summary="refactor: remove duplicated logic from validation.js">
+      <option name="closed" value="true" />
+      <created>1763195579885</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1763195579885</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -433,6 +492,17 @@
                   <entry key="Table.Default.Date.ColumnIdWidth" value="148" />
                 </map>
               </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
             </State>
           </value>
         </entry>
@@ -440,11 +510,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor: optimize styles code" />
-    <MESSAGE value="feat: improve banner and card view on main page" />
-    <MESSAGE value="feat: add background for header &amp; footer" />
-    <MESSAGE value="feat: add icons in header &amp; footer" />
-    <MESSAGE value="feat: improve header buttons style" />
     <MESSAGE value="feat: improve card style" />
     <MESSAGE value="feat: improve booking form style" />
     <MESSAGE value="refactor: move separate components in specific folder" />
@@ -465,6 +530,11 @@
     <MESSAGE value="fix: remove duplicate code" />
     <MESSAGE value="refactor: move common code in base.less" />
     <MESSAGE value="refactor: remove variables for font and spacing" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: remove variables for font and spacing" />
+    <MESSAGE value="fix: fix error messages inserting on booking page" />
+    <MESSAGE value="feat: replace placeholder validation with id" />
+    <MESSAGE value="refactor: move error message style into validation.less" />
+    <MESSAGE value="refactor: remove unnecessary functions from validation.js" />
+    <MESSAGE value="refactor: remove duplicated logic from validation.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: remove duplicated logic from validation.js" />
   </component>
 </project>
