@@ -14,12 +14,12 @@ function getPDO() {
         
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        echo "norm";
+
         return $pdo;
         
     } catch (PDOException $e) {
         error_log("Database connection error: " . $e->getMessage());
-        echo "ne norm";
+
     }
 }
 

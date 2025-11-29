@@ -1,4 +1,4 @@
-// menu.js — загрузка страниц из public/layout/
+// navigation.js — загрузка страниц из public/layout/
 (function() {
     'use strict';
 
@@ -48,11 +48,14 @@
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
             const html = await res.text();
-            container.innerHTML = html;
+            container.innerHTML = html; // ← сначала вставляем HTML
 
-            // Обновляем title (опционально)
+            // 👇 ТОЛЬКО ПОСЛЕ ЭТОГО — инициализируем
+            if (typeof window.initCurrentPage === 'function') {
+                window.initCurrentPage(path);
+            }
+
             updatePageTitle(path);
-
         } catch (err) {
             console.error('❌ Ошибка загрузки:', err);
             container.innerHTML = `
@@ -86,3 +89,16 @@
     // Экспорт для отладки (не обязательно)
     window.pageLoader = { loadPage };
 })();
+
+// Инициализатор страниц — вызывается после загрузки HTML
+window.initCurrentPage = function(path) {
+    // Очистка: удаляем старые обработчики, если нужно (не обязательно при делегировании)
+
+    // Запуск инициализации по пути
+    if (path.includes('hotel-selection')) {
+        if (typeof window.initHotelSelectionPage === 'function') {
+            window.initHotelSelectionPage();
+        }
+    }
+    // else if (path.includes('booking')) { ... }
+};
