@@ -4,42 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: move html files into layout folder">
-      <change afterPath="$PROJECT_DIR$/public/style/variables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/style/variables.css.map" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="fix: fix hotel selection extra cost calculation">
+      <change afterPath="$PROJECT_DIR$/public/js/pages/account.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/navigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/profile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/hotelSelection.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/pages/hotelSelection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/navigation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/layout/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/account.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/layout/hotel-selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/hotel-selection.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/base.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/base.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/base.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/components/booking-form.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/booking-form.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/components/booking-form.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/booking-form.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/components/booking-form.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/booking-form.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/components/card.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/card.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/components/card.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/card.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/components/card.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/card.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/filter-panel.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/components/tour-info.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/tour-info.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/components/tours-banner.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/tours-banner.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/layout/about.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/about.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/layout/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/account.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/layout/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/auth.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/layout/booking.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/booking.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/layout/help.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/help.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/layout/layout.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/layout.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/main.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/styles.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/styles.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/validation.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/validation.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/variables.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/hotelSelection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/less/variables.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/testpromo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/connect.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/connect.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/layout/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/account.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,11 +93,11 @@
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Server\data\htdocs\travly\public\js\pages" />
       <recent name="C:\Server\data\htdocs\travly\public" />
       <recent name="C:\Server\data\htdocs\travly\public\html\layout" />
       <recent name="C:\Server\data\htdocs\travly\public\html" />
       <recent name="C:\Server\data\htdocs\travly" />
-      <recent name="C:\Users\Nikitos\Desktop\travly\less\layout\common" />
     </key>
   </component>
   <component name="RunManager">
@@ -191,7 +165,7 @@
       <workItem from="1764409818277" duration="465000" />
       <workItem from="1764415347415" duration="70000" />
       <workItem from="1764418296898" duration="12430000" />
-      <workItem from="1764443902257" duration="3706000" />
+      <workItem from="1764443902257" duration="7301000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -505,7 +479,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764429507778</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="feat: add hotel selection script">
+      <option name="closed" value="true" />
+      <created>1764447787111</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1764447787111</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,8 +538,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: improve booking form style" />
-    <MESSAGE value="refactor: move separate components in specific folder" />
     <MESSAGE value="feat: add account page (html only)" />
     <MESSAGE value="style: reduce info panel and form size by 20%" />
     <MESSAGE value="feat: add style for auth page" />
@@ -581,6 +561,8 @@
     <MESSAGE value="refactor: remove unnecessary functions from validation.js" />
     <MESSAGE value="refactor: remove duplicated logic from validation.js" />
     <MESSAGE value="refactor: move html files into layout folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: move html files into layout folder" />
+    <MESSAGE value="feat: add hotel selection script" />
+    <MESSAGE value="fix: fix hotel selection extra cost calculation" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: fix hotel selection extra cost calculation" />
   </component>
 </project>
