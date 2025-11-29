@@ -4,7 +4,68 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: remove duplicated logic from validation.js" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="refactor: remove duplicated logic from validation.js">
+      <change afterPath="$PROJECT_DIR$/public/js/menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/auth.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/booking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/help.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/help.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/hotel-selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/hotel-selection.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/layout/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/base.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/base.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/base.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/booking-form.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/components/booking-form.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/booking-form.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/components/booking-form.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/booking-form.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/components/booking-form.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/card.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/components/card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/card.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/components/card.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/card.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/components/card.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/components/filter-panel.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/tour-info.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/components/tour-info.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/components/tours-banner.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/components/tours-banner.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/about.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/layout/about.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/layout/account.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/layout/auth.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/booking.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/layout/booking.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/help.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/layout/help.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/layout.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/layout/layout.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/layout/main.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/layout/selection.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/layout/selection.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/styles.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/styles.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/validation.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/validation.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/variables.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/variables.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/less/variables.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/less/variables.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/connect.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/connect.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/test.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/common/account.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/common/account.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/common/palm.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/common/palm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/contacts/email.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/contacts/email.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/contacts/email_white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/contacts/email_white.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/contacts/location.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/contacts/location.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/contacts/phone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/contacts/phone.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/contacts/phone_white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/contacts/phone_white.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/flaticon.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/flaticon.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/social/tg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/social/tg.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/social/vk.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/social/vk.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/social/whatsapp.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/social/whatsapp.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/travel/beach.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/travel/beach.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/travel/discount.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/travel/discount.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/icons/travel/map.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/icons/travel/map.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/beach_image.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/images/beach_image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/laguna_image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/images/laguna_image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/images/mountain_image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/images/mountain_image.jpg" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,42 +113,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.main.html.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Server/data/htdocs/travly&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.index.html.executor": "Debug",
+    "JavaScript Debug.main.html.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Server/data/htdocs/travly",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "watcher.settings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Server\data\htdocs\travly" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\less\components" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\html\layout" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\layout" />
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\components" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\resources\icons\contacts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Server\data\htdocs\travly\public" />
+      <recent name="C:\Server\data\htdocs\travly\public\html\layout" />
+      <recent name="C:\Server\data\htdocs\travly\public\html" />
+      <recent name="C:\Server\data\htdocs\travly" />
       <recent name="C:\Users\Nikitos\Desktop\travly\less\layout\common" />
-      <recent name="C:\Users\Nikitos\Desktop\travly\less" />
-      <recent name="C:\Users\Nikitos\Desktop\travly\less\layout" />
-      <recent name="C:\Users\Nikitos\Desktop\travly\less\view" />
-      <recent name="C:\Users\Nikitos\WebstormProjects\travly\less\layout" />
     </key>
   </component>
   <component name="RunManager">
@@ -150,6 +211,11 @@
       <workItem from="1763407654117" duration="1000" />
       <workItem from="1763801156065" duration="81000" />
       <workItem from="1764394287863" duration="548000" />
+      <workItem from="1764408699171" duration="35000" />
+      <workItem from="1764408965412" duration="130000" />
+      <workItem from="1764409818277" duration="465000" />
+      <workItem from="1764415347415" duration="70000" />
+      <workItem from="1764418296898" duration="10785000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />

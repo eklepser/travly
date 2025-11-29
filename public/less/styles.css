@@ -463,13 +463,13 @@ textarea::placeholder {
   height: 56px;
 }
 .tours-icon.discount-icon {
-  background: url('../../resources/icons/travel/discount.svg') no-repeat center / 56px 56px;
+  background: url('../resources/icons/travel/discount.svg') no-repeat center / 56px 56px;
 }
 .tours-icon.beach-icon {
-  background: url('../../resources/icons/travel/beach.svg') no-repeat center / 56px 56px;
+  background: url('../resources/icons/travel/beach.svg') no-repeat center / 56px 56px;
 }
 .tours-icon.map-icon {
-  background: url('../../resources/icons/travel/map.svg') no-repeat center / 56px 56px;
+  background: url('../resources/icons/travel/map.svg') no-repeat center / 56px 56px;
 }
 .cards-panel {
   padding: 16px;
@@ -662,7 +662,7 @@ textarea::placeholder {
 .booking-card {
   width: 100%;
   height: 400px;
-  background-image: url("../../resources/images/mountain_image.jpg");
+  background-image: url("../resources/images/mountain_image.jpg");
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -770,7 +770,7 @@ textarea::placeholder {
   align-items: flex-start;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url("../../resources/images/laguna_image.jpg") center / cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url("../resources/images/laguna_image.jpg") center / cover no-repeat;
   max-width: 100%;
 }
 .about-content {
@@ -849,7 +849,7 @@ textarea::placeholder {
   align-items: flex-start;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("../../resources/images/mountain_image.jpg") center / cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("../resources/images/mountain_image.jpg") center / cover no-repeat;
 }
 .help-content {
   display: flex;
@@ -1738,11 +1738,11 @@ textarea::placeholder {
   background-repeat: no-repeat;
 }
 .tours-banner-slider .slide.slide1 {
-  background-image: url("../../resources/images/beach_image.png");
+  background-image: url("../resources/images/beach_image.png");
   animation-delay: 0s;
 }
 .tours-banner-slider .slide.slide2 {
-  background-image: url("../../resources/images/mountain_image.jpg");
+  background-image: url("../resources/images/mountain_image.jpg");
   animation-delay: 6s;
 }
 @keyframes slideAnimation {
@@ -1844,7 +1844,7 @@ textarea::placeholder {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("../../resources/images/mountain_image.jpg");
+  background-image: url("../resources/images/mountain_image.jpg");
   background-size: cover;
   background-position: center;
 }
