@@ -1177,6 +1177,7 @@ textarea::placeholder {
 .account-actions .logout-btn {
   padding: 13px 24px;
   font-size: 20px;
+  /* ← как у .activate-btn и .logout-btn */
   line-height: 24px;
 }
 .account-actions .edit-btn {
@@ -1310,10 +1311,8 @@ textarea::placeholder {
   display: block;
   width: 100%;
   padding: 8px 12px;
-  font-size: 16px;
   border-radius: 4px;
-  border: 1px solid #D1D5DB;
-  background: #FAFAFA;
+  border: none;
 }
 .edit-input {
   background: #FFFFFF;
@@ -1410,6 +1409,44 @@ textarea::placeholder {
 }
 .modal-btn.secondary:hover {
   background: #D1D5DB;
+}
+.account-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.account-actions .save-btn,
+.account-actions .cancel-btn {
+  flex: 1 1 48%;
+  min-width: 120px;
+  text-align: center;
+}
+@media (min-width: 600px) {
+  .account-actions .save-btn,
+  .account-actions .cancel-btn {
+    flex: 0 1 auto;
+    width: auto;
+  }
+}
+.modal-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.modal-btn.primary {
+  background: #275858;
+  color: white;
+}
+.modal-btn.primary:hover {
+  background: #173535;
+}
+.modal-btn.secondary {
+  background: #DDDDDD;
+  color: #1E1E1E;
 }
 .account-main {
   display: flex;
@@ -1672,238 +1709,6 @@ textarea::placeholder {
 }
 .apply-btn:hover {
   background: #173535;
-}
-.tours-banner-slider {
-  position: relative;
-  width: 100%;
-  height: 280px;
-  border-radius: 32px;
-  overflow: hidden;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-@media (max-width: 768px) {
-  .tours-banner-slider {
-    height: 200px;
-    border-radius: 24px;
-  }
-}
-@media (max-width: 480px) {
-  .tours-banner-slider {
-    height: 180px;
-    border-radius: 20px;
-  }
-}
-.tours-banner-slider .slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  animation: slideAnimation 12s infinite;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-@media (max-width: 768px) {
-  .tours-banner-slider .slide {
-    background-position: center center;
-  }
-}
-.tours-banner-slider .slide.slide1 {
-  background-image: url("../../resources/images/beach_image.png");
-  animation-delay: 0s;
-}
-.tours-banner-slider .slide.slide2 {
-  background-image: url("../../resources/images/mountain_image.jpg");
-  animation-delay: 6s;
-}
-@keyframes slideAnimation {
-  0% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  5% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  45% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  50% {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-}
-.tours-banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 32px;
-  box-sizing: border-box;
-  z-index: 2;
-}
-@media (max-width: 768px) {
-  .tours-banner-overlay {
-    padding: 0 24px;
-  }
-}
-@media (max-width: 480px) {
-  .tours-banner-overlay {
-    padding: 0 16px;
-  }
-}
-.tours-banner-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  color: #FFFFFF;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  animation: contentFade 1s ease-in-out;
-}
-@media (max-width: 768px) {
-  .tours-banner-text {
-    gap: 2px;
-  }
-}
-.tours-banner-text .line1 {
-  font-weight: 400;
-  font-size: 36px;
-  line-height: 1.4;
-  animation: titleSlide 0.5s ease-out;
-}
-@media (max-width: 768px) {
-  .tours-banner-text .line1 {
-    font-size: 28px;
-    line-height: 1.3;
-  }
-}
-@media (max-width: 480px) {
-  .tours-banner-text .line1 {
-    font-size: 24px;
-    line-height: 1.2;
-  }
-}
-@media (max-width: 360px) {
-  .tours-banner-text .line1 {
-    font-size: 20px;
-  }
-}
-.tours-banner-text .line2 {
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 1.3;
-  animation: titleSlide 0.5s ease-out 0.2s both;
-}
-@media (max-width: 768px) {
-  .tours-banner-text .line2 {
-    font-size: 36px;
-    line-height: 1.2;
-  }
-}
-@media (max-width: 480px) {
-  .tours-banner-text .line2 {
-    font-size: 32px;
-    line-height: 1.1;
-  }
-}
-@media (max-width: 360px) {
-  .tours-banner-text .line2 {
-    font-size: 28px;
-  }
-}
-.tours-banner-text .line3 {
-  font-weight: 500;
-  font-size: 36px;
-  line-height: 1.4;
-  animation: titleSlide 0.5s ease-out 0.4s both;
-}
-@media (max-width: 768px) {
-  .tours-banner-text .line3 {
-    font-size: 28px;
-    line-height: 1.3;
-  }
-}
-@media (max-width: 480px) {
-  .tours-banner-text .line3 {
-    font-size: 24px;
-    line-height: 1.2;
-  }
-}
-@media (max-width: 360px) {
-  .tours-banner-text .line3 {
-    font-size: 20px;
-  }
-}
-@keyframes contentFade {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes titleSlide {
-  0% {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-@media (max-width: 320px) {
-  .tours-banner-slider {
-    height: 160px;
-    border-radius: 16px;
-  }
-  .tours-banner-overlay {
-    padding: 0 12px;
-  }
-  .tours-banner-text .line1 {
-    font-size: 18px;
-  }
-  .tours-banner-text .line2 {
-    font-size: 24px;
-  }
-  .tours-banner-text .line3 {
-    font-size: 18px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .tours-banner-slider .slide {
-    animation: none;
-    opacity: 1;
-  }
-  .tours-banner-text {
-    animation: none;
-  }
-  .line1,
-  .line2,
-  .line3 {
-    animation: none !important;
-    opacity: 1;
-    transform: none;
-  }
 }
 .card {
   position: relative;
@@ -2500,4 +2305,220 @@ textarea::placeholder {
 .booking-form .form-group .error-message {
   margin-top: 4px;
   min-height: 16px;
+}
+.tours-banner-slider {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 32px;
+  overflow: hidden;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+@media (max-width: 768px) {
+  .tours-banner-slider {
+    height: 200px;
+    border-radius: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .tours-banner-slider {
+    height: 180px;
+    border-radius: 20px;
+  }
+}
+.tours-banner-slider .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: slideAnimation 12s infinite;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media (max-width: 768px) {
+  .tours-banner-slider .slide {
+    background-position: center center;
+  }
+}
+.tours-banner-slider .slide.slide1 {
+  background-image: url("../../resources/images/beach_image.png");
+  animation-delay: 0s;
+}
+.tours-banner-slider .slide.slide2 {
+  background-image: url("../../resources/images/mountain_image.jpg");
+  animation-delay: 6s;
+}
+@keyframes slideAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  5% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  45% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+.tours-banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 32px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+@media (max-width: 768px) {
+  .tours-banner-overlay {
+    padding: 0 24px;
+  }
+}
+@media (max-width: 480px) {
+  .tours-banner-overlay {
+    padding: 0 16px;
+  }
+}
+.tours-banner-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #FFFFFF;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  animation: contentFade 1s ease-in-out;
+}
+@media (max-width: 768px) {
+  .tours-banner-text {
+    gap: 2px;
+  }
+}
+.tours-banner-text .line1 {
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.4;
+  animation: titleSlide 0.5s ease-out;
+}
+@media (max-width: 768px) {
+  .tours-banner-text .line1 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+}
+@media (max-width: 480px) {
+  .tours-banner-text .line1 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+}
+@media (max-width: 360px) {
+  .tours-banner-text .line1 {
+    font-size: 20px;
+  }
+}
+.tours-banner-text .line2 {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.3;
+  animation: titleSlide 0.5s ease-out 0.2s both;
+}
+@media (max-width: 768px) {
+  .tours-banner-text .line2 {
+    font-size: 36px;
+    line-height: 1.2;
+  }
+}
+@media (max-width: 480px) {
+  .tours-banner-text .line2 {
+    font-size: 32px;
+    line-height: 1.1;
+  }
+}
+@media (max-width: 360px) {
+  .tours-banner-text .line2 {
+    font-size: 28px;
+  }
+}
+.tours-banner-text .line3 {
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.4;
+  animation: titleSlide 0.5s ease-out 0.4s both;
+}
+@media (max-width: 768px) {
+  .tours-banner-text .line3 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+}
+@media (max-width: 480px) {
+  .tours-banner-text .line3 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+}
+@media (max-width: 360px) {
+  .tours-banner-text .line3 {
+    font-size: 20px;
+  }
+}
+@keyframes contentFade {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes titleSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@media (max-width: 320px) {
+  .tours-banner-slider {
+    height: 160px;
+    border-radius: 16px;
+  }
+  .tours-banner-overlay {
+    padding: 0 12px;
+  }
+  .tours-banner-text .line1 {
+    font-size: 18px;
+  }
+  .tours-banner-text .line2 {
+    font-size: 24px;
+  }
+  .tours-banner-text .line3 {
+    font-size: 18px;
+  }
 }
