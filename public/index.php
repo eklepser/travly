@@ -116,7 +116,7 @@ require_once 'layout/header.php';
 
                 $maxGuests = (int)($tour['max_capacity_per_room'] ?? 4);
             ?>
-            <a href="hotel-selection.php?tour_id=<?= (int)$tour['tour_id'] ?>" class="card">
+            <a href="tour.php?id=<?= (int)$tour['tour_id'] ?>" class="card">
             <?php
                 $imageUrl = $tour['image_url'] ?? '';
 
