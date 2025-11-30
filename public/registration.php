@@ -56,4 +56,7 @@ require_once 'layout/header.php';
     </div>
 </main>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script/validation.js"></script>
+
 <?php require_once 'layout/footer.php'; ?>

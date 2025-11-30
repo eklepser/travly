@@ -1,6 +1,31 @@
 <?php
 $pageTitle = 'Travly — Лучшие туры для вас';
 require_once 'layout/header.php';
+
+require_once '../src/db.php';
+
+//  Configure DB Parameters
+$host = "localhost";
+$dbname = "travly";
+$dbuser = "travler";
+$userpass = "travler21";
+
+$dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$dbuser;password=$userpass";
+
+try{
+ // create a PostgreSQL database connection
+ $conn = new PDO($dsn);
+
+ // display a message if connected to the PostgreSQL successfully
+ if($conn){
+ echo "Connected to the $dbname database successfully!";
+ echo "\n";
+ }
+}catch (PDOException $e){
+
+ echo $e->getMessage();
+}
+
 ?>
 
 <main class="main-page">
