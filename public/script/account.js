@@ -2,16 +2,13 @@
 (function () {
     'use strict';
 
-    // 🔹 Регистрируем инициализатор в глобальном реестре
-    if (typeof window.pageModules !== 'undefined') {
-        window.pageModules['js/pages/account.js'] = init;
-    }
+    // Проверяем: нужные элементы есть? (защита от запуска на других страницах)
+    const editBtn = document.getElementById('editToggle');
+    const modal = document.getElementById('cancelModal');
+    if (!editBtn && !modal) return;
 
-    function init() {
-        // === Редактирование профиля ===
-        const editBtn = document.getElementById('editToggle');
-        if (!editBtn) return; // не на этой странице
-
+    // === Редактирование профиля ===
+    if (editBtn) {
         const saveBtn = document.querySelector('.save-btn');
         const cancelBtn = document.querySelector('.cancel-btn');
         const textVals = Array.from(document.querySelectorAll('.text-value'));
@@ -26,19 +23,18 @@
         };
 
         editBtn.addEventListener('click', () => toggleEditMode(true));
-        cancelBtn.addEventListener('click', () => toggleEditMode(false));
-        saveBtn.addEventListener('click', () => {
+        cancelBtn?.addEventListener('click', () => toggleEditMode(false));
+        saveBtn?.addEventListener('click', () => {
             textVals.forEach((el, i) => {
                 const val = inputs[i]?.value?.trim();
                 if (val) el.textContent = val;
             });
             toggleEditMode(false);
         });
+    }
 
-        // === Модальное окно отмены ===
-        const modal = document.getElementById('cancelModal');
-        if (!modal) return;
-
+    // === Модальное окно отмены ===
+    if (modal) {
         document.querySelectorAll('[data-action="cancel-booking"]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -56,7 +52,6 @@
             alert(`✅ Бронирование ${id} успешно отменено`);
             modal.style.display = 'none';
 
-            // Опционально: затемнить карточку
             const card = document.querySelector(`.booking-hero[data-booking-id="${id}"]`);
             if (card) card.style.opacity = '0.5';
         });

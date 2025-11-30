@@ -1,9 +1,13 @@
+<?php
+$pageTitle = 'Travly — Вход';
+require_once 'layout/header.php';
+?>
+
 <main class="auth-main">
     <div class="auth-container">
         <div class="auth-card">
             <h1 class="auth-title">Вход</h1>
-
-            <button data-page="layout/account.html" class="submit-btn"> Продолжить с VK </button>
+            <button class="submit-btn" onclick="location.href='account.php'"> Продолжить с VK </button>
 
             <div class="divider">
                 <span>Или</span>
@@ -31,9 +35,14 @@
             </form>
 
             <div class="auth-footer">
-                <p>Нет аккаунта? <a data-page="layout/registration.html">Зарегистрироваться</a></p>
+                <p>Нет аккаунта? <a onclick="location.href='registration.php'">Зарегистрироваться</a></p>
             </div>
 
         </div>
     </div>
 </main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script/validation.js"></script>
+
+<?php require_once 'layout/footer.php'; ?>

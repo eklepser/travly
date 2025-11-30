@@ -1,3 +1,8 @@
+<?php
+$pageTitle = 'Travly — Помощь';
+require_once 'layout/header.php';
+?>
+
 <main class="help-page">
     <div class="help-content">
 
@@ -66,3 +71,5 @@
 
     </div>
 </main>
+
+<?php require_once 'layout/footer.php'; ?>

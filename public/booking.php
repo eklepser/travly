@@ -1,3 +1,8 @@
+<?php
+$pageTitle = 'Travly — Бронирование';
+require_once 'layout/header.php';
+?>
+
 <main class="booking-main">
     <section class="booking-hero">
         <div class="booking-header">
@@ -8,7 +13,7 @@
         <div class="booking-content">
             <div class="booking-left-section">
                 <div class="booking-card"></div>
-                <button class="change-services-btn" data-page="layout/hotel-selection.html">Изменить услуги</button>
+                <button class="change-services-btn" onclick="location.href='hotel-selection.php'">Изменить услуги</button>
             </div>
 
             <div class="tour-info">
@@ -182,5 +187,9 @@
     <div class="final-button">
         <button class="book-btn">Забронировать тур</button>
     </div>
-
 </main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script/validation.js"></script>
+
+<?php require_once 'layout/footer.php'; ?>

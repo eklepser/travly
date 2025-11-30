@@ -1,3 +1,8 @@
+<?php
+$pageTitle = 'Travly — Регистрация';
+require_once 'layout/header.php';
+?>
+
 <main class="auth-main">
     <div class="auth-container">
         <div class="auth-card">
@@ -8,7 +13,7 @@
                 <button class="extra-button organizator">Как организатор</button>
             </div>
 
-            <button class="submit-btn">Продолжить с VK</button>
+            <button class="submit-btn" onclick="location.href='account.php'"> Продолжить с VK </button>
 
             <div class="divider">Или</div>
 
@@ -45,8 +50,10 @@
             </form>
 
             <div class="auth-footer">
-                <p>Уже есть аккаунт? <a data-page="layout/auth.html">Войти</a></p>
+                <p>Уже есть аккаунт? <a href='auth.php'>Войти</a></p>
             </div>
         </div>
     </div>
 </main>
+
+<?php require_once 'layout/footer.php'; ?>

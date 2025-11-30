@@ -1,3 +1,8 @@
+<?php
+$pageTitle = 'Travly — О нас';
+require_once 'layout/header.php';
+?>
+
 <main class="about-page">
     <div class="about-content">
 
@@ -22,3 +27,5 @@
 
     </div>
 </main>
+
+<?php require_once 'layout/footer.php'; ?>

@@ -1,3 +1,8 @@
+<?php
+$pageTitle = 'Travly — Лучшие туры для вас';
+require_once 'layout/header.php';
+?>
+
 <main class="main-page">
 
     <div class="filters">
@@ -106,10 +111,9 @@
 
         <div class="cards-panel">
 
-            <div class="card" data-page="layout/hotel-selection.html">
+            <a href="hotel-selection.php" class="card">
                 <div class="card-image"></div>
                 <div class="card-overlay"></div>
-
                 <div class="card-top">
                     <div class="card-location">
                         <div class="card-country">Египет</div>
@@ -117,7 +121,6 @@
                     </div>
                     <div class="card-rating">9.1</div>
                 </div>
-
                 <div class="card-bottom">
                     <div class="card-hotel-info">
                         <div class="hotel-stars">★★★★☆</div>
@@ -133,12 +136,11 @@
                         <div class="card-price">от 35000 руб/чел</div>
                     </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="card" data-page="layout/hotel-selection.html">
+            <a href="hotel-selection.php" class="card">
                 <div class="card-image"></div>
                 <div class="card-overlay"></div>
-
                 <div class="card-top">
                     <div class="card-location">
                         <div class="card-country">Египет</div>
@@ -146,7 +148,6 @@
                     </div>
                     <div class="card-rating">9.1</div>
                 </div>
-
                 <div class="card-bottom">
                     <div class="card-hotel-info">
                         <div class="hotel-stars">★★★★☆</div>
@@ -162,12 +163,11 @@
                         <div class="card-price">от 35000 руб/чел</div>
                     </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="card" data-page="layout/hotel-selection.html">
+            <a href="hotel-selection.php" class="card">
                 <div class="card-image"></div>
                 <div class="card-overlay"></div>
-
                 <div class="card-top">
                     <div class="card-location">
                         <div class="card-country">Египет</div>
@@ -175,7 +175,6 @@
                     </div>
                     <div class="card-rating">9.1</div>
                 </div>
-
                 <div class="card-bottom">
                     <div class="card-hotel-info">
                         <div class="hotel-stars">★★★★☆</div>
@@ -191,12 +190,11 @@
                         <div class="card-price">от 35000 руб/чел</div>
                     </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="card" data-page="layout/hotel-selection.html">
+            <a href="hotel-selection.php" class="card">
                 <div class="card-image"></div>
                 <div class="card-overlay"></div>
-
                 <div class="card-top">
                     <div class="card-location">
                         <div class="card-country">Египет</div>
@@ -204,7 +202,6 @@
                     </div>
                     <div class="card-rating">9.1</div>
                 </div>
-
                 <div class="card-bottom">
                     <div class="card-hotel-info">
                         <div class="hotel-stars">★★★★☆</div>
@@ -220,7 +217,7 @@
                         <div class="card-price">от 35000 руб/чел</div>
                     </div>
                 </div>
-            </div>
+            </a>
 
         </div>
 
@@ -231,10 +228,9 @@
 
         <div class="cards-panel">
 
-            <div class="card" data-page="layout/hotel-selection.html">
+            <a href="hotel-selection.php" class="card">
                 <div class="card-image"></div>
                 <div class="card-overlay"></div>
-
                 <div class="card-top">
                     <div class="card-location">
                         <div class="card-country">Египет</div>
@@ -242,7 +238,6 @@
                     </div>
                     <div class="card-rating">9.1</div>
                 </div>
-
                 <div class="card-bottom">
                     <div class="card-hotel-info">
                         <div class="hotel-stars">★★★★☆</div>
@@ -258,7 +253,7 @@
                         <div class="card-price">от 35000 руб/чел</div>
                     </div>
                 </div>
-            </div>
+            </a>
 
         </div>
 
@@ -269,10 +264,9 @@
 
         <div class="cards-panel">
 
-            <div class="card" data-page="layout/hotel-selection.html">
+            <a href="hotel-selection.php" class="card">
                 <div class="card-image"></div>
                 <div class="card-overlay"></div>
-
                 <div class="card-top">
                     <div class="card-location">
                         <div class="card-country">Египет</div>
@@ -280,7 +274,6 @@
                     </div>
                     <div class="card-rating">9.1</div>
                 </div>
-
                 <div class="card-bottom">
                     <div class="card-hotel-info">
                         <div class="hotel-stars">★★★★☆</div>
@@ -296,10 +289,12 @@
                         <div class="card-price">от 35000 руб/чел</div>
                     </div>
                 </div>
-            </div>
+            </a>
 
         </div>
 
     </div>
 
 </main>
+
+<?php require_once 'layout/footer.php'; ?>

@@ -1,3 +1,8 @@
+<?php
+$pageTitle = 'Travly — Мой профиль';
+require_once 'layout/header.php';
+?>
+
 <main class="account-main">
     <section class="profile-section">
         <h1 class="profile-title">Личный кабинет</h1>
@@ -218,3 +223,7 @@
         </div>
     </div>
 </main>
+
+<script src="script/account.js"></script>
+
+<?php require_once 'layout/footer.php'; ?>

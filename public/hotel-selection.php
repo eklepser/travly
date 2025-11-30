@@ -1,3 +1,8 @@
+<?php
+$pageTitle = 'Travly — Выбор отеля';
+require_once 'layout/header.php';
+?>
+
 <main class="selection-main">
     <section class="selection-hero">
         <div class="selection-header">
@@ -7,9 +12,8 @@
 
         <div class="selection-content">
             <div class="hotel-left-section">
-                <div class="booking-card">
-                </div>
-                <button class="extra-button" data-page="layout/search.html">Сменить отель</button>
+                <div class="booking-card"></div>
+                <button class="extra-button" onclick="location.href='search.php'">Сменить отель</button>
             </div>
 
             <div class="hotel-info">
@@ -136,7 +140,11 @@
         </div>
 
         <div class="summary-buttons">
-            <button class="proceed-btn" data-page="layout/booking.html">Перейти к оформлению</button>
+            <button class="proceed-btn" onclick="location.href='booking.php'">Перейти к оформлению</button>
         </div>
     </div>
 </main>
+
+<script src="script/hotelSelection.js"></script>
+
+<?php require_once 'layout/footer.php'; ?>

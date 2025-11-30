@@ -1,3 +1,8 @@
+<?php
+$pageTitle = 'Travly — Поиск';
+require_once 'layout/header.php';
+?>
+
 <main class="main-page">
 
     <div class="filters">
@@ -129,3 +134,5 @@
     </div>
 
 </main>
+
+<?php require_once 'layout/footer.php'; ?>

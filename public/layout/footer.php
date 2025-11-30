@@ -1,36 +1,3 @@
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style/styles.css">
-    <title>Travly</title>
-</head>
-
-<body>
-
-<!-- HEADER -->
-<header>
-    <div class="logo">
-        <span class="logo-text">Trav<span class="logo-text-highlight">ly</span></span>
-        <div class="logo-icon"></div>
-    </div>
-    <nav class="nav">
-        <button class="nav-button" data-page="layout/main.html">Главная</button>
-        <button class="nav-button" data-page="layout/search.html">Поиск тура</button>
-        <button class="nav-button" data-page="layout/about.html">О нас</button>
-        <button class="nav-button" data-page="layout/help.html">Помощь</button>
-        <div class="account" data-page="layout/auth.html">
-            <div class="account-icon"></div>
-            <span class="account-text">Войти</span>
-        </div>
-    </nav>
-</header>
-
-<!-- PAGE CONTENT -->
-<div id="page-content"></div>
-
 <!-- FOOTER -->
 <footer>
     <div class="contacts">
@@ -66,11 +33,11 @@
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="js/navigation.js"></script>
-<script src="js/validation.js"></script>
+<?php if (!empty($scripts)): ?>
+    <?php foreach ($scripts as $script): ?>
+        <script src="<?= htmlspecialchars($script) ?>"></script>
+    <?php endforeach; ?>
+<?php endif; ?>
 
 </body>
-
 </html>
-

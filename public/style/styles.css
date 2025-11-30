@@ -419,14 +419,6 @@ footer {
   margin-top: 4px;
   min-height: 16px;
 }
-input,
-textarea {
-  color: #1E1E1E !important;
-}
-input::placeholder,
-textarea::placeholder {
-  color: #AEAEAE !important;
-}
 .main-page {
   gap: 20px;
   padding: 20px;
