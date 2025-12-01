@@ -1,10 +1,8 @@
-// hotelSelection.js — логика страницы выбора отеля
 (function () {
     'use strict';
 
-    // Проверяем: нужные элементы есть?
     const roomSelect = document.getElementById('room-type');
-    if (!roomSelect) return; // не на этой странице
+    if (!roomSelect) return;
 
     const BASE_PRICE_PER_PERSON = 60_000;
     const state = {
@@ -38,7 +36,6 @@
         if (el.totalCost) el.totalCost.textContent = fmt(total);
     }
 
-    // Кнопки +/- туристов
     el.buttons.forEach(btn => {
         btn.addEventListener('click', () => {
             const t = btn.dataset.type;
@@ -52,13 +49,11 @@
         });
     });
 
-    // Тип номера
     roomSelect.addEventListener('change', () => {
         state.roomPrice = +roomSelect.value || 0;
         update();
     });
 
-    // Допуслуги
     el.checkboxes.forEach(cb => {
         cb.addEventListener('change', () => {
             const p = +cb.dataset.price || 0;
@@ -67,6 +62,5 @@
         });
     });
 
-    // Первый расчёт
     update();
 })();

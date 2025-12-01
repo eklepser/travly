@@ -1,13 +1,10 @@
-// account.js — логика страницы личного кабинета
 (function () {
     'use strict';
 
-    // Проверяем: нужные элементы есть? (защита от запуска на других страницах)
     const editBtn = document.getElementById('editToggle');
     const modal = document.getElementById('cancelModal');
     if (!editBtn && !modal) return;
 
-    // === Редактирование профиля ===
     if (editBtn) {
         const saveBtn = document.querySelector('.save-btn');
         const cancelBtn = document.querySelector('.cancel-btn');
@@ -33,7 +30,6 @@
         });
     }
 
-    // === Модальное окно отмены ===
     if (modal) {
         document.querySelectorAll('[data-action="cancel-booking"]').forEach(btn => {
             btn.addEventListener('click', (e) => {

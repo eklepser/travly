@@ -1,4 +1,3 @@
-// Variables
 @primary-color: #275858;
 @secondary-color: #627878;
 @accent-color: #459292;
@@ -29,8 +28,6 @@
 @profile-gradient: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
 @tours-gradient: linear-gradient(0deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
 
-
-// Mixins
 .button-base() {
   border: none;
   border-radius: 8px;
@@ -366,7 +363,8 @@ footer {
   }
 }
 
-.contacts, .social-media {
+.contacts,
+.social-media {
   display: flex;
   flex-direction: column;
 }
@@ -380,7 +378,8 @@ footer {
   align-items: center;
 }
 
-.contacts h3, .social-media h3 {
+.contacts h3,
+.social-media h3 {
   font-weight: bold;
   font-size: 20px;
   line-height: 24px;
@@ -441,7 +440,7 @@ footer {
 
 .form-group {
   .form-group();
-  
+
   label {
     font-weight: 400;
     font-size: 24px;
@@ -470,7 +469,8 @@ footer {
   justify-content: center;
 }
 
-.clear-btn, .extra-button {
+.clear-btn,
+.extra-button {
   .button-secondary();
   .button-large();
   width: 100%;
@@ -491,7 +491,8 @@ footer {
   .info-item-base();
 }
 
-.info-label, .info-value {
+.info-label,
+.info-value {
   font-weight: 400;
   font-size: 24px;
   line-height: 140%;
@@ -501,8 +502,6 @@ footer {
 .info-value {
   text-align: right;
 }
-
-// jQuery
 
 .input-field {
   position: relative;
@@ -530,7 +529,6 @@ footer {
   font-weight: 400;
 }
 
-// Адаптация для форм авторизации
 .auth-form {
   .form-group {
     position: relative;
@@ -575,16 +573,15 @@ footer {
   }
 }
 
-// Стили для валидации - минимальные изменения
 .input-field {
   position: relative;
 
   input {
     transition: all 0.3s ease;
-    color: @dark-gray !important; // Темный цвет для введенного текста
+    color: @dark-gray !important;
 
     &::placeholder {
-      color: @gray !important; // Серый только для плейсхолдера
+      color: @gray !important;
     }
 
     &.valid {
@@ -610,24 +607,22 @@ footer {
     font-family: @font-family;
     font-weight: 400;
     display: block;
-    min-height: 16px; // Резервируем место для текста ошибки
+    min-height: 16px;
   }
 }
 
-// Для форм бронирования - сохраняем оригинальные отступы
 .booking-form {
   .form-group {
-    margin-bottom: 8px; // Сохраняем оригинальные отступы
+    margin-bottom: 8px;
 
     .error-message {
-      position: static; // Убираем absolute позиционирование
+      position: static;
       margin-top: 4px;
       min-height: 16px;
     }
   }
 }
 
-// Для форм авторизации
 .auth-form {
   .form-group {
     .error-message {

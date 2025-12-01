@@ -8,9 +8,7 @@ require_once 'layout/header.php';
         <h1 class="profile-title">Личный кабинет</h1>
 
         <div class="profile-content">
-            <!-- Левая колонка -->
             <div class="profile-left">
-                <!-- Пара: Фамилия — Имя (с редактированием) -->
                 <div class="info-row">
                     <div class="info-group">
                         <label>Фамилия</label>
@@ -28,7 +26,6 @@ require_once 'layout/header.php';
                     </div>
                 </div>
 
-                <!-- Пара: Телефон — Email -->
                 <div class="info-row">
                     <div class="info-group">
                         <label>Номер телефона</label>
@@ -40,7 +37,6 @@ require_once 'layout/header.php';
                     </div>
                 </div>
 
-                <!-- Пара: Статус — Дата регистрации -->
                 <div class="info-row">
                     <div class="info-group">
                         <label>Статус</label>
@@ -52,7 +48,6 @@ require_once 'layout/header.php';
                     </div>
                 </div>
 
-                <!-- Кнопки -->
                 <div class="account-actions">
                     <button class="edit-btn" id="editToggle">Изменить</button>
                     <button class="save-btn" style="display: none;">Сохранить</button>
@@ -61,7 +56,6 @@ require_once 'layout/header.php';
                 </div>
             </div>
 
-            <!-- Правая колонка -->
             <div class="profile-right">
                 <div class="logo">
                     <span class="logo-text">Trav<span class="logo-text-highlight">ly</span></span>
@@ -80,7 +74,6 @@ require_once 'layout/header.php';
     <section class="tours-section">
         <h1 class="tours-title">Забронированные туры</h1>
 
-        <!-- Тур 1 -->
         <section class="booking-hero" data-booking-id="BK-2025-001">
             <div class="booking-content">
                 <div class="booking-card-wrapper">
@@ -147,7 +140,6 @@ require_once 'layout/header.php';
             </div>
         </section>
 
-        <!-- Тур 2 -->
         <section class="booking-hero" data-booking-id="BK-2025-002">
             <div class="booking-content">
                 <div class="booking-card-wrapper">
@@ -211,7 +203,6 @@ require_once 'layout/header.php';
         </section>
     </section>
 
-    <!-- 🔹 Модальное окно (в конце main) -->
     <div class="modal-overlay" id="cancelModal" style="display: none;">
         <div class="modal">
             <h3>Подтверждение отмены</h3>

@@ -654,7 +654,7 @@ footer {
 .booking-card {
   width: 100%;
   height: 400px;
-  background-image: url("../../resources/images/mountain_image.jpg");
+  background-image: url("../../resources/images/tours/default_tour.png");
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -1712,14 +1712,23 @@ footer {
   background: #FFFFFF;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease, filter 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 6px 10px rgba(0, 0, 0, 0.12);
 }
 .card-image {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("../../resources/images/mountain_image.jpg");
+  background-image: url("resources/images/tours/default_tour.png");
   background-size: cover;
   background-position: center;
+  transition: transform 0.5s ease;
+}
+.card:hover .card-image {
+  transform: scale(1.03);
 }
 .card-overlay {
   position: absolute;
@@ -2108,7 +2117,6 @@ footer {
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-/* 🔹 НОВОЕ: Стили для туристов (как в прошлой версии, но без излишеств) */
 .tourists-section {
   background: linear-gradient(180deg, rgba(69, 146, 146, 0.5) 0%, rgba(210, 213, 213, 0.5) 100%);
   border-radius: 16px;
@@ -2182,8 +2190,6 @@ footer {
 .service-group {
   min-width: 200px;
   flex: 1 1 200px;
-  /* 🔹 Важно: label "Тип номера" — по левому краю */
-  /* 🔹 ЧЕКБОКСЫ ×2 — 40×40 px, выравнивание по верху */
 }
 .service-group label:not(.service-checkbox) {
   display: block;
@@ -2196,7 +2202,6 @@ footer {
 .service-group .service-checkbox {
   display: flex;
   align-items: flex-start;
-  /* ← по верху */
   gap: 12px;
   font-weight: 400;
   font-size: 20px;
@@ -2205,11 +2210,8 @@ footer {
 }
 .service-group .service-checkbox input[type="checkbox"] {
   width: 40px;
-  /* ← в 2 раза больше */
   height: 40px;
-  /* ← в 2 раза больше */
   margin-top: 2px;
-  /* подстройка для выравнивания */
   cursor: pointer;
 }
 .form-select {
@@ -2242,7 +2244,6 @@ footer {
 .summary-buttons {
   gap: 20px;
   justify-content: center;
-  /* ← было justify-items — опечатка */
   display: flex;
 }
 .proceed-btn {

@@ -7,24 +7,23 @@ $dbConnected = $pdo !== null;
 $tours = [];
 if ($dbConnected) {
     try {
-        // Запрос: 5 первых туров + данные отеля
         $stmt = $pdo->prepare("
-    SELECT 
-        t.id AS tour_id,
-        t.country,
-        t.location AS city,
-        t.base_price,
-        t.arrival_date,
-        t.return_date,
-        t.image_url,  
-        h.name AS hotel_name,
-        h.rating AS hotel_rating,
-        h.max_capacity_per_room
-    FROM tours t
-    INNER JOIN hotels h ON t.hotel_id = h.id
-    ORDER BY t.id
-    LIMIT 10
-");
+            SELECT 
+                t.id AS tour_id,
+                t.country,
+                t.location AS city,
+                t.base_price,
+                t.arrival_date,
+                t.return_date,
+                t.image_url,  
+                h.name AS hotel_name,
+                h.rating AS hotel_rating,
+                h.max_capacity_per_room
+            FROM tours t
+            INNER JOIN hotels h ON t.hotel_id = h.id
+            ORDER BY t.id
+            LIMIT 10
+        ");
         $stmt->execute();
         $tours = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
@@ -37,8 +36,6 @@ require_once 'layout/header.php';
 ?>
 
 <main class="main-page">
-
-    <!-- ФИЛЬТРЫ — без изменений -->
     <div class="filters">
         <h2 class="filters-title">Подобрать тур</h2>
         <div class="filter-group">
@@ -74,8 +71,6 @@ require_once 'layout/header.php';
     </div>
 
     <div class="tours-section">
-
-        <!-- СЛАЙДЕР — без изменений -->
         <div class="tours-banner-slider">
             <div class="slide slide1">
                 <div class="tours-banner-overlay">
@@ -97,7 +92,6 @@ require_once 'layout/header.php';
             </div>
         </div>
 
-        <!-- СЕКЦИЯ: СУПЕР АКЦИИ -->
         <div class="tours-title">
             <div class="tours-icon discount-icon"></div>
             <h2><b>Супер</b> акции</h2>
@@ -105,60 +99,59 @@ require_once 'layout/header.php';
 
         <div class="cards-panel">
             <?php foreach ($tours as $tour): ?>
-            <?php
+                <?php
                 $arrival = new DateTime($tour['arrival_date']);
                 $return = new DateTime($tour['return_date']);
-                $nights = max(1, $arrival->diff($return)->days); 
+                $nights = max(1, $arrival->diff($return)->days);
                 $rating = (float) $tour['hotel_rating'];
-                $fullStars = min(5, max(0, (int)floor($rating)));
+                $fullStars = min(5, max(0, (int) floor($rating)));
                 $emptyStars = 5 - $fullStars;
-                $price = number_format((int)$tour['base_price'], 0, '', ' ');
+                $price = number_format((int) $tour['base_price'], 0, '', ' ');
 
-                $maxGuests = (int)($tour['max_capacity_per_room'] ?? 4);
-            ?>
-            <a href="tour.php?id=<?= (int)$tour['tour_id'] ?>" class="card">
-            <?php
-                $imageUrl = $tour['image_url'] ?? '';
+                $maxGuests = (int) ($tour['max_capacity_per_room'] ?? 4);
+                ?>
+                <a href="tour.php?id=<?= (int) $tour['tour_id'] ?>" class="card">
+                    <?php
+                    $imageUrl = $tour['image_url'] ?? '';
 
-                if (empty($imageUrl)) {
-                $imageUrl = 'resources/images/tours/default_tour.png';
-                }
+                    if (empty($imageUrl)) {
+                        $imageUrl = 'resources/images/tours/default_tour.png';
+                    }
 
-                if (!file_exists($imageUrl)) {
-                $imageUrl = 'resources/images/tours/default_tour.png';
-                }
-            ?>
-                <div class="card-image" style="background-image: url('<?= htmlspecialchars($imageUrl) ?>');"></div>
-                <div class="card-overlay"></div>
-                <div class="card-top">
-                    <div class="card-location">
-                        <div class="card-country"><?= htmlspecialchars($tour['country']) ?></div>
-                        <div class="card-city"><?= htmlspecialchars($tour['city']) ?></div>
-                    </div>
-                    <div class="card-rating"><?= number_format($rating, 1, '.', '') ?></div>
-                </div>
-                <div class="card-bottom">
-                    <div class="card-hotel-info">
-                        <div class="hotel-stars">
-                            <?= str_repeat('★', $fullStars) . str_repeat('☆', $emptyStars) ?>
+                    if (!file_exists($imageUrl)) {
+                        $imageUrl = 'resources/images/tours/default_tour.png';
+                    }
+                    ?>
+                    <div class="card-image" style="background-image: url('<?= htmlspecialchars($imageUrl) ?>');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-top">
+                        <div class="card-location">
+                            <div class="card-country"><?= htmlspecialchars($tour['country']) ?></div>
+                            <div class="card-city"><?= htmlspecialchars($tour['city']) ?></div>
                         </div>
-                        <div class="hotel-name"><?= htmlspecialchars($tour['hotel_name']) ?></div>
+                        <div class="card-rating"><?= number_format($rating, 1, '.', '') ?></div>
                     </div>
-                    <div class="card-details">
-                        <div class="detail-item">
-                            <span class="icon">🌙</span>
-                            <span class="value"><?= $nights ?></span>
-                            <span class="icon">👥</span>
-                            <span class="value">1-<?= $maxGuests ?></span>
+                    <div class="card-bottom">
+                        <div class="card-hotel-info">
+                            <div class="hotel-stars">
+                                <?= str_repeat('★', $fullStars) . str_repeat('☆', $emptyStars) ?>
+                            </div>
+                            <div class="hotel-name"><?= htmlspecialchars($tour['hotel_name']) ?></div>
                         </div>
-                        <div class="card-price">от <?= $price ?> руб/чел</div>
+                        <div class="card-details">
+                            <div class="detail-item">
+                                <span class="icon">🌙</span>
+                                <span class="value"><?= $nights ?></span>
+                                <span class="icon">👥</span>
+                                <span class="value">1-<?= $maxGuests ?></span>
+                            </div>
+                            <div class="card-price">от <?= $price ?> руб/чел</div>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
             <?php endforeach; ?>
         </div>
 
-        <!-- Остальные секции — с пустыми panels (или можно позже заполнить) -->
         <div class="tours-title">
             <div class="tours-icon beach-icon"></div>
             <h2><b>Горячие</b> туры</h2>
@@ -170,9 +163,7 @@ require_once 'layout/header.php';
             <h2>Туры для <b>Вас</b></h2>
         </div>
         <div class="cards-panel"></div>
-
     </div>
-
 </main>
 
 <?php require_once 'layout/footer.php'; ?>

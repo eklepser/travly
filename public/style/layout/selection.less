@@ -37,7 +37,6 @@
 .booking-card {
   position: relative;
 
-  // 🔹 Убираем любые псевдоэлементы/текст
   &::before,
   &::after {
     display: none !important;
@@ -61,11 +60,10 @@
     color: @black;
     margin: 0;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 }
 
-/* 🔹 НОВОЕ: Стили для туристов (как в прошлой версии, но без излишеств) */
 .tourists-section {
   .card-container(@profile-gradient);
 
@@ -146,7 +144,6 @@
   min-width: 200px;
   flex: 1 1 200px;
 
-  /* 🔹 Важно: label "Тип номера" — по левому краю */
   label:not(.service-checkbox) {
     display: block;
     text-align: left;
@@ -156,10 +153,9 @@
     margin-bottom: 8px;
   }
 
-  /* 🔹 ЧЕКБОКСЫ ×2 — 40×40 px, выравнивание по верху */
   .service-checkbox {
     display: flex;
-    align-items: flex-start; /* ← по верху */
+    align-items: flex-start;
     gap: 12px;
     font-weight: 400;
     font-size: 20px;
@@ -167,9 +163,9 @@
     cursor: pointer;
 
     input[type="checkbox"] {
-      width: 40px;          /* ← в 2 раза больше */
-      height: 40px;         /* ← в 2 раза больше */
-      margin-top: 2px;      /* подстройка для выравнивания */
+      width: 40px;
+      height: 40px;
+      margin-top: 2px;
       cursor: pointer;
     }
   }
@@ -192,7 +188,7 @@
 
 .summary-buttons {
   gap: 20px;
-  justify-content: center; /* ← было justify-items — опечатка */
+  justify-content: center;
   display: flex;
 }
 
@@ -202,7 +198,8 @@
   font-size: 20px;
 }
 
-.cost-item, .cost-total {
+.cost-item,
+.cost-total {
   padding: 8px 0;
   font-size: 24px;
   color: @dark-gray;
