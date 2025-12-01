@@ -18,17 +18,16 @@ $pageTitle = $pageTitle ?? 'Travly';
     </div>
     <nav class="nav">
     <button class="nav-button" onclick="location.href='/'">Главная</button>
-    <button class="nav-button" onclick="location.href='search.php'">Поиск тура</button>
-    <button class="nav-button" onclick="location.href='about.php'">О нас</button>
-    <button class="nav-button" onclick="location.href='help.php'">Помощь</button>
-
+    <button class="nav-button" onclick="location.href='?page=search'">Поиск тура</button>
+    <button class="nav-button" onclick="location.href='?page=about'">О нас</button>
+    <button class="nav-button" onclick="location.href='?page=help'">Помощь</button>
    <?php if (isset($_SESSION['user_id'])): ?>
-    <div class="account" onclick="location.href='account.php'" style="cursor:pointer">
+    <div class="account" onclick="location.href='?page=me'" style="cursor:pointer">
         <div class="account-icon"></div>
         <span class="account-text">Кабинет</span>
     </div>
     <?php else: ?>
-    <div class="account" onclick="location.href='auth.php'" style="cursor:pointer">
+    <div class="account" onclick="location.href='?page=auth'" style="cursor:pointer">
         <div class="account-icon"></div>
         <span class="account-text">Войти</span>
     </div>
