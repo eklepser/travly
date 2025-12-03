@@ -21,13 +21,64 @@
   margin-bottom: 24px;
   position: relative;
   z-index: 1;
+  width: 100%;
 
   .dropdown {
     position: relative;
+    width: 100%;
   }
 
   .dropdown-content {
     z-index: 102;
+  }
+}
+
+.dropdown-content {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin-top: 0;
+  background: @white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 4px;
+  box-sizing: border-box;
+  
+  .dropdown-item {
+    padding: 12px 18px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin: 2px 0;
+    border: 1px solid transparent;
+    background: @white;
+    
+    &:hover {
+      background-color: #f0f8f8;
+      border-color: @accent-color;
+      transform: translateX(2px);
+    }
+    
+    &:active {
+      background-color: #e0f0f0;
+      transform: translateX(0);
+    }
+    
+    &[data-value=""] {
+      font-weight: 500;
+      color: @accent-color;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 4px;
+      padding-bottom: 14px;
+    }
   }
 }
 
@@ -42,6 +93,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
+  width: 100%;
+  box-sizing: border-box;
 
   &:hover {
     border-color: @accent-color;
@@ -121,6 +174,7 @@
 
 .range-slider {
   padding: 12px 0;
+  position: relative;
 }
 
 .slider {
@@ -138,6 +192,7 @@
     background: @accent-color;
     border-radius: 50%;
     cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   &::-moz-range-thumb {
@@ -147,7 +202,87 @@
     border-radius: 50%;
     cursor: pointer;
     border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
+}
+
+// Двойной слайдер для цены
+.double-range-slider {
+  position: relative;
+  height: 5px;
+  background: #ddd;
+  border-radius: 3px;
+  margin: 20px 0;
+  
+  .slider-track {
+    position: absolute;
+    height: 5px;
+    background: @accent-color;
+    border-radius: 3px;
+    top: 0;
+  }
+  
+  input[type="range"] {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: transparent;
+    -webkit-appearance: none;
+    pointer-events: none;
+    z-index: 2;
+    
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      background: @accent-color;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      pointer-events: all;
+      border: 2px solid @white;
+    }
+    
+    &::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      background: @accent-color;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid @white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      pointer-events: all;
+    }
+  }
+  
+  .price-min-slider {
+    z-index: 3;
+  }
+  
+  .price-max-slider {
+    z-index: 4;
+  }
+}
+
+.range-values {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+  
+  .range-value-min,
+  .range-value-max {
+    font-weight: 500;
+    color: @accent-color;
+  }
+}
+
+.filter-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .apply-btn {
@@ -155,5 +290,26 @@
   .button-large();
   width: 100%;
   padding: 16px;
-  margin-top: 12px;
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 2px solid @accent-color;
+  border-radius: 8px;
+  color: @accent-color;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: @accent-color;
+    color: @white;
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
 }

@@ -60,7 +60,7 @@
 
         </div>
 
-        <button class="back-to-main-btn" onclick="window.location.href='index.html'">
+        <button class="back-to-main-btn" onclick="window.location.href='/'">
             Вернуться на главную
         </button>
 

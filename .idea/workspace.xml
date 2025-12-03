@@ -4,15 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="fix: fix hotel selection extra cost calculation">
-      <change afterPath="$PROJECT_DIR$/public/js/pages/account.js" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add filters logic">
+      <change afterPath="$PROJECT_DIR$/public/api/filter-options.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/api/filter-tours.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/Untitled.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/egypt_hurghada.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/italy_rimini.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/photo_5287278374478876238_y.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/photo_5287278374478876239_y.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/turkey_alanya_new.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/turkey_kemer.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/script/filters.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/hotelSelection.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/pages/hotelSelection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/navigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/hotel-selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/hotel-selection.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/layout/account.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/account.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/layout/about.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/about.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/layout/help.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/help.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/layout/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/turkey_alanya.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/images/tours/turkey_alanya.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/filter-panel.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/style/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +73,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Debug&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
     &quot;JavaScript Debug.main.html.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -93,11 +101,11 @@
       <recent name="C:\Users\Nikitos\WebstormProjects\travly\css\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Server\data\htdocs\travly\public\resources\images\tours" />
       <recent name="C:\Server\data\htdocs\travly\public\js\pages" />
       <recent name="C:\Server\data\htdocs\travly\public" />
       <recent name="C:\Server\data\htdocs\travly\public\html\layout" />
       <recent name="C:\Server\data\htdocs\travly\public\html" />
-      <recent name="C:\Server\data\htdocs\travly" />
     </key>
   </component>
   <component name="RunManager">
@@ -165,7 +173,13 @@
       <workItem from="1764409818277" duration="465000" />
       <workItem from="1764415347415" duration="70000" />
       <workItem from="1764418296898" duration="12430000" />
-      <workItem from="1764443902257" duration="7301000" />
+      <workItem from="1764443902257" duration="10018000" />
+      <workItem from="1764486059683" duration="668000" />
+      <workItem from="1764501069985" duration="824000" />
+      <workItem from="1764542302025" duration="635000" />
+      <workItem from="1764591300086" duration="3092000" />
+      <workItem from="1764658635360" duration="173000" />
+      <workItem from="1764788770557" duration="2160000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -487,7 +501,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764447787111</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="feat: add account page script">
+      <option name="closed" value="true" />
+      <created>1764451725005</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1764451725005</updated>
+    </task>
+    <task id="LOCAL-00042" summary="fix: fix account page styles">
+      <option name="closed" value="true" />
+      <created>1764454380306</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1764454380306</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,9 +568,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: add account page (html only)" />
-    <MESSAGE value="style: reduce info panel and form size by 20%" />
-    <MESSAGE value="feat: add style for auth page" />
     <MESSAGE value="feat: improve style on login and registration pages" />
     <MESSAGE value="feat: add account.css" />
     <MESSAGE value="fix: move header closer to center" />
@@ -563,6 +590,9 @@
     <MESSAGE value="refactor: move html files into layout folder" />
     <MESSAGE value="feat: add hotel selection script" />
     <MESSAGE value="fix: fix hotel selection extra cost calculation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: fix hotel selection extra cost calculation" />
+    <MESSAGE value="feat: add account page script" />
+    <MESSAGE value="fix: fix account page styles" />
+    <MESSAGE value="feat: add filters logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add filters logic" />
   </component>
 </project>
