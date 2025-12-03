@@ -25,36 +25,115 @@ class FilterManager {
     }
 
     async init() {
-        await this.loadFilterOptions();
+        this.loadFilterOptions();
+        this.restoreFiltersFromURL();
         this.setupDropdowns();
         this.setupSliders();
         this.setupApplyButton();
         this.setupInputs();
+        this.setupSorting();
     }
 
-    async loadFilterOptions() {
-        try {
-            const response = await fetch('api/filter-options.php');
-            const data = await response.json();
-            
-            if (data.countries) {
-                this.filterOptions.countries = data.countries;
-                this.populateCountryDropdown();
+    loadFilterOptions() {
+        // Загружаем опции из data-атрибута компонента фильтров
+        const filterPanel = document.querySelector('.filters[data-filter-options]');
+        if (filterPanel) {
+            try {
+                const options = JSON.parse(filterPanel.getAttribute('data-filter-options'));
+                if (options.countries) {
+                    this.filterOptions.countries = options.countries;
+                    this.populateCountryDropdown();
+                }
+                if (options.hotels) {
+                    this.filterOptions.hotels = options.hotels;
+                    this.populateHotelDropdown();
+                }
+                if (options.maxCapacity) {
+                    this.filterOptions.maxCapacity = options.maxCapacity;
+                    this.populateGuestsDropdown();
+                }
+            } catch (error) {
+                console.error('Failed to parse filter options:', error);
             }
-            
-            if (data.hotels) {
-                this.filterOptions.hotels = data.hotels;
-                this.populateHotelDropdown();
-            }
-            
-            if (data.maxCapacity) {
-                this.filterOptions.maxCapacity = data.maxCapacity;
-                this.populateGuestsDropdown();
-            }
-        } catch (error) {
-            console.error('Failed to load filter options:', error);
         }
     }
+
+    restoreFiltersFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Восстанавливаем фильтры из URL
+        if (urlParams.has('country')) {
+            this.filters.country = urlParams.get('country');
+            const countryItem = document.querySelector('[data-filter="country"]');
+            if (countryItem) {
+                const label = countryItem.querySelector('.filter-label');
+                if (label) label.textContent = this.filters.country;
+            }
+        }
+        
+        if (urlParams.has('min_price')) {
+            this.filters.minPrice = parseInt(urlParams.get('min_price'));
+            const priceMinInput = document.querySelector('.budget-min');
+            const priceMinSlider = document.querySelector('.price-min-slider');
+            if (priceMinInput) priceMinInput.value = this.filters.minPrice;
+            if (priceMinSlider) priceMinSlider.value = this.filters.minPrice;
+        }
+        
+        if (urlParams.has('max_price')) {
+            this.filters.maxPrice = parseInt(urlParams.get('max_price'));
+            const priceMaxInput = document.querySelector('.budget-max');
+            const priceMaxSlider = document.querySelector('.price-max-slider');
+            if (priceMaxInput) priceMaxInput.value = this.filters.maxPrice;
+            if (priceMaxSlider) priceMaxSlider.value = this.filters.maxPrice;
+        }
+        
+        if (urlParams.has('min_nights')) {
+            this.filters.minNights = parseInt(urlParams.get('min_nights'));
+            const nightsMinInput = document.querySelector('.duration-min');
+            if (nightsMinInput) nightsMinInput.value = this.filters.minNights;
+        }
+        
+        if (urlParams.has('max_nights')) {
+            this.filters.maxNights = parseInt(urlParams.get('max_nights'));
+            const nightsMaxInput = document.querySelector('.duration-max');
+            const nightsSlider = document.querySelector('.nights-slider');
+            if (nightsMaxInput) nightsMaxInput.value = this.filters.maxNights;
+            if (nightsSlider) nightsSlider.value = this.filters.maxNights;
+        }
+        
+        if (urlParams.has('min_guests')) {
+            this.filters.guests = parseInt(urlParams.get('min_guests'));
+            const guestsItem = document.querySelector('[data-filter="guests"]');
+            if (guestsItem) {
+                const label = guestsItem.querySelector('.filter-label');
+                if (label) label.textContent = this.filters.guests + (this.filters.guests === 1 ? ' турист' : this.filters.guests < 5 ? ' туриста' : ' туристов');
+            }
+        }
+        
+        if (urlParams.has('min_rating')) {
+            this.filters.minRating = parseFloat(urlParams.get('min_rating'));
+            const ratingItem = document.querySelector('[data-filter="rating"]');
+            if (ratingItem) {
+                const label = ratingItem.querySelector('.filter-label');
+                if (label) label.textContent = this.filters.minRating + '+';
+            }
+        }
+        
+        if (urlParams.has('hotel')) {
+            this.filters.hotel = urlParams.get('hotel');
+            const hotelItem = document.querySelector('[data-filter="hotel"]');
+            if (hotelItem) {
+                const label = hotelItem.querySelector('.filter-label');
+                if (label) label.textContent = this.filters.hotel;
+            }
+        }
+        
+        // Если выбрана страна, загружаем отели для этой страны
+        if (this.filters.country) {
+            this.loadHotelsByCountry(this.filters.country);
+        }
+    }
+
 
     populateCountryDropdown() {
         const dropdown = document.querySelector('[data-filter="country"] .dropdown-content');
@@ -74,21 +153,96 @@ class FilterManager {
         });
     }
 
-    populateHotelDropdown() {
+    populateHotelDropdown(hotels = null) {
         const dropdown = document.querySelector('[data-filter="hotel"] .dropdown-content');
         if (!dropdown) return;
         
         const allItem = dropdown.querySelector('[data-value=""]');
+        const hotelsList = hotels || this.filterOptions.hotels;
+        
+        // Сохраняем текущее значение, если оно есть
+        const currentValue = this.filters.hotel;
+        
         dropdown.innerHTML = '';
         if (allItem) dropdown.appendChild(allItem);
         
-        this.filterOptions.hotels.forEach(hotel => {
+        hotelsList.forEach(hotel => {
             const item = document.createElement('div');
             item.className = 'dropdown-item';
             item.setAttribute('data-value', hotel);
             item.textContent = hotel;
             dropdown.appendChild(item);
         });
+        
+        // Переустанавливаем обработчики событий для новых элементов
+        const filterItem = document.querySelector('[data-filter="hotel"]');
+        const label = filterItem ? filterItem.querySelector('.filter-label') : null;
+        const chevron = filterItem ? filterItem.querySelector('.filter-chevron') : null;
+        
+        dropdown.querySelectorAll('.dropdown-item').forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const value = option.getAttribute('data-value');
+                
+                // Обновляем текст в фильтре
+                if (value === '') {
+                    if (label) label.textContent = 'Отель';
+                } else {
+                    if (label) label.textContent = option.textContent;
+                }
+                
+                // Сохраняем значение
+                this.updateFilter('hotel', value);
+                
+                // Закрываем выпадающий список
+                dropdown.style.display = 'none';
+                if (chevron) {
+                    chevron.style.transform = 'rotate(45deg)';
+                    chevron.style.marginTop = '0';
+                }
+            });
+        });
+        
+        // Если текущий выбранный отель не в новом списке, сбрасываем выбор
+        if (currentValue && !hotelsList.includes(currentValue)) {
+            if (label) label.textContent = 'Отель';
+            this.filters.hotel = '';
+        }
+        
+        // Если список отелей пуст (кроме "Все"), сбрасываем выбор отеля
+        if (hotelsList.length === 0) {
+            if (label) label.textContent = 'Отель';
+            this.filters.hotel = '';
+        }
+    }
+
+    loadHotelsByCountry(country) {
+        if (!country) {
+            // Если страна не выбрана, показываем все отели из начальных опций
+            const filterPanel = document.querySelector('.filters[data-filter-options]');
+            if (filterPanel) {
+                try {
+                    const options = JSON.parse(filterPanel.getAttribute('data-filter-options'));
+                    const allHotels = options.allHotels || options.hotels || [];
+                    this.populateHotelDropdown(allHotels);
+                } catch (error) {
+                    this.populateHotelDropdown();
+                }
+            } else {
+                this.populateHotelDropdown();
+            }
+            return;
+        }
+        
+        // Фильтруем отели на клиенте из всех загруженных отелей
+        // Для этого нужно получить список отелей для выбранной страны
+        // Так как у нас нет API, перезагружаем страницу с параметром country
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentPage = urlParams.get('page') || 'search';
+        urlParams.set('country', country);
+        // Убираем hotel из параметров, так как список отелей изменится
+        urlParams.delete('hotel');
+        window.location.href = `?page=${currentPage}&${urlParams.toString()}`;
     }
 
     populateGuestsDropdown() {
@@ -124,6 +278,7 @@ class FilterManager {
                     dropdown.style.display = 'none';
                     chevron.style.transform = 'rotate(45deg)';
                     chevron.style.marginTop = '0';
+                    item.classList.remove('dropdown-open');
                 }
             });
             
@@ -144,10 +299,21 @@ class FilterManager {
                         ch.style.marginTop = '0';
                     }
                 });
+                // Убираем класс dropdown-open со всех элементов
+                document.querySelectorAll('.filter-item').forEach(fi => {
+                    fi.classList.remove('dropdown-open');
+                });
                 
                 dropdown.style.display = isOpen ? 'none' : 'block';
                 chevron.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(225deg)';
                 chevron.style.marginTop = isOpen ? '0' : '4px';
+                
+                // Добавляем/убираем класс для z-index
+                if (!isOpen) {
+                    item.classList.add('dropdown-open');
+                } else {
+                    item.classList.remove('dropdown-open');
+                }
             });
             
             // Обработка выбора значения
@@ -167,10 +333,16 @@ class FilterManager {
                     // Сохраняем значение
                     this.updateFilter(filterType, value);
                     
+                    // Если выбрана страна, обновляем список отелей
+                    if (filterType === 'country') {
+                        this.loadHotelsByCountry(value);
+                    }
+                    
                     // Закрываем выпадающий список
                     dropdown.style.display = 'none';
                     chevron.style.transform = 'rotate(45deg)';
                     chevron.style.marginTop = '0';
+                    item.classList.remove('dropdown-open');
                 });
             });
         });
@@ -270,22 +442,125 @@ class FilterManager {
         
         // Синхронизация с полями ввода
         if (priceMinInput) {
-            priceMinInput.addEventListener('input', (e) => {
-                const value = Math.max(0, Math.min(parseInt(e.target.value) || 0, maxPrice));
-                priceMinSlider.value = value;
+            // Удаляем все предыдущие обработчики
+            const newMinInput = priceMinInput.cloneNode(true);
+            priceMinInput.parentNode.replaceChild(newMinInput, priceMinInput);
+            
+            newMinInput.addEventListener('keydown', (e) => {
+                // Разрешаем все клавиши для редактирования
+            });
+            
+            newMinInput.addEventListener('input', (e) => {
+                let value = e.target.value.trim();
+                // Разрешаем пустое значение во время ввода
+                if (value === '') {
+                    return;
+                }
+                // Удаляем все нецифровые символы
+                value = value.replace(/\D/g, '');
+                if (value === '') {
+                    e.target.value = '';
+                    return;
+                }
+                let numValue = parseInt(value);
+                if (isNaN(numValue)) {
+                    e.target.value = '';
+                    return;
+                }
+                numValue = Math.max(0, Math.min(numValue, maxPrice));
+                e.target.value = numValue;
+                priceMinSlider.value = numValue;
                 updatePriceSlider();
+            });
+            
+            // Обработка потери фокуса для валидации
+            newMinInput.addEventListener('blur', (e) => {
+                let value = e.target.value.trim();
+                if (value === '') {
+                    e.target.value = '';
+                    priceMinSlider.value = 0;
+                    updatePriceSlider();
+                    return;
+                }
+                let numValue = parseInt(value);
+                if (isNaN(numValue) || numValue < 0) {
+                    e.target.value = '';
+                    priceMinSlider.value = 0;
+                    updatePriceSlider();
+                } else {
+                    numValue = Math.max(0, Math.min(numValue, maxPrice));
+                    e.target.value = numValue;
+                    priceMinSlider.value = numValue;
+                    updatePriceSlider();
+                }
             });
         }
         
         if (priceMaxInput) {
-            priceMaxInput.addEventListener('input', (e) => {
-                const value = Math.max(0, Math.min(parseInt(e.target.value) || maxPrice, maxPrice));
-                priceMaxSlider.value = value;
+            // Удаляем все предыдущие обработчики
+            const newMaxInput = priceMaxInput.cloneNode(true);
+            priceMaxInput.parentNode.replaceChild(newMaxInput, priceMaxInput);
+            
+            newMaxInput.addEventListener('keydown', (e) => {
+                // Разрешаем все клавиши для редактирования
+            });
+            
+            newMaxInput.addEventListener('input', (e) => {
+                let value = e.target.value.trim();
+                // Разрешаем пустое значение во время ввода
+                if (value === '') {
+                    return;
+                }
+                // Удаляем все нецифровые символы
+                value = value.replace(/\D/g, '');
+                if (value === '') {
+                    e.target.value = '';
+                    return;
+                }
+                let numValue = parseInt(value);
+                if (isNaN(numValue)) {
+                    e.target.value = '';
+                    return;
+                }
+                numValue = Math.max(0, Math.min(numValue, maxPrice));
+                e.target.value = numValue;
+                priceMaxSlider.value = numValue;
                 updatePriceSlider();
+            });
+            
+            // Обработка потери фокуса для валидации
+            newMaxInput.addEventListener('blur', (e) => {
+                let value = e.target.value.trim();
+                if (value === '') {
+                    e.target.value = '';
+                    priceMaxSlider.value = maxPrice;
+                    updatePriceSlider();
+                    return;
+                }
+                let numValue = parseInt(value);
+                if (isNaN(numValue) || numValue < 0) {
+                    e.target.value = '';
+                    priceMaxSlider.value = maxPrice;
+                    updatePriceSlider();
+                } else {
+                    numValue = Math.max(0, Math.min(numValue, maxPrice));
+                    e.target.value = numValue;
+                    priceMaxSlider.value = numValue;
+                    updatePriceSlider();
+                }
             });
         }
         
         // Инициализация
+        updatePriceSlider();
+        
+        // Если значения уже были восстановлены из URL, обновляем слайдеры
+        if (priceMinInput && priceMinInput.value) {
+            priceMinSlider.value = parseInt(priceMinInput.value) || 0;
+        }
+        if (priceMaxInput && priceMaxInput.value) {
+            priceMaxSlider.value = parseInt(priceMaxInput.value) || 100000;
+        }
         updatePriceSlider();
     }
 
@@ -293,6 +568,7 @@ class FilterManager {
         const nightsSlider = document.querySelector('.nights-slider');
         const nightsMinInput = document.querySelector('.duration-min');
         const nightsMaxInput = document.querySelector('.duration-max');
+        const maxNights = 30;
         
         // Синхронизация слайдера ночей с полями ввода
         if (nightsSlider && nightsMaxInput) {
@@ -302,19 +578,64 @@ class FilterManager {
             });
             
             nightsMaxInput.addEventListener('input', (e) => {
-                const value = parseInt(e.target.value) || 0;
-                if (value >= 1 && value <= 365) {
-                    nightsSlider.value = Math.min(value, 365);
+                let value = parseInt(e.target.value);
+                if (isNaN(value)) {
+                    return; // Разрешаем ввод, но не обновляем фильтр
+                }
+                if (value > maxNights) {
+                    e.target.value = maxNights;
+                    value = maxNights;
+                }
+                if (value >= 1 && value <= maxNights) {
+                    nightsSlider.value = Math.min(value, maxNights);
                     this.filters.maxNights = value;
+                } else if (value < 1) {
+                    e.target.value = '';
+                    this.filters.maxNights = null;
+                }
+            });
+            
+            // Валидация при потере фокуса
+            nightsMaxInput.addEventListener('blur', (e) => {
+                let value = parseInt(e.target.value);
+                if (isNaN(value) || value < 1) {
+                    e.target.value = '';
+                    this.filters.maxNights = null;
+                } else if (value > maxNights) {
+                    e.target.value = maxNights;
+                    nightsSlider.value = maxNights;
+                    this.filters.maxNights = maxNights;
                 }
             });
         }
         
         if (nightsMinInput) {
             nightsMinInput.addEventListener('input', (e) => {
-                const value = parseInt(e.target.value) || 0;
-                if (value >= 1 && value <= 365) {
+                let value = parseInt(e.target.value);
+                if (isNaN(value)) {
+                    return; // Разрешаем ввод, но не обновляем фильтр
+                }
+                if (value > maxNights) {
+                    e.target.value = maxNights;
+                    value = maxNights;
+                }
+                if (value >= 1 && value <= maxNights) {
                     this.filters.minNights = value;
+                } else if (value < 1) {
+                    e.target.value = '';
+                    this.filters.minNights = null;
+                }
+            });
+            
+            // Валидация при потере фокуса
+            nightsMinInput.addEventListener('blur', (e) => {
+                let value = parseInt(e.target.value);
+                if (isNaN(value) || value < 1) {
+                    e.target.value = '';
+                    this.filters.minNights = null;
+                } else if (value > maxNights) {
+                    e.target.value = maxNights;
+                    this.filters.minNights = maxNights;
                 }
             });
         }
@@ -327,11 +648,12 @@ class FilterManager {
         const nightsSlider = document.querySelector('.nights-slider');
         
         // Инициализация слайдера ночей
+        const maxNights = 30;
         if (nightsSlider && nightsMaxInput) {
             if (!nightsMaxInput.value) {
                 nightsMaxInput.value = nightsSlider.value;
             } else {
-                nightsSlider.value = Math.min(parseInt(nightsMaxInput.value) || 365, 365);
+                nightsSlider.value = Math.min(parseInt(nightsMaxInput.value) || maxNights, maxNights);
             }
             this.filters.maxNights = parseInt(nightsMaxInput.value) || null;
         }
@@ -357,14 +679,8 @@ class FilterManager {
         }
     }
 
-    async applyFilters() {
-        const container = document.getElementById('toursContainer');
-        if (!container) return;
-        
-        // Показываем индикатор загрузки
-        container.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">Загрузка...</div>';
-        
-        // Формируем параметры запроса
+    applyFilters() {
+        // Формируем параметры для URL
         const params = new URLSearchParams();
         
         if (this.filters.country) params.append('country', this.filters.country);
@@ -376,73 +692,8 @@ class FilterManager {
         if (this.filters.minRating !== null) params.append('min_rating', this.filters.minRating);
         if (this.filters.hotel) params.append('hotel', this.filters.hotel);
         
-        try {
-            const response = await fetch(`api/filter-tours.php?${params.toString()}`);
-            const data = await response.json();
-            
-            if (data.tours) {
-                this.renderTours(data.tours, container);
-            } else {
-                container.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">Туры не найдены</div>';
-            }
-        } catch (error) {
-            console.error('Failed to apply filters:', error);
-            container.innerHTML = '<div style="text-align: center; padding: 40px; color: #f00;">Ошибка загрузки туров</div>';
-        }
-    }
-
-    renderTours(tours, container) {
-        if (tours.length === 0) {
-            container.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">Туры не найдены</div>';
-            return;
-        }
-        
-        container.innerHTML = tours.map(tour => {
-            const arrival = new Date(tour.arrival_date);
-            const returnDate = new Date(tour.return_date);
-            const nights = Math.max(1, Math.floor((returnDate - arrival) / (1000 * 60 * 60 * 24)));
-            const rating = parseFloat(tour.hotel_rating);
-            const fullStars = Math.min(5, Math.max(0, Math.floor(rating)));
-            const emptyStars = 5 - fullStars;
-            const price = parseInt(tour.base_price).toLocaleString('ru-RU').replace(/,/g, ' ');
-            const maxGuests = parseInt(tour.max_capacity_per_room) || 4;
-            const imageUrl = tour.image_url || 'resources/images/tours/default_tour.png';
-            
-            return `
-                <a href="?page=tour&id=${tour.tour_id}" class="card">
-                    <div class="card-image" style="background-image: url('${this.escapeHtml(imageUrl)}');"></div>
-                    <div class="card-overlay"></div>
-                    <div class="card-top">
-                        <div class="card-location">
-                            <div class="card-country">${this.escapeHtml(tour.country)}</div>
-                            <div class="card-city">${this.escapeHtml(tour.city)}</div>
-                        </div>
-                        <div class="card-rating">${rating.toFixed(1)}</div>
-                    </div>
-                    <div class="card-bottom">
-                        <div class="card-hotel-info">
-                            <div class="hotel-stars">${'★'.repeat(fullStars)}${'☆'.repeat(emptyStars)}</div>
-                            <div class="hotel-name">${this.escapeHtml(tour.hotel_name)}</div>
-                        </div>
-                        <div class="card-details">
-                            <div class="detail-item">
-                                <span class="icon">🌙</span>
-                                <span class="value">${nights}</span>
-                                <span class="icon">👥</span>
-                                <span class="value">1-${maxGuests}</span>
-                            </div>
-                            <div class="card-price">от ${price} руб/чел</div>
-                        </div>
-                    </div>
-                </a>
-            `;
-        }).join('');
-    }
-
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+        // Переходим на страницу поиска с параметрами
+        window.location.href = `?page=search&${params.toString()}`;
     }
 
     resetFilters() {
@@ -502,7 +753,10 @@ class FilterManager {
         
         // Сброс слайдера ночей
         const nightsSlider = document.querySelector('.nights-slider');
-        if (nightsSlider) nightsSlider.value = 365;
+        if (nightsSlider) nightsSlider.value = 30;
+        
+        // Восстановление полного списка отелей
+        this.populateHotelDropdown();
         
         // Закрытие всех выпадающих списков
         document.querySelectorAll('.dropdown-content').forEach(dropdown => {
@@ -514,7 +768,124 @@ class FilterManager {
         });
         
         // Применение сброшенных фильтров (показать все туры)
-        this.applyFilters();
+        // Переходим на страницу поиска без параметров
+        window.location.href = '?page=search';
+    }
+
+    setupSorting() {
+        const sortFilterItem = document.querySelector('[data-filter="sort"]');
+        if (!sortFilterItem) return;
+        
+        const sortLabel = sortFilterItem.querySelector('.sort-label');
+        const dropdown = sortFilterItem.querySelector('.dropdown-content');
+        const chevron = sortFilterItem.querySelector('.sort-chevron');
+        const dropdownItems = dropdown ? dropdown.querySelectorAll('.dropdown-item') : [];
+        
+        // Обработчик клика на элемент сортировки
+        sortFilterItem.addEventListener('click', (e) => {
+            // Не открываем dropdown, если клик был на элемент внутри dropdown
+            if (e.target.closest('.dropdown-content')) {
+                return;
+            }
+            
+            const isOpen = dropdown && dropdown.style.display !== 'none';
+            
+            // Закрываем все другие dropdowns
+            document.querySelectorAll('.dropdown-content').forEach(dd => {
+                if (dd !== dropdown) {
+                    dd.style.display = 'none';
+                }
+            });
+            document.querySelectorAll('.filter-item, .sort-filter-item').forEach(item => {
+                if (item !== sortFilterItem) {
+                    item.classList.remove('dropdown-open');
+                }
+            });
+            
+            // Переключаем текущий dropdown
+            if (dropdown) {
+                dropdown.style.display = isOpen ? 'none' : 'block';
+                sortFilterItem.classList.toggle('dropdown-open', !isOpen);
+                
+                if (chevron) {
+                    if (isOpen) {
+                        chevron.style.transform = 'rotate(45deg)';
+                        chevron.style.marginTop = '0';
+                    } else {
+                        chevron.style.transform = 'rotate(225deg)';
+                        chevron.style.marginTop = '4px';
+                    }
+                }
+            }
+        });
+        
+        // Обработчики для элементов dropdown
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const sortValue = item.getAttribute('data-value');
+                
+                if (!sortValue) return;
+                
+                // Обновляем label
+                if (sortLabel) {
+                    sortLabel.textContent = item.textContent;
+                }
+                
+                // Убираем выделение с предыдущего элемента
+                dropdownItems.forEach(i => {
+                    i.removeAttribute('data-selected');
+                });
+                // Выделяем выбранный элемент
+                item.setAttribute('data-selected', 'true');
+                
+                // Закрываем dropdown
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+                sortFilterItem.classList.remove('dropdown-open');
+                if (chevron) {
+                    chevron.style.transform = 'rotate(45deg)';
+                    chevron.style.marginTop = '0';
+                }
+                
+                // Обновляем URL и перезагружаем страницу
+                const urlParams = new URLSearchParams(window.location.search);
+                
+                if (sortValue && sortValue !== 'popularity') {
+                    urlParams.set('sort', sortValue);
+                } else {
+                    urlParams.delete('sort');
+                }
+                
+                const currentPage = urlParams.get('page') || 'search';
+                urlParams.set('page', currentPage);
+                
+                window.location.href = `?${urlParams.toString()}`;
+            });
+        });
+        
+        // Закрываем dropdown при клике вне его
+        document.addEventListener('click', (e) => {
+            if (!sortFilterItem.contains(e.target)) {
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+                sortFilterItem.classList.remove('dropdown-open');
+                if (chevron) {
+                    chevron.style.transform = 'rotate(45deg)';
+                    chevron.style.marginTop = '0';
+                }
+            }
+        });
+        
+        // Выделяем выбранный элемент при загрузке
+        dropdownItems.forEach(item => {
+            if (item.getAttribute('data-selected') === 'true') {
+                item.style.fontWeight = '500';
+                item.style.color = '#459292';
+            }
+        });
     }
 }
 

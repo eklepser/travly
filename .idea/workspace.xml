@@ -4,23 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add filters logic">
-      <change afterPath="$PROJECT_DIR$/public/api/filter-options.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/api/filter-tours.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/Untitled.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/egypt_hurghada.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/italy_rimini.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/photo_5287278374478876238_y.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/photo_5287278374478876239_y.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/turkey_alanya_new.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/turkey_kemer.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/script/filters.js" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: improve filters logic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/about.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/about.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/help.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/help.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/api/filter-options.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/api/filter-tours.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/layout/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/turkey_alanya.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/images/tours/turkey_alanya.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/layout/search.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/search.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/script/filters.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/script/filters.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/style/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/filter-panel.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/main.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/style/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -179,7 +171,7 @@
       <workItem from="1764542302025" duration="635000" />
       <workItem from="1764591300086" duration="3092000" />
       <workItem from="1764658635360" duration="173000" />
-      <workItem from="1764788770557" duration="2160000" />
+      <workItem from="1764788770557" duration="5977000" />
     </task>
     <task id="LOCAL-00001" summary="chore: initial commit">
       <option name="closed" value="true" />
@@ -517,7 +509,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764454380306</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="feat: add filters logic">
+      <option name="closed" value="true" />
+      <created>1764791037083</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1764791037083</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,7 +568,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: improve style on login and registration pages" />
     <MESSAGE value="feat: add account.css" />
     <MESSAGE value="fix: move header closer to center" />
     <MESSAGE value="feat: set elements on account page" />
@@ -593,6 +592,7 @@
     <MESSAGE value="feat: add account page script" />
     <MESSAGE value="fix: fix account page styles" />
     <MESSAGE value="feat: add filters logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add filters logic" />
+    <MESSAGE value="feat: improve filters logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: improve filters logic" />
   </component>
 </project>

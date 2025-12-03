@@ -5,6 +5,7 @@
   width: 340px;
   padding: 28px;
   border-radius: 12px;
+  min-height: 1200px;
 }
 
 .filters-title {
@@ -29,7 +30,7 @@
   }
 
   .dropdown-content {
-    z-index: 102;
+    z-index: 10000;
   }
 }
 
@@ -46,7 +47,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   max-height: 300px;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 10002;
   padding: 4px;
   box-sizing: border-box;
   
@@ -95,9 +96,15 @@
   user-select: none;
   width: 100%;
   box-sizing: border-box;
+  z-index: 1;
 
   &:hover {
     border-color: @accent-color;
+  }
+  
+  // Когда выпадающий список открыт, увеличиваем z-index
+  &.dropdown-open {
+    z-index: 10001;
   }
 }
 
@@ -213,6 +220,7 @@
   background: #ddd;
   border-radius: 3px;
   margin: 20px 0;
+  z-index: 0;
   
   .slider-track {
     position: absolute;
@@ -220,6 +228,7 @@
     background: @accent-color;
     border-radius: 3px;
     top: 0;
+    z-index: 0;
   }
   
   input[type="range"] {
@@ -229,7 +238,7 @@
     background: transparent;
     -webkit-appearance: none;
     pointer-events: none;
-    z-index: 2;
+    z-index: 1;
     
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
@@ -256,12 +265,32 @@
   }
   
   .price-min-slider {
-    z-index: 3;
+    z-index: 2;
   }
   
   .price-max-slider {
-    z-index: 4;
+    z-index: 2;
   }
+}
+
+.range-slider {
+  position: relative;
+  z-index: 0;
+  
+  .slider {
+    z-index: 0;
+  }
+}
+
+.range-section {
+  position: relative;
+  z-index: 0;
+}
+
+.budget-section,
+.duration-section {
+  position: relative;
+  z-index: 0;
 }
 
 .range-values {
