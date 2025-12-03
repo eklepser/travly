@@ -1,7 +1,7 @@
 <?php
 // Компонент панели фильтров
 // $filterOptions должен быть определен в родительском файле
-$filterOptions = $filterOptions ?? ['countries' => [], 'hotels' => [], 'maxCapacity' => 4];
+$filterOptions = $filterOptions ?? ['countries' => [], 'hotels' => [], 'maxCapacity' => 4, 'tourTypes' => []];
 ?>
 <div class="filters" data-filter-options='<?= json_encode($filterOptions, JSON_UNESCAPED_UNICODE) ?>'>
     <h2 class="filters-title">Подобрать тур</h2>
@@ -11,9 +11,6 @@ $filterOptions = $filterOptions ?? ['countries' => [], 'hotels' => [], 'maxCapac
             <div class="filter-chevron"></div>
             <div class="dropdown-content" style="display: none;">
                 <div class="dropdown-item" data-value="">Все</div>
-                <div class="dropdown-item" data-value="beach">Пляжный</div>
-                <div class="dropdown-item" data-value="excursion">Экскурсионный</div>
-                <div class="dropdown-item" data-value="active">Активный</div>
             </div>
         </div>
         <div class="filter-item" data-filter="country">

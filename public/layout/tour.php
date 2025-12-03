@@ -245,7 +245,6 @@ $pageTitle = 'Travly — Выбор отеля';
     </div>
 </main>
 
-<script src="script/hotelSelection.js"></script>
 <script>
 (function() {
     const BASE_PRICE_PER_PERSON = <?= (int) $tour['base_price'] ?>;
@@ -267,18 +266,37 @@ $pageTitle = 'Travly — Выбор отеля';
             return;
         }
 
-        document.querySelectorAll('[data-action="increase"]').forEach(btn => {
-            btn.addEventListener('click', () => {
+        // Проверяем, не добавлены ли уже обработчики
+        const increaseButtons = document.querySelectorAll('[data-action="increase"]');
+        const decreaseButtons = document.querySelectorAll('[data-action="decrease"]');
+        
+        if (increaseButtons.length === 0 || decreaseButtons.length === 0) {
+            return;
+        }
+
+        // Проверяем, есть ли уже обработчик на первой кнопке
+        if (increaseButtons[0].hasAttribute('data-handler-attached')) {
+            return;
+        }
+
+        increaseButtons.forEach(btn => {
+            btn.setAttribute('data-handler-attached', 'true');
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
                 const type = btn.dataset.type;
                 changeCounter(type, +1);
-            });
+            }, { once: false });
         });
 
-        document.querySelectorAll('[data-action="decrease"]').forEach(btn => {
-            btn.addEventListener('click', () => {
+        decreaseButtons.forEach(btn => {
+            btn.setAttribute('data-handler-attached', 'true');
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
                 const type = btn.dataset.type;
                 changeCounter(type, -1);
-            });
+            }, { once: false });
         });
 
         const roomSelect = document.getElementById('room-type');

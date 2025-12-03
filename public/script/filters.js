@@ -20,7 +20,8 @@ class FilterManager {
         this.filterOptions = {
             countries: [],
             hotels: [],
-            maxCapacity: 4
+            maxCapacity: 4,
+            tourTypes: []
         };
     }
 
@@ -52,6 +53,10 @@ class FilterManager {
                     this.filterOptions.maxCapacity = options.maxCapacity;
                     this.populateGuestsDropdown();
                 }
+                if (options.tourTypes) {
+                    this.filterOptions.tourTypes = options.tourTypes;
+                    this.populateVacationTypeDropdown();
+                }
             } catch (error) {
                 console.error('Failed to parse filter options:', error);
             }
@@ -62,6 +67,24 @@ class FilterManager {
         const urlParams = new URLSearchParams(window.location.search);
         
         // Восстанавливаем фильтры из URL
+        if (urlParams.has('vacation_type')) {
+            this.filters.vacationType = urlParams.get('vacation_type');
+            const vacationTypeItem = document.querySelector('[data-filter="vacation-type"]');
+            if (vacationTypeItem) {
+                const label = vacationTypeItem.querySelector('.filter-label');
+                if (label) {
+                    // Находим текст из dropdown
+                    const dropdown = vacationTypeItem.querySelector('.dropdown-content');
+                    if (dropdown) {
+                        const selectedItem = dropdown.querySelector(`[data-value="${this.filters.vacationType}"]`);
+                        if (selectedItem) {
+                            label.textContent = selectedItem.textContent;
+                        }
+                    }
+                }
+            }
+        }
+        
         if (urlParams.has('country')) {
             this.filters.country = urlParams.get('country');
             const countryItem = document.querySelector('[data-filter="country"]');
@@ -102,11 +125,14 @@ class FilterManager {
         }
         
         if (urlParams.has('min_guests')) {
-            this.filters.guests = parseInt(urlParams.get('min_guests'));
-            const guestsItem = document.querySelector('[data-filter="guests"]');
-            if (guestsItem) {
-                const label = guestsItem.querySelector('.filter-label');
-                if (label) label.textContent = this.filters.guests + (this.filters.guests === 1 ? ' турист' : this.filters.guests < 5 ? ' туриста' : ' туристов');
+            const guestsValue = parseInt(urlParams.get('min_guests'));
+            if (!isNaN(guestsValue) && guestsValue > 0) {
+                this.filters.guests = guestsValue;
+                const guestsItem = document.querySelector('[data-filter="guests"]');
+                if (guestsItem) {
+                    const label = guestsItem.querySelector('.filter-label');
+                    if (label) label.textContent = this.filters.guests + (this.filters.guests === 1 ? ' турист' : this.filters.guests < 5 ? ' туриста' : ' туристов');
+                }
             }
         }
         
@@ -129,8 +155,25 @@ class FilterManager {
         }
         
         // Если выбрана страна, загружаем отели для этой страны
+        // На странице поиска отели уже загружены через PHP, просто обновляем dropdown
         if (this.filters.country) {
-            this.loadHotelsByCountry(this.filters.country);
+            const currentPage = new URLSearchParams(window.location.search).get('page');
+            if (currentPage === 'search') {
+                // На странице поиска отели уже загружены через PHP, просто обновляем dropdown
+                const filterPanel = document.querySelector('.filters[data-filter-options]');
+                if (filterPanel) {
+                    try {
+                        const options = JSON.parse(filterPanel.getAttribute('data-filter-options'));
+                        if (options.hotels) {
+                            this.populateHotelDropdown(options.hotels);
+                        }
+                    } catch (error) {
+                        // Игнорируем ошибку
+                    }
+                }
+            }
+            // На главной странице не вызываем loadHotelsByCountry при восстановлении,
+            // чтобы избежать перезагрузки при загрузке страницы
         }
     }
 
@@ -237,12 +280,45 @@ class FilterManager {
         // Фильтруем отели на клиенте из всех загруженных отелей
         // Для этого нужно получить список отелей для выбранной страны
         // Так как у нас нет API, перезагружаем страницу с параметром country
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentPage = urlParams.get('page') || 'search';
+        const urlParams = new URLSearchParams();
+        const currentPage = window.location.search.includes('page=search') ? 'search' : 'main';
+        urlParams.set('page', currentPage);
         urlParams.set('country', country);
-        // Убираем hotel из параметров, так как список отелей изменится
-        urlParams.delete('hotel');
-        window.location.href = `?page=${currentPage}&${urlParams.toString()}`;
+        
+        // Сохраняем другие параметры фильтров, кроме hotel (так как список отелей изменится)
+        const currentParams = new URLSearchParams(window.location.search);
+        currentParams.forEach((value, key) => {
+            if (key !== 'page' && key !== 'country' && key !== 'hotel') {
+                urlParams.set(key, value);
+            }
+        });
+        
+        window.location.href = `?${urlParams.toString()}`;
+    }
+
+    populateVacationTypeDropdown() {
+        const dropdown = document.querySelector('[data-filter="vacation-type"] .dropdown-content');
+        if (!dropdown) return;
+        
+        const allItem = dropdown.querySelector('[data-value=""]');
+        dropdown.innerHTML = '';
+        if (allItem) dropdown.appendChild(allItem);
+        
+        // Маппинг типов туров на русские названия
+        const typeLabels = {
+            'beach': 'Пляжный',
+            'mountain': 'Горный',
+            'excursion': 'Экскурсионный',
+            'active': 'Активный'
+        };
+        
+        this.filterOptions.tourTypes.forEach(type => {
+            const item = document.createElement('div');
+            item.className = 'dropdown-item';
+            item.setAttribute('data-value', type);
+            item.textContent = typeLabels[type] || type;
+            dropdown.appendChild(item);
+        });
     }
 
     populateGuestsDropdown() {
@@ -335,7 +411,23 @@ class FilterManager {
                     
                     // Если выбрана страна, обновляем список отелей
                     if (filterType === 'country') {
-                        this.loadHotelsByCountry(value);
+                        const currentPage = new URLSearchParams(window.location.search).get('page');
+                        if (currentPage === 'search') {
+                            // На странице поиска перезагружаем страницу с новым параметром страны
+                            // Это нужно для получения отелей через PHP
+                            this.loadHotelsByCountry(value);
+                        } else {
+                            // На главной странице просто обновляем список отелей без перезагрузки
+                            // (если отели уже загружены в filterOptions)
+                            const filterPanel = document.querySelector('.filters[data-filter-options]');
+                            if (filterPanel && value) {
+                                // Перезагружаем для получения отелей для новой страны
+                                this.loadHotelsByCountry(value);
+                            } else {
+                                // Показываем все отели
+                                this.loadHotelsByCountry('');
+                            }
+                        }
                     }
                     
                     // Закрываем выпадающий список
@@ -368,7 +460,12 @@ class FilterManager {
                 this.filters.country = value;
                 break;
             case 'guests':
-                this.filters.guests = value === '' ? null : parseInt(value);
+                if (value === '') {
+                    this.filters.guests = null;
+                } else {
+                    const guestsValue = parseInt(value);
+                    this.filters.guests = isNaN(guestsValue) ? null : guestsValue;
+                }
                 break;
             case 'hotel':
                 this.filters.hotel = value;
@@ -683,6 +780,7 @@ class FilterManager {
         // Формируем параметры для URL
         const params = new URLSearchParams();
         
+        if (this.filters.vacationType) params.append('vacation_type', this.filters.vacationType);
         if (this.filters.country) params.append('country', this.filters.country);
         if (this.filters.minPrice !== null) params.append('min_price', this.filters.minPrice);
         if (this.filters.maxPrice !== null) params.append('max_price', this.filters.maxPrice);

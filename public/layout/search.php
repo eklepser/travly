@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../src/handlers/hotels-by-country.php';
 
 // Получаем параметры фильтров из URL
 $filters = [
+    'vacation_type' => $_GET['vacation_type'] ?? null,
     'country' => $_GET['country'] ?? null,
     'min_price' => isset($_GET['min_price']) ? (int)$_GET['min_price'] : null,
     'max_price' => isset($_GET['max_price']) ? (int)$_GET['max_price'] : null,
