@@ -15,7 +15,7 @@ $page = in_array($page, $allowedPages) ? $page : 'main';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travly</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
 
