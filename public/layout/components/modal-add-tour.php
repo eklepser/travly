@@ -3,11 +3,12 @@
 <div id="addTourModal" class="modal" style="display: none;">
   <div class="modal-content">
     <div class="modal-header">
-      <h3>➕ Добавить тур</h3>
+      <h3 id="tourModalTitle">➕ Добавить тур</h3>
       <span class="close" onclick="closeModal('addTourModal')">&times;</span>
     </div>
     <div class="modal-body">
       <form id="addTourForm">
+        <input type="hidden" name="tour_id" id="tourIdInput" value="">
         <div class="form-group">
           <label>Тип отдыха *</label>
           <select name="vacation_type" required>
@@ -94,8 +95,13 @@
           </div>
           <div class="form-group">
             <label>URL изображения</label>
-            <input type="url" name="image_url" placeholder="resources/images/tours/...">
+            <input type="text" name="image_url" placeholder="resources/images/tours/turkey_alanya.jpg">
           </div>
+        </div>
+
+        <div class="form-group">
+          <label>Дополнительные услуги</label>
+          <textarea name="additional_services" id="additionalServicesInput" rows="14" style="font-size: 1.1rem;"></textarea>
         </div>
 
         <div class="modal-footer">
@@ -183,6 +189,22 @@ function openAddTourModal() {
   const modal = document.getElementById('addTourModal');
   if (!modal) return;
   
+  // Сбрасываем форму и режим редактирования
+  const form = document.getElementById('addTourForm');
+  if (form) {
+    form.reset();
+    document.getElementById('tourIdInput').value = '';
+    // Очищаем поле дополнительных услуг
+    const additionalServicesInput = document.getElementById('additionalServicesInput');
+    if (additionalServicesInput) {
+      additionalServicesInput.value = '';
+    }
+  }
+  
+  // Устанавливаем режим добавления
+  document.getElementById('tourModalTitle').textContent = '➕ Добавить тур';
+  document.getElementById('submitTourBtn').textContent = 'Добавить тур';
+  
   modal.style.display = 'flex';
   toggleHotelMode();
   
@@ -196,6 +218,99 @@ function openAddTourModal() {
       modalBody.scrollTop = 0;
     }
   }, 10);
+}
+
+function editTour(tourId) {
+  const modal = document.getElementById('addTourModal');
+  if (!modal) return;
+  
+  // Показываем загрузку
+  document.getElementById('tourModalTitle').textContent = '⏳ Загрузка...';
+  document.getElementById('submitTourBtn').textContent = 'Загрузка...';
+  document.getElementById('submitTourBtn').disabled = true;
+  modal.style.display = 'flex';
+  
+  // Загружаем данные тура
+  fetch(`?action=get-tour&tour_id=${tourId}`)
+    .then(async r => {
+      let responseText = '';
+      try {
+        responseText = await r.text();
+        const res = JSON.parse(responseText);
+        
+        if (!r.ok) {
+          throw new Error('Ошибка сервера: ' + r.status + ' - ' + (res.message || responseText));
+        }
+        
+        return res;
+      } catch (parseError) {
+        console.error('Ошибка парсинга ответа:', parseError);
+        console.error('Ответ сервера:', responseText);
+        throw new Error('Ошибка сервера: ' + r.status + '. Ответ: ' + responseText.substring(0, 200));
+      }
+    })
+    .then(res => {
+      if (res.success && res.tour) {
+        const tour = res.tour;
+        
+        // Заполняем форму данными тура
+        document.getElementById('tourIdInput').value = tour.tour_id || '';
+        document.querySelector('[name="vacation_type"]').value = tour.vacation_type || '';
+        document.getElementById('countryInput').value = tour.country || '';
+        document.querySelector('[name="city"]').value = tour.city || '';
+        document.querySelector('[name="departure_point"]').value = tour.departure_point || '';
+        document.querySelector('[name="departure_date"]').value = tour.departure_date || '';
+        document.querySelector('[name="arrival_date"]').value = tour.arrival_date || '';
+        document.querySelector('[name="return_date"]').value = tour.return_date || '';
+        document.querySelector('[name="base_price"]').value = tour.base_price || '';
+        document.querySelector('[name="image_url"]').value = tour.image_url || '';
+        
+        // Заполняем дополнительные услуги
+        const additionalServicesInput = document.getElementById('additionalServicesInput');
+        if (additionalServicesInput && tour.additional_services) {
+          try {
+            // Если это уже JSON строка, форматируем её красиво
+            const services = typeof tour.additional_services === 'string' 
+              ? JSON.parse(tour.additional_services) 
+              : tour.additional_services;
+            additionalServicesInput.value = JSON.stringify(services, null, 2);
+          } catch (e) {
+            // Если не JSON, просто вставляем как есть
+            additionalServicesInput.value = tour.additional_services;
+          }
+        } else if (additionalServicesInput) {
+          additionalServicesInput.value = '';
+        }
+        
+        // Устанавливаем режим существующего отеля
+        document.querySelector('[name="hotel_mode"][value="existing"]').checked = true;
+        toggleHotelMode();
+        
+        // Загружаем отели для выбора
+        loadHotels(tour.country);
+        
+        // После загрузки отелей устанавливаем выбранный отель
+        setTimeout(() => {
+          const hotelSelect = document.getElementById('existingHotelSelect');
+          if (hotelSelect && tour.hotel_id) {
+            hotelSelect.value = tour.hotel_id;
+          }
+        }, 500);
+        
+        // Обновляем заголовок и кнопку
+        document.getElementById('tourModalTitle').textContent = '✏️ Редактировать тур';
+        document.getElementById('submitTourBtn').textContent = 'Сохранить изменения';
+        document.getElementById('submitTourBtn').disabled = false;
+      } else {
+        showNotification('Ошибка загрузки данных тура: ' + (res.message || 'Неизвестная ошибка'), 'error');
+        closeModal('addTourModal');
+      }
+    })
+    .catch(err => {
+      console.error('Ошибка при загрузке тура:', err);
+      showNotification('Ошибка сети: ' + err.message, 'error');
+      closeModal('addTourModal');
+    });
 }
 
 function showNotification(message, type = 'info') {
@@ -287,9 +402,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const originalText = submitButton.textContent;
     submitButton.disabled = true;
-    submitButton.textContent = 'Добавление...';
+    
+    // Определяем режим (добавление или редактирование)
+    const tourId = formData.get('tour_id');
+    const isEditMode = tourId && tourId !== '';
+    const action = isEditMode ? 'update-tour' : 'add-tour';
+    submitButton.textContent = isEditMode ? 'Сохранение...' : 'Добавление...';
 
-    fetch('?action=add-tour', {
+    fetch(`?action=${action}`, {
       method: 'POST',
       body: formData
     })
@@ -312,7 +432,12 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(res => {
       if (res.success) {
-        showNotification('Тур успешно создан! ID тура: ' + res.tour_id, 'success');
+        if (isEditMode) {
+          const tourId = formData.get('tour_id');
+          showNotification(`Тур ID=${tourId} успешно обновлен!`, 'success');
+        } else {
+          showNotification(`Тур ID=${res.tour_id} успешно создан!`, 'success');
+        }
         closeModal('addTourModal');
         setTimeout(() => {
           location.reload();

@@ -178,6 +178,7 @@ class TourRepository {
             $stmt = $this->pdo->prepare("
                 SELECT 
                     t.id,
+                    t.hotel_id,
                     t.country,
                     t.location,
                     t.departure_point,
@@ -189,6 +190,7 @@ class TourRepository {
                     t.base_price,
                     t.additional_services,
                     t.image_url,
+                    t.tour_type,
                     h.name AS hotel_name,
                     h.rating AS hotel_rating,
                     h.max_capacity_per_room,
@@ -298,6 +300,22 @@ class TourRepository {
             $imageUrl = !empty($data['image_url']) ? trim($data['image_url']) : null;
             $tourType = !empty($data['vacation_type']) ? $data['vacation_type'] : null;
             
+            // Обработка дополнительных услуг
+            $additionalServices = null;
+            if (!empty($data['additional_services'])) {
+                $servicesText = trim($data['additional_services']);
+                if (!empty($servicesText)) {
+                    // Пытаемся распарсить JSON
+                    $decoded = json_decode($servicesText, true);
+                    if (json_last_error() === JSON_ERROR_NONE) {
+                        $additionalServices = json_encode($decoded, JSON_UNESCAPED_UNICODE);
+                    } else {
+                        // Если не JSON, сохраняем как есть (может быть простой текст)
+                        $additionalServices = $servicesText;
+                    }
+                }
+            }
+            
             $country = trim($data['country'] ?? '');
             $city = trim($data['city'] ?? '');
             $arrivalDate = $data['arrival_date'] ?? '';
@@ -341,7 +359,8 @@ class TourRepository {
                 'return_point' => $data['return_point'] ?? ($data['departure_point'] ?? 'Москва'),
                 'return_date' => $returnDate,
                 'image_url' => $imageUrl,
-                'tour_type' => $tourType
+                'tour_type' => $tourType,
+                'additional_services' => $additionalServices
             ];
             
             error_log("[TourRepository] create: Params: " . print_r($params, true));
@@ -352,14 +371,14 @@ class TourRepository {
                     departure_point, departure_date,
                     arrival_point, arrival_date,
                     return_point, return_date,
-                    image_url, tour_type
+                    image_url, tour_type, additional_services
                 )
                 VALUES (
                     :country, :location, :hotel_id, :base_price,
                     :departure_point, :departure_date,
                     :arrival_point, :arrival_date,
                     :return_point, :return_date,
-                    :image_url, :tour_type
+                    :image_url, :tour_type, :additional_services
                 )
             ";
             
@@ -424,6 +443,140 @@ class TourRepository {
             error_log("[TourRepository] create failed (general): " . $e->getMessage());
             error_log("[TourRepository] create failed: Stack trace: " . $e->getTraceAsString());
             // Пробрасываем исключение дальше
+            throw $e;
+        }
+    }
+    
+    /**
+     * Обновить существующий тур
+     * @param int $id ID тура
+     * @param array $data Данные тура для обновления
+     * @return bool true при успешном обновлении, false при ошибке
+     */
+    public function update($id, $data) {
+        if (!$this->pdo || !$id || $id <= 0) {
+            error_log("[TourRepository] update: Invalid ID or PDO connection");
+            return false;
+        }
+        
+        try {
+            $imageUrl = !empty($data['image_url']) ? trim($data['image_url']) : null;
+            $tourType = !empty($data['vacation_type']) ? $data['vacation_type'] : null;
+            
+            // Обработка дополнительных услуг
+            $additionalServices = null;
+            if (!empty($data['additional_services'])) {
+                $servicesText = trim($data['additional_services']);
+                if (!empty($servicesText)) {
+                    // Пытаемся распарсить JSON
+                    $decoded = json_decode($servicesText, true);
+                    if (json_last_error() === JSON_ERROR_NONE) {
+                        $additionalServices = json_encode($decoded, JSON_UNESCAPED_UNICODE);
+                    } else {
+                        // Если не JSON, сохраняем как есть (может быть простой текст)
+                        $additionalServices = $servicesText;
+                    }
+                }
+            }
+            
+            $country = trim($data['country'] ?? '');
+            $city = trim($data['city'] ?? '');
+            $arrivalDate = $data['arrival_date'] ?? '';
+            $returnDate = $data['return_date'] ?? '';
+            
+            if (empty($country)) {
+                error_log("[TourRepository] update: country is required");
+                return false;
+            }
+            
+            if (empty($city)) {
+                error_log("[TourRepository] update: city is required");
+                return false;
+            }
+            
+            if (empty($arrivalDate)) {
+                error_log("[TourRepository] update: arrival_date is required");
+                return false;
+            }
+            
+            if (empty($returnDate)) {
+                error_log("[TourRepository] update: return_date is required");
+                return false;
+            }
+            
+            $hotelId = (int)($data['hotel_id'] ?? 0);
+            if ($hotelId <= 0) {
+                error_log("[TourRepository] update: hotel_id is invalid: " . $hotelId);
+                return false;
+            }
+            
+            $params = [
+                'id' => (int)$id,
+                'country' => $country,
+                'location' => $city,
+                'hotel_id' => $hotelId,
+                'base_price' => (int)($data['base_price'] ?? 0),
+                'departure_point' => $data['departure_point'] ?? 'Москва',
+                'departure_date' => $data['departure_date'] ?? $arrivalDate,
+                'arrival_point' => $data['arrival_point'] ?? $city,
+                'arrival_date' => $arrivalDate,
+                'return_point' => $data['return_point'] ?? ($data['departure_point'] ?? 'Москва'),
+                'return_date' => $returnDate,
+                'image_url' => $imageUrl,
+                'tour_type' => $tourType,
+                'additional_services' => $additionalServices
+            ];
+            
+            error_log("[TourRepository] update: Params: " . print_r($params, true));
+            
+            $sql = "
+                UPDATE tours SET
+                    country = :country,
+                    location = :location,
+                    hotel_id = :hotel_id,
+                    base_price = :base_price,
+                    departure_point = :departure_point,
+                    departure_date = :departure_date,
+                    arrival_point = :arrival_point,
+                    arrival_date = :arrival_date,
+                    return_point = :return_point,
+                    return_date = :return_date,
+                    image_url = :image_url,
+                    tour_type = :tour_type,
+                    additional_services = :additional_services
+                WHERE id = :id
+            ";
+            
+            error_log("[TourRepository] update: Executing SQL");
+            
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($params);
+            
+            if (!$result) {
+                $errorInfo = $stmt->errorInfo();
+                error_log("[TourRepository] update: execute returned false");
+                error_log("[TourRepository] update: PDO Error Info: " . print_r($errorInfo, true));
+                error_log("[TourRepository] update: SQL: " . $sql);
+                error_log("[TourRepository] update: Params: " . print_r($params, true));
+                return false;
+            }
+            
+            $rowCount = $stmt->rowCount();
+            error_log("[TourRepository] update: Updated $rowCount row(s) for tour ID $id");
+            
+            return $rowCount > 0;
+        } catch (PDOException $e) {
+            $errorMessage = $e->getMessage();
+            $errorCode = $e->getCode();
+            error_log("[TourRepository] update failed (PDOException): " . $errorMessage);
+            error_log("[TourRepository] update failed: SQL State: " . $errorCode);
+            error_log("[TourRepository] update failed: Data: " . print_r($data, true));
+            error_log("[TourRepository] update failed: Stack trace: " . $e->getTraceAsString());
+            
+            throw new Exception("Ошибка базы данных при обновлении тура: [$errorCode] $errorMessage", 0, $e);
+        } catch (Exception $e) {
+            error_log("[TourRepository] update failed (general): " . $e->getMessage());
+            error_log("[TourRepository] update failed: Stack trace: " . $e->getTraceAsString());
             throw $e;
         }
     }

@@ -419,6 +419,9 @@ footer {
   margin-top: 4px;
   min-height: 16px;
 }
+body.main-page-body {
+  padding-top: 0 !important;
+}
 .main-page {
   gap: 20px;
   padding: 20px;
@@ -2750,6 +2753,28 @@ footer {
   font-size: 1.95rem;
   font-weight: 700;
 }
+.admin-control-bar .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 0;
+}
+.admin-control-bar .logo .logo-text {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 2rem;
+  letter-spacing: 0.16em;
+  color: #ffffff;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.admin-control-bar .logo .logo-text .logo-text-highlight {
+  color: #00b9b0;
+}
+.admin-control-bar .logo .logo-icon {
+  width: 56px;
+  height: 56px;
+  background: url("../../resources/icons/common/palm.png") no-repeat center / 56px 56px;
+}
 .admin-btn {
   padding: 0.9rem 1.8rem;
   border: none;
@@ -2774,10 +2799,6 @@ footer {
 }
 .admin-btn.secondary:hover {
   background: #4a5a5a;
-}
-body {
-  padding-top: 108px;
-  margin: 0;
 }
 .admin-return-link {
   margin-left: auto;

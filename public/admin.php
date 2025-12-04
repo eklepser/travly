@@ -18,6 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     handleAddHotel();
 }
 
+if (isset($_GET['action']) && $_GET['action'] === 'get-tour') {
+    handleGetTour();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'update-tour') {
+    handleUpdateTour();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'delete-tour') {
     handleDeleteTour();
 }
@@ -43,7 +51,7 @@ if ($filters['country']) {
     $filterOptions['hotels'] = getHotelsByCountry($filters['country']);
 }
 
-$title = 'Админ-панель • Поиск и управление';
+$title = 'Travly - admin';
 ?>
 
 <!DOCTYPE html>
@@ -53,11 +61,20 @@ $title = 'Админ-панель • Поиск и управление';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($title) ?></title>
   <link rel="stylesheet" href="style/styles.css">
+  <style>
+    body {
+      padding-top: 108px;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
 
 <div class="admin-control-bar">
-  <h1 class="admin-title">Панель управления турами</h1>
+  <div class="logo">
+    <span class="logo-text">Trav<span class="logo-text-highlight">ly</span> - admin</span>
+    <div class="logo-icon"></div>
+  </div>
 
   <button class="admin-btn secondary" onclick="openAddTourModal()">Добавить тур</button>
   <button class="admin-btn secondary" onclick="openAddHotelModal()">
@@ -125,7 +142,10 @@ $title = 'Админ-панель • Поиск и управление';
           $price = number_format((int) $tour['base_price'], 0, '', ' ');
           $maxGuests = (int) ($tour['max_capacity_per_room'] ?? 4);
           $imageUrl = $tour['image_url'] ?? '';
-          if (empty($imageUrl) || !file_exists(__DIR__ . '/' . $imageUrl)) {
+          // Проверяем, является ли путь URL из интернета
+          $isExternalUrl = !empty($imageUrl) && (str_starts_with($imageUrl, 'http://') || str_starts_with($imageUrl, 'https://'));
+          
+          if (empty($imageUrl) || (!$isExternalUrl && !file_exists(__DIR__ . '/' . $imageUrl))) {
               $imageUrl = 'resources/images/tours/default_tour.png';
           }
           ?>
@@ -159,9 +179,17 @@ $title = 'Админ-панель • Поиск и управление';
 
             <div class="admin-card-controls">
               <button class="admin-btn tiny success" 
-                      onclick="alert('Редактирование тура ID <?= (int)$tour['tour_id'] ?>')">✏️</button>
+                      onclick="editTour(<?= (int)$tour['tour_id'] ?>)">✏️</button>
               <button class="admin-btn tiny danger" 
-                      onclick="deleteTour(<?= (int)$tour['tour_id'] ?>, '<?= addslashes(htmlspecialchars($tour['hotel_name'])) ?>', this)"
+                      onclick="deleteTour(<?= (int)$tour['tour_id'] ?>, {
+                        id: <?= (int)$tour['tour_id'] ?>,
+                        hotel: '<?= addslashes(htmlspecialchars($tour['hotel_name'])) ?>',
+                        country: '<?= addslashes(htmlspecialchars($tour['country'])) ?>',
+                        city: '<?= addslashes(htmlspecialchars($tour['city'])) ?>',
+                        arrival_date: '<?= htmlspecialchars($tour['arrival_date']) ?>',
+                        return_date: '<?= htmlspecialchars($tour['return_date']) ?>',
+                        price: <?= (int)$tour['base_price'] ?>
+                      }, this)"
                       data-tour-id="<?= (int)$tour['tour_id'] ?>">🗑️</button>
             </div>
           </div>
@@ -199,8 +227,20 @@ function showNotification(message, type = 'info') {
   }, 5000);
 }
 
-function deleteTour(tourId, hotelName, buttonElement) {
-  if (!confirm(`Вы уверены, что хотите удалить тур «${hotelName}»?\n\nЭто действие нельзя отменить.`)) {
+function deleteTour(tourId, tourData, buttonElement) {
+  const arrivalDate = new Date(tourData.arrival_date).toLocaleDateString('ru-RU');
+  const returnDate = new Date(tourData.return_date).toLocaleDateString('ru-RU');
+  const price = tourData.price.toLocaleString('ru-RU');
+  
+  const message = `Вы уверены, что хотите удалить тур?\n\n` +
+    `ID: ${tourData.id}\n` +
+    `Отель: ${tourData.hotel}\n` +
+    `Локация: ${tourData.country}, ${tourData.city}\n` +
+    `Даты: ${arrivalDate} - ${returnDate}\n` +
+    `Цена: ${price} ₽\n\n` +
+    `Это действие нельзя отменить.`;
+  
+  if (!confirm(message)) {
     return;
   }
   
@@ -234,8 +274,8 @@ function deleteTour(tourId, hotelName, buttonElement) {
     }
   })
   .then(res => {
-    if (res.success) {
-      showNotification('Тур успешно удален', 'success');
+      if (res.success) {
+        showNotification(`Тур ID=${tourId} успешно удален`, 'success');
       
       // Находим карточку тура и удаляем её с анимацией
       const card = buttonElement.closest('.admin-card');
@@ -267,6 +307,7 @@ function deleteTour(tourId, hotelName, buttonElement) {
     buttonElement.innerHTML = originalText;
   });
 }
+
 </script>
 </body>
 </html>

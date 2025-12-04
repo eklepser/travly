@@ -13,7 +13,7 @@ $page = in_array($page, $allowedPages) ? $page : 'main';
   <title>Travly</title>
   <link rel="stylesheet" href="style/styles.css">
 </head>
-<body>
+<body class="main-page-body">
 
 <?php require_once 'layout/header.php'; ?>
 

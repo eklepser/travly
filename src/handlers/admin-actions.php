@@ -246,3 +246,216 @@ function handleDeleteTour() {
     exit;
 }
 
+function handleGetTour() {
+    header('Content-Type: application/json');
+    
+    try {
+        $tourId = isset($_GET['tour_id']) ? (int)$_GET['tour_id'] : 0;
+        
+        if ($tourId <= 0) {
+            echo json_encode(['success' => false, 'message' => 'Неверный ID тура']);
+            exit;
+        }
+        
+        $tourRepo = new TourRepository();
+        $tour = $tourRepo->findById($tourId);
+        
+        if (!$tour) {
+            echo json_encode(['success' => false, 'message' => 'Тур не найден']);
+            exit;
+        }
+        
+        // Преобразуем данные для формы
+        $tourData = [
+            'tour_id' => $tour['id'],
+            'vacation_type' => $tour['tour_type'] ?? '',
+            'country' => $tour['country'] ?? '',
+            'city' => $tour['location'] ?? '',
+            'hotel_id' => $tour['hotel_id'] ?? null,
+            'hotel_name' => $tour['hotel_name'] ?? '',
+            'hotel_rating' => $tour['hotel_rating'] ?? null,
+            'max_capacity_per_room' => $tour['max_capacity_per_room'] ?? 4,
+            'departure_point' => $tour['departure_point'] ?? '',
+            'departure_date' => $tour['departure_date'] ?? '',
+            'arrival_date' => $tour['arrival_date'] ?? '',
+            'return_date' => $tour['return_date'] ?? '',
+            'base_price' => $tour['base_price'] ?? 0,
+            'image_url' => $tour['image_url'] ?? '',
+            'additional_services' => $tour['additional_services'] ?? ''
+        ];
+        
+        echo json_encode(['success' => true, 'tour' => $tourData]);
+    } catch (Exception $e) {
+        error_log("[handleGetTour] Exception: " . $e->getMessage());
+        error_log("[handleGetTour] Stack trace: " . $e->getTraceAsString());
+        echo json_encode(['success' => false, 'message' => 'Ошибка: ' . $e->getMessage()]);
+    }
+    exit;
+}
+
+function handleUpdateTour() {
+    header('Content-Type: application/json');
+    
+    // Режим отладки (можно отключить в продакшене)
+    $debugMode = true;
+    
+    try {
+        $input = $_POST;
+        
+        if ($debugMode) {
+            error_log("[handleUpdateTour] POST data: " . print_r($input, true));
+        }
+        
+        if (empty($input)) {
+            echo json_encode(['success' => false, 'message' => 'Неверный формат данных']);
+            exit;
+        }
+        
+        $tourId = isset($input['tour_id']) ? (int)$input['tour_id'] : 0;
+        if ($tourId <= 0) {
+            echo json_encode(['success' => false, 'message' => 'Неверный ID тура']);
+            exit;
+        }
+        
+        $tourRepo = new TourRepository();
+        
+        // Проверяем, существует ли тур
+        $existingTour = $tourRepo->findById($tourId);
+        if (!$existingTour) {
+            echo json_encode(['success' => false, 'message' => 'Тур не найден']);
+            exit;
+        }
+        
+        $hotelId = null;
+        
+        // Если выбран существующий отель
+        if (($input['hotel_mode'] ?? '') === 'existing') {
+            $hotelId = (int)($input['existing_hotel_id'] ?? 0);
+            if (!$hotelId) {
+                echo json_encode(['success' => false, 'message' => 'Не выбран отель']);
+                exit;
+            }
+        } else if (($input['hotel_mode'] ?? '') === 'new') {
+            // Создаем новый отель
+            $hotelRepo = new HotelRepository();
+            $hotelData = [
+                'name' => trim($input['new_hotel_name'] ?? ''),
+                'rating' => (float)($input['new_hotel_rating'] ?? 4),
+                'max_capacity_per_room' => (int)($input['new_hotel_max_guests'] ?? 4),
+                'country' => $input['country'] ?? '',
+                'city' => $input['city'] ?? ''
+            ];
+            
+            if (empty($hotelData['name'])) {
+                echo json_encode(['success' => false, 'message' => 'Название отеля обязательно']);
+                exit;
+            }
+            
+            try {
+                $hotelId = $hotelRepo->create($hotelData);
+                if (!$hotelId) {
+                    throw new Exception('Метод create вернул false без исключения');
+                }
+            } catch (Exception $e) {
+                error_log("[handleUpdateTour] Hotel creation failed: " . $e->getMessage());
+                $response = ['success' => false, 'message' => 'Ошибка создания отеля: ' . $e->getMessage()];
+                if ($debugMode) {
+                    $response['debug'] = [
+                        'hotel_data' => $hotelData,
+                        'exception' => $e->getMessage(),
+                        'file' => $e->getFile(),
+                        'line' => $e->getLine()
+                    ];
+                }
+                echo json_encode($response);
+                exit;
+            }
+        } else {
+            // Используем существующий отель из тура
+            $hotelId = (int)($existingTour['hotel_id'] ?? 0);
+            if ($hotelId <= 0) {
+                echo json_encode(['success' => false, 'message' => 'Не выбран режим отеля']);
+                exit;
+            }
+        }
+        
+        $tourData = [
+            'country' => trim($input['country'] ?? ''),
+            'city' => trim($input['city'] ?? ''),
+            'hotel_id' => $hotelId,
+            'base_price' => (int)($input['base_price'] ?? 0),
+            'departure_point' => trim($input['departure_point'] ?? 'Москва'),
+            'departure_date' => $input['departure_date'] ?? $input['arrival_date'] ?? '',
+            'arrival_point' => trim($input['arrival_point'] ?? $input['city'] ?? ''),
+            'arrival_date' => $input['arrival_date'] ?? '',
+            'return_point' => trim($input['return_point'] ?? $input['departure_point'] ?? 'Москва'),
+            'return_date' => $input['return_date'] ?? '',
+            'image_url' => !empty($input['image_url']) ? trim($input['image_url']) : null,
+            'vacation_type' => $input['vacation_type'] ?? null
+        ];
+        
+        // Валидация обязательных полей
+        if (empty($tourData['country'])) {
+            echo json_encode(['success' => false, 'message' => 'Страна обязательна для заполнения']);
+            exit;
+        }
+        
+        if (empty($tourData['city'])) {
+            echo json_encode(['success' => false, 'message' => 'Город обязателен для заполнения']);
+            exit;
+        }
+        
+        if (empty($tourData['arrival_date'])) {
+            echo json_encode(['success' => false, 'message' => 'Дата заезда обязательна']);
+            exit;
+        }
+        
+        if (empty($tourData['return_date'])) {
+            echo json_encode(['success' => false, 'message' => 'Дата выезда обязательна']);
+            exit;
+        }
+        
+        if ($tourData['base_price'] <= 0) {
+            echo json_encode(['success' => false, 'message' => 'Базовая цена должна быть больше 0']);
+            exit;
+        }
+        
+        try {
+            $result = $tourRepo->update($tourId, $tourData);
+            
+            if ($result) {
+                echo json_encode(['success' => true, 'message' => 'Тур успешно обновлен', 'tour_id' => $tourId]);
+            } else {
+                throw new Exception('Метод update вернул false без исключения');
+            }
+        } catch (Exception $e) {
+            error_log("[handleUpdateTour] Tour update failed: " . $e->getMessage());
+            $response = ['success' => false, 'message' => 'Ошибка обновления тура: ' . $e->getMessage()];
+            if ($debugMode) {
+                $response['debug'] = [
+                    'tour_data' => $tourData,
+                    'exception' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTraceAsString()
+                ];
+            }
+            echo json_encode($response);
+        }
+    } catch (Exception $e) {
+        error_log("[handleUpdateTour] Exception: " . $e->getMessage());
+        error_log("[handleUpdateTour] Stack trace: " . $e->getTraceAsString());
+        $response = ['success' => false, 'message' => 'Ошибка: ' . $e->getMessage()];
+        if ($debugMode) {
+            $response['debug'] = [
+                'exception' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ];
+        }
+        echo json_encode($response);
+    }
+    exit;
+}
+
