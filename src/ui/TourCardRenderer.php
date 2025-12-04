@@ -1,8 +1,6 @@
 <?php
 
 function renderTourCard($tour, $baseUrl = '') {
-    // Если вызывается из /admin (где нет 'resources/' в корне), передавайте $baseUrl = '../public/'
-    // Если из /public — $baseUrl = ''
 
     $arrival = new DateTime($tour['arrival_date']);
     $return = new DateTime($tour['return_date']);
@@ -15,7 +13,6 @@ function renderTourCard($tour, $baseUrl = '') {
     
     $imageUrl = $tour['image_url'] ?? '';
     if (empty($imageUrl) || !str_starts_with($imageUrl, 'http')) {
-        // Если относительный путь — приводим к публичному ресурсу
         if (empty($imageUrl) || !file_exists(__DIR__ . '/../../public/' . $imageUrl)) {
             $imageUrl = $baseUrl . 'resources/images/tours/default_tour.png';
         } else {

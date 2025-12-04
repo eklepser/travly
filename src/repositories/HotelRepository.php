@@ -27,7 +27,7 @@ class HotelRepository {
     }
     
     /**
-     * Получить отели по стране
+     * Получить отели по стране (только названия)
      * @param string $country Название страны
      * @return array
      */
@@ -48,6 +48,38 @@ class HotelRepository {
             return $stmt->fetchAll(PDO::FETCH_COLUMN);
         } catch (Exception $e) {
             error_log("[HotelRepository] findByCountry failed: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
+     * Получить отели по стране с полной информацией (для модального окна)
+     * @param string $country Название страны
+     * @return array
+     */
+    public function findByCountryWithDetails($country) {
+        if (!$country || !$this->pdo) {
+            return [];
+        }
+        
+        try {
+            $stmt = $this->pdo->prepare("
+                SELECT DISTINCT
+                    h.id AS hotel_id,
+                    h.name AS hotel_name,
+                    h.rating AS hotel_rating,
+                    h.max_capacity_per_room,
+                    t.country,
+                    t.location AS city
+                FROM hotels h
+                INNER JOIN tours t ON h.id = t.hotel_id
+                WHERE t.country = :country
+                ORDER BY h.name
+            ");
+            $stmt->execute(['country' => $country]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            error_log("[HotelRepository] findByCountryWithDetails failed: " . $e->getMessage());
             return [];
         }
     }
@@ -81,7 +113,6 @@ class HotelRepository {
         }
         
         try {
-            // Пробуем получить с country и city
             try {
                 $stmt = $this->pdo->query("
                     SELECT 
@@ -96,7 +127,6 @@ class HotelRepository {
                 ");
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (Exception $e) {
-                // Если полей country и city нет, получаем без них
                 error_log("[HotelRepository] findAll: country/city not found, trying without them");
                 $stmt = $this->pdo->query("
                     SELECT 
@@ -128,20 +158,44 @@ class HotelRepository {
         }
         
         try {
-            // Создаем отель только с обязательными полями
-            // country и city могут отсутствовать в таблице
-            $stmt = $this->pdo->prepare("
-                INSERT INTO hotels (name, rating, max_capacity_per_room)
-                VALUES (:name, :rating, :max_capacity_per_room)
-            ");
-            $result = $stmt->execute([
-                'name' => trim($data['name'] ?? ''),
-                'rating' => (float)($data['rating'] ?? 4),
-                'max_capacity_per_room' => (int)($data['max_capacity_per_room'] ?? 4)
-            ]);
+            $name = trim($data['name'] ?? '');
+            $rating = isset($data['rating']) ? (float)$data['rating'] : null;
+            $maxCapacity = (int)($data['max_capacity_per_room'] ?? 4);
+            
+            if (empty($name)) {
+                error_log("[HotelRepository] create: name is required");
+                return false;
+            }
+            
+            if ($maxCapacity < 1) {
+                error_log("[HotelRepository] create: max_capacity_per_room must be >= 1");
+                return false;
+            }
+            
+            $fields = ['name', 'max_capacity_per_room'];
+            $values = [':name', ':max_capacity_per_room'];
+            $params = [
+                'name' => $name,
+                'max_capacity_per_room' => $maxCapacity
+            ];
+            
+            if ($rating !== null) {
+                $rating = max(0.0, min(9.99, $rating));
+                $fields[] = 'rating';
+                $values[] = ':rating';
+                $params['rating'] = $rating;
+            }
+            
+            $sql = "INSERT INTO hotels (" . implode(', ', $fields) . ") 
+                    VALUES (" . implode(', ', $values) . ")";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($params);
             
             if (!$result) {
                 error_log("[HotelRepository] create: execute returned false");
+                error_log("[HotelRepository] SQL: " . $sql);
+                error_log("[HotelRepository] Params: " . print_r($params, true));
                 return false;
             }
             

@@ -1,91 +1,23 @@
 <?php
-// 1. Загрузка зависимостей
 require_once '../src/config/database.php';
 require_once '../src/handlers/filter-tours.php';
 require_once '../src/handlers/filter-options.php';
 require_once '../src/handlers/hotels-by-country.php';
-require_once '../src/ui/TourCardRenderer.php'; // если вынесли renderTourCard — используем его
-require_once '../src/repositories/HotelRepository.php';
-require_once '../src/repositories/TourRepository.php';
+require_once '../src/handlers/admin-actions.php';
+require_once '../src/ui/TourCardRenderer.php';
 
-// Обработка AJAX-запросов
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'add-tour') {
-    header('Content-Type: application/json');
-    
-    $input = $_POST;
-    
-    if (empty($input)) {
-        echo json_encode(['success' => false, 'message' => 'Неверный формат данных']);
-        exit;
-    }
-    
-    $hotelRepo = new HotelRepository();
-    $tourRepo = new TourRepository();
-    
-    // Определяем hotel_id
-    $hotelId = null;
-    
-    if (($input['hotel_mode'] ?? '') === 'existing') {
-        $hotelId = (int)($input['existing_hotel_id'] ?? 0);
-        if (!$hotelId) {
-            echo json_encode(['success' => false, 'message' => 'Не выбран отель']);
-            exit;
-        }
-    } else if (($input['hotel_mode'] ?? '') === 'new') {
-        $hotelData = [
-            'name' => trim($input['new_hotel_name'] ?? ''),
-            'rating' => (float)($input['new_hotel_rating'] ?? 4),
-            'max_capacity_per_room' => (int)($input['new_hotel_max_guests'] ?? 4),
-            'country' => $input['country'] ?? '',
-            'city' => $input['city'] ?? ''
-        ];
-        
-        $hotelId = $hotelRepo->create($hotelData);
-        if (!$hotelId) {
-            echo json_encode(['success' => false, 'message' => 'Ошибка создания отеля']);
-            exit;
-        }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Не выбран режим отеля']);
-        exit;
-    }
-    
-    // Создаем тур
-    $tourData = [
-        'country' => trim($input['country'] ?? ''),
-        'city' => trim($input['city'] ?? ''),
-        'hotel_id' => $hotelId,
-        'base_price' => (int)($input['base_price'] ?? 0),
-        'departure_point' => trim($input['departure_point'] ?? 'Москва'),
-        'departure_date' => $input['departure_date'] ?? $input['arrival_date'] ?? '',
-        'arrival_point' => trim($input['arrival_point'] ?? $input['city'] ?? ''),
-        'arrival_date' => $input['arrival_date'] ?? '',
-        'return_point' => trim($input['return_point'] ?? $input['departure_point'] ?? 'Москва'),
-        'return_date' => $input['return_date'] ?? '',
-        'image_url' => !empty($input['image_url']) ? trim($input['image_url']) : null,
-        'vacation_type' => $input['vacation_type'] ?? null
-    ];
-    
-    $tourId = $tourRepo->create($tourData);
-    
-    if ($tourId) {
-        echo json_encode(['success' => true, 'tour_id' => $tourId]);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Ошибка создания тура']);
-    }
-    exit;
+    handleAddTour();
 }
 
-// Обработка запроса списка отелей
 if (isset($_GET['action']) && $_GET['action'] === 'get-hotels') {
-    header('Content-Type: application/json');
-    $hotelRepo = new HotelRepository();
-    $hotels = $hotelRepo->findAll();
-    echo json_encode($hotels);
-    exit;
+    handleGetHotels();
 }
 
-// 2. Получаем фильтры (безопасно)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'add-hotel') {
+    handleAddHotel();
+}
+
 $filters = [
     'vacation_type' => $_GET['vacation_type'] ?? null,
     'country'       => $_GET['country']       ?? null,
@@ -99,7 +31,6 @@ $filters = [
     'sort'          => $_GET['sort']                 ?? 'popularity'
 ];
 
-// 3. Получаем данные
 $tours = getFilteredTours($filters);
 $filterOptions = getFilterOptions();
 $filterOptions['allHotels'] = $filterOptions['hotels'];
@@ -119,7 +50,6 @@ $title = 'Админ-панель • Поиск и управление';
   <title><?= htmlspecialchars($title) ?></title>
   <link rel="stylesheet" href="style/styles.css">
   <style>
-    /* === Фиксированная админ-панель === */
     .admin-control-bar {
       position: fixed;
       top: 0;
@@ -144,7 +74,7 @@ $title = 'Админ-панель • Поиск и управление';
       padding: 0.9rem 1.8rem;
       border: none;
       border-radius: 12px;
-      background: #275858; /* @primary-color */
+      background: #275858;
       color: #ffffff;
       font-weight: 600;
       font-size: 1rem;
@@ -160,19 +90,17 @@ $title = 'Админ-панель • Поиск и управление';
       transform: translateY(-1px);
     }
     .admin-btn.secondary {
-      background: #627878; /* @secondary-color */
+      background: #627878;
     }
     .admin-btn.secondary:hover {
       background: #4a5a5a;
     }
 
-    /* Сдвиг контента под панель */
     body {
       padding-top: 108px;
       margin: 0;
     }
 
-    /* Стиль для кнопки выхода */
     .admin-return-link {
       margin-left: auto;
       text-decoration: none;
@@ -194,19 +122,17 @@ $title = 'Админ-панель • Поиск и управление';
 </head>
 <body>
 
-<!-- 🔧 Фиксированная админ-панель -->
 <div class="admin-control-bar">
   <h1 class="admin-title">Панель управления турами</h1>
 
   <button class="admin-btn secondary" onclick="openAddTourModal()">Добавить тур</button>
-  <button class="admin-btn secondary" onclick="alert('Открыта форма добавления отеля')">
+  <button class="admin-btn secondary" onclick="openAddHotelModal()">
     Добавить отель
   </button>
 
-  <a href="./" class="admin-return-link">Выйти в публичную часть</a>
+  <a href="index.php" class="admin-return-link">Вид пользователя</a>
 </div>
 
-<!-- 🔍 Основной контент: как в search.php -->
 <main class="main-page">
   <?php require_once 'layout/components/filter-panel.php'; ?>
 
@@ -216,7 +142,6 @@ $title = 'Админ-панель • Поиск и управление';
       <h2><b>Управление</b> турами</h2>
     </div>
 
-    <!-- Заголовок с количеством и сортировкой (как на странице поиска) -->
     <div class="search-header">
       <div class="tours-count">
         Всего туров: <span class="count-value"><?= count($tours) ?></span>
@@ -246,8 +171,8 @@ $title = 'Админ-панель • Поиск и управление';
     </div>
 
     <?php include 'layout/components/modal-add-tour.php'; ?>
+    <?php include 'layout/components/modal-add-hotel.php'; ?>
 
-    <!-- Сетка карточек -->
     <div class="cards-panel" id="toursContainer">
       <?php if (empty($tours)): ?>
         <div style="text-align: center; padding: 60px 20px; color: #7f8c8d; font-size: 1.1rem;">
@@ -257,10 +182,6 @@ $title = 'Админ-панель • Поиск и управление';
       <?php else: ?>
         <?php foreach ($tours as $tour): ?>
           <?php
-          // Если вы уже вынесли renderTourCard() в TourCardRenderer.php — раскомментируйте:
-          // renderTourCard($tour);
-
-          // А пока — оставляем inline (как в search.php), чтобы работало:
           $arrival = new DateTime($tour['arrival_date']);
           $return = new DateTime($tour['return_date']);
           $nights = max(1, $arrival->diff($return)->days);
@@ -275,7 +196,6 @@ $title = 'Админ-панель • Поиск и управление';
           }
           ?>
           <div class="card admin-card" data-tour-id="<?= (int)$tour['tour_id'] ?>">
-            <!-- Обернули в div вместо <a>, чтобы не было перехода -->
             <div class="card-image" style="background-image: url('<?= htmlspecialchars($imageUrl) ?>');"></div>
             <div class="card-overlay"></div>
             <div class="card-top">
@@ -303,7 +223,6 @@ $title = 'Админ-панель • Поиск и управление';
               </div>
             </div>
 
-            <!-- ✅ Кнопки управления ПРЯМО НА КАРТОЧКЕ -->
             <div class="admin-card-controls">
               <button class="admin-btn tiny success" 
                       onclick="alert('Редактирование тура ID <?= (int)$tour['tour_id'] ?>')">✏️</button>
@@ -319,7 +238,6 @@ $title = 'Админ-панель • Поиск и управление';
 </main>
 
 <style>
-  /* Доп. стили для админ-режима */
   .admin-card {
     position: relative;
     transition: transform 0.2s;
@@ -329,7 +247,6 @@ $title = 'Админ-панель • Поиск и управление';
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
   }
 
-  /* Панель управления на карточке */
   .admin-card-controls {
     position: absolute;
     top: 12px;
@@ -349,49 +266,7 @@ $title = 'Админ-панель • Поиск и управление';
     border-radius: 4px;
   }
 
-    /* === Стили для модального окна === */
-    #addTourModal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 3000;
-      display: none; /* По умолчанию скрыто */
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-    
-    #addTourModal[style*="display: block"],
-    #addTourModal[style*="display:flex"] {
-      display: flex !important;
-    }
 
-    #addTourModal .modal-content {
-      background: #FFFFFF;
-      border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-      max-width: 900px;
-      width: 100%;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-      margin: auto;
-    }
-
-    #addTourModal .modal-body {
-      overflow-y: auto;
-      overflow-x: hidden;
-      flex: 1;
-      max-height: calc(90vh - 120px);
-    }
-
-    /* Стили для уведомлений */
     .notification {
       position: fixed;
       top: 120px;
@@ -447,7 +322,6 @@ $title = 'Админ-панель • Поиск и управление';
     }
 </style>
 
-<!-- Подключаем скрипты фильтрации (работает как на сайте) -->
 <script src="script/filters.js"></script>
 </body>
 </html>

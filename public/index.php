@@ -1,13 +1,9 @@
 <?php
-// 1. Загрузка зависимостей (если нужно)
 require_once '../src/config/database.php';
 
-// 2. Безопасное определение страницы — whitelist
 $page = $_GET['page'] ?? 'main';
 $allowedPages = ['main', 'search', 'about', 'help', 'auth', 'registration', 'me', 'tour', 'booking']; 
 $page = in_array($page, $allowedPages) ? $page : 'main';
-
-// 3. Начало HTML
 ?>
 <!DOCTYPE html>
 <html lang="ru">

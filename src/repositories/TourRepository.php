@@ -129,14 +129,12 @@ class TourRepository {
                 $params['min_guests'] = $minGuests;
             }
             
-            // Сначала получаем все туры без сортировки (сортировка будет применена после фильтрации по ночам)
             $sql .= " ORDER BY t.id ASC";
             
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
             $tours = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
-            // Фильтруем по количеству ночей (вычисляемое поле)
             if ($minNights !== null || $maxNights !== null) {
                 $filteredTours = [];
                 foreach ($tours as $tour) {
@@ -156,7 +154,6 @@ class TourRepository {
                 $tours = $filteredTours;
             }
             
-            // Применяем сортировку после фильтрации
             $tours = $this->sortTours($tours, $sortBy);
             
             return $tours;
@@ -164,6 +161,50 @@ class TourRepository {
         } catch (Exception $e) {
             error_log("[TourRepository] findByFilters failed: " . $e->getMessage());
             return [];
+        }
+    }
+    
+    /**
+     * Получить тур по ID
+     * @param int $id ID тура
+     * @return array|null Данные тура или null если не найден
+     */
+    public function findById($id) {
+        if (!$this->pdo || !$id) {
+            return null;
+        }
+        
+        try {
+            $stmt = $this->pdo->prepare("
+                SELECT 
+                    t.id,
+                    t.country,
+                    t.location,
+                    t.departure_point,
+                    t.departure_date,
+                    t.arrival_point,
+                    t.arrival_date,
+                    t.return_point,
+                    t.return_date,
+                    t.base_price,
+                    t.additional_services,
+                    t.image_url,
+                    h.name AS hotel_name,
+                    h.rating AS hotel_rating,
+                    h.max_capacity_per_room,
+                    h.beach_description,
+                    h.amenities,
+                    h.meal_plan
+                FROM tours t
+                INNER JOIN hotels h ON t.hotel_id = h.id
+                WHERE t.id = :id
+            ");
+            $stmt->execute(['id' => (int)$id]);
+            $tour = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $tour ?: null;
+        } catch (Exception $e) {
+            error_log("[TourRepository] findById failed: " . $e->getMessage());
+            return null;
         }
     }
     
@@ -233,7 +274,6 @@ class TourRepository {
                 break;
             case 'popularity':
             default:
-                // По популярности - по id (меньше id = популярнее)
                 usort($tours, function($a, $b) {
                     return (int)$a['tour_id'] - (int)$b['tour_id'];
                 });
@@ -309,7 +349,6 @@ class TourRepository {
             
             return false;
         } catch (PDOException $e) {
-            // Если ошибка уникальности ключа - исправляем последовательность
             if ($e->getCode() == '23505') {
                 try {
                     $maxStmt = $this->pdo->query("SELECT MAX(id) FROM tours");
@@ -317,7 +356,6 @@ class TourRepository {
                     $nextVal = $maxId + 1;
                     $this->pdo->query("SELECT setval('tours_id_seq', $nextVal, false)");
                     
-                    // Повторная попытка
                     $result = $stmt->execute($params);
                     if ($result) {
                         $tourId = (int)$this->pdo->lastInsertId();

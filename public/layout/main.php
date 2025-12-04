@@ -5,7 +5,6 @@ require_once __DIR__ . '/../../src/ui/TourCardRenderer.php';
 
 $tourRepository = new TourRepository();
 
-// Получаем туры по типам
 $beachTours = $tourRepository->findByFilters(['vacation_type' => 'beach']);
 $beachTours = array_slice($beachTours, 0, 6);
 
@@ -15,9 +14,7 @@ $mountainTours = array_slice($mountainTours, 0, 6);
 $excursionTours = $tourRepository->findByFilters(['vacation_type' => 'excursion']);
 $excursionTours = array_slice($excursionTours, 0, 6);
 
-// Загружаем опции фильтров
 $filterOptions = getFilterOptions();
-// Сохраняем все отели для восстановления при сбросе страны
 $filterOptions['allHotels'] = $filterOptions['hotels'];
 
 $pageTitle = 'Travly — Лучшие туры для вас';
@@ -49,7 +46,6 @@ $scripts = ['script/filters.js'];
             </div>
         </div>
 
-        <!-- Пляжные туры -->
         <div class="tours-title">
             <div class="tours-icon beach-icon"></div>
             <h2><b>Пляжные</b> туры</h2>
@@ -67,7 +63,6 @@ $scripts = ['script/filters.js'];
             <a href="?page=search&vacation_type=beach" class="more-tours-btn apply-btn">Найти больше туров</a>
         </div>
 
-        <!-- Горные туры -->
         <div class="tours-title">
             <div class="tours-icon map-icon"></div>
             <h2><b>Горные</b> туры</h2>
@@ -85,7 +80,6 @@ $scripts = ['script/filters.js'];
             <a href="?page=search&vacation_type=mountain" class="more-tours-btn apply-btn">Найти больше туров</a>
         </div>
 
-        <!-- Экскурсионные туры -->
         <div class="tours-title">
             <div class="tours-icon discount-icon"></div>
             <h2><b>Экскурсионные</b> туры</h2>

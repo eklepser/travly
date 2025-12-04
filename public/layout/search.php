@@ -3,7 +3,6 @@ require_once __DIR__ . '/../../src/handlers/filter-tours.php';
 require_once __DIR__ . '/../../src/handlers/filter-options.php';
 require_once __DIR__ . '/../../src/handlers/hotels-by-country.php';
 
-// Получаем параметры фильтров из URL
 $filters = [
     'vacation_type' => $_GET['vacation_type'] ?? null,
     'country' => $_GET['country'] ?? null,
@@ -17,15 +16,11 @@ $filters = [
     'sort' => $_GET['sort'] ?? 'popularity'
 ];
 
-// Получаем отфильтрованные туры
 $tours = getFilteredTours($filters);
 
-// Загружаем опции фильтров
 $filterOptions = getFilterOptions();
-// Сохраняем все отели для восстановления при сбросе страны
 $filterOptions['allHotels'] = $filterOptions['hotels'];
 
-// Если выбрана страна, загружаем отели для этой страны
 if ($filters['country']) {
     $filterOptions['hotels'] = getHotelsByCountry($filters['country']);
 }

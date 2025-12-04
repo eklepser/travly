@@ -1,19 +1,58 @@
-/* === Панель добавления тура на админ-странице (не модальное окно) === */
-#addTourModal {
-  position: static;
-  width: 100%;
-  max-width: 1100px;
-  margin: 24px auto;
+/* === Модальные окна добавления тура и отеля === */
+#addTourModal,
+#addHotelModal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+  display: none;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px;
   box-sizing: border-box;
+  margin: 0 !important;
 }
 
-#addTourModal .modal-content {
-  .card-container(@white, 16px, 24px);
+#addTourModal[style*="display: block"],
+#addTourModal[style*="display:flex"],
+#addHotelModal[style*="display: block"],
+#addHotelModal[style*="display:flex"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#addTourModal[style*="display: block"] .modal-content,
+#addTourModal[style*="display:flex"] .modal-content,
+#addHotelModal[style*="display: block"] .modal-content,
+#addHotelModal[style*="display:flex"] .modal-content {
+  margin: 0 auto !important;
+  align-self: center !important;
+}
+
+#addTourModal .modal-content,
+#addHotelModal .modal-content {
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  max-width: 1100px;
+  width: 100%;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto !important;
+  align-self: center !important;
 }
 
-#addTourModal .modal-header {
+#addTourModal .modal-header,
+#addHotelModal .modal-header {
   padding: 1.2rem 1.8rem;
   background: @primary-color;
   color: @white;
@@ -23,12 +62,14 @@
   flex-shrink: 0;
 }
 
-#addTourModal .modal-header h3 {
+#addTourModal .modal-header h3,
+#addHotelModal .modal-header h3 {
   margin: 0;
   font-size: 1.4rem;
 }
 
-#addTourModal .close {
+#addTourModal .close,
+#addHotelModal .close {
   font-size: 2rem;
   cursor: pointer;
   line-height: 1;
@@ -36,39 +77,49 @@
   transition: opacity 0.2s;
 }
 
-#addTourModal .close:hover {
+#addTourModal .close:hover,
+#addHotelModal .close:hover {
   opacity: 1;
 }
 
-#addTourModal .modal-body {
+#addTourModal .modal-body,
+#addHotelModal .modal-body {
   padding: 1.8rem;
   overflow-y: auto;
+  overflow-x: hidden;
   flex: 1;
+  max-height: calc(90vh - 120px);
 }
 
-/* Стилизация скроллбара только внутри панели добавления тура */
-#addTourModal .modal-body::-webkit-scrollbar {
+/* Стилизация скроллбара */
+#addTourModal .modal-body::-webkit-scrollbar,
+#addHotelModal .modal-body::-webkit-scrollbar {
   width: 6px;
 }
 
-#addTourModal .modal-body::-webkit-scrollbar-track {
+#addTourModal .modal-body::-webkit-scrollbar-track,
+#addHotelModal .modal-body::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
-#addTourModal .modal-body::-webkit-scrollbar-thumb {
+#addTourModal .modal-body::-webkit-scrollbar-thumb,
+#addHotelModal .modal-body::-webkit-scrollbar-thumb {
   background: #bdc3c7;
   border-radius: 3px;
 }
 
-#addTourModal .modal-body::-webkit-scrollbar-thumb:hover {
+#addTourModal .modal-body::-webkit-scrollbar-thumb:hover,
+#addHotelModal .modal-body::-webkit-scrollbar-thumb:hover {
   background: #95a5a6;
 }
 
-#addTourModal .form-group {
+#addTourModal .form-group,
+#addHotelModal .form-group {
   margin-bottom: 1.2rem;
 }
 
-#addTourModal .form-group label {
+#addTourModal .form-group label,
+#addHotelModal .form-group label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
@@ -76,23 +127,29 @@
 }
 
 #addTourModal .form-group input,
-#addTourModal .form-group select {
+#addTourModal .form-group select,
+#addHotelModal .form-group input,
+#addHotelModal .form-group select {
   .form-field(0.75rem);
   font-size: 1rem;
 }
 
 #addTourModal .form-group input:focus,
-#addTourModal .form-group select:focus {
+#addTourModal .form-group select:focus,
+#addHotelModal .form-group input:focus,
+#addHotelModal .form-group select:focus {
   border-color: @primary-color;
   box-shadow: 0 0 0 3px fade(@primary-color, 10%);
 }
 
-#addTourModal .form-row {
+#addTourModal .form-row,
+#addHotelModal .form-row {
   display: flex;
   gap: 1.2rem;
 }
 
-#addTourModal .form-row .form-group {
+#addTourModal .form-row .form-group,
+#addHotelModal .form-row .form-group {
   flex: 1;
 }
 
@@ -116,24 +173,25 @@
   margin: 0;
 }
 
-#addTourModal .modal-footer {
+#addTourModal .modal-footer,
+#addHotelModal .modal-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 1rem;
   padding: 1.2rem 1.8rem;
-  background: @light-gray;
-  border-top: 1px solid @gray;
   flex-shrink: 0;
 }
 
-#addTourModal .btn-primary {
+#addTourModal .btn-primary,
+#addHotelModal .btn-primary {
   .button-style();
   padding: 0.75rem 1.8rem;
   font-size: 1rem;
   font-weight: 500;
 }
 
-#addTourModal .btn-secondary {
+#addTourModal .btn-secondary,
+#addHotelModal .btn-secondary {
   .button-secondary();
   padding: 0.75rem 1.8rem;
   font-size: 1rem;
@@ -141,16 +199,18 @@
 }
 
 @media (max-width: 768px) {
-  #addTourModal {
-    margin: 16px auto;
+  #addTourModal,
+  #addHotelModal {
     padding: 0 12px;
   }
 
-  #addTourModal .modal-content {
+  #addTourModal .modal-content,
+  #addHotelModal .modal-content {
     box-shadow: none;
   }
 
-  #addTourModal .form-row {
+  #addTourModal .form-row,
+  #addHotelModal .form-row {
     flex-direction: column;
   }
 }

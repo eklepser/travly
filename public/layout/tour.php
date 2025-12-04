@@ -1,48 +1,17 @@
 <?php
-require_once '../src/config/database.php';
+require_once __DIR__ . '/../../src/repositories/TourRepository.php';
 
-$pdo = createPDO();
+$tourRepository = new TourRepository();
+$tourId = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : false;
 $tour = null;
+$error = null;
 
-if ($pdo) {
-    $tourId = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : false;
-    $error = null;
-    if ($tourId === false) {
-        $error = "Неверный идентификатор тура";
-    } elseif (!$tour) {
+if ($tourId === false) {
+    $error = "Неверный идентификатор тура";
+} else {
+    $tour = $tourRepository->findById($tourId);
+    if (!$tour) {
         $error = "Тур не найден";
-    }
-    if ($tourId) {
-        try {
-            $stmt = $pdo->prepare("
-                SELECT 
-                    t.id,
-                    t.country,
-                    t.location,
-                    t.departure_point,
-                    t.departure_date,
-                    t.arrival_point,
-                    t.arrival_date,
-                    t.return_point,
-                    t.return_date,
-                    t.base_price,
-                    t.additional_services,
-                    t.image_url,
-                    h.name AS hotel_name,
-                    h.rating AS hotel_rating,
-                    h.max_capacity_per_room,
-                    h.beach_description,
-                    h.amenities,
-                    h.meal_plan
-                FROM tours t
-                INNER JOIN hotels h ON t.hotel_id = h.id
-                WHERE t.id = :id
-            ");
-            $stmt->execute(['id' => $tourId]);
-            $tour = $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (Exception $e) {
-            error_log("[DB] Tour fetch failed: " . $e->getMessage());
-        }
     }
 }
 
@@ -266,7 +235,6 @@ $pageTitle = 'Travly — Выбор отеля';
             return;
         }
 
-        // Проверяем, не добавлены ли уже обработчики
         const increaseButtons = document.querySelectorAll('[data-action="increase"]');
         const decreaseButtons = document.querySelectorAll('[data-action="decrease"]');
         
@@ -274,7 +242,6 @@ $pageTitle = 'Travly — Выбор отеля';
             return;
         }
 
-        // Проверяем, есть ли уже обработчик на первой кнопке
         if (increaseButtons[0].hasAttribute('data-handler-attached')) {
             return;
         }

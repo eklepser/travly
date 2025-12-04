@@ -1,6 +1,4 @@
 <?php
-// Загрузка списка отелей — только если нужно (например, при рендеринге формы)
-// Но лучше получать через AJAX — поэтому здесь только структура.
 ?>
 <div id="addTourModal" class="modal" style="display: none;">
   <div class="modal-content">
@@ -10,7 +8,6 @@
     </div>
     <div class="modal-body">
       <form id="addTourForm">
-        <!-- Тип отдыха -->
         <div class="form-group">
           <label>Тип отдыха *</label>
           <select name="vacation_type" required>
@@ -21,11 +18,10 @@
           </select>
         </div>
 
-        <!-- Страна и город -->
         <div class="form-row">
           <div class="form-group">
             <label>Страна *</label>
-            <input type="text" name="country" placeholder="Россия" value="Турция" required>
+            <input type="text" name="country" id="countryInput" placeholder="Россия" value="Турция" required>
           </div>
           <div class="form-group">
             <label>Город *</label>
@@ -33,7 +29,6 @@
           </div>
         </div>
 
-        <!-- Выбор отеля: существующий или новый -->
           <div class="form-group">
             <label>Отель *</label>
             <div class="radio-group">
@@ -48,7 +43,6 @@
             </div>
           </div>
 
-        <!-- Существующий отель -->
         <div id="existingHotelSection" style="display: none;">
           <div class="form-group">
             <select name="existing_hotel_id" id="existingHotelSelect">
@@ -57,7 +51,6 @@
           </div>
         </div>
 
-        <!-- Новый отель -->
         <div id="newHotelSection" style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 6px;">
           <h4 style="margin-top: 0;">Данные нового отеля</h4>
           <div class="form-group">
@@ -74,13 +67,11 @@
           </div>
         </div>
 
-        <!-- Точка отправления -->
         <div class="form-group">
           <label>Точка отправления *</label>
           <input type="text" name="departure_point" placeholder="Москва" value="Москва" required>
         </div>
 
-        <!-- Даты -->
         <div class="form-row">
           <div class="form-group">
             <label>Дата отправления *</label>
@@ -96,7 +87,6 @@
           </div>
         </div>
 
-        <!-- Цена и фото -->
         <div class="form-row">
           <div class="form-group">
             <label>Базовая цена (₽) *</label>
@@ -108,7 +98,6 @@
           </div>
         </div>
 
-        <!-- Кнопки -->
         <div class="modal-footer">
           <button type="button" class="btn-secondary" onclick="closeModal('addTourModal')">Отмена</button>
           <button type="submit" class="btn-primary" id="submitTourBtn">Добавить тур</button>
@@ -131,7 +120,6 @@ function toggleHotelMode() {
     if (existingSelect) {
       existingSelect.setAttribute('required', 'required');
     }
-    // Убираем required с полей нового отеля
     const newHotelFields = newSection.querySelectorAll('[required]');
     newHotelFields.forEach(field => field.removeAttribute('required'));
   } else {
@@ -140,7 +128,6 @@ function toggleHotelMode() {
     if (existingSelect) {
       existingSelect.removeAttribute('required');
     }
-    // Добавляем required к полям нового отеля
     const newHotelName = newSection.querySelector('[name="new_hotel_name"]');
     const newHotelRating = newSection.querySelector('[name="new_hotel_rating"]');
     const newHotelGuests = newSection.querySelector('[name="new_hotel_max_guests"]');
@@ -157,35 +144,51 @@ function closeModal(id) {
   }
 }
 
-// Загрузка списка отелей при открытии модального окна
-function loadHotels() {
+function loadHotels(country = null) {
   const select = document.getElementById('existingHotelSelect');
-  if (select.innerHTML.includes('Загрузка')) {
-    fetch('?action=get-hotels')
-      .then(r => r.json())
-      .then(hotels => {
-        select.innerHTML = '<option value="">— Выберите отель —</option>';
+  if (!select) return;
+  
+  select.innerHTML = '<option value="">— Загрузка отелей…</option>';
+  select.disabled = true;
+  
+  let url = '?action=get-hotels';
+  if (country) {
+    url += '&country=' + encodeURIComponent(country);
+  }
+  
+  fetch(url)
+    .then(r => r.json())
+    .then(hotels => {
+      select.innerHTML = '<option value="">— Выберите отель —</option>';
+      if (hotels.length === 0) {
+        select.innerHTML = '<option value="">— Отели не найдены —</option>';
+      } else {
         hotels.forEach(h => {
           const opt = document.createElement('option');
           opt.value = h.hotel_id;
-          opt.textContent = `${h.hotel_name} (${h.country}, ${h.city}) ★${h.hotel_rating}`;
+          const city = h.city || '—';
+          opt.textContent = `${h.hotel_name} (${city}) ★${h.hotel_rating || '—'}`;
           select.appendChild(opt);
         });
-      })
-      .catch(() => {
-        select.innerHTML = '<option value="">Ошибка загрузки</option>';
-      });
-  }
+      }
+      select.disabled = false;
+    })
+    .catch(() => {
+      select.innerHTML = '<option value="">Ошибка загрузки</option>';
+      select.disabled = false;
+    });
 }
 
-// Открытие модального окна + подгрузка отелей
 function openAddTourModal() {
   const modal = document.getElementById('addTourModal');
   if (!modal) return;
   
   modal.style.display = 'flex';
-  loadHotels();
   toggleHotelMode();
+  
+  const countryInput = document.getElementById('countryInput');
+  const country = countryInput ? countryInput.value.trim() : null;
+  loadHotels(country);
   
   setTimeout(() => {
     const modalBody = modal.querySelector('.modal-body');
@@ -195,9 +198,7 @@ function openAddTourModal() {
   }, 10);
 }
 
-// Функция для показа уведомлений
 function showNotification(message, type = 'info') {
-  // Удаляем предыдущее уведомление, если есть
   const existing = document.querySelector('.notification');
   if (existing) {
     existing.remove();
@@ -215,7 +216,6 @@ function showNotification(message, type = 'info') {
 
   document.body.appendChild(notification);
 
-  // Автоматически удаляем через 5 секунд
   setTimeout(() => {
     if (notification.parentElement) {
       notification.style.animation = 'slideIn 0.3s ease-out reverse';
@@ -224,7 +224,6 @@ function showNotification(message, type = 'info') {
   }, 5000);
 }
 
-// Закрытие по клику вне окна
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('addTourModal');
   if (modal) {
@@ -236,10 +235,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Обработка отправки формы - один обработчик на форме
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('addTourForm');
   if (!form) return;
+  
+  const countryInput = document.getElementById('countryInput');
+  if (countryInput) {
+    let countryTimeout;
+    countryInput.addEventListener('input', function() {
+      clearTimeout(countryTimeout);
+      const country = this.value.trim();
+      
+      countryTimeout = setTimeout(() => {
+        if (country) {
+          loadHotels(country);
+        } else {
+          loadHotels();
+        }
+      }, 500);
+    });
+  }
   
   form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -248,7 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const formData = new FormData(this);
     const data = Object.fromEntries(formData);
 
-    // Валидация
     if (!data.vacation_type || !data.country || !data.city || 
         !data.departure_point || !data.departure_date || 
         !data.arrival_date || !data.return_date || !data.base_price) {
@@ -268,7 +282,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // Индикатор загрузки
     const submitButton = this.querySelector('button[type="submit"]');
     if (!submitButton) return;
     
@@ -276,7 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
     submitButton.disabled = true;
     submitButton.textContent = 'Добавление...';
 
-    // Отправка на сервер
     fetch('?action=add-tour', {
       method: 'POST',
       body: formData

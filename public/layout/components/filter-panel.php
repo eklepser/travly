@@ -1,6 +1,4 @@
 <?php
-// Компонент панели фильтров
-// $filterOptions должен быть определен в родительском файле
 $filterOptions = $filterOptions ?? ['countries' => [], 'hotels' => [], 'maxCapacity' => 4, 'tourTypes' => []];
 ?>
 <div class="filters" data-filter-options='<?= json_encode($filterOptions, JSON_UNESCAPED_UNICODE) ?>'>
