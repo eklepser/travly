@@ -47,7 +47,13 @@ $pageTitle = 'Travly — Выбор отеля';
                 <div class="booking-card">
                     <?php
                     $imageUrl = $tour['image_url'] ?? '';
+                    // Проверяем, является ли путь URL из интернета
+                    $isExternalUrl = !empty($imageUrl) && (str_starts_with($imageUrl, 'http://') || str_starts_with($imageUrl, 'https://'));
+                    
                     if (empty($imageUrl)) {
+                        $imageUrl = 'resources/images/tours/default_tour.png';
+                    } elseif (!$isExternalUrl && !file_exists(__DIR__ . '/../../' . $imageUrl)) {
+                        // Для локальных путей проверяем существование файла
                         $imageUrl = 'resources/images/tours/default_tour.png';
                     }
                     ?>

@@ -8,11 +8,6 @@ class TourRepository {
         $this->pdo = createPDO();
     }
     
-    /**
-     * Получить все туры с информацией об отелях
-     * @param int $limit Ограничение количества результатов
-     * @return array
-     */
     public function findAll($limit = null) {
         if (!$this->pdo) {
             return [];
@@ -53,11 +48,6 @@ class TourRepository {
         }
     }
     
-    /**
-     * Получить туры с применением фильтров
-     * @param array $filters Массив фильтров
-     * @return array
-     */
     public function findByFilters($filters = []) {
         if (!$this->pdo) {
             return [];
@@ -72,7 +62,7 @@ class TourRepository {
         $minGuests = isset($filters['min_guests']) ? (int)$filters['min_guests'] : null;
         $minRating = isset($filters['min_rating']) ? (float)$filters['min_rating'] : null;
         $hotelName = $filters['hotel'] ?? null;
-        $sortBy = $filters['sort'] ?? 'popularity';
+        $sortBy = $filters['sort'] ?? 'newest';
         
         try {
             $sql = "
@@ -164,11 +154,6 @@ class TourRepository {
         }
     }
     
-    /**
-     * Получить тур по ID
-     * @param int $id ID тура
-     * @return array|null Данные тура или null если не найден
-     */
     public function findById($id) {
         if (!$this->pdo || !$id) {
             return null;
@@ -210,10 +195,6 @@ class TourRepository {
         }
     }
     
-    /**
-     * Получить уникальные страны из туров
-     * @return array
-     */
     public function getDistinctCountries() {
         if (!$this->pdo) {
             return [];
@@ -228,10 +209,6 @@ class TourRepository {
         }
     }
     
-    /**
-     * Получить уникальные типы туров
-     * @return array
-     */
     public function getDistinctTourTypes() {
         if (!$this->pdo) {
             return [];
@@ -246,12 +223,6 @@ class TourRepository {
         }
     }
     
-    /**
-     * Сортировка туров
-     * @param array $tours Массив туров
-     * @param string $sortBy Тип сортировки
-     * @return array
-     */
     private function sortTours($tours, $sortBy) {
         switch ($sortBy) {
             case 'price_asc':
@@ -274,10 +245,19 @@ class TourRepository {
                     return (float)$a['hotel_rating'] <=> (float)$b['hotel_rating'];
                 });
                 break;
-            case 'popularity':
-            default:
+            case 'newest':
+                usort($tours, function($a, $b) {
+                    return (int)$b['tour_id'] - (int)$a['tour_id'];
+                });
+                break;
+            case 'oldest':
                 usort($tours, function($a, $b) {
                     return (int)$a['tour_id'] - (int)$b['tour_id'];
+                });
+                break;
+            default:
+                usort($tours, function($a, $b) {
+                    return (int)$b['tour_id'] - (int)$a['tour_id'];
                 });
                 break;
         }
@@ -285,11 +265,6 @@ class TourRepository {
         return $tours;
     }
     
-    /**
-     * Создать новый тур
-     * @param array $data Данные тура
-     * @return int|false ID созданного тура или false при ошибке
-     */
     public function create($data) {
         if (!$this->pdo) {
             error_log("[TourRepository] create: PDO connection is null");
@@ -300,17 +275,14 @@ class TourRepository {
             $imageUrl = !empty($data['image_url']) ? trim($data['image_url']) : null;
             $tourType = !empty($data['vacation_type']) ? $data['vacation_type'] : null;
             
-            // Обработка дополнительных услуг
             $additionalServices = null;
             if (!empty($data['additional_services'])) {
                 $servicesText = trim($data['additional_services']);
                 if (!empty($servicesText)) {
-                    // Пытаемся распарсить JSON
                     $decoded = json_decode($servicesText, true);
                     if (json_last_error() === JSON_ERROR_NONE) {
                         $additionalServices = json_encode($decoded, JSON_UNESCAPED_UNICODE);
                     } else {
-                        // Если не JSON, сохраняем как есть (может быть простой текст)
                         $additionalServices = $servicesText;
                     }
                 }
@@ -396,7 +368,6 @@ class TourRepository {
                 error_log("[TourRepository] create: SQL: " . $sql);
                 error_log("[TourRepository] create: Params: " . print_r($params, true));
                 
-                // Выбрасываем исключение с детальной информацией
                 throw new Exception("Ошибка выполнения SQL: [$errorCode] $errorMessage");
             }
             
@@ -417,7 +388,6 @@ class TourRepository {
             error_log("[TourRepository] create failed: Data: " . print_r($data, true));
             error_log("[TourRepository] create failed: Stack trace: " . $e->getTraceAsString());
             
-            // Обработка ошибки дублирования ключа (PostgreSQL)
             if ($errorCode == '23505' || strpos($errorMessage, 'duplicate key') !== false) {
                 try {
                     $maxStmt = $this->pdo->query("SELECT MAX(id) FROM tours");
@@ -437,22 +407,14 @@ class TourRepository {
                 }
             }
             
-            // Пробрасываем исключение дальше с детальной информацией
             throw new Exception("Ошибка базы данных при создании тура: [$errorCode] $errorMessage", 0, $e);
         } catch (Exception $e) {
             error_log("[TourRepository] create failed (general): " . $e->getMessage());
             error_log("[TourRepository] create failed: Stack trace: " . $e->getTraceAsString());
-            // Пробрасываем исключение дальше
             throw $e;
         }
     }
     
-    /**
-     * Обновить существующий тур
-     * @param int $id ID тура
-     * @param array $data Данные тура для обновления
-     * @return bool true при успешном обновлении, false при ошибке
-     */
     public function update($id, $data) {
         if (!$this->pdo || !$id || $id <= 0) {
             error_log("[TourRepository] update: Invalid ID or PDO connection");
@@ -463,17 +425,14 @@ class TourRepository {
             $imageUrl = !empty($data['image_url']) ? trim($data['image_url']) : null;
             $tourType = !empty($data['vacation_type']) ? $data['vacation_type'] : null;
             
-            // Обработка дополнительных услуг
             $additionalServices = null;
             if (!empty($data['additional_services'])) {
                 $servicesText = trim($data['additional_services']);
                 if (!empty($servicesText)) {
-                    // Пытаемся распарсить JSON
                     $decoded = json_decode($servicesText, true);
                     if (json_last_error() === JSON_ERROR_NONE) {
                         $additionalServices = json_encode($decoded, JSON_UNESCAPED_UNICODE);
                     } else {
-                        // Если не JSON, сохраняем как есть (может быть простой текст)
                         $additionalServices = $servicesText;
                     }
                 }
@@ -581,11 +540,6 @@ class TourRepository {
         }
     }
     
-    /**
-     * Удалить тур по ID
-     * @param int $id ID тура
-     * @return bool true при успешном удалении, false при ошибке
-     */
     public function delete($id) {
         if (!$this->pdo || !$id || $id <= 0) {
             error_log("[TourRepository] delete: Invalid ID or PDO connection");

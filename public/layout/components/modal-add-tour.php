@@ -95,7 +95,7 @@
           </div>
           <div class="form-group">
             <label>URL изображения</label>
-            <input type="text" name="image_url" placeholder="resources/images/tours/turkey_alanya.jpg">
+            <input type="text" name="image_url" placeholder="resources/images/tours/turkey_alanya.jpg или https://example.com/image.jpg">
           </div>
         </div>
 

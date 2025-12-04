@@ -950,7 +950,7 @@ class FilterManager {
                 // Обновляем URL и перезагружаем страницу
                 const urlParams = new URLSearchParams(window.location.search);
                 
-                if (sortValue && sortValue !== 'popularity') {
+                if (sortValue) {
                     urlParams.set('sort', sortValue);
                 } else {
                     urlParams.delete('sort');

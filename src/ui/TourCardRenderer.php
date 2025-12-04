@@ -12,8 +12,13 @@ function renderTourCard($tour, $baseUrl = '') {
     $maxGuests = (int) ($tour['max_capacity_per_room'] ?? 4);
     
     $imageUrl = $tour['image_url'] ?? '';
-    if (empty($imageUrl) || !str_starts_with($imageUrl, 'http')) {
-        if (empty($imageUrl) || !file_exists(__DIR__ . '/../../public/' . $imageUrl)) {
+    $isExternalUrl = !empty($imageUrl) && (str_starts_with($imageUrl, 'http://') || str_starts_with($imageUrl, 'https://'));
+    
+    if (empty($imageUrl)) {
+        $imageUrl = $baseUrl . 'resources/images/tours/default_tour.png';
+    } elseif ($isExternalUrl) {
+    } else {
+        if (!file_exists(__DIR__ . '/../../public/' . $imageUrl)) {
             $imageUrl = $baseUrl . 'resources/images/tours/default_tour.png';
         } else {
             $imageUrl = $baseUrl . $imageUrl;

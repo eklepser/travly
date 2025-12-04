@@ -3,11 +3,28 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../repositories/HotelRepository.php';
 require_once __DIR__ . '/../repositories/TourRepository.php';
 
+function validateTourData($tourData) {
+    if (empty($tourData['country'])) {
+        return 'Страна обязательна для заполнения';
+    }
+    if (empty($tourData['city'])) {
+        return 'Город обязателен для заполнения';
+    }
+    if (empty($tourData['arrival_date'])) {
+        return 'Дата заезда обязательна';
+    }
+    if (empty($tourData['return_date'])) {
+        return 'Дата выезда обязательна';
+    }
+    if ($tourData['base_price'] <= 0) {
+        return 'Базовая цена должна быть больше 0';
+    }
+    return null;
+}
+
 function handleAddTour() {
     header('Content-Type: application/json');
-    
-    // Режим отладки (можно отключить в продакшене)
-    $debugMode = true; // Установите false для продакшена
+    $debugMode = true;
     
     try {
         $input = $_POST;
@@ -85,30 +102,20 @@ function handleAddTour() {
             'vacation_type' => $input['vacation_type'] ?? null
         ];
         
-        // Валидация обязательных полей
-        if (empty($tourData['country'])) {
-            echo json_encode(['success' => false, 'message' => 'Страна обязательна для заполнения']);
+        $validationError = validateTourData($tourData);
+        if ($validationError) {
+            echo json_encode(['success' => false, 'message' => $validationError]);
             exit;
         }
         
-        if (empty($tourData['city'])) {
-            echo json_encode(['success' => false, 'message' => 'Город обязателен для заполнения']);
-            exit;
-        }
-        
-        if (empty($tourData['arrival_date'])) {
-            echo json_encode(['success' => false, 'message' => 'Дата заезда обязательна']);
-            exit;
-        }
-        
-        if (empty($tourData['return_date'])) {
-            echo json_encode(['success' => false, 'message' => 'Дата выезда обязательна']);
-            exit;
-        }
-        
-        if ($tourData['base_price'] <= 0) {
-            echo json_encode(['success' => false, 'message' => 'Базовая цена должна быть больше 0']);
-            exit;
+        if (!empty($input['additional_services'])) {
+            $additionalServices = trim($input['additional_services']);
+            try {
+                json_decode($additionalServices, true);
+                $tourData['additional_services'] = $additionalServices;
+            } catch (Exception $e) {
+                $tourData['additional_services'] = $additionalServices;
+            }
         }
         
         try {
@@ -223,14 +230,12 @@ function handleDeleteTour() {
         
         $tourRepo = new TourRepository();
         
-        // Проверяем, существует ли тур
         $tour = $tourRepo->findById($tourId);
         if (!$tour) {
             echo json_encode(['success' => false, 'message' => 'Тур не найден']);
             exit;
         }
         
-        // Удаляем тур
         $result = $tourRepo->delete($tourId);
         
         if ($result) {
@@ -265,7 +270,6 @@ function handleGetTour() {
             exit;
         }
         
-        // Преобразуем данные для формы
         $tourData = [
             'tour_id' => $tour['id'],
             'vacation_type' => $tour['tour_type'] ?? '',
@@ -295,8 +299,6 @@ function handleGetTour() {
 
 function handleUpdateTour() {
     header('Content-Type: application/json');
-    
-    // Режим отладки (можно отключить в продакшене)
     $debugMode = true;
     
     try {
@@ -319,7 +321,6 @@ function handleUpdateTour() {
         
         $tourRepo = new TourRepository();
         
-        // Проверяем, существует ли тур
         $existingTour = $tourRepo->findById($tourId);
         if (!$existingTour) {
             echo json_encode(['success' => false, 'message' => 'Тур не найден']);
@@ -328,7 +329,6 @@ function handleUpdateTour() {
         
         $hotelId = null;
         
-        // Если выбран существующий отель
         if (($input['hotel_mode'] ?? '') === 'existing') {
             $hotelId = (int)($input['existing_hotel_id'] ?? 0);
             if (!$hotelId) {
@@ -336,7 +336,6 @@ function handleUpdateTour() {
                 exit;
             }
         } else if (($input['hotel_mode'] ?? '') === 'new') {
-            // Создаем новый отель
             $hotelRepo = new HotelRepository();
             $hotelData = [
                 'name' => trim($input['new_hotel_name'] ?? ''),
@@ -371,7 +370,6 @@ function handleUpdateTour() {
                 exit;
             }
         } else {
-            // Используем существующий отель из тура
             $hotelId = (int)($existingTour['hotel_id'] ?? 0);
             if ($hotelId <= 0) {
                 echo json_encode(['success' => false, 'message' => 'Не выбран режим отеля']);
@@ -394,30 +392,20 @@ function handleUpdateTour() {
             'vacation_type' => $input['vacation_type'] ?? null
         ];
         
-        // Валидация обязательных полей
-        if (empty($tourData['country'])) {
-            echo json_encode(['success' => false, 'message' => 'Страна обязательна для заполнения']);
+        $validationError = validateTourData($tourData);
+        if ($validationError) {
+            echo json_encode(['success' => false, 'message' => $validationError]);
             exit;
         }
         
-        if (empty($tourData['city'])) {
-            echo json_encode(['success' => false, 'message' => 'Город обязателен для заполнения']);
-            exit;
-        }
-        
-        if (empty($tourData['arrival_date'])) {
-            echo json_encode(['success' => false, 'message' => 'Дата заезда обязательна']);
-            exit;
-        }
-        
-        if (empty($tourData['return_date'])) {
-            echo json_encode(['success' => false, 'message' => 'Дата выезда обязательна']);
-            exit;
-        }
-        
-        if ($tourData['base_price'] <= 0) {
-            echo json_encode(['success' => false, 'message' => 'Базовая цена должна быть больше 0']);
-            exit;
+        if (!empty($input['additional_services'])) {
+            $additionalServices = trim($input['additional_services']);
+            try {
+                json_decode($additionalServices, true);
+                $tourData['additional_services'] = $additionalServices;
+            } catch (Exception $e) {
+                $tourData['additional_services'] = $additionalServices;
+            }
         }
         
         try {
@@ -458,4 +446,3 @@ function handleUpdateTour() {
     }
     exit;
 }
-

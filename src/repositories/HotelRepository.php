@@ -7,11 +7,7 @@ class HotelRepository {
     public function __construct() {
         $this->pdo = createPDO();
     }
-    
-    /**
-     * Получить все уникальные названия отелей
-     * @return array
-     */
+
     public function findAllNames() {
         if (!$this->pdo) {
             return [];
@@ -25,12 +21,7 @@ class HotelRepository {
             return [];
         }
     }
-    
-    /**
-     * Получить отели по стране (только названия)
-     * @param string $country Название страны
-     * @return array
-     */
+
     public function findByCountry($country) {
         if (!$country || !$this->pdo) {
             return [];
@@ -51,12 +42,7 @@ class HotelRepository {
             return [];
         }
     }
-    
-    /**
-     * Получить отели по стране с полной информацией (для модального окна)
-     * @param string $country Название страны
-     * @return array
-     */
+
     public function findByCountryWithDetails($country) {
         if (!$country || !$this->pdo) {
             return [];
@@ -83,11 +69,7 @@ class HotelRepository {
             return [];
         }
     }
-    
-    /**
-     * Получить максимальную вместимость отелей
-     * @return int
-     */
+
     public function getMaxCapacity() {
         if (!$this->pdo) {
             return 4;
@@ -102,11 +84,7 @@ class HotelRepository {
             return 4;
         }
     }
-    
-    /**
-     * Получить все отели с полной информацией
-     * @return array
-     */
+
     public function findAll() {
         if (!$this->pdo) {
             return [];
@@ -146,12 +124,7 @@ class HotelRepository {
             return [];
         }
     }
-    
-    /**
-     * Создать новый отель
-     * @param array $data Данные отеля
-     * @return int|false ID созданного отеля или false при ошибке
-     */
+
     public function create($data) {
         if (!$this->pdo) {
             error_log("[HotelRepository] create: PDO connection is null");
@@ -204,8 +177,7 @@ class HotelRepository {
                 error_log("[HotelRepository] create: SQL: " . $sql);
                 error_log("[HotelRepository] create: Params: " . print_r($params, true));
                 error_log("[HotelRepository] create: PDO Error Info: " . print_r($errorInfo, true));
-                
-                // Выбрасываем исключение с детальной информацией
+
                 throw new Exception("Ошибка выполнения SQL при создании отеля: [$errorCode] $errorMessage");
             }
             
@@ -225,13 +197,11 @@ class HotelRepository {
             error_log("[HotelRepository] SQL State: " . $errorCode);
             error_log("[HotelRepository] Data: " . print_r($data, true));
             error_log("[HotelRepository] Stack trace: " . $e->getTraceAsString());
-            
-            // Пробрасываем исключение дальше с детальной информацией
+
             throw new Exception("Ошибка базы данных при создании отеля: [$errorCode] $errorMessage", 0, $e);
         } catch (Exception $e) {
             error_log("[HotelRepository] create failed (general): " . $e->getMessage());
             error_log("[HotelRepository] Stack trace: " . $e->getTraceAsString());
-            // Пробрасываем исключение дальше
             throw $e;
         }
     }

@@ -40,7 +40,7 @@ $filters = [
     'min_guests'    => isset($_GET['min_guests'])    ? (int)$_GET['min_guests']    : null,
     'min_rating'    => isset($_GET['min_rating'])    ? (float)$_GET['min_rating']  : null,
     'hotel'         => $_GET['hotel']                ?? null,
-    'sort'          => $_GET['sort']                 ?? 'popularity'
+    'sort'          => $_GET['sort']                 ?? 'newest'
 ];
 
 $tours = getFilteredTours($filters);
@@ -101,17 +101,19 @@ $title = 'Travly - admin';
         <div class="sort-filter-item" data-filter="sort">
           <span class="sort-label"><?php
             $sortLabels = [
-              'popularity' => 'По популярности',
               'price_asc' => 'Сначала дешевые',
               'price_desc' => 'Сначала дорогие',
               'rating_desc' => 'Сначала с высоким рейтингом',
-              'rating_asc' => 'Сначала с низким рейтингом'
+              'rating_asc' => 'Сначала с низким рейтингом',
+              'newest' => 'Сначала самые новые',
+              'oldest' => 'Сначала самые старые'
             ];
             echo $sortLabels[$filters['sort']] ?? 'Сортировка';
           ?></span>
           <div class="sort-chevron"></div>
           <div class="dropdown-content" style="display: none;">
-            <div class="dropdown-item" data-value="popularity" <?= ($filters['sort'] === 'popularity') ? 'data-selected="true"' : '' ?>>По популярности</div>
+            <div class="dropdown-item" data-value="newest" <?= ($filters['sort'] === 'newest') ? 'data-selected="true"' : '' ?>>Сначала самые новые</div>
+            <div class="dropdown-item" data-value="oldest" <?= ($filters['sort'] === 'oldest') ? 'data-selected="true"' : '' ?>>Сначала самые старые</div>
             <div class="dropdown-item" data-value="price_asc" <?= ($filters['sort'] === 'price_asc') ? 'data-selected="true"' : '' ?>>Сначала дешевые</div>
             <div class="dropdown-item" data-value="price_desc" <?= ($filters['sort'] === 'price_desc') ? 'data-selected="true"' : '' ?>>Сначала дорогие</div>
             <div class="dropdown-item" data-value="rating_desc" <?= ($filters['sort'] === 'rating_desc') ? 'data-selected="true"' : '' ?>>Сначала с высоким рейтингом</div>
