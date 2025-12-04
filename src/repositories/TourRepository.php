@@ -242,5 +242,100 @@ class TourRepository {
         
         return $tours;
     }
+    
+    /**
+     * Создать новый тур
+     * @param array $data Данные тура
+     * @return int|false ID созданного тура или false при ошибке
+     */
+    public function create($data) {
+        if (!$this->pdo) {
+            return false;
+        }
+        
+        try {
+            $imageUrl = !empty($data['image_url']) ? trim($data['image_url']) : null;
+            $tourType = !empty($data['vacation_type']) ? $data['vacation_type'] : null;
+            
+            $country = trim($data['country'] ?? '');
+            $city = trim($data['city'] ?? '');
+            $arrivalDate = $data['arrival_date'] ?? '';
+            $returnDate = $data['return_date'] ?? '';
+            
+            $params = [
+                'country' => $country,
+                'location' => $city,
+                'hotel_id' => (int)($data['hotel_id'] ?? 0),
+                'base_price' => (int)($data['base_price'] ?? 0),
+                'departure_point' => $data['departure_point'] ?? 'Москва',
+                'departure_date' => $data['departure_date'] ?? $arrivalDate,
+                'arrival_point' => $data['arrival_point'] ?? $city,
+                'arrival_date' => $arrivalDate,
+                'return_point' => $data['return_point'] ?? ($data['departure_point'] ?? 'Москва'),
+                'return_date' => $returnDate,
+                'image_url' => $imageUrl,
+                'tour_type' => $tourType
+            ];
+            
+            $stmt = $this->pdo->prepare("
+                INSERT INTO tours (
+                    country, location, hotel_id, base_price, 
+                    departure_point, departure_date,
+                    arrival_point, arrival_date,
+                    return_point, return_date,
+                    image_url, tour_type
+                )
+                VALUES (
+                    :country, :location, :hotel_id, :base_price,
+                    :departure_point, :departure_date,
+                    :arrival_point, :arrival_date,
+                    :return_point, :return_date,
+                    :image_url, :tour_type
+                )
+            ");
+            
+            $result = $stmt->execute($params);
+            
+            if (!$result) {
+                error_log("[TourRepository] execute failed: " . print_r($stmt->errorInfo(), true));
+                return false;
+            }
+            
+            $tourId = (int)$this->pdo->lastInsertId();
+            
+            if ($tourId > 0) {
+                return $tourId;
+            }
+            
+            return false;
+        } catch (PDOException $e) {
+            // Если ошибка уникальности ключа - исправляем последовательность
+            if ($e->getCode() == '23505') {
+                try {
+                    $maxStmt = $this->pdo->query("SELECT MAX(id) FROM tours");
+                    $maxId = (int)$maxStmt->fetchColumn();
+                    $nextVal = $maxId + 1;
+                    $this->pdo->query("SELECT setval('tours_id_seq', $nextVal, false)");
+                    
+                    // Повторная попытка
+                    $result = $stmt->execute($params);
+                    if ($result) {
+                        $tourId = (int)$this->pdo->lastInsertId();
+                        if ($tourId > 0) {
+                            return $tourId;
+                        }
+                    }
+                } catch (Exception $e2) {
+                    error_log("[TourRepository] Failed to fix sequence: " . $e2->getMessage());
+                }
+            }
+            
+            error_log("[TourRepository] create failed: " . $e->getMessage());
+            return false;
+        } catch (Exception $e) {
+            error_log("[TourRepository] create failed (general): " . $e->getMessage());
+            return false;
+        }
+    }
 }
 

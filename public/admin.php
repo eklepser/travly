@@ -5,8 +5,85 @@ require_once '../src/handlers/filter-tours.php';
 require_once '../src/handlers/filter-options.php';
 require_once '../src/handlers/hotels-by-country.php';
 require_once '../src/ui/TourCardRenderer.php'; // если вынесли renderTourCard — используем его
-// В самом верху, где подключаются зависимости:
-require_once '../src/repositories/HotelRepository.php'; // если ещё не подключён
+require_once '../src/repositories/HotelRepository.php';
+require_once '../src/repositories/TourRepository.php';
+
+// Обработка AJAX-запросов
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'add-tour') {
+    header('Content-Type: application/json');
+    
+    $input = $_POST;
+    
+    if (empty($input)) {
+        echo json_encode(['success' => false, 'message' => 'Неверный формат данных']);
+        exit;
+    }
+    
+    $hotelRepo = new HotelRepository();
+    $tourRepo = new TourRepository();
+    
+    // Определяем hotel_id
+    $hotelId = null;
+    
+    if (($input['hotel_mode'] ?? '') === 'existing') {
+        $hotelId = (int)($input['existing_hotel_id'] ?? 0);
+        if (!$hotelId) {
+            echo json_encode(['success' => false, 'message' => 'Не выбран отель']);
+            exit;
+        }
+    } else if (($input['hotel_mode'] ?? '') === 'new') {
+        $hotelData = [
+            'name' => trim($input['new_hotel_name'] ?? ''),
+            'rating' => (float)($input['new_hotel_rating'] ?? 4),
+            'max_capacity_per_room' => (int)($input['new_hotel_max_guests'] ?? 4),
+            'country' => $input['country'] ?? '',
+            'city' => $input['city'] ?? ''
+        ];
+        
+        $hotelId = $hotelRepo->create($hotelData);
+        if (!$hotelId) {
+            echo json_encode(['success' => false, 'message' => 'Ошибка создания отеля']);
+            exit;
+        }
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Не выбран режим отеля']);
+        exit;
+    }
+    
+    // Создаем тур
+    $tourData = [
+        'country' => trim($input['country'] ?? ''),
+        'city' => trim($input['city'] ?? ''),
+        'hotel_id' => $hotelId,
+        'base_price' => (int)($input['base_price'] ?? 0),
+        'departure_point' => trim($input['departure_point'] ?? 'Москва'),
+        'departure_date' => $input['departure_date'] ?? $input['arrival_date'] ?? '',
+        'arrival_point' => trim($input['arrival_point'] ?? $input['city'] ?? ''),
+        'arrival_date' => $input['arrival_date'] ?? '',
+        'return_point' => trim($input['return_point'] ?? $input['departure_point'] ?? 'Москва'),
+        'return_date' => $input['return_date'] ?? '',
+        'image_url' => !empty($input['image_url']) ? trim($input['image_url']) : null,
+        'vacation_type' => $input['vacation_type'] ?? null
+    ];
+    
+    $tourId = $tourRepo->create($tourData);
+    
+    if ($tourId) {
+        echo json_encode(['success' => true, 'tour_id' => $tourId]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Ошибка создания тура']);
+    }
+    exit;
+}
+
+// Обработка запроса списка отелей
+if (isset($_GET['action']) && $_GET['action'] === 'get-hotels') {
+    header('Content-Type: application/json');
+    $hotelRepo = new HotelRepository();
+    $hotels = $hotelRepo->findAll();
+    echo json_encode($hotels);
+    exit;
+}
 
 // 2. Получаем фильтры (безопасно)
 $filters = [
@@ -50,32 +127,33 @@ $title = 'Админ-панель • Поиск и управление';
       width: 100%;
       background: linear-gradient(135deg, #275858, #459292);
       color: #ffffff;
-      padding: 0.8rem 1.5rem;
+      padding: 1.2rem 2.25rem;
       box-shadow: 0 3px 10px rgba(0,0,0,0.25);
       z-index: 2000;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
     }
     .admin-title {
       margin: 0;
-      font-size: 1.3rem;
+      font-size: 1.95rem;
       font-weight: 700;
     }
     .admin-btn {
-      padding: 0.6rem 1.2rem;
+      padding: 0.9rem 1.8rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       background: #275858; /* @primary-color */
       color: #ffffff;
       font-weight: 600;
+      font-size: 1rem;
       cursor: pointer;
       transition: all 0.2s;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.6rem;
     }
     .admin-btn:hover {
       background: #1c4141;
@@ -90,7 +168,7 @@ $title = 'Админ-панель • Поиск и управление';
 
     /* Сдвиг контента под панель */
     body {
-      padding-top: 72px;
+      padding-top: 108px;
       margin: 0;
     }
 
@@ -100,11 +178,12 @@ $title = 'Админ-панель • Поиск и управление';
       text-decoration: none;
       color: #ffffff;
       font-weight: 600;
+      font-size: 1rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
+      gap: 0.75rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 12px;
       background: rgba(255,255,255,0.12);
     }
     .admin-return-link:hover {
@@ -269,6 +348,103 @@ $title = 'Админ-панель • Поиск и управление';
     font-size: 0.85rem;
     border-radius: 4px;
   }
+
+    /* === Стили для модального окна === */
+    #addTourModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 3000;
+      display: none; /* По умолчанию скрыто */
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    #addTourModal[style*="display: block"],
+    #addTourModal[style*="display:flex"] {
+      display: flex !important;
+    }
+
+    #addTourModal .modal-content {
+      background: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      margin: auto;
+    }
+
+    #addTourModal .modal-body {
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex: 1;
+      max-height: calc(90vh - 120px);
+    }
+
+    /* Стили для уведомлений */
+    .notification {
+      position: fixed;
+      top: 120px;
+      right: 20px;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 4000;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 300px;
+      max-width: 500px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .notification.success {
+      background: #10b981;
+      color: #ffffff;
+    }
+
+    .notification.error {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    .notification.info {
+      background: #3b82f6;
+      color: #ffffff;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .notification-close {
+      margin-left: auto;
+      cursor: pointer;
+      font-size: 1.2rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .notification-close:hover {
+      opacity: 1;
+    }
 </style>
 
 <!-- Подключаем скрипты фильтрации (работает как на сайте) -->

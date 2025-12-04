@@ -70,5 +70,97 @@ class HotelRepository {
             return 4;
         }
     }
+    
+    /**
+     * Получить все отели с полной информацией
+     * @return array
+     */
+    public function findAll() {
+        if (!$this->pdo) {
+            return [];
+        }
+        
+        try {
+            // Пробуем получить с country и city
+            try {
+                $stmt = $this->pdo->query("
+                    SELECT 
+                        h.id AS hotel_id,
+                        h.name AS hotel_name,
+                        h.rating AS hotel_rating,
+                        h.max_capacity_per_room,
+                        h.country,
+                        h.city
+                    FROM hotels h
+                    ORDER BY h.name
+                ");
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+                // Если полей country и city нет, получаем без них
+                error_log("[HotelRepository] findAll: country/city not found, trying without them");
+                $stmt = $this->pdo->query("
+                    SELECT 
+                        h.id AS hotel_id,
+                        h.name AS hotel_name,
+                        h.rating AS hotel_rating,
+                        h.max_capacity_per_room,
+                        NULL AS country,
+                        NULL AS city
+                    FROM hotels h
+                    ORDER BY h.name
+                ");
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (Exception $e) {
+            error_log("[HotelRepository] findAll failed: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
+     * Создать новый отель
+     * @param array $data Данные отеля
+     * @return int|false ID созданного отеля или false при ошибке
+     */
+    public function create($data) {
+        if (!$this->pdo) {
+            return false;
+        }
+        
+        try {
+            // Создаем отель только с обязательными полями
+            // country и city могут отсутствовать в таблице
+            $stmt = $this->pdo->prepare("
+                INSERT INTO hotels (name, rating, max_capacity_per_room)
+                VALUES (:name, :rating, :max_capacity_per_room)
+            ");
+            $result = $stmt->execute([
+                'name' => trim($data['name'] ?? ''),
+                'rating' => (float)($data['rating'] ?? 4),
+                'max_capacity_per_room' => (int)($data['max_capacity_per_room'] ?? 4)
+            ]);
+            
+            if (!$result) {
+                error_log("[HotelRepository] create: execute returned false");
+                return false;
+            }
+            
+            $hotelId = (int)$this->pdo->lastInsertId();
+            if ($hotelId > 0) {
+                return $hotelId;
+            } else {
+                error_log("[HotelRepository] create: lastInsertId returned 0");
+                return false;
+            }
+        } catch (PDOException $e) {
+            error_log("[HotelRepository] create failed: " . $e->getMessage());
+            error_log("[HotelRepository] SQL State: " . $e->getCode());
+            error_log("[HotelRepository] Data: " . print_r($data, true));
+            return false;
+        } catch (Exception $e) {
+            error_log("[HotelRepository] create failed (general): " . $e->getMessage());
+            return false;
+        }
+    }
 }
 
