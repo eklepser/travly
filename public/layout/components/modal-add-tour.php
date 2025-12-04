@@ -293,11 +293,22 @@ document.addEventListener('DOMContentLoaded', function() {
       method: 'POST',
       body: formData
     })
-    .then(r => {
-      if (!r.ok) {
-        throw new Error('Ошибка сервера: ' + r.status);
+    .then(async r => {
+      let responseText = '';
+      try {
+        responseText = await r.text();
+        const res = JSON.parse(responseText);
+        
+        if (!r.ok) {
+          throw new Error('Ошибка сервера: ' + r.status + ' - ' + (res.message || responseText));
+        }
+        
+        return res;
+      } catch (parseError) {
+        console.error('Ошибка парсинга ответа:', parseError);
+        console.error('Ответ сервера:', responseText);
+        throw new Error('Ошибка сервера: ' + r.status + '. Ответ: ' + responseText.substring(0, 200));
       }
-      return r.json();
     })
     .then(res => {
       if (res.success) {
@@ -307,12 +318,34 @@ document.addEventListener('DOMContentLoaded', function() {
           location.reload();
         }, 1500);
       } else {
-        showNotification('Ошибка при создании тура: ' + (res.message || 'Неизвестная ошибка'), 'error');
+        const errorMsg = res.message || 'Неизвестная ошибка';
+        console.error('Ошибка создания тура:', errorMsg);
+        
+        // Выводим детальную информацию об ошибке в консоль, если доступна
+        if (res.debug) {
+          console.error('Детали ошибки:', res.debug);
+          if (res.debug.hotel_data) {
+            console.error('Данные отеля:', res.debug.hotel_data);
+          }
+          if (res.debug.tour_data) {
+            console.error('Данные тура:', res.debug.tour_data);
+          }
+          if (res.debug.exception) {
+            console.error('Исключение:', res.debug.exception);
+            console.error('Файл:', res.debug.file, 'Строка:', res.debug.line);
+            if (res.debug.trace) {
+              console.error('Трассировка:', res.debug.trace);
+            }
+          }
+        }
+        
+        showNotification('Ошибка при создании тура: ' + errorMsg, 'error');
         submitButton.disabled = false;
         submitButton.textContent = originalText;
       }
     })
     .catch(err => {
+      console.error('Ошибка при отправке запроса:', err);
       showNotification('Ошибка сети: ' + err.message, 'error');
       submitButton.disabled = false;
       submitButton.textContent = originalText;

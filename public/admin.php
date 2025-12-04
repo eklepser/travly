@@ -18,6 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     handleAddHotel();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'delete-tour') {
+    handleDeleteTour();
+}
+
 $filters = [
     'vacation_type' => $_GET['vacation_type'] ?? null,
     'country'       => $_GET['country']       ?? null,
@@ -49,76 +53,6 @@ $title = 'Админ-панель • Поиск и управление';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($title) ?></title>
   <link rel="stylesheet" href="style/styles.css">
-  <style>
-    .admin-control-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(135deg, #275858, #459292);
-      color: #ffffff;
-      padding: 1.2rem 2.25rem;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .admin-title {
-      margin: 0;
-      font-size: 1.95rem;
-      font-weight: 700;
-    }
-    .admin-btn {
-      padding: 0.9rem 1.8rem;
-      border: none;
-      border-radius: 12px;
-      background: #275858;
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .admin-btn:hover {
-      background: #1c4141;
-      transform: translateY(-1px);
-    }
-    .admin-btn.secondary {
-      background: #627878;
-    }
-    .admin-btn.secondary:hover {
-      background: #4a5a5a;
-    }
-
-    body {
-      padding-top: 108px;
-      margin: 0;
-    }
-
-    .admin-return-link {
-      margin-left: auto;
-      text-decoration: none;
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.9rem 1.8rem;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.12);
-    }
-    .admin-return-link:hover {
-      background: rgba(255,255,255,0.2);
-      text-decoration: none;
-    }
-  </style>
 </head>
 <body>
 
@@ -227,8 +161,8 @@ $title = 'Админ-панель • Поиск и управление';
               <button class="admin-btn tiny success" 
                       onclick="alert('Редактирование тура ID <?= (int)$tour['tour_id'] ?>')">✏️</button>
               <button class="admin-btn tiny danger" 
-                      onclick="if(confirm('Удалить тур «<?= addslashes(htmlspecialchars($tour['hotel_name'])) ?>»?')) 
-                               alert('Тур ID <?= (int)$tour['tour_id'] ?> удалён')">🗑️</button>
+                      onclick="deleteTour(<?= (int)$tour['tour_id'] ?>, '<?= addslashes(htmlspecialchars($tour['hotel_name'])) ?>', this)"
+                      data-tour-id="<?= (int)$tour['tour_id'] ?>">🗑️</button>
             </div>
           </div>
         <?php endforeach; ?>
@@ -237,91 +171,102 @@ $title = 'Админ-панель • Поиск и управление';
   </div>
 </main>
 
-<style>
-  .admin-card {
-    position: relative;
-    transition: transform 0.2s;
-  }
-  .admin-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-  }
-
-  .admin-card-controls {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    display: flex;
-    gap: 0.4rem;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .admin-card:hover .admin-card-controls {
-    opacity: 1;
-  }
-
-  .admin-btn.tiny {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.85rem;
-    border-radius: 4px;
-  }
-
-
-    .notification {
-      position: fixed;
-      top: 120px;
-      right: 20px;
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      z-index: 4000;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      min-width: 300px;
-      max-width: 500px;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    .notification.success {
-      background: #10b981;
-      color: #ffffff;
-    }
-
-    .notification.error {
-      background: #ef4444;
-      color: #ffffff;
-    }
-
-    .notification.info {
-      background: #3b82f6;
-      color: #ffffff;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    .notification-close {
-      margin-left: auto;
-      cursor: pointer;
-      font-size: 1.2rem;
-      opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-
-    .notification-close:hover {
-      opacity: 1;
-    }
-</style>
-
 <script src="script/filters.js"></script>
+<script>
+function showNotification(message, type = 'info') {
+  const existing = document.querySelector('.notification');
+  if (existing) {
+    existing.remove();
+  }
+
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  
+  const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+  notification.innerHTML = `
+    <span>${icon}</span>
+    <span>${message}</span>
+    <span class="notification-close" onclick="this.parentElement.remove()">&times;</span>
+  `;
+
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    if (notification.parentElement) {
+      notification.style.animation = 'slideIn 0.3s ease-out reverse';
+      setTimeout(() => notification.remove(), 300);
+    }
+  }, 5000);
+}
+
+function deleteTour(tourId, hotelName, buttonElement) {
+  if (!confirm(`Вы уверены, что хотите удалить тур «${hotelName}»?\n\nЭто действие нельзя отменить.`)) {
+    return;
+  }
+  
+  // Блокируем кнопку
+  const originalText = buttonElement.innerHTML;
+  buttonElement.disabled = true;
+  buttonElement.innerHTML = '⏳';
+  
+  const formData = new FormData();
+  formData.append('tour_id', tourId);
+  
+  fetch('?action=delete-tour', {
+    method: 'POST',
+    body: formData
+  })
+  .then(async r => {
+    let responseText = '';
+    try {
+      responseText = await r.text();
+      const res = JSON.parse(responseText);
+      
+      if (!r.ok) {
+        throw new Error('Ошибка сервера: ' + r.status + ' - ' + (res.message || responseText));
+      }
+      
+      return res;
+    } catch (parseError) {
+      console.error('Ошибка парсинга ответа:', parseError);
+      console.error('Ответ сервера:', responseText);
+      throw new Error('Ошибка сервера: ' + r.status + '. Ответ: ' + responseText.substring(0, 200));
+    }
+  })
+  .then(res => {
+    if (res.success) {
+      showNotification('Тур успешно удален', 'success');
+      
+      // Находим карточку тура и удаляем её с анимацией
+      const card = buttonElement.closest('.admin-card');
+      if (card) {
+        card.style.transition = 'opacity 0.3s, transform 0.3s';
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+          card.remove();
+          
+          // Обновляем счетчик туров
+          const countElement = document.querySelector('.count-value');
+          if (countElement) {
+            const currentCount = parseInt(countElement.textContent) || 0;
+            countElement.textContent = Math.max(0, currentCount - 1);
+          }
+        }, 300);
+      }
+    } else {
+      showNotification('Ошибка при удалении тура: ' + (res.message || 'Неизвестная ошибка'), 'error');
+      buttonElement.disabled = false;
+      buttonElement.innerHTML = originalText;
+    }
+  })
+  .catch(err => {
+    console.error('Ошибка при удалении тура:', err);
+    showNotification('Ошибка сети: ' + err.message, 'error');
+    buttonElement.disabled = false;
+    buttonElement.innerHTML = originalText;
+  });
+}
+</script>
 </body>
 </html>

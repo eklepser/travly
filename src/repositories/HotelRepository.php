@@ -154,6 +154,7 @@ class HotelRepository {
      */
     public function create($data) {
         if (!$this->pdo) {
+            error_log("[HotelRepository] create: PDO connection is null");
             return false;
         }
         
@@ -168,7 +169,7 @@ class HotelRepository {
             }
             
             if ($maxCapacity < 1) {
-                error_log("[HotelRepository] create: max_capacity_per_room must be >= 1");
+                error_log("[HotelRepository] create: max_capacity_per_room must be >= 1, got: " . $maxCapacity);
                 return false;
             }
             
@@ -189,31 +190,49 @@ class HotelRepository {
             $sql = "INSERT INTO hotels (" . implode(', ', $fields) . ") 
                     VALUES (" . implode(', ', $values) . ")";
             
+            error_log("[HotelRepository] create: Executing SQL: " . $sql);
+            error_log("[HotelRepository] create: Params: " . print_r($params, true));
+            
             $stmt = $this->pdo->prepare($sql);
             $result = $stmt->execute($params);
             
             if (!$result) {
+                $errorInfo = $stmt->errorInfo();
+                $errorMessage = isset($errorInfo[2]) ? $errorInfo[2] : 'Unknown PDO error';
+                $errorCode = isset($errorInfo[0]) ? $errorInfo[0] : 'Unknown';
                 error_log("[HotelRepository] create: execute returned false");
-                error_log("[HotelRepository] SQL: " . $sql);
-                error_log("[HotelRepository] Params: " . print_r($params, true));
-                return false;
+                error_log("[HotelRepository] create: SQL: " . $sql);
+                error_log("[HotelRepository] create: Params: " . print_r($params, true));
+                error_log("[HotelRepository] create: PDO Error Info: " . print_r($errorInfo, true));
+                
+                // Выбрасываем исключение с детальной информацией
+                throw new Exception("Ошибка выполнения SQL при создании отеля: [$errorCode] $errorMessage");
             }
             
             $hotelId = (int)$this->pdo->lastInsertId();
+            error_log("[HotelRepository] create: lastInsertId = " . $hotelId);
+            
             if ($hotelId > 0) {
                 return $hotelId;
             } else {
-                error_log("[HotelRepository] create: lastInsertId returned 0");
-                return false;
+                error_log("[HotelRepository] create: lastInsertId returned 0 or invalid value");
+                throw new Exception("Не удалось получить ID созданного отеля. lastInsertId вернул: $hotelId");
             }
         } catch (PDOException $e) {
-            error_log("[HotelRepository] create failed: " . $e->getMessage());
-            error_log("[HotelRepository] SQL State: " . $e->getCode());
+            $errorMessage = $e->getMessage();
+            $errorCode = $e->getCode();
+            error_log("[HotelRepository] create failed (PDOException): " . $errorMessage);
+            error_log("[HotelRepository] SQL State: " . $errorCode);
             error_log("[HotelRepository] Data: " . print_r($data, true));
-            return false;
+            error_log("[HotelRepository] Stack trace: " . $e->getTraceAsString());
+            
+            // Пробрасываем исключение дальше с детальной информацией
+            throw new Exception("Ошибка базы данных при создании отеля: [$errorCode] $errorMessage", 0, $e);
         } catch (Exception $e) {
             error_log("[HotelRepository] create failed (general): " . $e->getMessage());
-            return false;
+            error_log("[HotelRepository] Stack trace: " . $e->getTraceAsString());
+            // Пробрасываем исключение дальше
+            throw $e;
         }
     }
 }

@@ -290,6 +290,7 @@ class TourRepository {
      */
     public function create($data) {
         if (!$this->pdo) {
+            error_log("[TourRepository] create: PDO connection is null");
             return false;
         }
         
@@ -302,10 +303,36 @@ class TourRepository {
             $arrivalDate = $data['arrival_date'] ?? '';
             $returnDate = $data['return_date'] ?? '';
             
+            if (empty($country)) {
+                error_log("[TourRepository] create: country is required");
+                return false;
+            }
+            
+            if (empty($city)) {
+                error_log("[TourRepository] create: city is required");
+                return false;
+            }
+            
+            if (empty($arrivalDate)) {
+                error_log("[TourRepository] create: arrival_date is required");
+                return false;
+            }
+            
+            if (empty($returnDate)) {
+                error_log("[TourRepository] create: return_date is required");
+                return false;
+            }
+            
+            $hotelId = (int)($data['hotel_id'] ?? 0);
+            if ($hotelId <= 0) {
+                error_log("[TourRepository] create: hotel_id is invalid: " . $hotelId);
+                return false;
+            }
+            
             $params = [
                 'country' => $country,
                 'location' => $city,
-                'hotel_id' => (int)($data['hotel_id'] ?? 0),
+                'hotel_id' => $hotelId,
                 'base_price' => (int)($data['base_price'] ?? 0),
                 'departure_point' => $data['departure_point'] ?? 'Москва',
                 'departure_date' => $data['departure_date'] ?? $arrivalDate,
@@ -317,7 +344,9 @@ class TourRepository {
                 'tour_type' => $tourType
             ];
             
-            $stmt = $this->pdo->prepare("
+            error_log("[TourRepository] create: Params: " . print_r($params, true));
+            
+            $sql = "
                 INSERT INTO tours (
                     country, location, hotel_id, base_price, 
                     departure_point, departure_date,
@@ -332,24 +361,45 @@ class TourRepository {
                     :return_point, :return_date,
                     :image_url, :tour_type
                 )
-            ");
+            ";
             
+            error_log("[TourRepository] create: Executing SQL");
+            
+            $stmt = $this->pdo->prepare($sql);
             $result = $stmt->execute($params);
             
             if (!$result) {
-                error_log("[TourRepository] execute failed: " . print_r($stmt->errorInfo(), true));
-                return false;
+                $errorInfo = $stmt->errorInfo();
+                $errorMessage = isset($errorInfo[2]) ? $errorInfo[2] : 'Unknown PDO error';
+                $errorCode = isset($errorInfo[0]) ? $errorInfo[0] : 'Unknown';
+                error_log("[TourRepository] create: execute returned false");
+                error_log("[TourRepository] create: PDO Error Info: " . print_r($errorInfo, true));
+                error_log("[TourRepository] create: SQL: " . $sql);
+                error_log("[TourRepository] create: Params: " . print_r($params, true));
+                
+                // Выбрасываем исключение с детальной информацией
+                throw new Exception("Ошибка выполнения SQL: [$errorCode] $errorMessage");
             }
             
             $tourId = (int)$this->pdo->lastInsertId();
+            error_log("[TourRepository] create: lastInsertId = " . $tourId);
             
             if ($tourId > 0) {
                 return $tourId;
             }
             
-            return false;
+            error_log("[TourRepository] create: lastInsertId returned 0 or invalid value");
+            throw new Exception("Не удалось получить ID созданного тура. lastInsertId вернул: $tourId");
         } catch (PDOException $e) {
-            if ($e->getCode() == '23505') {
+            $errorMessage = $e->getMessage();
+            $errorCode = $e->getCode();
+            error_log("[TourRepository] create failed (PDOException): " . $errorMessage);
+            error_log("[TourRepository] create failed: SQL State: " . $errorCode);
+            error_log("[TourRepository] create failed: Data: " . print_r($data, true));
+            error_log("[TourRepository] create failed: Stack trace: " . $e->getTraceAsString());
+            
+            // Обработка ошибки дублирования ключа (PostgreSQL)
+            if ($errorCode == '23505' || strpos($errorMessage, 'duplicate key') !== false) {
                 try {
                     $maxStmt = $this->pdo->query("SELECT MAX(id) FROM tours");
                     $maxId = (int)$maxStmt->fetchColumn();
@@ -368,11 +418,51 @@ class TourRepository {
                 }
             }
             
-            error_log("[TourRepository] create failed: " . $e->getMessage());
-            return false;
+            // Пробрасываем исключение дальше с детальной информацией
+            throw new Exception("Ошибка базы данных при создании тура: [$errorCode] $errorMessage", 0, $e);
         } catch (Exception $e) {
             error_log("[TourRepository] create failed (general): " . $e->getMessage());
+            error_log("[TourRepository] create failed: Stack trace: " . $e->getTraceAsString());
+            // Пробрасываем исключение дальше
+            throw $e;
+        }
+    }
+    
+    /**
+     * Удалить тур по ID
+     * @param int $id ID тура
+     * @return bool true при успешном удалении, false при ошибке
+     */
+    public function delete($id) {
+        if (!$this->pdo || !$id || $id <= 0) {
+            error_log("[TourRepository] delete: Invalid ID or PDO connection");
             return false;
+        }
+        
+        try {
+            $stmt = $this->pdo->prepare("DELETE FROM tours WHERE id = :id");
+            $result = $stmt->execute(['id' => (int)$id]);
+            
+            if (!$result) {
+                $errorInfo = $stmt->errorInfo();
+                error_log("[TourRepository] delete: execute returned false");
+                error_log("[TourRepository] delete: PDO Error Info: " . print_r($errorInfo, true));
+                return false;
+            }
+            
+            $rowCount = $stmt->rowCount();
+            error_log("[TourRepository] delete: Deleted $rowCount row(s) for tour ID $id");
+            
+            return $rowCount > 0;
+        } catch (PDOException $e) {
+            error_log("[TourRepository] delete failed (PDOException): " . $e->getMessage());
+            error_log("[TourRepository] delete failed: SQL State: " . $e->getCode());
+            error_log("[TourRepository] delete failed: Stack trace: " . $e->getTraceAsString());
+            throw new Exception("Ошибка базы данных при удалении тура: [" . $e->getCode() . "] " . $e->getMessage(), 0, $e);
+        } catch (Exception $e) {
+            error_log("[TourRepository] delete failed (general): " . $e->getMessage());
+            error_log("[TourRepository] delete failed: Stack trace: " . $e->getTraceAsString());
+            throw $e;
         }
     }
 }
