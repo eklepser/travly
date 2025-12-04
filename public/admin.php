@@ -48,8 +48,8 @@ $title = 'Админ-панель • Поиск и управление';
       top: 0;
       left: 0;
       width: 100%;
-      background: linear-gradient(135deg, #1a3a5f, #2c3e50);
-      color: white;
+      background: linear-gradient(135deg, #275858, #459292);
+      color: #ffffff;
       padding: 0.8rem 1.5rem;
       box-shadow: 0 3px 10px rgba(0,0,0,0.25);
       z-index: 2000;
@@ -58,43 +58,34 @@ $title = 'Админ-панель • Поиск и управление';
       gap: 1rem;
       flex-wrap: wrap;
     }
-    .admin-control-bar h1 {
+    .admin-title {
       margin: 0;
       font-size: 1.3rem;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
     .admin-btn {
       padding: 0.6rem 1.2rem;
       border: none;
-      border-radius: 6px;
-      background: #3498db;
-      color: white;
+      border-radius: 8px;
+      background: #275858; /* @primary-color */
+      color: #ffffff;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
       white-space: nowrap;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.4rem;
     }
     .admin-btn:hover {
-      background: #2980b9;
+      background: #1c4141;
       transform: translateY(-1px);
     }
-    .admin-btn.danger {
-      background: #e74c3c;
+    .admin-btn.secondary {
+      background: #627878; /* @secondary-color */
     }
-    .admin-btn.danger:hover {
-      background: #c0392b;
-    }
-    .admin-btn.success {
-      background: #2ecc71;
-    }
-    .admin-btn.success:hover {
-      background: #27ae60;
+    .admin-btn.secondary:hover {
+      background: #4a5a5a;
     }
 
     /* Сдвиг контента под панель */
@@ -107,42 +98,18 @@ $title = 'Админ-панель • Поиск и управление';
     .admin-return-link {
       margin-left: auto;
       text-decoration: none;
-      color: #ecf0f1;
+      color: #ffffff;
       font-weight: 600;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
     }
     .admin-return-link:hover {
       background: rgba(255,255,255,0.2);
       text-decoration: none;
-    }
-
-    /* Подсветка админ-режима */
-    .admin-mode-badge {
-      background: #e74c3c;
-      color: white;
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: bold;
-    }
-
-    /* Расширенный заголовок */
-    .admin-search-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .admin-tours-count {
-      font-size: 1.2rem;
-      font-weight: 600;
     }
   </style>
 </head>
@@ -150,20 +117,14 @@ $title = 'Админ-панель • Поиск и управление';
 
 <!-- 🔧 Фиксированная админ-панель -->
 <div class="admin-control-bar">
-  <h1>🛠️ <span class="admin-mode-badge">АДМИН</span> Панель управления</h1>
-  
-  <button class="admin-btn" onclick="openAddTourModal()">➕ Туры</button>
-  <button class="admin-btn success" onclick="alert('Открыта форма добавления отеля')">
-    🏨 Добавить отель
-  </button>
-  <button class="admin-btn" onclick="alert('Выберите запись → нажмите «Редактировать»')">
-    ✏️ Редактировать
-  </button>
-  <button class="admin-btn danger" onclick="if(confirm('Удалить выбранную запись? Действие необратимо.')) alert('Запись удалена')">
-    🗑️ Удалить
+  <h1 class="admin-title">Панель управления турами</h1>
+
+  <button class="admin-btn secondary" onclick="openAddTourModal()">Добавить тур</button>
+  <button class="admin-btn secondary" onclick="alert('Открыта форма добавления отеля')">
+    Добавить отель
   </button>
 
-  <a href="./" class="admin-return-link">🚪 Выйти в публичную часть</a>
+  <a href="./" class="admin-return-link">Выйти в публичную часть</a>
 </div>
 
 <!-- 🔍 Основной контент: как в search.php -->
@@ -176,13 +137,10 @@ $title = 'Админ-панель • Поиск и управление';
       <h2><b>Управление</b> турами</h2>
     </div>
 
-    <!-- Админ-заголовок с количеством -->
-    <div class="admin-search-header">
-      <div class="admin-tours-count">
+    <!-- Заголовок с количеством и сортировкой (как на странице поиска) -->
+    <div class="search-header">
+      <div class="tours-count">
         Всего туров: <span class="count-value"><?= count($tours) ?></span>
-        <?php if (!empty($filters)): ?>
-          <small style="color:#95a5a6; margin-left:1rem;">(применены фильтры)</small>
-        <?php endif; ?>
       </div>
       <div class="sorting-options">
         <div class="sort-filter-item" data-filter="sort">
@@ -207,6 +165,8 @@ $title = 'Админ-панель • Поиск и управление';
         </div>
       </div>
     </div>
+
+    <?php include 'layout/components/modal-add-tour.php'; ?>
 
     <!-- Сетка карточек -->
     <div class="cards-panel" id="toursContainer">
@@ -277,7 +237,6 @@ $title = 'Админ-панель • Поиск и управление';
       <?php endif; ?>
     </div>
   </div>
-  <?php include 'layout/components/modal-add-tour.php'; ?>
 </main>
 
 <style>
