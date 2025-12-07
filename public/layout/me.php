@@ -14,33 +14,38 @@ $activeBookings = [];
 $pastBookings = [];
 
 if (isset($_SESSION['user_id'])) {
-    require_once __DIR__ . '/../../src/repositories/UserRepository.php';
-    require_once __DIR__ . '/../../src/repositories/BookingRepository.php';
-    
-    $userRepo = new UserRepository();
-    $user = $userRepo->findById($_SESSION['user_id']);
-    
-    if ($user) {
-        // Разбираем full_name на фамилию и имя
-        $nameParts = explode(' ', trim($user['full_name']), 2);
-        $lastName = $nameParts[0] ?? '';
-        $firstName = $nameParts[1] ?? '';
+    try {
+        require_once __DIR__ . '/../../src/repositories/UserRepository.php';
+        require_once __DIR__ . '/../../src/repositories/BookingRepository.php';
         
-        $phone = $user['phone'] ?? '—';
-        $email = $user['email'] ?? '—';
+        $userRepo = new UserRepository();
+        $user = $userRepo->findById($_SESSION['user_id']);
         
-        // Форматируем дату регистрации
-        if (!empty($user['created_at'])) {
-            $date = new DateTime($user['created_at']);
-            $registrationDate = $date->format('d.m.Y');
+        if ($user) {
+            // Разбираем full_name на фамилию и имя
+            $nameParts = explode(' ', trim($user['full_name']), 2);
+            $lastName = $nameParts[0] ?? '';
+            $firstName = $nameParts[1] ?? '';
+            
+            $phone = $user['phone'] ?? '—';
+            $email = $user['email'] ?? '—';
+            
+            // Форматируем дату регистрации
+            if (!empty($user['created_at'])) {
+                $date = new DateTime($user['created_at']);
+                $registrationDate = $date->format('d.m.Y');
+            }
         }
+        
+        // Загружаем туры пользователя
+        $bookingRepo = new BookingRepository();
+        $bookings = $bookingRepo->getUserBookings($_SESSION['user_id']);
+        $activeBookings = $bookings['active'] ?? [];
+        $pastBookings = $bookings['past'] ?? [];
+    } catch (Exception $e) {
+        error_log("[me.php] Error loading user data: " . $e->getMessage());
+        // Продолжаем выполнение с пустыми данными
     }
-    
-    // Загружаем туры пользователя
-    $bookingRepo = new BookingRepository();
-    $bookings = $bookingRepo->getUserBookings($_SESSION['user_id']);
-    $activeBookings = $bookings['active'] ?? [];
-    $pastBookings = $bookings['past'] ?? [];
 }
 
 // Функция для форматирования даты

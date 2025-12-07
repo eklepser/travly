@@ -106,6 +106,76 @@ class BookingRepository {
             return false;
         }
     }
+
+    /**
+     * Получить все бронирования пользователя с разделением на активные и прошедшие
+     * @param int $userId ID пользователя
+     * @return array Массив с ключами 'active' и 'past'
+     */
+    public function getUserBookings($userId) {
+        if (!$this->pdo || $userId <= 0) {
+            return ['active' => [], 'past' => []];
+        }
+        
+        try {
+            $sql = "
+                SELECT 
+                    b.id AS booking_id,
+                    b.total_price,
+                    b.services,
+                    b.status,
+                    t.country,
+                    t.location AS city,
+                    t.departure_point,
+                    t.departure_date,
+                    t.arrival_point,
+                    t.arrival_date,
+                    t.return_point,
+                    t.return_date,
+                    t.image_url,
+                    h.name AS hotel_name,
+                    h.rating AS hotel_rating,
+                    COUNT(bt.tourist_id) AS tourists_count
+                FROM bookings b
+                INNER JOIN tours t ON b.tour_id = t.id
+                INNER JOIN hotels h ON t.hotel_id = h.id
+                LEFT JOIN booking_tourist bt ON b.id = bt.booking_id
+                WHERE b.user_id = :user_id
+                GROUP BY b.id, t.id, h.id
+                ORDER BY t.return_date DESC
+            ";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['user_id' => (int)$userId]);
+            $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            $activeBookings = [];
+            $pastBookings = [];
+            $today = date('Y-m-d');
+            
+            foreach ($bookings as $booking) {
+                // Преобразуем tourists_count в число
+                $booking['tourists_count'] = (int)($booking['tourists_count'] ?? 0);
+                
+                // Определяем, активное ли бронирование (дата возврата >= сегодня)
+                $returnDate = $booking['return_date'] ?? '';
+                if (!empty($returnDate) && $returnDate >= $today) {
+                    $activeBookings[] = $booking;
+                } else {
+                    $pastBookings[] = $booking;
+                }
+            }
+            
+            return [
+                'active' => $activeBookings,
+                'past' => $pastBookings
+            ];
+            
+        } catch (Exception $e) {
+            error_log("[BookingRepository] getUserBookings failed: " . $e->getMessage());
+            return ['active' => [], 'past' => []];
+        }
+    }
 }
 
 
