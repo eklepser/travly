@@ -352,13 +352,58 @@ $pageTitle = 'Travly — Выбор отеля';
             `${formatter.format(total)} ₽`;
     }
 
+    function getSelectedServices() {
+        const selectedServices = [];
+        
+        // Получаем выбранные чекбоксы услуг
+        document.querySelectorAll('.service-checkbox input[type="checkbox"]:checked').forEach(cb => {
+            const label = cb.closest('label');
+            if (label) {
+                const serviceText = label.textContent.trim();
+                const price = parseInt(cb.dataset.price) || 0;
+                // Извлекаем название услуги (убираем цену)
+                const serviceName = serviceText.replace(/\s*\(\+\d+[\s₽]*\)\s*$/, '').trim();
+                selectedServices.push({
+                    service: serviceName,
+                    price: price
+                });
+            }
+        });
+        
+        return selectedServices;
+    }
+
     const proceedBtn = document.getElementById('proceedToBookingBtn');
     if (proceedBtn) {
         proceedBtn.addEventListener('click', function() {
             const adults = parseInt(document.querySelector('[data-counter="adults"]')?.textContent) || 2;
             const children = parseInt(document.querySelector('[data-counter="children"]')?.textContent) || 0;
             const tourId = <?= (int) $tour['id'] ?>;
-            window.location.href = `?page=booking&id=${tourId}&adults=${adults}&children=${children}`;
+            const roomType = document.getElementById('room-type');
+            const roomPrice = parseInt(roomType?.value) || 0;
+            const selectedServices = getSelectedServices();
+            
+            // Сохраняем данные в сессию через AJAX
+            const formData = new FormData();
+            formData.append('action', 'save-booking-data');
+            formData.append('tour_id', tourId);
+            formData.append('adults', adults);
+            formData.append('children', children);
+            formData.append('room_price', roomPrice);
+            formData.append('services', JSON.stringify(selectedServices));
+            
+            fetch('?action=save-booking-data', {
+                method: 'POST',
+                body: formData
+            })
+            .then(() => {
+                window.location.href = `?page=booking&id=${tourId}&adults=${adults}&children=${children}`;
+            })
+            .catch(err => {
+                console.error('Ошибка сохранения данных:', err);
+                // Переходим даже при ошибке
+                window.location.href = `?page=booking&id=${tourId}&adults=${adults}&children=${children}`;
+            });
         });
     }
 })();

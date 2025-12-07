@@ -341,12 +341,20 @@
     }
 
     function getTourId() {
+        // Используем данные из window.bookingData, если доступны
+        if (window.bookingData && window.bookingData.tourId) {
+            return window.bookingData.tourId;
+        }
         const urlParams = new URLSearchParams(window.location.search);
         const tourId = parseInt(urlParams.get('tour_id')) || parseInt(urlParams.get('id')) || 0;
         return tourId;
     }
 
     function getTotalPrice() {
+        // Используем данные из window.bookingData, если доступны
+        if (window.bookingData && window.bookingData.totalPrice) {
+            return window.bookingData.totalPrice;
+        }
         const priceElement = document.querySelector('.total-cost .info-value');
         if (priceElement) {
             const text = priceElement.textContent;
@@ -420,10 +428,14 @@
             bookBtn.textContent = 'Оформление...';
         }
         
+        // Получаем выбранные услуги из сессии (они должны быть сохранены на странице выбора услуг)
+        const selectedServices = window.bookingData?.services || [];
+        
         const formData = new FormData();
         formData.append('tour_id', tourId);
         formData.append('total_price', totalPrice);
         formData.append('tourists', JSON.stringify(tourists));
+        formData.append('services', JSON.stringify(selectedServices));
         
         fetch('?action=create-booking', {
             method: 'POST',

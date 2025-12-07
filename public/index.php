@@ -32,6 +32,33 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     exit; // Важно: выходим, чтобы не выполнять код ниже
 }
 
+// Обработка сохранения данных бронирования в сессию
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'save-booking-data') {
+    header('Content-Type: application/json');
+    
+    $tourId = isset($_POST['tour_id']) ? (int)$_POST['tour_id'] : 0;
+    $adults = isset($_POST['adults']) ? (int)$_POST['adults'] : 1;
+    $children = isset($_POST['children']) ? (int)$_POST['children'] : 0;
+    $roomPrice = isset($_POST['room_price']) ? (int)$_POST['room_price'] : 0;
+    
+    $servicesJson = $_POST['services'] ?? '[]';
+    $services = json_decode($servicesJson, true);
+    if (!is_array($services)) {
+        $services = [];
+    }
+    
+    $_SESSION['booking_data'] = [
+        'tour_id' => $tourId,
+        'adults' => $adults,
+        'children' => $children,
+        'room_price' => $roomPrice,
+        'services' => $services
+    ];
+    
+    echo json_encode(['success' => true]);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'create-booking') {
     require_once '../src/config/database.php';
     require_once '../src/handlers/booking.php';
