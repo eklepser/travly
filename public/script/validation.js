@@ -17,6 +17,12 @@ function setupGlobalEventHandlers() {
             if ($input.hasClass('invalid')) {
                 validateBookingField($input);
             }
+            // Обновляем стрелки при изменении полей
+            if (typeof window.updateNavigation === 'function') {
+                setTimeout(() => {
+                    window.updateNavigation();
+                }, 100);
+            }
         })
         .on('blur', '.auth-form input', function(e) {
             e.stopPropagation();
@@ -48,6 +54,13 @@ function setValidationState($input, isValid, message = '') {
 
     if (!isValid && message) {
         $group.append(`<div class="error-message">${message}</div>`);
+    }
+    
+    // Обновляем стрелки навигации после валидации
+    if (typeof updateNavigation === 'function') {
+        setTimeout(() => {
+            updateNavigation();
+        }, 100);
     }
 }
 

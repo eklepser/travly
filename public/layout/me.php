@@ -387,13 +387,54 @@ function getTouristWord($count) {
             </div>
         </div>
     </div>
+
+    <div class="modal-overlay" id="logoutModal" style="display: none;">
+        <div class="modal">
+            <h3>Подтверждение выхода</h3>
+            <p>Вы уверены, что хотите выйти из аккаунта?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" id="logoutNo">Нет</button>
+                <button class="modal-btn primary" id="logoutYes">Да, выйти</button>
+            </div>
+        </div>
+    </div>
 </main>
 
 <script src="script/account.js"></script>
 <script>
 function handleLogout() {
-    if (confirm('Вы уверены, что хотите выйти из аккаунта?')) {
-        window.location.href = '?action=logout';
+    const modal = document.getElementById('logoutModal');
+    if (modal) {
+        modal.style.display = 'flex';
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutModal = document.getElementById('logoutModal');
+    const logoutNo = document.getElementById('logoutNo');
+    const logoutYes = document.getElementById('logoutYes');
+    
+    if (logoutNo) {
+        logoutNo.addEventListener('click', () => {
+            if (logoutModal) {
+                logoutModal.style.display = 'none';
+            }
+        });
+    }
+    
+    if (logoutYes) {
+        logoutYes.addEventListener('click', () => {
+            window.location.href = '?action=logout';
+        });
+    }
+    
+    // Закрытие модального окна при клике вне его
+    if (logoutModal) {
+        logoutModal.addEventListener('click', (e) => {
+            if (e.target === logoutModal) {
+                logoutModal.style.display = 'none';
+            }
+        });
+    }
+});
 </script>

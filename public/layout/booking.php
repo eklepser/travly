@@ -294,11 +294,11 @@ if ($error || !$tour):
     <section class="booking-form">
         <div class="booking-form-header">
             <button class="nav-arrow nav-arrow-left" id="prevFormBtn" style="display: none;">
-                <span>←</span>
+                <span>◄</span>
             </button>
             <h3 id="formTitle">Данные туриста 1 (заказчик)</h3>
             <button class="nav-arrow nav-arrow-right" id="nextFormBtn" style="display: none;">
-                <span>→</span>
+                <span>►</span>
             </button>
         </div>
 

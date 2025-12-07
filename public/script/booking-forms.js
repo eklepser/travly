@@ -54,6 +54,9 @@
         renderForms();
         updateNavigation();
         
+        // Делаем функцию доступной глобально для validation.js
+        window.updateNavigation = updateNavigation;
+        
         if (typeof setupGlobalEventHandlers === 'function') {
             setTimeout(() => {
                 setupGlobalEventHandlers();
@@ -233,17 +236,89 @@
         `;
     }
 
+    function isFormValid(formIndex) {
+        if (formIndex < 0 || formIndex >= forms.length) {
+            return true;
+        }
+        
+        const formElement = document.querySelector(`[data-form-index="${formIndex}"]`);
+        if (!formElement) {
+            return true;
+        }
+        
+        // Проверяем, есть ли поля с ошибками
+        const invalidInputs = formElement.querySelectorAll('input.invalid');
+        if (invalidInputs.length > 0) {
+            return false;
+        }
+        
+        // Проверяем, заполнены ли все обязательные поля
+        const inputs = formElement.querySelectorAll('input');
+        let hasEmptyRequired = false;
+        
+        inputs.forEach(input => {
+            const name = input.getAttribute('name') || '';
+            const value = input.value.trim();
+            
+            // Определяем, является ли поле обязательным
+            const isRequired = name.includes('_lastname') || 
+                             name.includes('_firstname') || 
+                             name.includes('_birthdate') ||
+                             (name.includes('_doc-series') && !name.includes('birth-certificate')) ||
+                             (name.includes('_doc-number') && !name.includes('birth-certificate')) ||
+                             name.includes('_birth-certificate') ||
+                             // Для заказчика все поля обязательны
+                             (forms[formIndex] && forms[formIndex].isCustomer && (
+                                 name.includes('_middlename') ||
+                                 name.includes('_doc-department-code') ||
+                                 name.includes('_doc-issue-date') ||
+                                 name.includes('_doc-issuing-authority') ||
+                                 name.includes('_phone') ||
+                                 name.includes('_email') ||
+                                 name.includes('_address')
+                             ));
+            
+            if (isRequired && value === '') {
+                hasEmptyRequired = true;
+            }
+        });
+        
+        return !hasEmptyRequired;
+    }
+
     function updateNavigation() {
         const prevBtn = document.getElementById('prevFormBtn');
         const nextBtn = document.getElementById('nextFormBtn');
         const formTitle = document.getElementById('formTitle');
 
         if (prevBtn) {
-            prevBtn.style.display = currentFormIndex > 0 ? 'flex' : 'none';
+            const hasPrev = currentFormIndex > 0;
+            prevBtn.style.display = hasPrev ? 'flex' : 'none';
+            
+            // Проверяем валидность предыдущей формы
+            if (hasPrev) {
+                const prevFormValid = isFormValid(currentFormIndex - 1);
+                if (prevFormValid) {
+                    prevBtn.classList.remove('error-state');
+                } else {
+                    prevBtn.classList.add('error-state');
+                }
+            }
         }
 
         if (nextBtn) {
-            nextBtn.style.display = currentFormIndex < forms.length - 1 ? 'flex' : 'none';
+            const hasNext = currentFormIndex < forms.length - 1;
+            nextBtn.style.display = hasNext ? 'flex' : 'none';
+            
+            // Проверяем валидность следующей формы
+            if (hasNext) {
+                const nextFormValid = isFormValid(currentFormIndex + 1);
+                if (nextFormValid) {
+                    nextBtn.classList.remove('error-state');
+                } else {
+                    nextBtn.classList.add('error-state');
+                }
+            }
         }
 
         if (formTitle && forms[currentFormIndex]) {

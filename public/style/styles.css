@@ -2153,10 +2153,11 @@ body.main-page-body {
   flex-shrink: 0;
 }
 .booking-form .nav-arrow span {
-  font-size: 24px;
+  font-size: 32px;
   color: #275858;
-  font-weight: bold;
+  font-weight: 900;
   line-height: 1;
+  font-family: Arial, sans-serif;
 }
 .booking-form .nav-arrow:hover {
   background: #275858;
@@ -2178,6 +2179,18 @@ body.main-page-body {
 }
 .booking-form .nav-arrow:disabled:hover span {
   color: #275858;
+}
+.booking-form .nav-arrow.error-state {
+  border-color: #d32f2f;
+}
+.booking-form .nav-arrow.error-state span {
+  color: #d32f2f;
+}
+.booking-form .nav-arrow.error-state:hover {
+  background: #d32f2f;
+}
+.booking-form .nav-arrow.error-state:hover span {
+  color: #FFFFFF;
 }
 .booking-form .booking-forms-container {
   position: relative;
