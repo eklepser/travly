@@ -295,12 +295,19 @@
     function collectAllTouristsData() {
         const touristsData = [];
         
+        console.log('[Booking] Collecting tourists data. Forms count:', forms.length);
+        
         forms.forEach((form, index) => {
             const formElement = document.querySelector(`[data-form-index="${index}"]`);
-            if (!formElement) return;
+            if (!formElement) {
+                console.warn('[Booking] Form element not found for index:', index);
+                return;
+            }
             
             const formId = `tourist_${index}`;
             const inputs = formElement.querySelectorAll('input');
+            
+            console.log(`[Booking] Processing form #${index}, inputs count:`, inputs.length);
             
             const touristData = {
                 is_orderer: form.isCustomer,
@@ -332,10 +339,18 @@
                 }
             });
             
+            console.log(`[Booking] Tourist #${index} collected data:`, touristData);
+            
             if (touristData.first_name || touristData.last_name) {
                 touristsData.push(touristData);
+                console.log(`[Booking] Tourist #${index} added to array`);
+            } else {
+                console.warn(`[Booking] Tourist #${index} skipped - no first_name or last_name`);
             }
         });
+        
+        console.log('[Booking] Total tourists collected:', touristsData.length);
+        console.log('[Booking] Tourists data:', touristsData);
         
         return touristsData;
     }
@@ -367,7 +382,92 @@
         return 0;
     }
 
+    function validateAllTouristForms() {
+        let allValid = true;
+        const errors = [];
+        
+        forms.forEach((form, index) => {
+            const formElement = document.querySelector(`[data-form-index="${index}"]`);
+            if (!formElement) {
+                errors.push(`Форма туриста ${index + 1} не найдена`);
+                allValid = false;
+                return;
+            }
+            
+            const inputs = formElement.querySelectorAll('input');
+            const touristData = {
+                first_name: '',
+                last_name: '',
+                birthdate: '',
+                doc_series: '',
+                doc_number: '',
+                birth_certificate: ''
+            };
+            
+            inputs.forEach(input => {
+                const name = input.name || '';
+                const value = input.value.trim();
+                
+                if (name.includes('_firstname')) {
+                    touristData.first_name = value;
+                } else if (name.includes('_lastname')) {
+                    touristData.last_name = value;
+                } else if (name.includes('_birthdate')) {
+                    touristData.birthdate = value;
+                } else if (name.includes('_doc-series')) {
+                    touristData.doc_series = value;
+                } else if (name.includes('_doc-number')) {
+                    touristData.doc_number = value;
+                } else if (name.includes('_birth-certificate')) {
+                    touristData.birth_certificate = value;
+                }
+            });
+            
+            // Проверяем обязательные поля
+            if (!touristData.first_name) {
+                errors.push(`Турист ${index + 1}: не указано имя`);
+                allValid = false;
+            }
+            if (!touristData.last_name) {
+                errors.push(`Турист ${index + 1}: не указана фамилия`);
+                allValid = false;
+            }
+            if (!touristData.birthdate) {
+                errors.push(`Турист ${index + 1}: не указана дата рождения`);
+                allValid = false;
+            }
+            
+            if (form.isChild) {
+                if (!touristData.birth_certificate) {
+                    errors.push(`Турист ${index + 1} (ребенок): не указано свидетельство о рождении`);
+                    allValid = false;
+                }
+            } else {
+                if (!touristData.doc_series) {
+                    errors.push(`Турист ${index + 1}: не указана серия документа`);
+                    allValid = false;
+                }
+                if (!touristData.doc_number) {
+                    errors.push(`Турист ${index + 1}: не указан номер документа`);
+                    allValid = false;
+                }
+            }
+        });
+        
+        if (!allValid && errors.length > 0) {
+            console.error('[Booking] Validation errors:', errors);
+            alert('Пожалуйста, заполните все обязательные поля:\n' + errors.join('\n'));
+        }
+        
+        return allValid;
+    }
+
     function submitBooking() {
+        // Валидируем все формы туристов
+        if (!validateAllTouristForms()) {
+            return;
+        }
+        
         if (typeof validateForm === 'function') {
             const $bookingForm = $('.booking-form');
             if (!$bookingForm.length) {
@@ -375,6 +475,7 @@
                 return;
             }
             
+            // Дополнительная валидация через существующую функцию
             if (!validateForm($bookingForm)) {
                 alert('Пожалуйста, заполните все обязательные поля корректно');
                 return;
@@ -431,11 +532,24 @@
         // Получаем выбранные услуги из сессии (они должны быть сохранены на странице выбора услуг)
         const selectedServices = window.bookingData?.services || [];
         
+        // Логируем данные перед отправкой
+        console.log('[Booking] Tour ID:', tourId);
+        console.log('[Booking] Total Price:', totalPrice);
+        console.log('[Booking] Tourists count:', tourists.length);
+        console.log('[Booking] Tourists data:', tourists);
+        console.log('[Booking] Selected services:', selectedServices);
+        
         const formData = new FormData();
         formData.append('tour_id', tourId);
         formData.append('total_price', totalPrice);
         formData.append('tourists', JSON.stringify(tourists));
         formData.append('services', JSON.stringify(selectedServices));
+        
+        // Логируем FormData
+        console.log('[Booking] FormData contents:');
+        for (let pair of formData.entries()) {
+            console.log('[Booking]', pair[0] + ':', pair[1]);
+        }
         
         fetch('?action=create-booking', {
             method: 'POST',

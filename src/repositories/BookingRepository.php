@@ -37,6 +37,7 @@ class BookingRepository {
                 VALUES (
                     :user_id, :tour_id, :total_price, :services, :status
                 )
+                RETURNING id
             ";
             
             $params = [
@@ -55,7 +56,8 @@ class BookingRepository {
                 return null;
             }
             
-            $bookingId = (int)$this->pdo->lastInsertId();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $bookingId = $row ? (int)$row['id'] : 0;
             
             if ($bookingId > 0) {
                 return $bookingId;
@@ -83,16 +85,22 @@ class BookingRepository {
                     continue;
                 }
                 
+                // Используем ON CONFLICT с правильным синтаксисом для PostgreSQL
+                // PRIMARY KEY на (booking_id, tourist_id) позволяет использовать ON CONFLICT
                 $stmt = $this->pdo->prepare("
                     INSERT INTO booking_tourist (booking_id, tourist_id)
                     VALUES (:booking_id, :tourist_id)
                     ON CONFLICT (booking_id, tourist_id) DO NOTHING
                 ");
                 
-                $stmt->execute([
+                $result = $stmt->execute([
                     'booking_id' => $bookingId,
                     'tourist_id' => $touristId
                 ]);
+                
+                if (!$result) {
+                    error_log("[BookingRepository] linkTourists: Failed to insert tourist {$touristId} for booking {$bookingId}");
+                }
             }
             
             $this->pdo->commit();
@@ -103,6 +111,7 @@ class BookingRepository {
                 $this->pdo->rollBack();
             }
             error_log("[BookingRepository] linkTourists failed: " . $e->getMessage());
+            error_log("[BookingRepository] linkTourists stack trace: " . $e->getTraceAsString());
             return false;
         }
     }
