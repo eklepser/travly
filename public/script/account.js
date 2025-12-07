@@ -14,9 +14,9 @@
         const toggleEditMode = (enable) => {
             textVals.forEach(el => el.style.display = enable ? 'none' : 'block');
             inputs.forEach(el => el.style.display = enable ? 'block' : 'none');
-            editBtn.style.display = enable ? 'none' : 'inline-block';
-            saveBtn.style.display = enable ? 'inline-block' : 'none';
-            cancelBtn.style.display = enable ? 'inline-block' : 'none';
+            editBtn.style.display = enable ? 'none' : 'flex';
+            saveBtn.style.display = enable ? 'flex' : 'none';
+            cancelBtn.style.display = enable ? 'flex' : 'none';
         };
 
         editBtn.addEventListener('click', () => toggleEditMode(true));
@@ -45,11 +45,60 @@
 
         document.getElementById('cancelYes')?.addEventListener('click', () => {
             const id = modal.dataset.bookingId;
-            alert(`✅ Бронирование ${id} успешно отменено`);
-            modal.style.display = 'none';
-
-            const card = document.querySelector(`.booking-hero[data-booking-id="${id}"]`);
-            if (card) card.style.opacity = '0.5';
+            if (!id || id === 'unknown') {
+                alert('Ошибка: не указан ID бронирования');
+                modal.style.display = 'none';
+                return;
+            }
+            
+            // Отправляем запрос на удаление бронирования
+            fetch(`?action=cancel-booking&id=${id}`, {
+                method: 'GET'
+            })
+            .then(async response => {
+                const text = await response.text();
+                let result;
+                try {
+                    result = JSON.parse(text);
+                } catch (e) {
+                    throw new Error('Ошибка парсинга ответа: ' + text);
+                }
+                
+                if (result.success) {
+                    // Удаляем карточку бронирования из DOM
+                    const card = document.querySelector(`.booking-hero[data-booking-id="${id}"]`);
+                    if (card) {
+                        card.style.transition = 'opacity 0.3s';
+                        card.style.opacity = '0';
+                        setTimeout(() => {
+                            card.remove();
+                        }, 300);
+                    }
+                    
+                    // Если нет активных бронирований, показываем сообщение
+                    const activeBookings = document.querySelectorAll('.tours-section .booking-hero');
+                    if (activeBookings.length === 0) {
+                        const section = document.querySelector('.tours-section');
+                        if (section) {
+                            const message = document.createElement('p');
+                            message.style.cssText = 'text-align: center; padding: 40px; color: #666;';
+                            message.textContent = 'У вас нет активных бронирований';
+                            section.appendChild(message);
+                        }
+                    }
+                    
+                    alert('✅ Бронирование успешно отменено');
+                } else {
+                    alert('Ошибка: ' + (result.message || 'Не удалось отменить бронирование'));
+                }
+                
+                modal.style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Ошибка при отмене бронирования:', error);
+                alert('Ошибка сети: ' + error.message);
+                modal.style.display = 'none';
+            });
         });
     }
 })();

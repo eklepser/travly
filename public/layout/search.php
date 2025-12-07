@@ -88,8 +88,16 @@ $scripts = ['script/filters.js'];
                     // Проверяем, является ли путь URL из интернета
                     $isExternalUrl = !empty($imageUrl) && (str_starts_with($imageUrl, 'http://') || str_starts_with($imageUrl, 'https://'));
                     
-                    if (empty($imageUrl) || (!$isExternalUrl && !file_exists($imageUrl))) {
+                    if (empty($imageUrl)) {
                         $imageUrl = 'resources/images/tours/default_tour.png';
+                    } elseif ($isExternalUrl) {
+                        // Внешний URL - используем как есть
+                    } else {
+                        // Для локальных путей проверяем существование файла относительно public/
+                        $fullPath = __DIR__ . '/../' . $imageUrl;
+                        if (!file_exists($fullPath)) {
+                            $imageUrl = 'resources/images/tours/default_tour.png';
+                        }
                     }
                     ?>
                     <a href="?page=tour&id=<?= (int) $tour['tour_id'] ?>" class="card">

@@ -66,6 +66,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     exit; // Важно: выходим, чтобы не выполнять код ниже
 }
 
+// Обработка отмены бронирования
+if (isset($_GET['action']) && $_GET['action'] === 'cancel-booking') {
+    require_once '../src/config/database.php';
+    require_once '../src/repositories/BookingRepository.php';
+    
+    header('Content-Type: application/json');
+    
+    if (!isset($_SESSION['user_id'])) {
+        echo json_encode(['success' => false, 'message' => 'Необходима авторизация']);
+        exit;
+    }
+    
+    $bookingId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+    $userId = (int)$_SESSION['user_id'];
+    
+    if ($bookingId <= 0) {
+        echo json_encode(['success' => false, 'message' => 'Неверный ID бронирования']);
+        exit;
+    }
+    
+    try {
+        error_log("[cancel-booking] Attempting to delete booking {$bookingId} for user {$userId}");
+        
+        $bookingRepo = new BookingRepository();
+        $result = $bookingRepo->delete($bookingId, $userId);
+        
+        error_log("[cancel-booking] Delete result: " . ($result ? 'true' : 'false'));
+        
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'Бронирование успешно отменено']);
+        } else {
+            error_log("[cancel-booking] Failed to delete booking {$bookingId}");
+            echo json_encode(['success' => false, 'message' => 'Не удалось отменить бронирование. Проверьте логи сервера.']);
+        }
+    } catch (Exception $e) {
+        error_log("[cancel-booking] Exception: " . $e->getMessage());
+        error_log("[cancel-booking] Stack trace: " . $e->getTraceAsString());
+        echo json_encode(['success' => false, 'message' => 'Ошибка: ' . $e->getMessage()]);
+    }
+    
+    exit;
+}
+
 // Обычная загрузка страницы
 require_once '../src/config/database.php';
 

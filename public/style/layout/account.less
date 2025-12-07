@@ -71,8 +71,10 @@
 }
 
 .account-actions {
+  display: flex;
   gap: 13px;
   margin-top: auto;
+  width: 100%;
 
   .edit-btn, .logout-btn {
     padding: 13px 24px;
@@ -82,10 +84,14 @@
 
   .edit-btn {
     .button-style();
+    flex: 0 0 50%;
+    min-width: 0;
   }
 
   .logout-btn {
     .button-secondary();
+    flex: 0 0 50%;
+    min-width: 0;
   }
 }
 
@@ -132,7 +138,10 @@
 
 .booking-card-wrapper {
   gap: 16px;
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 
   h2 {
     font-weight: 700;
@@ -141,12 +150,24 @@
   }
 
   .booking-card {
-    width: @booking-card-width;
-    height: @booking-card-height;
+    width: 100%;
+    aspect-ratio: @booking-card-width / @booking-card-height;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
+  }
+}
+
+// Обеспечиваем одинаковую ширину для tour-info в личном кабинете
+.account-main .booking-content {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+
+  .tour-info {
+    flex: 1;
+    min-width: 0;
   }
 }
 
@@ -189,16 +210,38 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  width: 100%;
+
+  .edit-btn {
+    flex: 0 0 50%;
+    min-width: 0;
+  }
 
   .save-btn,
   .cancel-btn {
-    .button-style(); // если есть такой миксин
-    padding: 8px 16px;
-    font-size: 16px;
+    flex: 0 0 25%;
+    min-width: 0;
+    padding: 13px 24px;
+    font-size: 20px;
+    line-height: 24px;
+    .button-base();
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .save-btn { background: @primary-color; color: white; }
-  .cancel-btn { background: #E5E7EB; color: @black; }
+  .save-btn { 
+    .button-style();
+  }
+  
+  .cancel-btn { 
+    .button-secondary();
+  }
+
+  .logout-btn {
+    flex: 0 0 50%;
+    min-width: 0;
+  }
 }
 
 // ——— Модальное окно ———
@@ -217,7 +260,8 @@
   background: white;
   border-radius: 12px;
   padding: 24px;
-  width: 100%;
+  max-width: 500px;
+  width: 90%;
   justify-self: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 
@@ -263,28 +307,6 @@
   }
 }
 
-.account-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-
-  // 🔹 Кнопки редактирования — 50/50 на мобильных, иначе inline
-  .save-btn,
-  .cancel-btn {
-    flex: 1 1 48%; // ← 2 колонки: ~50% каждая (с учётом gap)
-    min-width: 120px;
-    text-align: center;
-  }
-
-  // На десктопе — в строку
-  @media (min-width: 600px) {
-    .save-btn,
-    .cancel-btn {
-      flex: 0 1 auto;
-      width: auto;
-    }
-  }
-}
 
 .modal-btn {
   padding: 10px 20px;

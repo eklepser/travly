@@ -456,7 +456,6 @@
         
         if (!allValid && errors.length > 0) {
             console.error('[Booking] Validation errors:', errors);
-            alert('Пожалуйста, заполните все обязательные поля:\n' + errors.join('\n'));
         }
         
         return allValid;
@@ -471,13 +470,13 @@
         if (typeof validateForm === 'function') {
             const $bookingForm = $('.booking-form');
             if (!$bookingForm.length) {
-                alert('Ошибка: форма бронирования не найдена');
+                console.error('[Booking] Form not found');
                 return;
             }
             
             // Дополнительная валидация через существующую функцию
             if (!validateForm($bookingForm)) {
-                alert('Пожалуйста, заполните все обязательные поля корректно');
+                console.error('[Booking] Form validation failed');
                 return;
             }
         }
@@ -487,17 +486,17 @@
         const tourists = collectAllTouristsData();
         
         if (tourId <= 0) {
-            alert('Ошибка: не указан ID тура');
+            console.error('[Booking] Invalid tour ID:', tourId);
             return;
         }
         
         if (totalPrice <= 0) {
-            alert('Ошибка: не указана стоимость тура');
+            console.error('[Booking] Invalid total price:', totalPrice);
             return;
         }
         
         if (tourists.length === 0) {
-            alert('Ошибка: не заполнены данные туристов');
+            console.error('[Booking] No tourists data');
             return;
         }
         
@@ -505,19 +504,19 @@
         for (let tourist of tourists) {
             for (let field of requiredFields) {
                 if (!tourist[field] || tourist[field].trim() === '') {
-                    alert(`Ошибка: не заполнено обязательное поле для туриста`);
+                    console.error(`[Booking] Missing required field for tourist:`, field);
                     return;
                 }
             }
             
             if (!tourist.is_child) {
                 if (!tourist.doc_series || !tourist.doc_number) {
-                    alert('Ошибка: для взрослого туриста необходимо указать серию и номер документа');
+                    console.error('[Booking] Missing document for adult tourist');
                     return;
                 }
             } else {
                 if (!tourist.birth_certificate) {
-                    alert('Ошибка: для ребенка необходимо указать свидетельство о рождении');
+                    console.error('[Booking] Missing birth certificate for child');
                     return;
                 }
             }
@@ -574,10 +573,9 @@
         })
         .then(res => {
             if (res.success) {
-                alert('Бронирование успешно оформлено! ID бронирования: ' + res.booking_id);
                 window.location.href = '?page=me';
             } else {
-                alert('Ошибка при оформлении бронирования: ' + (res.message || 'Неизвестная ошибка'));
+                console.error('[Booking] Booking failed:', res.message || 'Unknown error');
                 if (bookBtn) {
                     bookBtn.disabled = false;
                     bookBtn.textContent = 'Забронировать тур';
@@ -585,8 +583,7 @@
             }
         })
         .catch(err => {
-            console.error('Ошибка при отправке запроса:', err);
-            alert('Ошибка сети: ' + err.message);
+            console.error('[Booking] Network error:', err);
             if (bookBtn) {
                 bookBtn.disabled = false;
                 bookBtn.textContent = 'Забронировать тур';

@@ -252,12 +252,22 @@ function getTouristWord($count) {
                         </div>
                         <?php if (!empty($booking['services'])): 
                             $services = is_string($booking['services']) ? json_decode($booking['services'], true) : $booking['services'];
-                            if (is_array($services) && !empty($services)): ?>
+                            if (is_array($services) && !empty($services)): 
+                                // Извлекаем названия услуг (могут быть объекты с ключом 'service' или просто строки)
+                                $serviceNames = [];
+                                foreach ($services as $service) {
+                                    if (is_array($service) && isset($service['service'])) {
+                                        $serviceNames[] = $service['service'];
+                                    } elseif (is_string($service)) {
+                                        $serviceNames[] = $service;
+                                    }
+                                }
+                                if (!empty($serviceNames)): ?>
                         <div class="info-item">
                             <span class="info-label">Доп. услуги:</span>
-                            <span class="info-value"><?= htmlspecialchars(implode(', ', $services)) ?></span>
+                            <span class="info-value"><?= htmlspecialchars(implode(', ', $serviceNames)) ?></span>
                         </div>
-                        <?php endif; endif; ?>
+                        <?php endif; endif; endif; ?>
                         <div class="info-item">
                             <span class="info-label">Длительность тура:</span>
                             <span class="info-value"><?= calculateNights($booking['arrival_date'] ?? '', $booking['return_date'] ?? '') ?></span>
@@ -331,12 +341,22 @@ function getTouristWord($count) {
                         </div>
                         <?php if (!empty($booking['services'])): 
                             $services = is_string($booking['services']) ? json_decode($booking['services'], true) : $booking['services'];
-                            if (is_array($services) && !empty($services)): ?>
+                            if (is_array($services) && !empty($services)): 
+                                // Извлекаем названия услуг (могут быть объекты с ключом 'service' или просто строки)
+                                $serviceNames = [];
+                                foreach ($services as $service) {
+                                    if (is_array($service) && isset($service['service'])) {
+                                        $serviceNames[] = $service['service'];
+                                    } elseif (is_string($service)) {
+                                        $serviceNames[] = $service;
+                                    }
+                                }
+                                if (!empty($serviceNames)): ?>
                         <div class="info-item">
                             <span class="info-label">Доп. услуги:</span>
-                            <span class="info-value"><?= htmlspecialchars(implode(', ', $services)) ?></span>
+                            <span class="info-value"><?= htmlspecialchars(implode(', ', $serviceNames)) ?></span>
                         </div>
-                        <?php endif; endif; ?>
+                        <?php endif; endif; endif; ?>
                         <div class="info-item">
                             <span class="info-label">Длительность тура:</span>
                             <span class="info-value"><?= calculateNights($booking['arrival_date'] ?? '', $booking['return_date'] ?? '') ?></span>

@@ -185,6 +185,57 @@ class BookingRepository {
             return ['active' => [], 'past' => []];
         }
     }
+
+    /**
+     * Удалить бронирование по ID
+     * @param int $bookingId ID бронирования
+     * @param int $userId ID пользователя (для проверки прав)
+     * @return bool
+     */
+    public function delete($bookingId, $userId) {
+        if (!$this->pdo || $bookingId <= 0 || $userId <= 0) {
+            return false;
+        }
+        
+        try {
+            // Проверяем, что бронирование принадлежит пользователю
+            $checkStmt = $this->pdo->prepare("
+                SELECT id FROM bookings 
+                WHERE id = :booking_id AND user_id = :user_id
+            ");
+            $checkStmt->execute([
+                'booking_id' => $bookingId,
+                'user_id' => $userId
+            ]);
+            
+            if (!$checkStmt->fetch()) {
+                error_log("[BookingRepository] delete: Booking {$bookingId} not found or doesn't belong to user {$userId}");
+                return false;
+            }
+            
+            // Удаляем бронирование (каскадное удаление связей с туристами произойдет автоматически)
+            $deleteStmt = $this->pdo->prepare("
+                DELETE FROM bookings 
+                WHERE id = :booking_id AND user_id = :user_id
+            ");
+            $result = $deleteStmt->execute([
+                'booking_id' => $bookingId,
+                'user_id' => $userId
+            ]);
+            
+            if ($result && $deleteStmt->rowCount() > 0) {
+                error_log("[BookingRepository] delete: Successfully deleted booking {$bookingId}");
+                return true;
+            }
+            
+            return false;
+            
+        } catch (Exception $e) {
+            error_log("[BookingRepository] delete failed: " . $e->getMessage());
+            error_log("[BookingRepository] delete stack trace: " . $e->getTraceAsString());
+            return false;
+        }
+    }
 }
 
 

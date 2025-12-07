@@ -52,9 +52,14 @@ $pageTitle = 'Travly — Выбор отеля';
                     
                     if (empty($imageUrl)) {
                         $imageUrl = 'resources/images/tours/default_tour.png';
-                    } elseif (!$isExternalUrl && !file_exists(__DIR__ . '/../../' . $imageUrl)) {
-                        // Для локальных путей проверяем существование файла
-                        $imageUrl = 'resources/images/tours/default_tour.png';
+                    } elseif ($isExternalUrl) {
+                        // Внешний URL - используем как есть
+                    } else {
+                        // Для локальных путей проверяем существование файла относительно public/
+                        $fullPath = __DIR__ . '/../../public/' . $imageUrl;
+                        if (!file_exists($fullPath)) {
+                            $imageUrl = 'resources/images/tours/default_tour.png';
+                        }
                     }
                     ?>
                     <div class="card-image" 
@@ -62,7 +67,7 @@ $pageTitle = 'Travly — Выбор отеля';
                                 width: 100%; height: 100%; border-radius: 8px;">
                     </div>
                 </div>
-                <button class="extra-button" onclick="location.href='search.php'">Сменить отель</button>
+                <button class="extra-button" onclick="location.href='?page=search&country=<?= urlencode($tour['country'] ?? '') ?>'">Сменить отель</button>
             </div>
 
             <div class="hotel-info">

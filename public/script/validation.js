@@ -62,26 +62,80 @@ function validateBookingField($input) {
 
     let valid = false, message = '';
     let fieldType = '';
+    let isRequired = false;
+
+    // Определяем, является ли это форма заказчика
+    // Форма заказчика имеет класс 'customer-form' или это первая форма (index 0)
+    const $form = $input.closest('.tourist-form');
+    const formIndex = $form.attr('data-form-index');
+    const isCustomerForm = $form.hasClass('customer-form') || 
+                          (formIndex !== undefined && parseInt(formIndex) === 0);
 
     if (id && id !== '') {
         fieldType = id;
     } else if (name && name !== '') {
-        if (name.includes('_lastname')) fieldType = 'lastname';
-        else if (name.includes('_firstname')) fieldType = 'firstname';
-        else if (name.includes('_middlename')) fieldType = 'middlename';
-        else if (name.includes('_birthdate')) fieldType = 'birthdate';
-        else if (name.includes('_doc-series')) fieldType = 'doc-series';
-        else if (name.includes('_doc-number')) fieldType = 'doc-number';
-        else if (name.includes('_doc-department-code')) fieldType = 'doc-department-code';
-        else if (name.includes('_doc-issue-date')) fieldType = 'doc-issue-date';
-        else if (name.includes('_doc-issuing-authority')) fieldType = 'doc-issuing-authority';
-        else if (name.includes('_birth-certificate')) fieldType = 'child-doc-number';
-        else if (name.includes('_phone')) fieldType = 'phone';
-        else if (name.includes('_email')) fieldType = 'email';
-        else if (name.includes('_address')) fieldType = 'address';
+        if (name.includes('_lastname')) {
+            fieldType = 'lastname';
+            isRequired = true;
+        } else if (name.includes('_firstname')) {
+            fieldType = 'firstname';
+            isRequired = true;
+        } else if (name.includes('_middlename')) {
+            fieldType = 'middlename';
+            // Для заказчика отчество обязательно
+            isRequired = isCustomerForm;
+        } else if (name.includes('_birthdate')) {
+            fieldType = 'birthdate';
+            isRequired = true;
+        } else if (name.includes('_doc-series')) {
+            fieldType = 'doc-series';
+            isRequired = !name.includes('birth-certificate');
+        } else if (name.includes('_doc-number')) {
+            fieldType = 'doc-number';
+            isRequired = !name.includes('birth-certificate');
+        } else if (name.includes('_doc-department-code')) {
+            fieldType = 'doc-department-code';
+            // Для заказчика все поля обязательны
+            isRequired = isCustomerForm;
+        } else if (name.includes('_doc-issue-date')) {
+            fieldType = 'doc-issue-date';
+            // Для заказчика все поля обязательны
+            isRequired = isCustomerForm;
+        } else if (name.includes('_doc-issuing-authority')) {
+            fieldType = 'doc-issuing-authority';
+            // Для заказчика все поля обязательны
+            isRequired = isCustomerForm;
+        } else if (name.includes('_birth-certificate')) {
+            fieldType = 'child-doc-number';
+            isRequired = true;
+        } else if (name.includes('_phone')) {
+            fieldType = 'phone';
+            // Для заказчика все поля обязательны
+            isRequired = isCustomerForm;
+        } else if (name.includes('_email')) {
+            fieldType = 'email';
+            // Для заказчика все поля обязательны
+            isRequired = isCustomerForm;
+        } else if (name.includes('_address')) {
+            fieldType = 'address';
+            // Для заказчика все поля обязательны
+            isRequired = isCustomerForm;
+        }
     }
     
     if (!fieldType) {
+        return true;
+    }
+    
+    // Если поле пустое и оно обязательное, показываем ошибку
+    if (v === '' && isRequired) {
+        setValidationState($input, false, 'Это поле обязательно для заполнения');
+        return false;
+    }
+    
+    // Если поле пустое и оно необязательное, считаем валидным
+    if (v === '' && !isRequired) {
+        setValidationState($input, true, '');
         return true;
     }
 
@@ -213,22 +267,14 @@ function validateForm($form) {
     }
     else if ($form.hasClass('booking-form') || $form.closest('.booking-form').length > 0) {
         const $container = $form.hasClass('booking-form') ? $form : $form.closest('.booking-form');
+        
         $container.find('.tourist-form input').each((_, el) => {
             const $input = $(el);
             const value = $input.val().trim();
-            if (value !== '') {
-                if (!validateBookingField($input)) valid = false;
-            } else {
-                const name = $input.attr('name') || '';
-                const isRequired = name.includes('_lastname') || 
-                                 name.includes('_firstname') || 
-                                 name.includes('_birthdate') ||
-                                 (name.includes('_doc-series') && !name.includes('birth-certificate')) ||
-                                 (name.includes('_doc-number') && !name.includes('birth-certificate')) ||
-                                 name.includes('_birth-certificate');
-                if (isRequired) {
-                    if (!validateBookingField($input)) valid = false;
-                }
+            
+            // Валидируем все поля (validateBookingField сама определит, обязательное ли поле)
+            if (!validateBookingField($input)) {
+                valid = false;
             }
         });
     }

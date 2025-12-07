@@ -19,6 +19,16 @@ $bookingData = $_SESSION['booking_data'] ?? [];
 $roomPrice = $bookingData['room_price'] ?? 0;
 $selectedServices = $bookingData['services'] ?? [];
 
+// Если services - это JSON строка, декодируем её
+if (is_string($selectedServices)) {
+    $decoded = json_decode($selectedServices, true);
+    if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+        $selectedServices = $decoded;
+    } else {
+        $selectedServices = [];
+    }
+}
+
 if ($tourId === false) {
     $error = "Неверный идентификатор тура";
 } else {
@@ -156,13 +166,20 @@ if ($tour) {
     $totalPrice = $basePrice + $servicesPrice;
 }
 
-// Получаем изображение тура
+// Получаем изображение тура (используем тот же подход, что в карточках туров)
 $imageUrl = '';
 if ($tour && !empty($tour['image_url'])) {
     $imageUrl = $tour['image_url'];
     $isExternalUrl = str_starts_with($imageUrl, 'http://') || str_starts_with($imageUrl, 'https://');
-    if (empty($imageUrl) || (!$isExternalUrl && !file_exists(__DIR__ . '/../../' . $imageUrl))) {
-        $imageUrl = 'resources/images/tours/default_tour.png';
+    
+    if ($isExternalUrl) {
+        // Внешний URL - используем как есть
+    } else {
+        // Для локальных путей проверяем существование файла относительно public/
+        $fullPath = __DIR__ . '/../../public/' . $imageUrl;
+        if (!file_exists($fullPath)) {
+            $imageUrl = 'resources/images/tours/default_tour.png';
+        }
     }
 } else {
     $imageUrl = 'resources/images/tours/default_tour.png';

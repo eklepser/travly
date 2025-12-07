@@ -45,11 +45,12 @@ $pageTitle = $pageTitle ?? 'Travly';
         const accountIcon = document.getElementById('accountIcon');
         const dropdown = document.getElementById('accountDropdown');
         if (account && accountIcon && dropdown) {
-            // При клике на иконку - показываем/скрываем меню
+            // При клике на иконку - переходим в личный кабинет
             accountIcon.addEventListener('click', function(e) {
                 e.stopPropagation();
-                dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+                window.location.href = '?page=me';
             });
+            // При клике на имя - переходим в личный кабинет (уже есть onclick в HTML)
             // При клике вне меню - скрываем его
             document.addEventListener('click', function(e) {
                 if (!account.contains(e.target)) {
