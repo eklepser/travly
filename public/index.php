@@ -1,11 +1,41 @@
 <?php
-session_start();
-require_once '../src/config/database.php';
+// Начинаем сессию только если она еще не начата
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Обработка регистрации
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'register') {
+    require_once '../src/config/database.php';
+    require_once '../src/handlers/auth.php';
+    handleRegister();
+    exit; // Важно: выходим, чтобы не выполнять код ниже
+}
+
+// Обработка авторизации
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
+    require_once '../src/config/database.php';
+    require_once '../src/handlers/auth.php';
+    handleLogin();
+    exit; // Важно: выходим, чтобы не выполнять код ниже
+}
+
+// Обработка выхода
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    require_once '../src/handlers/auth.php';
+    handleLogout();
+    exit; // Важно: выходим, чтобы не выполнять код ниже
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'create-booking') {
+    require_once '../src/config/database.php';
     require_once '../src/handlers/booking.php';
     handleCreateBooking();
+    exit; // Важно: выходим, чтобы не выполнять код ниже
 }
+
+// Обычная загрузка страницы
+require_once '../src/config/database.php';
 
 $page = $_GET['page'] ?? 'main';
 $allowedPages = ['main', 'search', 'about', 'help', 'auth', 'registration', 'me', 'tour', 'booking']; 

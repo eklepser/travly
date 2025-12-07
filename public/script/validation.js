@@ -34,10 +34,7 @@ function setupGlobalEventHandlers() {
                 }
             }
         })
-        .on('click', '.submit-btn', function(e) {
-            e.preventDefault();
-            if (validateForm($('.auth-form'))) alert('Регистрация прошла успешно!');
-        })
+        // Обработка submit для auth-форм теперь в самих формах
         .on('click', '.booking-form .clear-btn', function(e) {
             e.preventDefault();
             clearForm($(e.target).closest('.booking-form'));
