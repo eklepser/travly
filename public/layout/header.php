@@ -1,6 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    @session_start();
 }
 $pageTitle = $pageTitle ?? 'Travly';
 ?>
@@ -32,8 +32,8 @@ $pageTitle = $pageTitle ?? 'Travly';
        $userName = $user ? $user['full_name'] : 'Пользователь';
    ?>
     <div class="account" style="cursor:pointer; position: relative;" id="userAccount">
-        <div class="account-icon"></div>
-        <span class="account-text"><?= htmlspecialchars($userName) ?></span>
+        <div class="account-icon" id="accountIcon" style="cursor:pointer;"></div>
+        <span class="account-text" onclick="window.location.href='?page=me'" style="cursor:pointer;"><?= htmlspecialchars($userName) ?></span>
         <div class="account-dropdown" id="accountDropdown" style="display: none; position: absolute; top: 100%; right: 0; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-top: 8px; min-width: 150px; z-index: 1000;">
             <a href="?page=me" style="display: block; padding: 12px 16px; text-decoration: none; color: #1E1E1E; border-bottom: 1px solid #E0E0E0;">Кабинет</a>
             <a href="?action=logout" style="display: block; padding: 12px 16px; text-decoration: none; color: #1E1E1E;">Выйти</a>
@@ -42,14 +42,19 @@ $pageTitle = $pageTitle ?? 'Travly';
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const account = document.getElementById('userAccount');
+        const accountIcon = document.getElementById('accountIcon');
         const dropdown = document.getElementById('accountDropdown');
-        if (account && dropdown) {
-            account.addEventListener('click', function(e) {
+        if (account && accountIcon && dropdown) {
+            // При клике на иконку - показываем/скрываем меню
+            accountIcon.addEventListener('click', function(e) {
                 e.stopPropagation();
                 dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
             });
-            document.addEventListener('click', function() {
-                dropdown.style.display = 'none';
+            // При клике вне меню - скрываем его
+            document.addEventListener('click', function(e) {
+                if (!account.contains(e.target)) {
+                    dropdown.style.display = 'none';
+                }
             });
         }
     });

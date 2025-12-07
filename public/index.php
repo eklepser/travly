@@ -1,7 +1,12 @@
 <?php
+// Настраиваем обработку ошибок
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
 // Начинаем сессию только если она еще не начата
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    @session_start();
 }
 
 // Обработка регистрации
@@ -40,6 +45,12 @@ require_once '../src/config/database.php';
 $page = $_GET['page'] ?? 'main';
 $allowedPages = ['main', 'search', 'about', 'help', 'auth', 'registration', 'me', 'tour', 'booking']; 
 $page = in_array($page, $allowedPages) ? $page : 'main';
+
+// Проверка авторизации для страницы кабинета
+if ($page === 'me' && !isset($_SESSION['user_id'])) {
+    header('Location: ?page=auth');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">

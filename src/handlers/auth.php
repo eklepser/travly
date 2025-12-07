@@ -10,7 +10,7 @@ function handleRegister() {
     header('Content-Type: application/json');
     
     if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+        @session_start();
     }
     
     // Включаем отображение ошибок для отладки (в продакшене убрать)
@@ -134,7 +134,7 @@ function handleLogin() {
     header('Content-Type: application/json');
     
     if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+        @session_start();
     }
     
     // Включаем отображение ошибок для отладки (в продакшене убрать)
@@ -209,7 +209,7 @@ function handleLogin() {
  */
 function handleLogout() {
     if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+        @session_start();
     }
     session_destroy();
     header('Location: /');
