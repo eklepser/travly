@@ -80,109 +80,29 @@
     </section>
 
     <section class="booking-form">
-        <h3>Данные туриста 1 (заказчик)</h3>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>Фамилия</label>
-                <div class="input-field">
-                    <input type="text" id="lastname" placeholder="Фамилия">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Имя</label>
-                <div class="input-field">
-                    <input type="text" id="firstname" placeholder="Имя">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Отчество</label>
-                <div class="input-field">
-                    <input type="text" id="middlename" placeholder="Отчество">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Дата рождения</label>
-                <div class="input-field">
-                    <input type="text" id="birthdate" placeholder="дд.мм.гггг">
-                </div>
-            </div>
+        <div class="booking-form-header">
+            <button class="nav-arrow nav-arrow-left" id="prevFormBtn" style="display: none;">
+                <span>←</span>
+            </button>
+            <h3 id="formTitle">Данные туриста 1 (заказчик)</h3>
+            <button class="nav-arrow nav-arrow-right" id="nextFormBtn" style="display: none;">
+                <span>→</span>
+            </button>
         </div>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label>Серия</label>
-                <div class="input-field">
-                    <input type="text" id="doc-series" placeholder="Серия">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Номер документа</label>
-                <div class="input-field">
-                    <input type="text" id="doc-number" placeholder="Номер документа">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Код подразделения</label>
-                <div class="input-field">
-                    <input type="text" id="doc-department-code" placeholder="Код подразделения">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group wide">
-                <label>Дата выдачи документа</label>
-                <div class="input-field">
-                    <input type="text" id="doc-issue-date" placeholder="дд.мм.гггг">
-                </div>
-            </div>
-
-            <div class="form-group extra-wide">
-                <label>Орган, выдавший документ</label>
-                <div class="input-field">
-                    <input type="text" id="doc-issuing-authority" placeholder="Орган, выдавший документ">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>Номер телефона</label>
-                <div class="input-field">
-                    <input type="text" id="phone" placeholder="Номер телефона">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>E-mail адрес</label>
-                <div class="input-field">
-                    <input type="email" id="email" placeholder="E-mail адрес">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Адрес регистрации</label>
-                <div class="input-field">
-                    <input type="text" id="address" placeholder="Адрес регистрации">
-                </div>
-            </div>
+        <div class="booking-forms-container" id="bookingFormsContainer">
         </div>
 
         <div class="form-buttons">
-            <button class="clear-btn">Очистить данные</button>
+            <button class="clear-btn" id="clearCurrentFormBtn">Очистить данные</button>
         </div>
     </section>
 
     <div class="final-button">
-        <button class="book-btn">Забронировать тур</button>
+        <button class="book-btn" id="bookTourBtn">Забронировать тур</button>
     </div>
 </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="script/validation.js"></script>
+<script src="script/booking-forms.js"></script>

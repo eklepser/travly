@@ -115,7 +115,7 @@ $pageTitle = 'Travly — Выбор отеля';
             <div class="tourist-group">
                 <label>Взрослые</label>
                 <div class="counter-group">
-                    <button type="button" class="counter-btn" data-action="decrease" data-type="adults">−</button>
+                    <button type="button" class="counter-btn" data-action="decrease" data-type="adults" id="decreaseAdultsBtn">−</button>
                     <span class="counter-value" data-counter="adults">2</span>
                     <button type="button" class="counter-btn" data-action="increase" data-type="adults">+</button>
                 </div>
@@ -212,8 +212,7 @@ $pageTitle = 'Travly — Выбор отеля';
         </div>
 
         <div class="summary-buttons">
-            <button class="proceed-btn" 
-                    onclick="location.href='?page=booking&id=<?= (int) $tour['id'] ?>'">
+            <button class="proceed-btn" id="proceedToBookingBtn">
                 Перейти к оформлению
             </button>
         </div>
@@ -239,6 +238,11 @@ $pageTitle = 'Travly — Выбор отеля';
         if (!adultsCounter || !childrenCounter) {
             console.error('[Tour] Счётчики не найдены');
             return;
+        }
+        
+        const adultsValue = parseInt(adultsCounter.textContent) || 1;
+        if (adultsValue < 1) {
+            adultsCounter.textContent = '1';
         }
 
         const increaseButtons = document.querySelectorAll('[data-action="increase"]');
@@ -268,9 +272,29 @@ $pageTitle = 'Travly — Выбор отеля';
                 e.stopPropagation();
                 e.preventDefault();
                 const type = btn.dataset.type;
+                const currentValue = parseInt(document.querySelector(`[data-counter="${type}"]`)?.textContent || '0');
+                if (type === 'adults' && currentValue <= 1) {
+                    return;
+                }
                 changeCounter(type, -1);
             }, { once: false });
         });
+        
+        const decreaseAdultsBtn = document.querySelector('[data-action="decrease"][data-type="adults"]');
+        if (decreaseAdultsBtn) {
+            const updateAdultsButtonState = () => {
+                const adultsValue = parseInt(document.querySelector('[data-counter="adults"]')?.textContent || '1');
+                decreaseAdultsBtn.disabled = adultsValue <= 1;
+                decreaseAdultsBtn.style.opacity = adultsValue <= 1 ? '0.5' : '1';
+                decreaseAdultsBtn.style.cursor = adultsValue <= 1 ? 'not-allowed' : 'pointer';
+            };
+            updateAdultsButtonState();
+            const adultsCounter = document.querySelector('[data-counter="adults"]');
+            if (adultsCounter) {
+                const observer = new MutationObserver(updateAdultsButtonState);
+                observer.observe(adultsCounter, { childList: true, characterData: true, subtree: true });
+            }
+        }
 
         const roomSelect = document.getElementById('room-type');
         if (roomSelect) {
@@ -290,7 +314,11 @@ $pageTitle = 'Travly — Выбор отеля';
     function changeCounter(type, delta) {
         const counter = document.querySelector(`[data-counter="${type}"]`);
         let value = parseInt(counter.textContent) || 0;
-        value = Math.max(0, value + delta);
+        if (type === 'adults') {
+            value = Math.max(1, value + delta);
+        } else {
+            value = Math.max(0, value + delta);
+        }
         counter.textContent = value;
         recalculate();
     }
@@ -322,6 +350,16 @@ $pageTitle = 'Travly — Выбор отеля';
             `+${formatter.format(selectedRoomPrice + selectedExtrasPrice)} ₽`;
         document.getElementById('total-cost').textContent = 
             `${formatter.format(total)} ₽`;
+    }
+
+    const proceedBtn = document.getElementById('proceedToBookingBtn');
+    if (proceedBtn) {
+        proceedBtn.addEventListener('click', function() {
+            const adults = parseInt(document.querySelector('[data-counter="adults"]')?.textContent) || 2;
+            const children = parseInt(document.querySelector('[data-counter="children"]')?.textContent) || 0;
+            const tourId = <?= (int) $tour['id'] ?>;
+            window.location.href = `?page=booking&id=${tourId}&adults=${adults}&children=${children}`;
+        });
     }
 })();
 </script>

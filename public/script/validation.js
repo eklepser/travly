@@ -1,16 +1,44 @@
 function setupGlobalEventHandlers() {
     $(document)
-        .on('blur', '.booking-form input', e => validateBookingField($(e.target)))
-        .on('blur', '.auth-form input', e => validateAuthField($(e.target)))
-        .on('click', '.book-btn', e => {
-            e.preventDefault();
-            if (validateForm($('.booking-form'))) alert('Бронирование прошло успешно!');
+        .off('blur', '.booking-form input, .tourist-form input')
+        .off('blur', '.auth-form input')
+        .off('click', '.book-btn')
+        .off('click', '.submit-btn')
+        .off('click', '.booking-form .clear-btn')
+        .on('blur', '.booking-form input, .tourist-form input', function(e) {
+            e.stopPropagation();
+            const $input = $(e.target);
+            if ($input.length > 0) {
+                validateBookingField($input);
+            }
         })
-        .on('click', '.submit-btn', e => {
+        .on('input', '.booking-form input, .tourist-form input', function(e) {
+            const $input = $(e.target);
+            if ($input.hasClass('invalid')) {
+                validateBookingField($input);
+            }
+        })
+        .on('blur', '.auth-form input', function(e) {
+            e.stopPropagation();
+            validateAuthField($(e.target));
+        })
+        .on('click', '.book-btn', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const $form = $('.booking-form');
+            if (validateForm($form)) {
+                if (typeof submitBooking === 'function') {
+                    submitBooking();
+                } else {
+                    alert('Бронирование прошло успешно!');
+                }
+            }
+        })
+        .on('click', '.submit-btn', function(e) {
             e.preventDefault();
             if (validateForm($('.auth-form'))) alert('Регистрация прошла успешно!');
         })
-        .on('click', '.booking-form .clear-btn', e => {
+        .on('click', '.booking-form .clear-btn', function(e) {
             e.preventDefault();
             clearForm($(e.target).closest('.booking-form'));
         });
@@ -27,12 +55,40 @@ function setValidationState($input, isValid, message = '') {
 }
 
 function validateBookingField($input) {
-    const id = $input.attr('id');
+    if (!$input || $input.length === 0) {
+        return true;
+    }
+    
+    const id = $input.attr('id') || '';
+    const name = $input.attr('name') || '';
     const v = $input.val().trim();
 
     let valid = false, message = '';
+    let fieldType = '';
 
-    switch (id) {
+    if (id && id !== '') {
+        fieldType = id;
+    } else if (name && name !== '') {
+        if (name.includes('_lastname')) fieldType = 'lastname';
+        else if (name.includes('_firstname')) fieldType = 'firstname';
+        else if (name.includes('_middlename')) fieldType = 'middlename';
+        else if (name.includes('_birthdate')) fieldType = 'birthdate';
+        else if (name.includes('_doc-series')) fieldType = 'doc-series';
+        else if (name.includes('_doc-number')) fieldType = 'doc-number';
+        else if (name.includes('_doc-department-code')) fieldType = 'doc-department-code';
+        else if (name.includes('_doc-issue-date')) fieldType = 'doc-issue-date';
+        else if (name.includes('_doc-issuing-authority')) fieldType = 'doc-issuing-authority';
+        else if (name.includes('_birth-certificate')) fieldType = 'child-doc-number';
+        else if (name.includes('_phone')) fieldType = 'phone';
+        else if (name.includes('_email')) fieldType = 'email';
+        else if (name.includes('_address')) fieldType = 'address';
+    }
+    
+    if (!fieldType) {
+        return true;
+    }
+
+    switch (fieldType) {
         case 'lastname':
         case 'firstname':
         case 'middlename':
@@ -42,7 +98,6 @@ function validateBookingField($input) {
 
         case 'birthdate':
         case 'doc-issue-date':
-        case 'child-doc-date':
             valid = isValidDate(v);
             message = 'Введите дату в формате дд.мм.гггг';
             break;
@@ -84,8 +139,12 @@ function validateBookingField($input) {
             break;
 
         default:
-            valid = v.length > 0;
-            message = 'Это поле обязательно для заполнения';
+            if (fieldType) {
+                valid = v.length > 0;
+                message = 'Это поле обязательно для заполнения';
+            } else {
+                return true;
+            }
     }
 
     setValidationState($input, valid, message);
@@ -155,9 +214,25 @@ function validateForm($form) {
             if (!validateAuthField($(el))) valid = false;
         });
     }
-    else if ($form.hasClass('booking-form')) {
-        $form.find('input').each((_, el) => {
-            if (!validateBookingField($(el))) valid = false;
+    else if ($form.hasClass('booking-form') || $form.closest('.booking-form').length > 0) {
+        const $container = $form.hasClass('booking-form') ? $form : $form.closest('.booking-form');
+        $container.find('.tourist-form input').each((_, el) => {
+            const $input = $(el);
+            const value = $input.val().trim();
+            if (value !== '') {
+                if (!validateBookingField($input)) valid = false;
+            } else {
+                const name = $input.attr('name') || '';
+                const isRequired = name.includes('_lastname') || 
+                                 name.includes('_firstname') || 
+                                 name.includes('_birthdate') ||
+                                 (name.includes('_doc-series') && !name.includes('birth-certificate')) ||
+                                 (name.includes('_doc-number') && !name.includes('birth-certificate')) ||
+                                 name.includes('_birth-certificate');
+                if (isRequired) {
+                    if (!validateBookingField($input)) valid = false;
+                }
+            }
         });
     }
 
@@ -187,4 +262,8 @@ function isValidDate(date) {
     return d >= 1 && d <= new Date(y, m, 0).getDate();
 }
 
-setupGlobalEventHandlers();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupGlobalEventHandlers);
+} else {
+    setupGlobalEventHandlers();
+}

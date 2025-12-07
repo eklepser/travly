@@ -4,8 +4,95 @@
   background: @form-gradient;
   margin: 0 0 27px 0;
   max-width: 100%;
+  position: relative;
 
-  .from-row {
+  .booking-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 27px;
+    gap: 20px;
+
+    h3 {
+      flex: 1;
+      text-align: center;
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: @black;
+    }
+  }
+
+  .nav-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid @primary-color;
+    background: @white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+
+    span {
+      font-size: 24px;
+      color: @primary-color;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    &:hover {
+      background: @primary-color;
+      transform: scale(1.1);
+
+      span {
+        color: @white;
+      }
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &:hover {
+        background: @white;
+        transform: scale(1);
+
+        span {
+          color: @primary-color;
+        }
+      }
+    }
+  }
+
+  .booking-forms-container {
+    position: relative;
+    min-height: 400px;
+  }
+
+  .tourist-form {
+    width: 100%;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .form-row {
     .flex-row();
     gap: 13px;
     margin-bottom: 27px;
@@ -69,6 +156,14 @@
     gap: 27px;
     justify-content: flex-start;
     margin-top: 27px;
+  }
+
+  .child-form {
+    .form-row {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 

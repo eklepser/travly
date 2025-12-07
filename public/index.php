@@ -1,5 +1,11 @@
 <?php
+session_start();
 require_once '../src/config/database.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'create-booking') {
+    require_once '../src/handlers/booking.php';
+    handleCreateBooking();
+}
 
 $page = $_GET['page'] ?? 'main';
 $allowedPages = ['main', 'search', 'about', 'help', 'auth', 'registration', 'me', 'tour', 'booking']; 
