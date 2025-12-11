@@ -7,7 +7,7 @@
       <span class="close" onclick="closeModal('addTourModal')">&times;</span>
     </div>
     <div class="modal-body">
-      <form id="addTourForm">
+      <form id="addTourForm" enctype="multipart/form-data">
         <input type="hidden" name="tour_id" id="tourIdInput" value="">
         <div class="form-group">
           <label>Тип отдыха *</label>
@@ -94,8 +94,15 @@
             <input type="number" name="base_price" min="1000" step="100" placeholder="50000" value="75000" required>
           </div>
           <div class="form-group">
-            <label>URL изображения</label>
-            <input type="text" name="image_url" placeholder="resources/images/tours/turkey_alanya.jpg или https://example.com/image.jpg">
+            <label>Изображение тура</label>
+            <input type="file" name="tour_image" id="tourImageInput" accept="image/*" onchange="handleImagePreview(this)">
+            <div id="imagePreview" style="margin-top: 10px; display: none;">
+              <img id="previewImg" src="" alt="Предпросмотр" style="max-width: 200px; max-height: 150px; border-radius: 8px; border: 2px solid #ddd;">
+            </div>
+            <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+              Или укажите URL изображения:
+            </div>
+            <input type="text" name="image_url" id="imageUrlInput" placeholder="resources/images/tours/turkey_alanya.jpg или https://example.com/image.jpg" style="margin-top: 5px;">
           </div>
         </div>
 
@@ -185,6 +192,27 @@ function loadHotels(country = null) {
     });
 }
 
+function handleImagePreview(input) {
+  const preview = document.getElementById('imagePreview');
+  const previewImg = document.getElementById('previewImg');
+  const imageUrlInput = document.getElementById('imageUrlInput');
+  
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      previewImg.src = e.target.result;
+      preview.style.display = 'block';
+      // Очищаем URL поле при выборе файла
+      if (imageUrlInput) {
+        imageUrlInput.value = '';
+      }
+    };
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    preview.style.display = 'none';
+  }
+}
+
 function openAddTourModal() {
   const modal = document.getElementById('addTourModal');
   if (!modal) return;
@@ -194,6 +222,11 @@ function openAddTourModal() {
   if (form) {
     form.reset();
     document.getElementById('tourIdInput').value = '';
+    // Очищаем предпросмотр изображения
+    const preview = document.getElementById('imagePreview');
+    if (preview) {
+      preview.style.display = 'none';
+    }
     // Очищаем поле дополнительных услуг
     const additionalServicesInput = document.getElementById('additionalServicesInput');
     if (additionalServicesInput) {
@@ -263,7 +296,20 @@ function editTour(tourId) {
         document.querySelector('[name="arrival_date"]').value = tour.arrival_date || '';
         document.querySelector('[name="return_date"]').value = tour.return_date || '';
         document.querySelector('[name="base_price"]').value = tour.base_price || '';
-        document.querySelector('[name="image_url"]').value = tour.image_url || '';
+        const imageUrlInput = document.getElementById('imageUrlInput');
+        if (imageUrlInput) {
+          imageUrlInput.value = tour.image_url || '';
+        }
+        
+        // Показываем текущее изображение, если оно есть
+        const preview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        if (preview && previewImg && tour.image_url) {
+          previewImg.src = tour.image_url.startsWith('http') ? tour.image_url : '/' + tour.image_url;
+          preview.style.display = 'block';
+        } else if (preview) {
+          preview.style.display = 'none';
+        }
         
         // Заполняем дополнительные услуги
         const additionalServicesInput = document.getElementById('additionalServicesInput');
@@ -376,22 +422,23 @@ document.addEventListener('DOMContentLoaded', function() {
     e.stopPropagation();
     
     const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
-
-    if (!data.vacation_type || !data.country || !data.city || 
-        !data.departure_point || !data.departure_date || 
-        !data.arrival_date || !data.return_date || !data.base_price) {
+    
+    // Проверяем обязательные поля
+    if (!formData.get('vacation_type') || !formData.get('country') || !formData.get('city') || 
+        !formData.get('departure_point') || !formData.get('departure_date') || 
+        !formData.get('arrival_date') || !formData.get('return_date') || !formData.get('base_price')) {
       showNotification('Заполните все обязательные поля', 'error');
       return;
     }
 
-    if (data.hotel_mode === 'existing' && !data.existing_hotel_id) {
+    const hotelMode = formData.get('hotel_mode');
+    if (hotelMode === 'existing' && !formData.get('existing_hotel_id')) {
       showNotification('Выберите отель', 'error');
       return;
     }
 
-    if (data.hotel_mode === 'new') {
-      if (!data.new_hotel_name || !data.new_hotel_rating || !data.new_hotel_max_guests) {
+    if (hotelMode === 'new') {
+      if (!formData.get('new_hotel_name') || !formData.get('new_hotel_rating') || !formData.get('new_hotel_max_guests')) {
         showNotification('Заполните данные нового отеля', 'error');
         return;
       }
@@ -439,9 +486,12 @@ document.addEventListener('DOMContentLoaded', function() {
           showNotification(`Тур ID=${res.tour_id} успешно создан!`, 'success');
         }
         closeModal('addTourModal');
-        setTimeout(() => {
-          location.reload();
-        }, 1500);
+        // Перезагружаем страницу только при создании нового тура
+        if (!isEditMode) {
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        }
       } else {
         const errorMsg = res.message || 'Неизвестная ошибка';
         console.error('Ошибка создания тура:', errorMsg);

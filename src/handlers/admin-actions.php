@@ -22,6 +22,82 @@ function validateTourData($tourData) {
     return null;
 }
 
+function uploadTourImage($file, $tourId = null) {
+    if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
+        return null;
+    }
+    
+    // Проверяем тип файла
+    $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    
+    // Определяем MIME тип файла
+    $mimeType = null;
+    if (function_exists('finfo_open')) {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $file['tmp_name']);
+        finfo_close($finfo);
+    } else {
+        // Альтернативный способ определения типа файла
+        $mimeType = mime_content_type($file['tmp_name']);
+        if (!$mimeType) {
+            // Используем расширение файла как запасной вариант
+            $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $mimeMap = [
+                'jpg' => 'image/jpeg',
+                'jpeg' => 'image/jpeg',
+                'png' => 'image/png',
+                'gif' => 'image/gif',
+                'webp' => 'image/webp'
+            ];
+            $mimeType = $mimeMap[$extension] ?? null;
+        }
+    }
+    
+    // Проверяем расширение файла как дополнительную проверку
+    $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (!in_array($extension, $allowedExtensions)) {
+        error_log("[uploadTourImage] Invalid file extension: " . $extension);
+        return null;
+    }
+    
+    if (!$mimeType || !in_array($mimeType, $allowedTypes)) {
+        error_log("[uploadTourImage] Invalid file type: " . $mimeType);
+        return null;
+    }
+    
+    // Проверяем размер файла (максимум 5MB)
+    if ($file['size'] > 5 * 1024 * 1024) {
+        error_log("[uploadTourImage] File too large: " . $file['size']);
+        return null;
+    }
+    
+    // Используем расширение из имени файла (уже определено выше)
+    $extension = '.' . $extension;
+    
+    // Создаем уникальное имя файла
+    $baseDir = __DIR__ . '/../../public/resources/images/tours/';
+    if (!is_dir($baseDir)) {
+        if (!mkdir($baseDir, 0755, true)) {
+            error_log("[uploadTourImage] Failed to create directory: " . $baseDir);
+            return null;
+        }
+    }
+    
+    // Генерируем имя файла: tour_{tourId}_{timestamp}.{ext} или tour_{timestamp}.{ext}
+    $filename = 'tour_' . ($tourId ? $tourId . '_' : '') . time() . '_' . uniqid() . $extension;
+    $filepath = $baseDir . $filename;
+    
+    // Перемещаем загруженный файл
+    if (!move_uploaded_file($file['tmp_name'], $filepath)) {
+        error_log("[uploadTourImage] Failed to move uploaded file");
+        return null;
+    }
+    
+    // Возвращаем относительный путь от public/
+    return 'resources/images/tours/' . $filename;
+}
+
 function handleAddTour() {
     header('Content-Type: application/json');
     $debugMode = true;
@@ -87,6 +163,18 @@ function handleAddTour() {
             exit;
         }
         
+        // Обрабатываем загрузку изображения
+        $imageUrl = null;
+        if (isset($_FILES['tour_image']) && $_FILES['tour_image']['error'] === UPLOAD_ERR_OK) {
+            $uploadedPath = uploadTourImage($_FILES['tour_image']);
+            if ($uploadedPath) {
+                $imageUrl = $uploadedPath;
+            }
+        } elseif (!empty($input['image_url'])) {
+            // Используем URL из поля, если файл не загружен
+            $imageUrl = trim($input['image_url']);
+        }
+        
         $tourData = [
             'country' => trim($input['country'] ?? ''),
             'city' => trim($input['city'] ?? ''),
@@ -98,7 +186,7 @@ function handleAddTour() {
             'arrival_date' => $input['arrival_date'] ?? '',
             'return_point' => trim($input['return_point'] ?? $input['departure_point'] ?? 'Москва'),
             'return_date' => $input['return_date'] ?? '',
-            'image_url' => !empty($input['image_url']) ? trim($input['image_url']) : null,
+            'image_url' => $imageUrl,
             'vacation_type' => $input['vacation_type'] ?? null
         ];
         
@@ -377,6 +465,21 @@ function handleUpdateTour() {
             }
         }
         
+        // Обрабатываем загрузку изображения
+        $imageUrl = null;
+        if (isset($_FILES['tour_image']) && $_FILES['tour_image']['error'] === UPLOAD_ERR_OK) {
+            $uploadedPath = uploadTourImage($_FILES['tour_image'], $tourId);
+            if ($uploadedPath) {
+                $imageUrl = $uploadedPath;
+            }
+        } elseif (!empty($input['image_url'])) {
+            // Используем URL из поля, если файл не загружен
+            $imageUrl = trim($input['image_url']);
+        } else {
+            // Сохраняем существующее изображение, если ничего не указано
+            $imageUrl = $existingTour['image_url'] ?? null;
+        }
+        
         $tourData = [
             'country' => trim($input['country'] ?? ''),
             'city' => trim($input['city'] ?? ''),
@@ -388,7 +491,7 @@ function handleUpdateTour() {
             'arrival_date' => $input['arrival_date'] ?? '',
             'return_point' => trim($input['return_point'] ?? $input['departure_point'] ?? 'Москва'),
             'return_date' => $input['return_date'] ?? '',
-            'image_url' => !empty($input['image_url']) ? trim($input['image_url']) : null,
+            'image_url' => $imageUrl,
             'vacation_type' => $input['vacation_type'] ?? null
         ];
         
@@ -398,14 +501,23 @@ function handleUpdateTour() {
             exit;
         }
         
-        if (!empty($input['additional_services'])) {
+        // Обрабатываем дополнительные услуги
+        if (isset($input['additional_services'])) {
             $additionalServices = trim($input['additional_services']);
-            try {
-                json_decode($additionalServices, true);
-                $tourData['additional_services'] = $additionalServices;
-            } catch (Exception $e) {
-                $tourData['additional_services'] = $additionalServices;
+            if (!empty($additionalServices)) {
+                // Проверяем, является ли это валидным JSON
+                $decoded = json_decode($additionalServices, true);
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    $tourData['additional_services'] = json_encode($decoded, JSON_UNESCAPED_UNICODE);
+                } else {
+                    $tourData['additional_services'] = $additionalServices;
+                }
+            } else {
+                $tourData['additional_services'] = null;
             }
+        } else {
+            // Если поле не передано, сохраняем существующее значение
+            $tourData['additional_services'] = $existingTour['additional_services'] ?? null;
         }
         
         try {
@@ -413,11 +525,13 @@ function handleUpdateTour() {
             
             if ($result) {
                 echo json_encode(['success' => true, 'message' => 'Тур успешно обновлен', 'tour_id' => $tourId]);
+                exit;
             } else {
                 throw new Exception('Метод update вернул false без исключения');
             }
         } catch (Exception $e) {
             error_log("[handleUpdateTour] Tour update failed: " . $e->getMessage());
+            error_log("[handleUpdateTour] Stack trace: " . $e->getTraceAsString());
             $response = ['success' => false, 'message' => 'Ошибка обновления тура: ' . $e->getMessage()];
             if ($debugMode) {
                 $response['debug'] = [
@@ -429,6 +543,7 @@ function handleUpdateTour() {
                 ];
             }
             echo json_encode($response);
+            exit;
         }
     } catch (Exception $e) {
         error_log("[handleUpdateTour] Exception: " . $e->getMessage());
@@ -443,6 +558,11 @@ function handleUpdateTour() {
             ];
         }
         echo json_encode($response);
+        exit;
+    } catch (Error $e) {
+        error_log("[handleUpdateTour] Fatal error: " . $e->getMessage());
+        error_log("[handleUpdateTour] Stack trace: " . $e->getTraceAsString());
+        echo json_encode(['success' => false, 'message' => 'Критическая ошибка: ' . $e->getMessage()]);
+        exit;
     }
-    exit;
 }

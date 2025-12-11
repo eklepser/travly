@@ -38,8 +38,8 @@ function renderTourCard($tour, $baseUrl = '', $isAdmin = false) {
     $returnJs = json_encode((string) ($tour['return_date'] ?? ''), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
     ?>
     <<?= $cardTag ?>
-        <?= $adminMode ? "onclick=\"window.location.href='{$cardHref}'\"" : "href=\"{$cardHref}\"" ?>
-        class="<?= $cardClasses ?>"
+        <?= $adminMode ? "onclick=\"if(!event.target.closest('.admin-card-controls')) window.location.href='{$cardHref}'\"" : "href=\"{$cardHref}\"" ?>
+        class="<?= $cardClasses ?>" 
         data-tour-id="<?= (int) $tour['tour_id'] ?>">
         <div class="card-image" style="background-image: url('<?= htmlspecialchars($imageUrl) ?>');"></div>
         <div class="card-overlay"></div>
@@ -76,7 +76,7 @@ function renderTourCard($tour, $baseUrl = '', $isAdmin = false) {
                 <button
                     type="button"
                     class="admin-btn tiny danger"
-                    onclick="event.preventDefault(); event.stopPropagation(); deleteTour(<?= (int) $tour['tour_id'] ?>, {id: <?= (int) $tour['tour_id'] ?>, hotel: <?= $hotelJs ?>, country: <?= $countryJs ?>, city: <?= $cityJs ?>, arrival_date: <?= $arrivalJs ?>, return_date: <?= $returnJs ?>, price: <?= (int) $tour['base_price'] ?>}, this, event);"
+                    onclick="deleteTourHandler(event, <?= (int) $tour['tour_id'] ?>, {id: <?= (int) $tour['tour_id'] ?>, hotel: <?= $hotelJs ?>, country: <?= $countryJs ?>, city: <?= $cityJs ?>, arrival_date: <?= $arrivalJs ?>, return_date: <?= $returnJs ?>, price: <?= (int) $tour['base_price'] ?>}, this); return false;"
                     data-tour-id="<?= (int) $tour['tour_id'] ?>">🗑️</button>
             </div>
         <?php endif; ?>

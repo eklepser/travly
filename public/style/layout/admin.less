@@ -1,20 +1,44 @@
 @import "../base.less";
 
-// Админ-панель: верхняя панель управления
+// Админ-панель: нижняя панель управления (всплывающее уведомление)
 .admin-control-bar {
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: 100%;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: auto;
+  min-width: fit-content;
   background: linear-gradient(135deg, @primary-color, @accent-color);
   color: #ffffff;
-  padding: 1.2rem 2.25rem;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-  z-index: 2000;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: flex-end;
+  gap: 1rem;
   flex-wrap: wrap;
+}
+
+.admin-label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-right: 0.5rem;
+}
+
+.admin-functions-label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.admin-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .admin-title {
