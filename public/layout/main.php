@@ -55,7 +55,7 @@ $scripts = ['script/filters.js'];
                 <div style="text-align: center; padding: 40px; color: #666;">Туры не найдены</div>
             <?php else: ?>
                 <?php foreach ($beachTours as $tour): ?>
-                    <?php renderTourCard($tour); ?>
+                    <?php renderTourCard($tour, '', !empty($isAdmin)); ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
@@ -72,7 +72,7 @@ $scripts = ['script/filters.js'];
                 <div style="text-align: center; padding: 40px; color: #666;">Туры не найдены</div>
             <?php else: ?>
                 <?php foreach ($mountainTours as $tour): ?>
-                    <?php renderTourCard($tour); ?>
+                    <?php renderTourCard($tour, '', !empty($isAdmin)); ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
@@ -89,7 +89,7 @@ $scripts = ['script/filters.js'];
                 <div style="text-align: center; padding: 40px; color: #666;">Туры не найдены</div>
             <?php else: ?>
                 <?php foreach ($excursionTours as $tour): ?>
-                    <?php renderTourCard($tour); ?>
+                    <?php renderTourCard($tour, '', !empty($isAdmin)); ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

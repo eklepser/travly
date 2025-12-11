@@ -1,6 +1,8 @@
 <?php
 
-function renderTourCard($tour, $baseUrl = '') {
+function renderTourCard($tour, $baseUrl = '', $isAdmin = false) {
+
+    $adminMode = !empty($isAdmin);
 
     $arrival = new DateTime($tour['arrival_date']);
     $return = new DateTime($tour['return_date']);
@@ -24,8 +26,21 @@ function renderTourCard($tour, $baseUrl = '') {
             $imageUrl = $baseUrl . $imageUrl;
         }
     }
+
+    $cardTag = $adminMode ? 'div' : 'a';
+    $cardClasses = 'card' . ($adminMode ? ' admin-card' : '');
+    $cardHref = $baseUrl . '?page=tour&id=' . (int) $tour['tour_id'];
+
+    $hotelJs = json_encode((string) ($tour['hotel_name'] ?? ''), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+    $countryJs = json_encode((string) ($tour['country'] ?? ''), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+    $cityJs = json_encode((string) ($tour['city'] ?? ''), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+    $arrivalJs = json_encode((string) ($tour['arrival_date'] ?? ''), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+    $returnJs = json_encode((string) ($tour['return_date'] ?? ''), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
     ?>
-    <a href="<?= $baseUrl ?>?page=tour&id=<?= (int) $tour['tour_id'] ?>" class="card">
+    <<?= $cardTag ?>
+        <?= $adminMode ? "onclick=\"window.location.href='{$cardHref}'\"" : "href=\"{$cardHref}\"" ?>
+        class="<?= $cardClasses ?>"
+        data-tour-id="<?= (int) $tour['tour_id'] ?>">
         <div class="card-image" style="background-image: url('<?= htmlspecialchars($imageUrl) ?>');"></div>
         <div class="card-overlay"></div>
         <div class="card-top">
@@ -52,6 +67,19 @@ function renderTourCard($tour, $baseUrl = '') {
                 <div class="card-price">от <?= $price ?> руб/чел</div>
             </div>
         </div>
-    </a>
+        <?php if ($adminMode): ?>
+            <div class="admin-card-controls">
+                <button
+                    type="button"
+                    class="admin-btn tiny success"
+                    onclick="event.preventDefault(); event.stopPropagation(); editTour(<?= (int) $tour['tour_id'] ?>);">✏️</button>
+                <button
+                    type="button"
+                    class="admin-btn tiny danger"
+                    onclick="event.preventDefault(); event.stopPropagation(); deleteTour(<?= (int) $tour['tour_id'] ?>, {id: <?= (int) $tour['tour_id'] ?>, hotel: <?= $hotelJs ?>, country: <?= $countryJs ?>, city: <?= $cityJs ?>, arrival_date: <?= $arrivalJs ?>, return_date: <?= $returnJs ?>, price: <?= (int) $tour['base_price'] ?>}, this, event);"
+                    data-tour-id="<?= (int) $tour['tour_id'] ?>">🗑️</button>
+            </div>
+        <?php endif; ?>
+    </<?= $cardTag ?>>
     <?php
 }

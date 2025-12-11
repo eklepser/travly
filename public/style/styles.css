@@ -1474,7 +1474,6 @@ body.main-page-body {
   background: white;
   border-radius: 12px;
   padding: 24px;
-  max-width: 500px;
   width: 90%;
   justify-self: center;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -2852,7 +2851,7 @@ body.main-page-body {
   padding-top: 16px;
 }
 .admin-control-bar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;

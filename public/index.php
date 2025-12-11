@@ -9,6 +9,51 @@ if (session_status() === PHP_SESSION_NONE) {
     @session_start();
 }
 
+// Определяем статус админа на основе данных из БД
+$isAdmin = false;
+if (isset($_SESSION['user_id'])) {
+    require_once '../src/config/database.php';
+    require_once '../src/repositories/UserRepository.php';
+    $userRepo = new UserRepository();
+    $user = $userRepo->findById($_SESSION['user_id']);
+    // Проверяем is_admin: может быть 1, '1', true или не NULL и не 0
+    if ($user && isset($user['is_admin']) && ($user['is_admin'] == 1 || $user['is_admin'] === true || $user['is_admin'] === '1')) {
+        $isAdmin = true;
+    }
+}
+
+// Обработчики админских действий, если админ-режим активен
+if ($isAdmin && isset($_GET['action'])) {
+    require_once '../src/handlers/admin-actions.php';
+    require_once '../src/handlers/filter-tours.php';
+    require_once '../src/handlers/filter-options.php';
+    require_once '../src/handlers/hotels-by-country.php';
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'add-tour') {
+        handleAddTour();
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'add-hotel') {
+        handleAddHotel();
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'update-tour') {
+        handleUpdateTour();
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'delete-tour') {
+        handleDeleteTour();
+    }
+
+    if ($_GET['action'] === 'get-hotels') {
+        handleGetHotels();
+    }
+
+    if ($_GET['action'] === 'get-tour') {
+        handleGetTour();
+    }
+}
+
 // Обработка регистрации
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'register') {
     require_once '../src/config/database.php';
@@ -130,9 +175,11 @@ if ($page === 'me' && !isset($_SESSION['user_id'])) {
   <title>Travly</title>
   <link rel="stylesheet" href="style/styles.css">
 </head>
-<body class="main-page-body">
+<body class="main-page-body<?= $isAdmin ? ' admin-mode' : '' ?>">
 
 <?php require_once 'layout/header.php'; ?>
+
+<?php if ($isAdmin) { require_once 'layout/components/admin-panel.php'; } ?>
 
 <?php include "layout/{$page}.php"; ?>
 

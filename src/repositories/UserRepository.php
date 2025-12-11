@@ -20,7 +20,7 @@ class UserRepository {
         
         try {
             $stmt = $this->pdo->prepare("
-                SELECT id, email, phone, full_name, password_hash
+                SELECT id, email, phone, full_name, password_hash, is_admin
                 FROM users
                 WHERE email = :emailOrPhone OR phone = :emailOrPhone
                 LIMIT 1
@@ -46,7 +46,7 @@ class UserRepository {
         
         try {
             $stmt = $this->pdo->prepare("
-                SELECT id, email, phone, full_name, created_at
+                SELECT id, email, phone, full_name, created_at, is_admin
                 FROM users
                 WHERE id = :id
                 LIMIT 1
