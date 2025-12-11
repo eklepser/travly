@@ -30,7 +30,9 @@ body.admin-mode {
 
 <script>
 // Удаление тура из карточки (кнопка доступна только в админ-режиме)
-function deleteTourHandler(event, tourId, tourData, buttonElement) {
+window.deleteTourHandler = function(event, tourId, tourData, buttonElement) {
+  console.log('deleteTourHandler вызвана', {tourId, tourData, buttonElement});
+  
   // Останавливаем всплытие события
   if (event) {
     event.stopPropagation();
@@ -153,7 +155,31 @@ function deleteTourHandler(event, tourId, tourData, buttonElement) {
 
 // Для обратной совместимости
 if (typeof deleteTour === 'undefined') {
-  window.deleteTour = deleteTourHandler;
+  window.deleteTour = window.deleteTourHandler;
 }
+
+console.log('deleteTourHandler определена:', typeof window.deleteTourHandler);
+
+// Делегирование событий для кнопок удаления (на случай, если они рендерятся до загрузки скрипта)
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.admin-btn.tiny.danger[data-tour-id]');
+    if (btn && btn.dataset.tourId) {
+      e.stopPropagation();
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      
+      const tourId = parseInt(btn.dataset.tourId);
+      const tourData = btn.dataset.tourData ? JSON.parse(btn.dataset.tourData) : {};
+      
+      if (typeof window.deleteTourHandler === 'function') {
+        window.deleteTourHandler(e, tourId, tourData, btn);
+      } else {
+        console.error('deleteTourHandler не найдена при делегировании');
+        alert('Ошибка: функция удаления не загружена');
+      }
+    }
+  }, true); // Используем capture phase для раннего перехвата
+});
 </script>
 

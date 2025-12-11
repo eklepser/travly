@@ -76,8 +76,9 @@ function renderTourCard($tour, $baseUrl = '', $isAdmin = false) {
                 <button
                     type="button"
                     class="admin-btn tiny danger"
-                    onclick="deleteTourHandler(event, <?= (int) $tour['tour_id'] ?>, {id: <?= (int) $tour['tour_id'] ?>, hotel: <?= $hotelJs ?>, country: <?= $countryJs ?>, city: <?= $cityJs ?>, arrival_date: <?= $arrivalJs ?>, return_date: <?= $returnJs ?>, price: <?= (int) $tour['base_price'] ?>}, this); return false;"
-                    data-tour-id="<?= (int) $tour['tour_id'] ?>">🗑️</button>
+                    data-tour-id="<?= (int) $tour['tour_id'] ?>"
+                    data-tour-data='<?= json_encode(['id' => (int) $tour['tour_id'], 'hotel' => (string) ($tour['hotel_name'] ?? ''), 'country' => (string) ($tour['country'] ?? ''), 'city' => (string) ($tour['city'] ?? ''), 'arrival_date' => (string) ($tour['arrival_date'] ?? ''), 'return_date' => (string) ($tour['return_date'] ?? ''), 'price' => (int) $tour['base_price']], JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>'
+                    onclick="(function(evt){evt=evt||window.event;if(evt){evt.stopPropagation();evt.preventDefault();evt.stopImmediatePropagation();}var tid=<?= (int) $tour['tour_id'] ?>;var tdata={id:tid,hotel:<?= $hotelJs ?>,country:<?= $countryJs ?>,city:<?= $cityJs ?>,arrival_date:<?= $arrivalJs ?>,return_date:<?= $returnJs ?>,price:<?= (int) $tour['base_price'] ?>};if(typeof window.deleteTourHandler==='function'){window.deleteTourHandler(evt,tid,tdata,this);}else{console.error('deleteTourHandler не найдена');alert('Ошибка: функция удаления не загружена');}return false;})(event);">🗑️</button>
             </div>
         <?php endif; ?>
     </<?= $cardTag ?>>
