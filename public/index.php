@@ -1,28 +1,22 @@
 <?php
-// Настраиваем обработку ошибок
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
-// Начинаем сессию только если она еще не начата
 if (session_status() === PHP_SESSION_NONE) {
     @session_start();
 }
 
-// Определяем статус админа на основе данных из БД
 $isAdmin = false;
 if (isset($_SESSION['user_id'])) {
     require_once '../src/config/database.php';
     require_once '../src/repositories/UserRepository.php';
     $userRepo = new UserRepository();
     $user = $userRepo->findById($_SESSION['user_id']);
-    // Проверяем is_admin: может быть 1, '1', true или не NULL и не 0
     if ($user && isset($user['is_admin']) && ($user['is_admin'] == 1 || $user['is_admin'] === true || $user['is_admin'] === '1')) {
         $isAdmin = true;
     }
 }
-
-// Обработчики админских действий, если админ-режим активен
 if ($isAdmin && isset($_GET['action'])) {
     require_once '../src/handlers/admin-actions.php';
     require_once '../src/handlers/filter-tours.php';
@@ -54,30 +48,25 @@ if ($isAdmin && isset($_GET['action'])) {
     }
 }
 
-// Обработка регистрации
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'register') {
     require_once '../src/config/database.php';
     require_once '../src/handlers/auth.php';
     handleRegister();
-    exit; // Важно: выходим, чтобы не выполнять код ниже
+    exit;
 }
 
-// Обработка авторизации
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
     require_once '../src/config/database.php';
     require_once '../src/handlers/auth.php';
     handleLogin();
-    exit; // Важно: выходим, чтобы не выполнять код ниже
+    exit;
 }
 
-// Обработка выхода
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     require_once '../src/handlers/auth.php';
     handleLogout();
-    exit; // Важно: выходим, чтобы не выполнять код ниже
+    exit;
 }
-
-// Обработка сохранения данных бронирования в сессию
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'save-booking-data') {
     header('Content-Type: application/json');
     
@@ -108,10 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     require_once '../src/config/database.php';
     require_once '../src/handlers/booking.php';
     handleCreateBooking();
-    exit; // Важно: выходим, чтобы не выполнять код ниже
+    exit;
 }
-
-// Обработка отмены бронирования
 if (isset($_GET['action']) && $_GET['action'] === 'cancel-booking') {
     require_once '../src/config/database.php';
     require_once '../src/repositories/BookingRepository.php';
@@ -154,14 +141,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'cancel-booking') {
     exit;
 }
 
-// Обычная загрузка страницы
 require_once '../src/config/database.php';
 
 $page = $_GET['page'] ?? 'main';
 $allowedPages = ['main', 'search', 'about', 'help', 'auth', 'registration', 'me', 'tour', 'booking']; 
 $page = in_array($page, $allowedPages) ? $page : 'main';
 
-// Проверка авторизации для страницы кабинета
 if ($page === 'me' && !isset($_SESSION['user_id'])) {
     header('Location: ?page=auth');
     exit;

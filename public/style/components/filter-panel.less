@@ -322,23 +322,13 @@
 }
 
 .reset-btn {
+  .button-base();
   width: 100%;
-  padding: 12px;
-  background: transparent;
-  border: 2px solid @accent-color;
-  border-radius: 8px;
-  color: @accent-color;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background: @accent-color;
-    color: @white;
-  }
-  
-  &:active {
-    transform: scale(0.98);
-  }
+  padding: 13px 24px;
+  font-size: 20px;
+  line-height: 24px;
+  .button-secondary();
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

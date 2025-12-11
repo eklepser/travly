@@ -13,6 +13,7 @@ $registrationDate = '—';
 $activeBookings = [];
 $pastBookings = [];
 
+$isAdmin = false;
 if (isset($_SESSION['user_id'])) {
     try {
         require_once __DIR__ . '/../../src/repositories/UserRepository.php';
@@ -22,7 +23,10 @@ if (isset($_SESSION['user_id'])) {
         $user = $userRepo->findById($_SESSION['user_id']);
         
         if ($user) {
-            // Разбираем full_name на фамилию и имя
+            if (isset($user['is_admin']) && ($user['is_admin'] == 1 || $user['is_admin'] === true || $user['is_admin'] === '1')) {
+                $isAdmin = true;
+            }
+            
             $nameParts = explode(' ', trim($user['full_name']), 2);
             $lastName = $nameParts[0] ?? '';
             $firstName = $nameParts[1] ?? '';
@@ -30,7 +34,6 @@ if (isset($_SESSION['user_id'])) {
             $phone = $user['phone'] ?? '—';
             $email = $user['email'] ?? '—';
             
-            // Форматируем дату регистрации
             if (!empty($user['created_at'])) {
                 $date = new DateTime($user['created_at']);
                 $registrationDate = $date->format('d.m.Y');
@@ -139,16 +142,16 @@ function getTouristWord($count) {
                 <div class="info-row">
                     <div class="info-group">
                         <label>Фамилия</label>
-                        <div class="info-field">
+                        <div class="info-field" style="text-align: center;">
                             <span class="text-value"><?= htmlspecialchars($lastName) ?></span>
-                            <input type="text" class="edit-input" value="<?= htmlspecialchars($lastName) ?>" style="display: none;">
+                            <input type="text" class="edit-input" value="<?= htmlspecialchars($lastName) ?>" style="display: none; text-align: center;">
                         </div>
                     </div>
                     <div class="info-group">
                         <label>Имя</label>
-                        <div class="info-field">
+                        <div class="info-field" style="text-align: center;">
                             <span class="text-value"><?= htmlspecialchars($firstName) ?></span>
-                            <input type="text" class="edit-input" value="<?= htmlspecialchars($firstName) ?>" style="display: none;">
+                            <input type="text" class="edit-input" value="<?= htmlspecialchars($firstName) ?>" style="display: none; text-align: center;">
                         </div>
                     </div>
                 </div>
@@ -167,7 +170,7 @@ function getTouristWord($count) {
                 <div class="info-row">
                     <div class="info-group">
                         <label>Статус</label>
-                        <div class="info-field"><span>Турист</span></div>
+                        <div class="info-field"><span><?= $isAdmin ? 'Администратор' : 'Турист' ?></span></div>
                     </div>
                     <div class="info-group">
                         <label>Дата регистрации</label>
@@ -189,7 +192,7 @@ function getTouristWord($count) {
                     <div class="logo-icon"></div>
                 </div>
 
-                <div class="promo-section">
+                <div class="promo-section" style="display: none;">
                     <label class="promo-label">Активировать промокод</label>
                     <input type="text" value="TRAVLYPROMO">
                     <button class="activate-btn" onclick="testPromo()">Активировать</button>

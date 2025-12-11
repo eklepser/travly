@@ -27,21 +27,17 @@ function uploadTourImage($file, $tourId = null) {
         return null;
     }
     
-    // Проверяем тип файла
     $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
     $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
     
-    // Определяем MIME тип файла
     $mimeType = null;
     if (function_exists('finfo_open')) {
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo, $file['tmp_name']);
         finfo_close($finfo);
     } else {
-        // Альтернативный способ определения типа файла
         $mimeType = mime_content_type($file['tmp_name']);
         if (!$mimeType) {
-            // Используем расширение файла как запасной вариант
             $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
             $mimeMap = [
                 'jpg' => 'image/jpeg',
@@ -54,7 +50,6 @@ function uploadTourImage($file, $tourId = null) {
         }
     }
     
-    // Проверяем расширение файла как дополнительную проверку
     $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     if (!in_array($extension, $allowedExtensions)) {
         error_log("[uploadTourImage] Invalid file extension: " . $extension);
@@ -66,16 +61,13 @@ function uploadTourImage($file, $tourId = null) {
         return null;
     }
     
-    // Проверяем размер файла (максимум 5MB)
     if ($file['size'] > 5 * 1024 * 1024) {
         error_log("[uploadTourImage] File too large: " . $file['size']);
         return null;
     }
     
-    // Используем расширение из имени файла (уже определено выше)
     $extension = '.' . $extension;
     
-    // Создаем уникальное имя файла
     $baseDir = __DIR__ . '/../../public/resources/images/tours/';
     if (!is_dir($baseDir)) {
         if (!mkdir($baseDir, 0755, true)) {
@@ -84,17 +76,14 @@ function uploadTourImage($file, $tourId = null) {
         }
     }
     
-    // Генерируем имя файла: tour_{tourId}_{timestamp}.{ext} или tour_{timestamp}.{ext}
     $filename = 'tour_' . ($tourId ? $tourId . '_' : '') . time() . '_' . uniqid() . $extension;
     $filepath = $baseDir . $filename;
     
-    // Перемещаем загруженный файл
     if (!move_uploaded_file($file['tmp_name'], $filepath)) {
         error_log("[uploadTourImage] Failed to move uploaded file");
         return null;
     }
     
-    // Возвращаем относительный путь от public/
     return 'resources/images/tours/' . $filename;
 }
 
@@ -163,7 +152,6 @@ function handleAddTour() {
             exit;
         }
         
-        // Обрабатываем загрузку изображения
         $imageUrl = null;
         if (isset($_FILES['tour_image']) && $_FILES['tour_image']['error'] === UPLOAD_ERR_OK) {
             $uploadedPath = uploadTourImage($_FILES['tour_image']);
@@ -171,7 +159,6 @@ function handleAddTour() {
                 $imageUrl = $uploadedPath;
             }
         } elseif (!empty($input['image_url'])) {
-            // Используем URL из поля, если файл не загружен
             $imageUrl = trim($input['image_url']);
         }
         
@@ -465,7 +452,6 @@ function handleUpdateTour() {
             }
         }
         
-        // Обрабатываем загрузку изображения
         $imageUrl = null;
         if (isset($_FILES['tour_image']) && $_FILES['tour_image']['error'] === UPLOAD_ERR_OK) {
             $uploadedPath = uploadTourImage($_FILES['tour_image'], $tourId);
@@ -473,10 +459,8 @@ function handleUpdateTour() {
                 $imageUrl = $uploadedPath;
             }
         } elseif (!empty($input['image_url'])) {
-            // Используем URL из поля, если файл не загружен
             $imageUrl = trim($input['image_url']);
         } else {
-            // Сохраняем существующее изображение, если ничего не указано
             $imageUrl = $existingTour['image_url'] ?? null;
         }
         
@@ -501,11 +485,9 @@ function handleUpdateTour() {
             exit;
         }
         
-        // Обрабатываем дополнительные услуги
         if (isset($input['additional_services'])) {
             $additionalServices = trim($input['additional_services']);
             if (!empty($additionalServices)) {
-                // Проверяем, является ли это валидным JSON
                 $decoded = json_decode($additionalServices, true);
                 if (json_last_error() === JSON_ERROR_NONE) {
                     $tourData['additional_services'] = json_encode($decoded, JSON_UNESCAPED_UNICODE);
@@ -516,7 +498,6 @@ function handleUpdateTour() {
                 $tourData['additional_services'] = null;
             }
         } else {
-            // Если поле не передано, сохраняем существующее значение
             $tourData['additional_services'] = $existingTour['additional_services'] ?? null;
         }
         

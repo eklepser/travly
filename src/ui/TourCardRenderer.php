@@ -48,7 +48,6 @@ function renderTourCard($tour, $baseUrl = '', $isAdmin = false) {
                 <div class="card-country"><?= htmlspecialchars($tour['country']) ?></div>
                 <div class="card-city"><?= htmlspecialchars($tour['city']) ?></div>
             </div>
-            <div class="card-rating"><?= number_format($rating, 1, '.', '') ?></div>
         </div>
         <div class="card-bottom">
             <div class="card-hotel-info">

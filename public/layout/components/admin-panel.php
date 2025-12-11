@@ -1,5 +1,4 @@
 <?php
-// Единый вывод админ-панели и модальных окон на всех страницах
 if (empty($isAdmin)) {
     return;
 }
@@ -29,22 +28,18 @@ body.admin-mode {
 <?php include __DIR__ . '/modal-add-hotel.php'; ?>
 
 <script>
-// Удаление тура из карточки (кнопка доступна только в админ-режиме)
 window.deleteTourHandler = function(event, tourId, tourData, buttonElement) {
   console.log('deleteTourHandler вызвана', {tourId, tourData, buttonElement});
   
-  // Останавливаем всплытие события
   if (event) {
     event.stopPropagation();
     event.preventDefault();
     event.stopImmediatePropagation();
   }
   
-  // Дополнительная защита от всплытия
   if (buttonElement && buttonElement.closest) {
     const card = buttonElement.closest('.admin-card');
     if (card) {
-      // Временно отключаем обработчик клика на карточке
       const originalOnclick = card.getAttribute('onclick');
       if (originalOnclick) {
         card.removeAttribute('onclick');
@@ -103,14 +98,12 @@ window.deleteTourHandler = function(event, tourId, tourData, buttonElement) {
   })
   .then(res => {
       if (res.success) {
-        // Проверяем наличие функции showNotification
         if (typeof showNotification === 'function') {
           showNotification(`Тур ID=${tourId} успешно удален`, 'success');
         } else {
           alert(`Тур ID=${tourId} успешно удален`);
         }
       
-      // Находим карточку тура и удаляем её с анимацией
       const card = buttonElement.closest('.admin-card');
       if (card) {
         card.style.transition = 'opacity 0.3s, transform 0.3s';
@@ -119,7 +112,6 @@ window.deleteTourHandler = function(event, tourId, tourData, buttonElement) {
         setTimeout(() => {
           card.remove();
           
-          // Обновляем счетчик туров, если он есть
           const countElement = document.querySelector('.count-value');
           if (countElement) {
             const currentCount = parseInt(countElement.textContent) || 0;
@@ -153,14 +145,12 @@ window.deleteTourHandler = function(event, tourId, tourData, buttonElement) {
   return false;
 }
 
-// Для обратной совместимости
 if (typeof deleteTour === 'undefined') {
   window.deleteTour = window.deleteTourHandler;
 }
 
 console.log('deleteTourHandler определена:', typeof window.deleteTourHandler);
 
-// Делегирование событий для кнопок удаления (на случай, если они рендерятся до загрузки скрипта)
 document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('click', function(e) {
     const btn = e.target.closest('.admin-btn.tiny.danger[data-tour-id]');
@@ -179,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Ошибка: функция удаления не загружена');
       }
     }
-  }, true); // Используем capture phase для раннего перехвата
+  }, true);
 });
 </script>
 

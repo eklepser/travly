@@ -1193,9 +1193,15 @@ body.main-page-body {
   gap: 20px;
   min-width: 0;
 }
+.profile-right {
+  display: flex;
+  flex-direction: column;
+}
 .profile-right .logo {
   gap: 24px;
   margin-bottom: 24px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .profile-right .logo .logo-text {
   font-size: 64px;
@@ -1203,6 +1209,13 @@ body.main-page-body {
 }
 .profile-right .logo .logo-icon {
   scale: 1.5;
+}
+.profile-right .promo-section {
+  margin-top: auto;
+}
+.profile-right:has(.promo-section[style*="display: none"]) .logo {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .info-row {
   gap: 20px;
@@ -1470,20 +1483,21 @@ body.main-page-body {
   justify-content: center;
   z-index: 1000;
 }
-.modal {
+.modal-overlay > .modal {
   background: white;
   border-radius: 12px;
   padding: 24px;
-  width: 90%;
+  width: 50%;
+  max-width: 500px;
   justify-self: center;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
-.modal h3 {
+.modal-overlay > .modal h3 {
   margin: 0 0 16px;
   font-size: 20px;
   font-weight: 600;
 }
-.modal p {
+.modal-overlay > .modal p {
   margin: 0 0 24px;
   color: #1E1E1E;
   line-height: 1.5;
@@ -1940,22 +1954,23 @@ body.main-page-body {
 }
 .reset-btn {
   width: 100%;
-  padding: 12px;
-  background: transparent;
-  border: 2px solid #459292;
+  padding: 13px 24px;
+  font-size: 20px;
+  line-height: 24px;
+  border: none;
   border-radius: 8px;
-  color: #459292;
-  font-size: 16px;
-  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  background: #627878;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .reset-btn:hover {
-  background: #459292;
-  color: #FFFFFF;
-}
-.reset-btn:active {
-  transform: scale(0.98);
+  background: #4a5a5a;
 }
 .card {
   position: relative;
