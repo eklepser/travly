@@ -1,9 +1,9 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    @session_start();
-}
+require_once __DIR__ . '/../../src/utils/session-helper.php';
+require_once __DIR__ . '/../../src/utils/auth-helper.php';
 
-// Загружаем данные пользователя
+ensureSessionStarted();
+
 $user = null;
 $lastName = '';
 $firstName = '';
@@ -13,19 +13,16 @@ $registrationDate = '—';
 $activeBookings = [];
 $pastBookings = [];
 
-$isAdmin = false;
+$isAdmin = checkIsAdmin();
 if (isset($_SESSION['user_id'])) {
     try {
-        require_once __DIR__ . '/../../src/repositories/UserRepository.php';
+        require_once __DIR__ . '/../../src/repositories/user-repository.php';
         require_once __DIR__ . '/../../src/repositories/BookingRepository.php';
         
         $userRepo = new UserRepository();
         $user = $userRepo->findById($_SESSION['user_id']);
         
         if ($user) {
-            if (isset($user['is_admin']) && ($user['is_admin'] == 1 || $user['is_admin'] === true || $user['is_admin'] === '1')) {
-                $isAdmin = true;
-            }
             
             $nameParts = explode(' ', trim($user['full_name']), 2);
             $lastName = $nameParts[0] ?? '';

@@ -26,7 +26,7 @@ $pageTitle = $pageTitle ?? 'Travly';
     <button class="nav-button" onclick="location.href='?page=help'">Помощь</button>
    <?php 
    if (isset($_SESSION['user_id'])): 
-       require_once __DIR__ . '/../../src/repositories/UserRepository.php';
+       require_once __DIR__ . '/../../src/repositories/user-repository.php';
        $userRepo = new UserRepository();
        $user = $userRepo->findById($_SESSION['user_id']);
        $userName = $user ? $user['full_name'] : 'Пользователь';

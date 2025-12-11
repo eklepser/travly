@@ -6,7 +6,8 @@ require_once __DIR__ . '/../repositories/BookingRepository.php';
 function handleCreateBooking() {
     header('Content-Type: application/json');
     
-    session_start();
+    require_once __DIR__ . '/../utils/session-helper.php';
+    ensureSessionStarted();
     
     if (!isset($_SESSION['user_id'])) {
         echo json_encode(['success' => false, 'message' => 'Необходима авторизация']);

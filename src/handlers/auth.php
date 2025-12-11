@@ -1,17 +1,15 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../repositories/UserRepository.php';
+require_once __DIR__ . '/../repositories/user-repository.php';
 
 /**
  * Обработка регистрации
  */
 function handleRegister() {
-    // Устанавливаем заголовок ДО любых возможных выводов
     header('Content-Type: application/json');
     
-    if (session_status() === PHP_SESSION_NONE) {
-        @session_start();
-    }
+    require_once __DIR__ . '/../utils/session-helper.php';
+    ensureSessionStarted();
     
     // Включаем отображение ошибок для отладки (в продакшене убрать)
     error_reporting(E_ALL);
@@ -130,12 +128,10 @@ function handleRegister() {
  * Обработка авторизации
  */
 function handleLogin() {
-    // Устанавливаем заголовок ДО любых возможных выводов
     header('Content-Type: application/json');
     
-    if (session_status() === PHP_SESSION_NONE) {
-        @session_start();
-    }
+    require_once __DIR__ . '/../utils/session-helper.php';
+    ensureSessionStarted();
     
     // Включаем отображение ошибок для отладки (в продакшене убрать)
     error_reporting(E_ALL);
@@ -208,9 +204,8 @@ function handleLogin() {
  * Выход из системы
  */
 function handleLogout() {
-    if (session_status() === PHP_SESSION_NONE) {
-        @session_start();
-    }
+    require_once __DIR__ . '/../utils/session-helper.php';
+    ensureSessionStarted();
     session_destroy();
     header('Location: /');
     exit;

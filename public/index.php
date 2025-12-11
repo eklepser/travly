@@ -3,20 +3,11 @@ error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
-if (session_status() === PHP_SESSION_NONE) {
-    @session_start();
-}
+require_once '../src/utils/session-helper.php';
+require_once '../src/utils/auth-helper.php';
 
-$isAdmin = false;
-if (isset($_SESSION['user_id'])) {
-    require_once '../src/config/database.php';
-    require_once '../src/repositories/UserRepository.php';
-    $userRepo = new UserRepository();
-    $user = $userRepo->findById($_SESSION['user_id']);
-    if ($user && isset($user['is_admin']) && ($user['is_admin'] == 1 || $user['is_admin'] === true || $user['is_admin'] === '1')) {
-        $isAdmin = true;
-    }
-}
+ensureSessionStarted();
+$isAdmin = checkIsAdmin();
 if ($isAdmin && isset($_GET['action'])) {
     require_once '../src/handlers/admin-actions.php';
     require_once '../src/handlers/filter-tours.php';
