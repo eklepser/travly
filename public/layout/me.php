@@ -36,19 +36,16 @@ if (isset($_SESSION['user_id'])) {
                 $registrationDate = $date->format('d.m.Y');
             }
         }
-        
-        // Загружаем туры пользователя
+
         $bookingRepo = new BookingRepository();
         $bookings = $bookingRepo->getUserBookings($_SESSION['user_id']);
         $activeBookings = $bookings['active'] ?? [];
         $pastBookings = $bookings['past'] ?? [];
     } catch (Exception $e) {
         error_log("[me.php] Error loading user data: " . $e->getMessage());
-        // Продолжаем выполнение с пустыми данными
     }
 }
 
-// Функция для форматирования даты
 function formatDate($dateStr, $includeTime = false) {
     if (empty($dateStr)) return '—';
     try {
@@ -70,7 +67,6 @@ function formatDate($dateStr, $includeTime = false) {
     }
 }
 
-// Функция для расчета длительности тура
 function calculateNights($arrivalDate, $returnDate) {
     if (empty($arrivalDate) || empty($returnDate)) return '—';
     try {
@@ -101,12 +97,10 @@ function getNightWord($nights) {
     }
 }
 
-// Функция для форматирования цены
 function formatPrice($price) {
     return number_format((float)$price, 0, ',', ' ') . ' рублей';
 }
 
-// Функция для получения информации о туристах
 function getTouristsInfo($booking) {
     $count = (int)($booking['tourists_count'] ?? 0);
     if ($count == 0) return '—';
@@ -176,9 +170,6 @@ function getTouristWord($count) {
                 </div>
 
                 <div class="account-actions">
-                    <button class="edit-btn" id="editToggle">Изменить</button>
-                    <button class="save-btn" style="display: none;">Сохранить</button>
-                    <button class="cancel-btn" style="display: none;">Отмена</button>
                     <button class="extra-button logout-btn" onclick="handleLogout()">Выйти</button>
                 </div>
             </div>
