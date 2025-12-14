@@ -85,8 +85,6 @@ class BookingRepository {
                     continue;
                 }
                 
-                // Используем ON CONFLICT с правильным синтаксисом для PostgreSQL
-                // PRIMARY KEY на (booking_id, tourist_id) позволяет использовать ON CONFLICT
                 $stmt = $this->pdo->prepare("
                     INSERT INTO booking_tourist (booking_id, tourist_id)
                     VALUES (:booking_id, :tourist_id)

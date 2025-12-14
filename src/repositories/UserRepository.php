@@ -8,11 +8,6 @@ class UserRepository {
         $this->pdo = createPDO();
     }
     
-    /**
-     * Найти пользователя по email или телефону
-     * @param string $emailOrPhone Email или телефон
-     * @return array|null
-     */
     public function findByEmailOrPhone($emailOrPhone) {
         if (!$this->pdo || empty($emailOrPhone)) {
             return null;
@@ -29,16 +24,10 @@ class UserRepository {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             return $user ? $user : null;
         } catch (Exception $e) {
-            error_log("[UserRepository] findByEmailOrPhone failed: " . $e->getMessage());
             return null;
         }
     }
     
-    /**
-     * Найти пользователя по ID
-     * @param int $userId
-     * @return array|null
-     */
     public function findById($userId) {
         if (!$this->pdo || $userId <= 0) {
             return null;
@@ -55,16 +44,10 @@ class UserRepository {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             return $user ? $user : null;
         } catch (Exception $e) {
-            error_log("[UserRepository] findById failed: " . $e->getMessage());
             return null;
         }
     }
     
-    /**
-     * Создать нового пользователя
-     * @param array $data Данные пользователя
-     * @return int|false ID созданного пользователя или false при ошибке
-     */
     public function create($data) {
         if (!$this->pdo) {
             return false;
@@ -76,22 +59,17 @@ class UserRepository {
             $phone = !empty($data['phone']) ? trim($data['phone']) : null;
             $passwordHash = $data['password_hash'] ?? '';
             
-            // Проверка: должен быть указан email или phone
             if (empty($email) && empty($phone)) {
-                error_log("[UserRepository] create: email or phone is required");
                 return false;
             }
             
             if (empty($fullName) || empty($passwordHash)) {
-                error_log("[UserRepository] create: full_name and password_hash are required");
                 return false;
             }
             
-            // Проверка на существование пользователя с таким email или phone
             if ($email) {
                 $existing = $this->findByEmailOrPhone($email);
                 if ($existing) {
-                    error_log("[UserRepository] create: user with email already exists");
                     return false;
                 }
             }
@@ -99,7 +77,6 @@ class UserRepository {
             if ($phone) {
                 $existing = $this->findByEmailOrPhone($phone);
                 if ($existing) {
-                    error_log("[UserRepository] create: user with phone already exists");
                     return false;
                 }
             }
@@ -117,7 +94,6 @@ class UserRepository {
             ]);
             
             if (!$result) {
-                error_log("[UserRepository] create: execute returned false");
                 return false;
             }
             
@@ -130,31 +106,17 @@ class UserRepository {
             return false;
             
         } catch (PDOException $e) {
-            error_log("[UserRepository] create failed (PDOException): " . $e->getMessage());
             return false;
         } catch (Exception $e) {
-            error_log("[UserRepository] create failed: " . $e->getMessage());
             return false;
         }
     }
     
-    /**
-     * Проверить пароль пользователя
-     * @param string $password Пароль в открытом виде
-     * @param string $hash Хеш пароля из БД
-     * @return bool
-     */
     public function verifyPassword($password, $hash) {
         return password_verify($password, $hash);
     }
     
-    /**
-     * Создать хеш пароля
-     * @param string $password Пароль в открытом виде
-     * @return string
-     */
     public function hashPassword($password) {
         return password_hash($password, PASSWORD_DEFAULT);
     }
 }
-

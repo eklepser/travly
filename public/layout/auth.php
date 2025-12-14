@@ -27,7 +27,6 @@
             <div class="auth-footer">
                 <p>Нет аккаунта? <a href="?page=registration">Зарегистрироваться</a></p>
             </div>
-
         </div>
     </div>
 </main>
@@ -50,34 +49,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(form);
         
         try {
-            // Формируем URL правильно, учитывая текущие параметры
             const currentUrl = new URL(window.location.href);
             currentUrl.searchParams.set('action', 'login');
             const url = currentUrl.pathname + '?' + currentUrl.searchParams.toString();
             
-            console.log('Sending request to:', url);
             const response = await fetch(url, {
                 method: 'POST',
                 body: formData
             });
             
-            // Читаем ответ как текст один раз
             const responseText = await response.text();
             
             if (!response.ok) {
-                console.error('Server error:', response.status, responseText);
                 showNotification('Ошибка сервера: ' + response.status, 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
                 return;
             }
             
-            // Пытаемся распарсить как JSON
             let result;
             try {
                 result = JSON.parse(responseText);
             } catch (parseError) {
-                console.error('JSON parse error:', parseError, 'Response:', responseText);
                 showNotification('Ошибка обработки ответа сервера', 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
@@ -95,8 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.textContent = originalText;
             }
         } catch (error) {
-            console.error('Fetch error:', error);
-            showNotification('Ошибка соединения с сервером: ' + error.message, 'error');
+            showNotification('Ошибка соединения с сервером', 'error');
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
         }

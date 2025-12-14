@@ -23,7 +23,6 @@ if (isset($_SESSION['user_id'])) {
         $user = $userRepo->findById($_SESSION['user_id']);
         
         if ($user) {
-            
             $nameParts = explode(' ', trim($user['full_name']), 2);
             $lastName = $nameParts[0] ?? '';
             $firstName = $nameParts[1] ?? '';
@@ -42,7 +41,6 @@ if (isset($_SESSION['user_id'])) {
         $activeBookings = $bookings['active'] ?? [];
         $pastBookings = $bookings['past'] ?? [];
     } catch (Exception $e) {
-        error_log("[me.php] Error loading user data: " . $e->getMessage());
     }
 }
 
@@ -179,12 +177,6 @@ function getTouristWord($count) {
                     <span class="logo-text">Trav<span class="logo-text-highlight">ly</span></span>
                     <div class="logo-icon"></div>
                 </div>
-
-                <div class="promo-section" style="display: none;">
-                    <label class="promo-label">Активировать промокод</label>
-                    <input type="text" value="TRAVLYPROMO">
-                    <button class="activate-btn" onclick="testPromo()">Активировать</button>
-                </div>
             </div>
         </div>
     </section>
@@ -244,7 +236,6 @@ function getTouristWord($count) {
                         <?php if (!empty($booking['services'])): 
                             $services = is_string($booking['services']) ? json_decode($booking['services'], true) : $booking['services'];
                             if (is_array($services) && !empty($services)): 
-                                // Извлекаем названия услуг (могут быть объекты с ключом 'service' или просто строки)
                                 $serviceNames = [];
                                 foreach ($services as $service) {
                                     if (is_array($service) && isset($service['service'])) {
@@ -333,7 +324,6 @@ function getTouristWord($count) {
                         <?php if (!empty($booking['services'])): 
                             $services = is_string($booking['services']) ? json_decode($booking['services'], true) : $booking['services'];
                             if (is_array($services) && !empty($services)): 
-                                // Извлекаем названия услуг (могут быть объекты с ключом 'service' или просто строки)
                                 $serviceNames = [];
                                 foreach ($services as $service) {
                                     if (is_array($service) && isset($service['service'])) {
@@ -419,7 +409,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Закрытие модального окна при клике вне его
     if (logoutModal) {
         logoutModal.addEventListener('click', (e) => {
             if (e.target === logoutModal) {

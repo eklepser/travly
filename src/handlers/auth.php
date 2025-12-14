@@ -2,19 +2,11 @@
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../repositories/user-repository.php';
 
-/**
- * Обработка регистрации
- */
 function handleRegister() {
     header('Content-Type: application/json');
     
     require_once __DIR__ . '/../utils/session-helper.php';
     ensureSessionStarted();
-    
-    // Включаем отображение ошибок для отладки (в продакшене убрать)
-    error_reporting(E_ALL);
-    ini_set('display_errors', 0);
-    ini_set('log_errors', 1);
     
     try {
         $input = $_POST;
@@ -30,7 +22,6 @@ function handleRegister() {
         $password = $input['password'] ?? '';
         $confirmPassword = $input['confirm_password'] ?? '';
         
-        // Валидация
         if (empty($firstName) || empty($lastName)) {
             echo json_encode(['success' => false, 'message' => 'Заполните имя и фамилию']);
             exit;
@@ -53,26 +44,22 @@ function handleRegister() {
         
         $userRepo = new UserRepository();
         
-        // Проверяем, существует ли пользователь
         $existing = $userRepo->findByEmailOrPhone($emailOrPhone);
         if ($existing) {
             echo json_encode(['success' => false, 'message' => 'Пользователь с таким email или телефоном уже существует']);
             exit;
         }
         
-        // Определяем email и phone
         $email = null;
         $phone = null;
         
         if (strpos($emailOrPhone, '@') !== false) {
-            // Это email
             if (!filter_var($emailOrPhone, FILTER_VALIDATE_EMAIL)) {
                 echo json_encode(['success' => false, 'message' => 'Неверный формат email']);
                 exit;
             }
             $email = $emailOrPhone;
         } else {
-            // Это телефон
             $phone = preg_replace('/[^0-9+]/', '', $emailOrPhone);
             if (empty($phone)) {
                 echo json_encode(['success' => false, 'message' => 'Неверный формат телефона']);
@@ -80,7 +67,6 @@ function handleRegister() {
             }
         }
         
-        // Создаем пользователя
         $fullName = $lastName . ' ' . $firstName;
         $passwordHash = $userRepo->hashPassword($password);
         
@@ -98,7 +84,6 @@ function handleRegister() {
             exit;
         }
         
-        // Автоматически авторизуем пользователя
         $_SESSION['user_id'] = $userId;
         $user = $userRepo->findById($userId);
         
@@ -112,31 +97,16 @@ function handleRegister() {
         ]);
         
     } catch (Exception $e) {
-        error_log("[handleRegister] Exception: " . $e->getMessage());
-        error_log("[handleRegister] Stack trace: " . $e->getTraceAsString());
         echo json_encode(['success' => false, 'message' => 'Ошибка: ' . $e->getMessage()]);
-        exit;
-    } catch (Error $e) {
-        error_log("[handleRegister] Fatal error: " . $e->getMessage());
-        error_log("[handleRegister] Stack trace: " . $e->getTraceAsString());
-        echo json_encode(['success' => false, 'message' => 'Критическая ошибка: ' . $e->getMessage()]);
         exit;
     }
 }
 
-/**
- * Обработка авторизации
- */
 function handleLogin() {
     header('Content-Type: application/json');
     
     require_once __DIR__ . '/../utils/session-helper.php';
     ensureSessionStarted();
-    
-    // Включаем отображение ошибок для отладки (в продакшене убрать)
-    error_reporting(E_ALL);
-    ini_set('display_errors', 0);
-    ini_set('log_errors', 1);
     
     try {
         $input = $_POST;
@@ -161,7 +131,6 @@ function handleLogin() {
         
         $userRepo = new UserRepository();
         
-        // Ищем пользователя
         $user = $userRepo->findByEmailOrPhone($emailOrPhone);
         
         if (!$user) {
@@ -169,13 +138,11 @@ function handleLogin() {
             exit;
         }
         
-        // Проверяем пароль
         if (!$userRepo->verifyPassword($password, $user['password_hash'])) {
             echo json_encode(['success' => false, 'message' => 'Неверный email/телефон или пароль']);
             exit;
         }
         
-        // Авторизуем пользователя
         $_SESSION['user_id'] = (int)$user['id'];
         
         echo json_encode([
@@ -188,21 +155,11 @@ function handleLogin() {
         ]);
         
     } catch (Exception $e) {
-        error_log("[handleLogin] Exception: " . $e->getMessage());
-        error_log("[handleLogin] Stack trace: " . $e->getTraceAsString());
         echo json_encode(['success' => false, 'message' => 'Ошибка: ' . $e->getMessage()]);
-        exit;
-    } catch (Error $e) {
-        error_log("[handleLogin] Fatal error: " . $e->getMessage());
-        error_log("[handleLogin] Stack trace: " . $e->getTraceAsString());
-        echo json_encode(['success' => false, 'message' => 'Критическая ошибка: ' . $e->getMessage()]);
         exit;
     }
 }
 
-/**
- * Выход из системы
- */
 function handleLogout() {
     require_once __DIR__ . '/../utils/session-helper.php';
     ensureSessionStarted();
@@ -210,4 +167,3 @@ function handleLogout() {
     header('Location: /');
     exit;
 }
-

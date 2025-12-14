@@ -24,7 +24,6 @@ class UserRepository {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             return $user ? $user : null;
         } catch (Exception $e) {
-            error_log("[UserRepository] findByEmailOrPhone failed: " . $e->getMessage());
             return null;
         }
     }
@@ -45,7 +44,6 @@ class UserRepository {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             return $user ? $user : null;
         } catch (Exception $e) {
-            error_log("[UserRepository] findById failed: " . $e->getMessage());
             return null;
         }
     }
@@ -62,19 +60,16 @@ class UserRepository {
             $passwordHash = $data['password_hash'] ?? '';
             
             if (empty($email) && empty($phone)) {
-                error_log("[UserRepository] create: email or phone is required");
                 return false;
             }
             
             if (empty($fullName) || empty($passwordHash)) {
-                error_log("[UserRepository] create: full_name and password_hash are required");
                 return false;
             }
             
             if ($email) {
                 $existing = $this->findByEmailOrPhone($email);
                 if ($existing) {
-                    error_log("[UserRepository] create: user with email already exists");
                     return false;
                 }
             }
@@ -82,7 +77,6 @@ class UserRepository {
             if ($phone) {
                 $existing = $this->findByEmailOrPhone($phone);
                 if ($existing) {
-                    error_log("[UserRepository] create: user with phone already exists");
                     return false;
                 }
             }
@@ -100,7 +94,6 @@ class UserRepository {
             ]);
             
             if (!$result) {
-                error_log("[UserRepository] create: execute returned false");
                 return false;
             }
             
@@ -113,10 +106,8 @@ class UserRepository {
             return false;
             
         } catch (PDOException $e) {
-            error_log("[UserRepository] create failed (PDOException): " . $e->getMessage());
             return false;
         } catch (Exception $e) {
-            error_log("[UserRepository] create failed: " . $e->getMessage());
             return false;
         }
     }
