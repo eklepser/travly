@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__ . '/../View.php';
+
+class AboutView extends View {
+    public function render() {
+        ?>
 <main class="about-page">
     <div class="about-content">
 
@@ -22,3 +28,7 @@
 
     </div>
 </main>
+        <?php
+    }
+}
+

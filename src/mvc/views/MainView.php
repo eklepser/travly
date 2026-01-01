@@ -1,28 +1,21 @@
 <?php
-require_once __DIR__ . '/../../src/repositories/TourRepository.php';
-require_once __DIR__ . '/../../src/handlers/filter-options.php';
-require_once __DIR__ . '/../../src/ui/TourCardRenderer.php';
+require_once __DIR__ . '/../View.php';
+require_once __DIR__ . '/../../ui/TourCardRenderer.php';
 
-$tourRepository = new TourRepository();
-
-$beachTours = $tourRepository->findByFilters(['vacation_type' => 'beach']);
-$beachTours = array_slice($beachTours, 0, 6);
-
-$mountainTours = $tourRepository->findByFilters(['vacation_type' => 'mountain']);
-$mountainTours = array_slice($mountainTours, 0, 6);
-
-$excursionTours = $tourRepository->findByFilters(['vacation_type' => 'excursion']);
-$excursionTours = array_slice($excursionTours, 0, 6);
-
-$filterOptions = getFilterOptions();
-$filterOptions['allHotels'] = $filterOptions['hotels'];
-
-$pageTitle = 'Travly — Лучшие туры для вас';
-$scripts = ['script/filters.js'];
-?>
-
+class MainView extends View {
+    public function render() {
+        $beachTours = $this->data['beachTours'] ?? [];
+        $mountainTours = $this->data['mountainTours'] ?? [];
+        $excursionTours = $this->data['excursionTours'] ?? [];
+        $filterOptions = $this->data['filterOptions'] ?? [];
+        $isAdmin = $this->data['isAdmin'] ?? false;
+        
+        // Делаем filterOptions доступной для filter-panel.php
+        $GLOBALS['filterOptions'] = $filterOptions;
+        
+        ?>
 <main class="main-page">
-    <?php require_once 'components/filter-panel.php'; ?>
+    <?php require_once __DIR__ . '/../../../public/layout/components/filter-panel.php'; ?>
 
     <div class="tours-section">
         <div class="tours-banner-slider">
@@ -98,3 +91,8 @@ $scripts = ['script/filters.js'];
         </div>
     </div>
 </main>
+<script src="script/filters.js"></script>
+        <?php
+    }
+}
+

@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__ . '/../View.php';
+
+class HelpView extends View {
+    public function render() {
+        ?>
 <main class="help-page">
     <div class="help-content">
 
@@ -66,3 +72,7 @@
 
     </div>
 </main>
+        <?php
+    }
+}
+

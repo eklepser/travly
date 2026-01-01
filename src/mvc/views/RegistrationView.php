@@ -1,9 +1,16 @@
+<?php
+require_once __DIR__ . '/../View.php';
+
+class RegistrationView extends View {
+    public function render() {
+        ?>
 <main class="auth-main">
     <div class="auth-container">
         <div class="auth-card">
             <h1 class="auth-title">Регистрация</h1>
 
             <form class="auth-form" id="registrationForm">
+
                 <div class="form-row">
                     <div class="form-group">
                         <input type="text" name="last_name" id="reg-lastname" placeholder="Фамилия" required>
@@ -57,85 +64,33 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.textContent = 'Регистрация...';
         
         const formData = new FormData(form);
+        formData.append('action', 'register');
         
         try {
-            const currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set('action', 'register');
-            const url = currentUrl.pathname + '?' + currentUrl.searchParams.toString();
-            
-            const response = await fetch(url, {
+            const response = await fetch('?action=register', {
                 method: 'POST',
                 body: formData
             });
             
-            const responseText = await response.text();
-            
-            if (!response.ok) {
-                showNotification('Ошибка сервера: ' + response.status, 'error');
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-                return;
-            }
-            
-            let result;
-            try {
-                result = JSON.parse(responseText);
-            } catch (parseError) {
-                showNotification('Ошибка обработки ответа сервера', 'error');
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-                return;
-            }
+            const result = await response.json();
             
             if (result.success) {
-                showNotification('Регистрация успешна! Перенаправление...', 'success');
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 1500);
+                window.location.href = '/';
             } else {
-                showNotification(result.message || 'Ошибка регистрации', 'error');
+                alert(result.message || 'Ошибка регистрации');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
             }
         } catch (error) {
-            showNotification('Ошибка соединения с сервером', 'error');
+            console.error('Ошибка:', error);
+            alert('Произошла ошибка при регистрации');
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
         }
     });
 });
-
-function showNotification(message, type) {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 16px 24px;
-        background: ${type === 'success' ? '#4CAF50' : '#f44336'};
-        color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        z-index: 10000;
-        animation: slideIn 0.3s ease;
-    `;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
 </script>
-<style>
-@keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+        <?php
+    }
 }
-@keyframes slideOut {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
-}
-</style>
+

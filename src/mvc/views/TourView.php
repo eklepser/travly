@@ -1,69 +1,58 @@
 <?php
-require_once __DIR__ . '/../../src/repositories/TourRepository.php';
+require_once __DIR__ . '/../View.php';
 
-$tourRepository = new TourRepository();
-$tourId = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : false;
-$tour = null;
-$error = null;
-
-if ($tourId === false) {
-    $error = "Неверный идентификатор тура";
-} else {
-    $tour = $tourRepository->findById($tourId);
-    if (!$tour) {
-        $error = "Тур не найден";
-    }
-}
-
-$departDate = (new DateTime($tour['departure_date']))->format('d.m.Y');
-$returnDate = (new DateTime($tour['return_date']))->format('d.m.Y');
-
-$services = !empty($tour['additional_services']) 
-    ? json_decode($tour['additional_services'], true) 
-    : [];
-
-$amenities = $tour['amenities'] ?? [];
-if (is_string($amenities) && $amenities !== '') {
-    $amenities = trim($amenities, '{}');
-    $amenities = $amenities === '' ? [] : array_map('trim', explode(',', $amenities));
-}
-
-$pageTitle = 'Travly — Выбор отеля';
-?>
-
+class TourView extends View {
+    public function render() {
+        $tour = $this->data['tour'] ?? null;
+        $error = $this->data['error'] ?? null;
+        $services = $this->data['services'] ?? [];
+        $amenities = $this->data['amenities'] ?? [];
+        
+        if ($error || !$tour) {
+            ?>
+<main class="selection-main">
+    <section class="selection-hero">
+        <div class="selection-header">
+            <h1>Ошибка</h1>
+            <h2><?= $this->escape($error ?? 'Тур не найден') ?></h2>
+        </div>
+    </section>
+</main>
+            <?php
+            return;
+        }
+        
+        $departDate = (new DateTime($tour['departure_date']))->format('d.m.Y');
+        $returnDate = (new DateTime($tour['return_date']))->format('d.m.Y');
+        
+        $imageUrl = $tour['image_url'] ?? '';
+        $isExternalUrl = !empty($imageUrl) && (substr($imageUrl, 0, 7) === 'http://' || substr($imageUrl, 0, 8) === 'https://');
+        
+        if (empty($imageUrl)) {
+            $imageUrl = 'resources/images/tours/default_tour.png';
+        } elseif (!$isExternalUrl) {
+            $fullPath = __DIR__ . '/../../../public/' . $imageUrl;
+            if (!file_exists($fullPath)) {
+                $imageUrl = 'resources/images/tours/default_tour.png';
+            }
+        }
+        ?>
 <main class="selection-main">
     <section class="selection-hero">
         <div class="selection-header">
             <h1>Выбор отеля и условий</h1>
             <h2>
-                <?= htmlspecialchars($tour['country']) ?>, 
-                <?= htmlspecialchars($tour['location']) ?>. 
-                <?= $departDate ?> – <?= $returnDate ?>
+                <?= $this->escape($tour['country']) ?>, 
+                <?= $this->escape($tour['location']) ?>. 
+                <?= $this->escape($departDate) ?> – <?= $this->escape($returnDate) ?>
             </h2>
         </div>
 
         <div class="selection-content">
             <div class="hotel-left-section">
                 <div class="booking-card">
-                    <?php
-                    $imageUrl = $tour['image_url'] ?? '';
-                    // Проверяем, является ли путь URL из интернета
-                    $isExternalUrl = !empty($imageUrl) && (str_starts_with($imageUrl, 'http://') || str_starts_with($imageUrl, 'https://'));
-                    
-                    if (empty($imageUrl)) {
-                        $imageUrl = 'resources/images/tours/default_tour.png';
-                    } elseif ($isExternalUrl) {
-                        // Внешний URL - используем как есть
-                    } else {
-                        // Для локальных путей проверяем существование файла относительно public/
-                        $fullPath = __DIR__ . '/../../public/' . $imageUrl;
-                        if (!file_exists($fullPath)) {
-                            $imageUrl = 'resources/images/tours/default_tour.png';
-                        }
-                    }
-                    ?>
                     <div class="card-image" 
-                        style="background-image: url('<?= htmlspecialchars($imageUrl) ?>'); 
+                        style="background-image: url('<?= $this->escape($imageUrl) ?>'); 
                                 width: 100%; height: 100%; border-radius: 8px;">
                     </div>
                 </div>
@@ -74,7 +63,7 @@ $pageTitle = 'Travly — Выбор отеля';
                 <h3>Информация об отеле</h3>
                 <div class="info-item">
                     <span class="info-label">Название отеля:</span>
-                    <span class="info-value"><?= htmlspecialchars($tour['hotel_name']) ?></span>
+                    <span class="info-value"><?= $this->escape($tour['hotel_name']) ?></span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Категория:</span>
@@ -86,28 +75,28 @@ $pageTitle = 'Travly — Выбор отеля';
                 <div class="info-item">
                     <span class="info-label">Расположение:</span>
                     <span class="info-value">
-                        <?= htmlspecialchars($tour['location']) ?>, 
-                        <?= htmlspecialchars($tour['arrival_point']) ?> (аэропорт)
+                        <?= $this->escape($tour['location']) ?>, 
+                        <?= $this->escape($tour['arrival_point']) ?> (аэропорт)
                     </span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Пляж:</span>
                     <span class="info-value">
-                        <?= htmlspecialchars($tour['beach_description'] ?? 'Информация отсутствует') ?>
+                        <?= $this->escape($tour['beach_description'] ?? 'Информация отсутствует') ?>
                     </span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Услуги:</span>
                     <span class="info-value">
                         <?= !empty($amenities) 
-                            ? htmlspecialchars(implode(', ', $amenities)) 
+                            ? $this->escape(implode(', ', $amenities)) 
                             : 'Информация отсутствует' ?>
                     </span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Питание:</span>
                     <span class="info-value">
-                        <?= htmlspecialchars($tour['meal_plan'] ?? 'Информация отсутствует') ?>
+                        <?= $this->escape($tour['meal_plan'] ?? 'Информация отсутствует') ?>
                     </span>
                 </div>
             </div>
@@ -158,7 +147,7 @@ $pageTitle = 'Travly — Выбор отеля';
                     <div class="service-group">
                         <label class="service-checkbox">
                             <input type="checkbox" data-price="<?= (int) ($service['price'] ?? 0) ?>">
-                            <?= htmlspecialchars($service['service'] ?? 'Доп. услуга') ?> 
+                            <?= $this->escape($service['service'] ?? 'Доп. услуга') ?> 
                             (+<?= number_format((int) ($service['price'] ?? 0), 0, ' ', ' ') ?> ₽)
                         </label>
                     </div>
@@ -360,13 +349,11 @@ $pageTitle = 'Travly — Выбор отеля';
     function getSelectedServices() {
         const selectedServices = [];
         
-        // Получаем выбранные чекбоксы услуг
         document.querySelectorAll('.service-checkbox input[type="checkbox"]:checked').forEach(cb => {
             const label = cb.closest('label');
             if (label) {
                 const serviceText = label.textContent.trim();
                 const price = parseInt(cb.dataset.price) || 0;
-                // Извлекаем название услуги (убираем цену)
                 const serviceName = serviceText.replace(/\s*\(\+\d+[\s₽]*\)\s*$/, '').trim();
                 selectedServices.push({
                     service: serviceName,
@@ -388,7 +375,6 @@ $pageTitle = 'Travly — Выбор отеля';
             const roomPrice = parseInt(roomType?.value) || 0;
             const selectedServices = getSelectedServices();
             
-            // Сохраняем данные в сессию через AJAX
             const formData = new FormData();
             formData.append('action', 'save-booking-data');
             formData.append('tour_id', tourId);
@@ -406,10 +392,13 @@ $pageTitle = 'Travly — Выбор отеля';
             })
             .catch(err => {
                 console.error('Ошибка сохранения данных:', err);
-                // Переходим даже при ошибке
                 window.location.href = `?page=booking&id=${tourId}&adults=${adults}&children=${children}`;
             });
         });
     }
 })();
 </script>
+        <?php
+    }
+}
+

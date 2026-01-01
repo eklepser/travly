@@ -1,127 +1,103 @@
 <?php
-require_once __DIR__ . '/../../src/utils/session-helper.php';
-require_once __DIR__ . '/../../src/utils/auth-helper.php';
+require_once __DIR__ . '/../View.php';
 
-ensureSessionStarted();
-
-$user = null;
-$lastName = '';
-$firstName = '';
-$phone = '—';
-$email = '—';
-$registrationDate = '—';
-$activeBookings = [];
-$pastBookings = [];
-
-$isAdmin = checkIsAdmin();
-if (isset($_SESSION['user_id'])) {
-    try {
-        require_once __DIR__ . '/../../src/repositories/user-repository.php';
-        require_once __DIR__ . '/../../src/repositories/BookingRepository.php';
-        
-        $userRepo = new UserRepository();
-        $user = $userRepo->findById($_SESSION['user_id']);
-        
-        if ($user) {
-            $nameParts = explode(' ', trim($user['full_name']), 2);
-            $lastName = $nameParts[0] ?? '';
-            $firstName = $nameParts[1] ?? '';
+class MeView extends View {
+    private function formatDate($dateStr, $includeTime = false) {
+        if (empty($dateStr)) return '—';
+        try {
+            $date = new DateTime($dateStr);
+            $months = [
+                1 => 'января', 2 => 'февраля', 3 => 'марта', 4 => 'апреля',
+                5 => 'мая', 6 => 'июня', 7 => 'июля', 8 => 'августа',
+                9 => 'сентября', 10 => 'октября', 11 => 'ноября', 12 => 'декабря'
+            ];
             
-            $phone = $user['phone'] ?? '—';
-            $email = $user['email'] ?? '—';
-            
-            if (!empty($user['created_at'])) {
-                $date = new DateTime($user['created_at']);
-                $registrationDate = $date->format('d.m.Y');
+            if ($includeTime) {
+                $month = (int)$date->format('n');
+                $monthName = $months[$month] ?? '';
+                return $date->format('Y год, d') . ' ' . $monthName . ', ' . $date->format('H:i') . ' (МСК)';
             }
+            return $date->format('d.m.Y');
+        } catch (Exception $e) {
+            return $dateStr;
         }
-
-        $bookingRepo = new BookingRepository();
-        $bookings = $bookingRepo->getUserBookings($_SESSION['user_id']);
-        $activeBookings = $bookings['active'] ?? [];
-        $pastBookings = $bookings['past'] ?? [];
-    } catch (Exception $e) {
     }
-}
-
-function formatDate($dateStr, $includeTime = false) {
-    if (empty($dateStr)) return '—';
-    try {
-        $date = new DateTime($dateStr);
-        $months = [
-            1 => 'января', 2 => 'февраля', 3 => 'марта', 4 => 'апреля',
-            5 => 'мая', 6 => 'июня', 7 => 'июля', 8 => 'августа',
-            9 => 'сентября', 10 => 'октября', 11 => 'ноября', 12 => 'декабря'
-        ];
+    
+    private function calculateNights($arrivalDate, $returnDate) {
+        if (empty($arrivalDate) || empty($returnDate)) return '—';
+        try {
+            $arrival = new DateTime($arrivalDate);
+            $return = new DateTime($returnDate);
+            $diff = $arrival->diff($return);
+            $nights = $diff->days;
+            return $nights . ' ' . $this->getNightWord($nights);
+        } catch (Exception $e) {
+            return '—';
+        }
+    }
+    
+    private function getNightWord($nights) {
+        $lastDigit = $nights % 10;
+        $lastTwoDigits = $nights % 100;
         
-        if ($includeTime) {
-            $month = (int)$date->format('n');
-            $monthName = $months[$month] ?? '';
-            return $date->format('Y год, d') . ' ' . $monthName . ', ' . $date->format('H:i') . ' (МСК)';
+        if ($lastTwoDigits >= 11 && $lastTwoDigits <= 14) {
+            return 'ночей';
         }
-        return $date->format('d.m.Y');
-    } catch (Exception $e) {
-        return $dateStr;
-    }
-}
-
-function calculateNights($arrivalDate, $returnDate) {
-    if (empty($arrivalDate) || empty($returnDate)) return '—';
-    try {
-        $arrival = new DateTime($arrivalDate);
-        $return = new DateTime($returnDate);
-        $diff = $arrival->diff($return);
-        $nights = $diff->days;
-        return $nights . ' ' . getNightWord($nights);
-    } catch (Exception $e) {
-        return '—';
-    }
-}
-
-function getNightWord($nights) {
-    $lastDigit = $nights % 10;
-    $lastTwoDigits = $nights % 100;
-    
-    if ($lastTwoDigits >= 11 && $lastTwoDigits <= 14) {
-        return 'ночей';
+        
+        if ($lastDigit == 1) {
+            return 'ночь';
+        } elseif ($lastDigit >= 2 && $lastDigit <= 4) {
+            return 'ночи';
+        } else {
+            return 'ночей';
+        }
     }
     
-    if ($lastDigit == 1) {
-        return 'ночь';
-    } elseif ($lastDigit >= 2 && $lastDigit <= 4) {
-        return 'ночи';
-    } else {
-        return 'ночей';
-    }
-}
-
-function formatPrice($price) {
-    return number_format((float)$price, 0, ',', ' ') . ' рублей';
-}
-
-function getTouristsInfo($booking) {
-    $count = (int)($booking['tourists_count'] ?? 0);
-    if ($count == 0) return '—';
-    return $count . ' ' . getTouristWord($count);
-}
-
-function getTouristWord($count) {
-    $lastDigit = $count % 10;
-    $lastTwoDigits = $count % 100;
-    
-    if ($lastTwoDigits >= 11 && $lastTwoDigits <= 14) {
-        return 'туристов';
+    private function formatPrice($price) {
+        return number_format((float)$price, 0, ',', ' ') . ' рублей';
     }
     
-    if ($lastDigit == 1) {
-        return 'турист';
-    } elseif ($lastDigit >= 2 && $lastDigit <= 4) {
-        return 'туриста';
-    } else {
-        return 'туристов';
+    private function getTouristsInfo($booking) {
+        $count = (int)($booking['tourists_count'] ?? 0);
+        if ($count == 0) return '—';
+        return $count . ' ' . $this->getTouristWord($count);
     }
-}
-?>
+    
+    private function getTouristWord($count) {
+        $lastDigit = $count % 10;
+        $lastTwoDigits = $count % 100;
+        
+        if ($lastTwoDigits >= 11 && $lastTwoDigits <= 14) {
+            return 'туристов';
+        }
+        
+        if ($lastDigit == 1) {
+            return 'турист';
+        } elseif ($lastDigit >= 2 && $lastDigit <= 4) {
+            return 'туриста';
+        } else {
+            return 'туристов';
+        }
+    }
+    
+    public function render() {
+        $user = $this->data['user'] ?? null;
+        $activeBookings = $this->data['activeBookings'] ?? [];
+        $pastBookings = $this->data['pastBookings'] ?? [];
+        $isAdmin = $this->data['isAdmin'] ?? false;
+        
+        if (!$user) {
+            ?>
+<main class="account-main">
+    <section class="profile-section">
+        <h1 class="profile-title">Ошибка</h1>
+        <p>Пользователь не найден</p>
+    </section>
+</main>
+            <?php
+            return;
+        }
+        ?>
 <main class="account-main">
     <section class="profile-section">
         <h1 class="profile-title">Личный кабинет</h1>
@@ -132,15 +108,15 @@ function getTouristWord($count) {
                     <div class="info-group">
                         <label>Фамилия</label>
                         <div class="info-field" style="text-align: center;">
-                            <span class="text-value"><?= htmlspecialchars($lastName) ?></span>
-                            <input type="text" class="edit-input" value="<?= htmlspecialchars($lastName) ?>" style="display: none; text-align: center;">
+                            <span class="text-value"><?= $this->escape($user['lastName']) ?></span>
+                            <input type="text" class="edit-input" value="<?= $this->escape($user['lastName']) ?>" style="display: none; text-align: center;">
                         </div>
                     </div>
                     <div class="info-group">
                         <label>Имя</label>
                         <div class="info-field" style="text-align: center;">
-                            <span class="text-value"><?= htmlspecialchars($firstName) ?></span>
-                            <input type="text" class="edit-input" value="<?= htmlspecialchars($firstName) ?>" style="display: none; text-align: center;">
+                            <span class="text-value"><?= $this->escape($user['firstName']) ?></span>
+                            <input type="text" class="edit-input" value="<?= $this->escape($user['firstName']) ?>" style="display: none; text-align: center;">
                         </div>
                     </div>
                 </div>
@@ -148,11 +124,11 @@ function getTouristWord($count) {
                 <div class="info-row">
                     <div class="info-group">
                         <label>Номер телефона</label>
-                        <div class="info-field"><span><?= htmlspecialchars($phone) ?></span></div>
+                        <div class="info-field"><span><?= $this->escape($user['phone']) ?></span></div>
                     </div>
                     <div class="info-group">
                         <label>E-mail адрес</label>
-                        <div class="info-field"><span><?= htmlspecialchars($email) ?></span></div>
+                        <div class="info-field"><span><?= $this->escape($user['email']) ?></span></div>
                     </div>
                 </div>
 
@@ -163,7 +139,7 @@ function getTouristWord($count) {
                     </div>
                     <div class="info-group">
                         <label>Дата регистрации</label>
-                        <div class="info-field"><span><?= htmlspecialchars($registrationDate) ?></span></div>
+                        <div class="info-field"><span><?= $this->escape($user['registrationDate']) ?></span></div>
                     </div>
                 </div>
 
@@ -176,6 +152,12 @@ function getTouristWord($count) {
                 <div class="logo">
                     <span class="logo-text">Trav<span class="logo-text-highlight">ly</span></span>
                     <div class="logo-icon"></div>
+                </div>
+
+                <div class="promo-section" style="display: none;">
+                    <label class="promo-label">Активировать промокод</label>
+                    <input type="text" value="TRAVLYPROMO">
+                    <button class="activate-btn" onclick="testPromo()">Активировать</button>
                 </div>
             </div>
         </div>
@@ -191,10 +173,10 @@ function getTouristWord($count) {
         <section class="booking-hero" data-booking-id="<?= $booking['booking_id'] ?>">
             <div class="booking-content">
                 <div class="booking-card-wrapper">
-                    <h2><?= htmlspecialchars($booking['country'] ?? '') ?>, <?= htmlspecialchars($booking['city'] ?? '') ?>. <?= formatDate($booking['arrival_date'] ?? '') ?>–<?= formatDate($booking['return_date'] ?? '') ?></h2>
+                    <h2><?= $this->escape($booking['country'] ?? '') ?>, <?= $this->escape($booking['city'] ?? '') ?>. <?= $this->formatDate($booking['arrival_date'] ?? '') ?>–<?= $this->formatDate($booking['return_date'] ?? '') ?></h2>
                     <div class="booking-card">
                         <?php if (!empty($booking['image_url'])): ?>
-                            <img src="<?= htmlspecialchars($booking['image_url']) ?>" alt="Тур" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="<?= $this->escape($booking['image_url']) ?>" alt="Тур" style="width: 100%; height: 100%; object-fit: cover;">
                         <?php else: ?>
                             <div class="card-image"></div>
                         <?php endif; ?>
@@ -207,33 +189,34 @@ function getTouristWord($count) {
                     <div class="info-grid">
                         <div class="info-item">
                             <span class="info-label">Место отправления:</span>
-                            <span class="info-value"><?= htmlspecialchars($booking['departure_point'] ?? '—') ?></span>
+                            <span class="info-value"><?= $this->escape($booking['departure_point'] ?? '—') ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Дата отправления:</span>
-                            <span class="info-value"><?= formatDate($booking['departure_date'] ?? '', true) ?></span>
+                            <span class="info-value"><?= $this->formatDate($booking['departure_date'] ?? '', true) ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Место прибытия:</span>
-                            <span class="info-value"><?= htmlspecialchars($booking['arrival_point'] ?? '—') ?></span>
+                            <span class="info-value"><?= $this->escape($booking['arrival_point'] ?? '—') ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Дата прибытия:</span>
-                            <span class="info-value"><?= formatDate($booking['arrival_date'] ?? '', true) ?></span>
+                            <span class="info-value"><?= $this->formatDate($booking['arrival_date'] ?? '', true) ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Место отъезда:</span>
-                            <span class="info-value"><?= htmlspecialchars($booking['return_point'] ?? '—') ?></span>
+                            <span class="info-value"><?= $this->escape($booking['return_point'] ?? '—') ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Дата отъезда:</span>
-                            <span class="info-value"><?= formatDate($booking['return_date'] ?? '', true) ?></span>
+                            <span class="info-value"><?= $this->formatDate($booking['return_date'] ?? '', true) ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Отель:</span>
-                            <span class="info-value"><?= htmlspecialchars($booking['hotel_name'] ?? '—') ?> <?= !empty($booking['hotel_rating']) ? '(' . $booking['hotel_rating'] . ' звезды)' : '' ?></span>
+                            <span class="info-value"><?= $this->escape($booking['hotel_name'] ?? '—') ?> <?= !empty($booking['hotel_rating']) ? '(' . $booking['hotel_rating'] . ' звезды)' : '' ?></span>
                         </div>
-                        <?php if (!empty($booking['services'])): 
+                        <?php 
+                        if (!empty($booking['services'])): 
                             $services = is_string($booking['services']) ? json_decode($booking['services'], true) : $booking['services'];
                             if (is_array($services) && !empty($services)): 
                                 $serviceNames = [];
@@ -247,20 +230,20 @@ function getTouristWord($count) {
                                 if (!empty($serviceNames)): ?>
                         <div class="info-item">
                             <span class="info-label">Доп. услуги:</span>
-                            <span class="info-value"><?= htmlspecialchars(implode(', ', $serviceNames)) ?></span>
+                            <span class="info-value"><?= $this->escape(implode(', ', $serviceNames)) ?></span>
                         </div>
                         <?php endif; endif; endif; ?>
                         <div class="info-item">
                             <span class="info-label">Длительность тура:</span>
-                            <span class="info-value"><?= calculateNights($booking['arrival_date'] ?? '', $booking['return_date'] ?? '') ?></span>
+                            <span class="info-value"><?= $this->calculateNights($booking['arrival_date'] ?? '', $booking['return_date'] ?? '') ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Туристы:</span>
-                            <span class="info-value"><?= getTouristsInfo($booking) ?></span>
+                            <span class="info-value"><?= $this->getTouristsInfo($booking) ?></span>
                         </div>
                         <div class="info-item total-cost">
                             <span class="info-label">Стоимость тура</span>
-                            <span class="info-value"><?= formatPrice($booking['total_price'] ?? 0) ?></span>
+                            <span class="info-value"><?= $this->formatPrice($booking['total_price'] ?? 0) ?></span>
                         </div>
                     </div>
                 </div>
@@ -280,10 +263,10 @@ function getTouristWord($count) {
         <section class="booking-hero" data-booking-id="<?= $booking['booking_id'] ?>" style="opacity: 0.8;">
             <div class="booking-content">
                 <div class="booking-card-wrapper">
-                    <h2><?= htmlspecialchars($booking['country'] ?? '') ?>, <?= htmlspecialchars($booking['city'] ?? '') ?>. <?= formatDate($booking['arrival_date'] ?? '') ?>–<?= formatDate($booking['return_date'] ?? '') ?></h2>
+                    <h2><?= $this->escape($booking['country'] ?? '') ?>, <?= $this->escape($booking['city'] ?? '') ?>. <?= $this->formatDate($booking['arrival_date'] ?? '') ?>–<?= $this->formatDate($booking['return_date'] ?? '') ?></h2>
                     <div class="booking-card">
                         <?php if (!empty($booking['image_url'])): ?>
-                            <img src="<?= htmlspecialchars($booking['image_url']) ?>" alt="Тур" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="<?= $this->escape($booking['image_url']) ?>" alt="Тур" style="width: 100%; height: 100%; object-fit: cover;">
                         <?php else: ?>
                             <div class="card-image"></div>
                         <?php endif; ?>
@@ -295,33 +278,34 @@ function getTouristWord($count) {
                     <div class="info-grid">
                         <div class="info-item">
                             <span class="info-label">Место отправления:</span>
-                            <span class="info-value"><?= htmlspecialchars($booking['departure_point'] ?? '—') ?></span>
+                            <span class="info-value"><?= $this->escape($booking['departure_point'] ?? '—') ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Дата отправления:</span>
-                            <span class="info-value"><?= formatDate($booking['departure_date'] ?? '', true) ?></span>
+                            <span class="info-value"><?= $this->formatDate($booking['departure_date'] ?? '', true) ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Место прибытия:</span>
-                            <span class="info-value"><?= htmlspecialchars($booking['arrival_point'] ?? '—') ?></span>
+                            <span class="info-value"><?= $this->escape($booking['arrival_point'] ?? '—') ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Дата прибытия:</span>
-                            <span class="info-value"><?= formatDate($booking['arrival_date'] ?? '', true) ?></span>
+                            <span class="info-value"><?= $this->formatDate($booking['arrival_date'] ?? '', true) ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Место отъезда:</span>
-                            <span class="info-value"><?= htmlspecialchars($booking['return_point'] ?? '—') ?></span>
+                            <span class="info-value"><?= $this->escape($booking['return_point'] ?? '—') ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Дата отъезда:</span>
-                            <span class="info-value"><?= formatDate($booking['return_date'] ?? '', true) ?></span>
+                            <span class="info-value"><?= $this->formatDate($booking['return_date'] ?? '', true) ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Отель:</span>
-                            <span class="info-value"><?= htmlspecialchars($booking['hotel_name'] ?? '—') ?> <?= !empty($booking['hotel_rating']) ? '(' . $booking['hotel_rating'] . ' звезды)' : '' ?></span>
+                            <span class="info-value"><?= $this->escape($booking['hotel_name'] ?? '—') ?> <?= !empty($booking['hotel_rating']) ? '(' . $booking['hotel_rating'] . ' звезды)' : '' ?></span>
                         </div>
-                        <?php if (!empty($booking['services'])): 
+                        <?php 
+                        if (!empty($booking['services'])): 
                             $services = is_string($booking['services']) ? json_decode($booking['services'], true) : $booking['services'];
                             if (is_array($services) && !empty($services)): 
                                 $serviceNames = [];
@@ -335,20 +319,20 @@ function getTouristWord($count) {
                                 if (!empty($serviceNames)): ?>
                         <div class="info-item">
                             <span class="info-label">Доп. услуги:</span>
-                            <span class="info-value"><?= htmlspecialchars(implode(', ', $serviceNames)) ?></span>
+                            <span class="info-value"><?= $this->escape(implode(', ', $serviceNames)) ?></span>
                         </div>
                         <?php endif; endif; endif; ?>
                         <div class="info-item">
                             <span class="info-label">Длительность тура:</span>
-                            <span class="info-value"><?= calculateNights($booking['arrival_date'] ?? '', $booking['return_date'] ?? '') ?></span>
+                            <span class="info-value"><?= $this->calculateNights($booking['arrival_date'] ?? '', $booking['return_date'] ?? '') ?></span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Туристы:</span>
-                            <span class="info-value"><?= getTouristsInfo($booking) ?></span>
+                            <span class="info-value"><?= $this->getTouristsInfo($booking) ?></span>
                         </div>
                         <div class="info-item total-cost">
                             <span class="info-label">Стоимость тура</span>
-                            <span class="info-value"><?= formatPrice($booking['total_price'] ?? 0) ?></span>
+                            <span class="info-value"><?= $this->formatPrice($booking['total_price'] ?? 0) ?></span>
                         </div>
                     </div>
                 </div>
@@ -418,3 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+        <?php
+    }
+}
+

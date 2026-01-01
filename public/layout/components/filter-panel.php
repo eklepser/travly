@@ -1,5 +1,5 @@
 <?php
-$filterOptions = $filterOptions ?? ['countries' => [], 'hotels' => [], 'maxCapacity' => 4, 'tourTypes' => []];
+$filterOptions = $filterOptions ?? $GLOBALS['filterOptions'] ?? ['countries' => [], 'hotels' => [], 'maxCapacity' => 4, 'tourTypes' => []];
 ?>
 <div class="filters" data-filter-options='<?= json_encode($filterOptions, JSON_UNESCAPED_UNICODE) ?>'>
     <h2 class="filters-title">Подобрать тур</h2>

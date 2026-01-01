@@ -34,7 +34,7 @@ function uploadTourImage($file, $tourId = null) {
     if (function_exists('finfo_open')) {
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo, $file['tmp_name']);
-        finfo_close($finfo);
+        // finfo_close() не нужен в PHP 8.5+, объекты освобождаются автоматически
     } else {
         $mimeType = mime_content_type($file['tmp_name']);
         if (!$mimeType) {

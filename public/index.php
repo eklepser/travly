@@ -142,13 +142,34 @@ if ($page === 'me' && !isset($_SESSION['user_id'])) {
     header('Location: ?page=auth');
     exit;
 }
+
+// Загружаем MVC классы
+require_once '../src/mvc/autoload.php';
+
+// Маппинг страниц на контроллеры
+$controllers = [
+    'main' => 'MainController',
+    'search' => 'SearchController',
+    'about' => 'AboutController',
+    'help' => 'HelpController',
+    'auth' => 'AuthController',
+    'registration' => 'RegistrationController',
+    'me' => 'MeController',
+    'tour' => 'TourController',
+    'booking' => 'BookingController'
+];
+
+$controllerClass = $controllers[$page] ?? 'MainController';
+
+$pageTitle = 'Travly';
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travly</title>
+  <title><?= htmlspecialchars($pageTitle) ?></title>
   <link rel="stylesheet" href="style/styles.css">
 </head>
 <body class="main-page-body<?= $isAdmin ? ' admin-mode' : '' ?>">
@@ -157,7 +178,29 @@ if ($page === 'me' && !isset($_SESSION['user_id'])) {
 
 <?php if ($isAdmin) { require_once 'layout/components/admin-panel.php'; } ?>
 
-<?php include "layout/{$page}.php"; ?>
+<?php
+// Создаем и запускаем контроллер
+try {
+    $controller = new $controllerClass();
+    $controller->handle();
+} catch (Exception $e) {
+    error_log("[index.php] Error in controller {$controllerClass}: " . $e->getMessage());
+    error_log("[index.php] Stack trace: " . $e->getTraceAsString());
+    if (ini_get('display_errors')) {
+        echo '<main><div style="padding: 40px; text-align: center;"><h1>Ошибка</h1><p>' . htmlspecialchars($e->getMessage()) . '</p><pre>' . htmlspecialchars($e->getTraceAsString()) . '</pre></div></main>';
+    } else {
+        echo '<main><div style="padding: 40px; text-align: center;"><h1>Ошибка</h1><p>Произошла ошибка при загрузке страницы.</p></div></main>';
+    }
+} catch (Error $e) {
+    error_log("[index.php] Fatal error in controller {$controllerClass}: " . $e->getMessage());
+    error_log("[index.php] Stack trace: " . $e->getTraceAsString());
+    if (ini_get('display_errors')) {
+        echo '<main><div style="padding: 40px; text-align: center;"><h1>Критическая ошибка</h1><p>' . htmlspecialchars($e->getMessage()) . '</p><pre>' . htmlspecialchars($e->getTraceAsString()) . '</pre></div></main>';
+    } else {
+        echo '<main><div style="padding: 40px; text-align: center;"><h1>Ошибка</h1><p>Произошла ошибка при загрузке страницы.</p></div></main>';
+    }
+}
+?>
 
 <?php require_once 'layout/footer.php'; ?>
 

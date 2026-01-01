@@ -4,16 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 $pageTitle = $pageTitle ?? 'Travly';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style/styles.css">
-    <title><?= htmlspecialchars($pageTitle) ?></title>
-</head>
-<body>
-
 <header>
     <div class="logo" onclick="location.href='/'">
         <span class="logo-text">Trav<span class="logo-text-highlight">ly</span></span>
@@ -26,7 +16,8 @@ $pageTitle = $pageTitle ?? 'Travly';
     <button class="nav-button" onclick="location.href='?page=help'">Помощь</button>
    <?php 
    if (isset($_SESSION['user_id'])): 
-       require_once __DIR__ . '/../../src/repositories/user-repository.php';
+       require_once __DIR__ . '/../../src/config/database.php';
+       require_once __DIR__ . '/../../src/repositories/UserRepository.php';
        $userRepo = new UserRepository();
        $user = $userRepo->findById($_SESSION['user_id']);
        $userName = $user ? $user['full_name'] : 'Пользователь';

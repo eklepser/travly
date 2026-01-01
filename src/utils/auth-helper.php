@@ -6,7 +6,7 @@ function checkIsAdmin() {
     }
     
     require_once __DIR__ . '/../config/database.php';
-    require_once __DIR__ . '/../repositories/user-repository.php';
+    require_once __DIR__ . '/../repositories/UserRepository.php';
     
     $userRepo = new UserRepository();
     $user = $userRepo->findById($_SESSION['user_id']);
