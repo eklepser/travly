@@ -15,7 +15,7 @@ $pageTitle = $pageTitle ?? 'Travly';
 <body>
 
 <header>
-    <div class="logo">
+    <div class="logo" onclick="location.href='/'">
         <span class="logo-text">Trav<span class="logo-text-highlight">ly</span></span>
         <div class="logo-icon"></div>
     </div>
