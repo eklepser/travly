@@ -403,7 +403,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const formData = new FormData(this);
     
-    // Проверяем обязательные поля
     if (!formData.get('vacation_type') || !formData.get('country') || !formData.get('city') || 
         !formData.get('departure_point') || !formData.get('departure_date') || 
         !formData.get('arrival_date') || !formData.get('return_date') || !formData.get('base_price')) {

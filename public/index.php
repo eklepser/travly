@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 
 require_once '../src/utils/session-helper.php';
@@ -9,53 +9,20 @@ require_once '../src/utils/auth-helper.php';
 ensureSessionStarted();
 $isAdmin = checkIsAdmin();
 if ($isAdmin && isset($_GET['action'])) {
-    require_once '../src/handlers/admin-actions.php';
-    require_once '../src/handlers/filter-tours.php';
-    require_once '../src/handlers/filter-options.php';
-    require_once '../src/handlers/hotels-by-country.php';
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'add-tour') {
-        handleAddTour();
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'add-hotel') {
-        handleAddHotel();
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'update-tour') {
-        handleUpdateTour();
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'delete-tour') {
-        handleDeleteTour();
-    }
-
-    if ($_GET['action'] === 'get-hotels') {
-        handleGetHotels();
-    }
-
-    if ($_GET['action'] === 'get-tour') {
-        handleGetTour();
+    require_once '../src/core/autoload.php';
+    
+    if (in_array($_GET['action'], ['add-tour', 'add-hotel', 'update-tour', 'delete-tour', 'get-hotels', 'get-tour'])) {
+        $controllerClass = 'AdminController';
+        $controller = new $controllerClass();
+        $controller->handle();
+        exit;
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'register') {
-    require_once '../src/config/database.php';
-    require_once '../src/handlers/auth.php';
-    handleRegister();
-    exit;
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
-    require_once '../src/config/database.php';
-    require_once '../src/handlers/auth.php';
-    handleLogin();
-    exit;
-}
-
-if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-    require_once '../src/handlers/auth.php';
-    handleLogout();
+if (isset($_GET['action']) && in_array($_GET['action'], ['register', 'login', 'logout'])) {
+    require_once '../src/core/autoload.php';
+    $controller = new AuthController();
+    $controller->handle();
     exit;
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'save-booking-data') {
@@ -85,14 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'create-booking') {
-    require_once '../src/config/database.php';
+    require_once '../src/core/database.php';
     require_once '../src/handlers/booking.php';
     handleCreateBooking();
     exit;
 }
 if (isset($_GET['action']) && $_GET['action'] === 'cancel-booking') {
-    require_once '../src/config/database.php';
-    require_once '../src/repositories/BookingRepository.php';
+    require_once '../src/core/database.php';
+    require_once '../src/models/repositories/BookingRepository.php';
     
     header('Content-Type: application/json');
     
@@ -132,7 +99,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'cancel-booking') {
     exit;
 }
 
-require_once '../src/config/database.php';
+require_once '../src/core/database.php';
 
 $page = $_GET['page'] ?? 'main';
 $allowedPages = ['main', 'search', 'about', 'help', 'auth', 'registration', 'me', 'tour', 'booking']; 
@@ -143,10 +110,8 @@ if ($page === 'me' && !isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Загружаем MVC классы
-require_once '../src/mvc/autoload.php';
+require_once '../src/core/autoload.php';
 
-// Маппинг страниц на контроллеры
 $controllers = [
     'main' => 'MainController',
     'search' => 'SearchController',
@@ -179,7 +144,6 @@ $pageTitle = 'Travly';
 <?php if ($isAdmin) { require_once 'layout/components/admin-panel.php'; } ?>
 
 <?php
-// Создаем и запускаем контроллер
 try {
     $controller = new $controllerClass();
     $controller->handle();

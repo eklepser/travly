@@ -4,46 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add sort options logic">
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/abkhazia_gagra.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/armenia_yerevan.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/bulgaria_sunny_beach.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/costa_rica_san_jose.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/finland_rovaniemi.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/georgia_batumi.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/iceland_reykjavik.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/japan_kyoto.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/kazakhstan_almaty.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/kyrgyzstan_cholpon_ata.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/montenegro_budva.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/morocco_marrakech.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/new_zealand_auckland.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/norway_tromso.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/peru_cusco.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/russia_yalta.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/serbia_belgrade.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/switzerland_zurich.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/thailand_chiang_mai.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/resources/images/tours/uzbekistan_samarkand.jpg" afterDir="false" />
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/components/filter-panel.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/components/filter-panel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/search.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/search.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/tour.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/tour.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/Untitled.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/egypt_hurghada.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/images/tours/egypt_hurghada.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/italy_rimini.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/images/tours/italy_rimini.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/photo_5287278374478876238_y.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/photo_5287278374478876239_y.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/turkey_alanya.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/images/tours/turkey_alanya.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/turkey_alanya_new.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/images/tours/turkey_kemer.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/resources/images/tours/turkey_kemer.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/script/filters.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/script/filters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/main.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/layout/components/modal-add-tour.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/components/modal-add-tour.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/layout/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/admin-actions.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/admin-actions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handlers/booking.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/booking.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/handlers/filter-options.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/filter-options.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/handlers/filter-tours.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/filter-tours.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/handlers/hotels-by-country.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/hotels-by-country.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/Model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/autoload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/controllers/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controllers/MainController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/models/AuthModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/AuthModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/models/BookingModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/BookingModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/models/MainModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/MainModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/models/MeModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/MeModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/models/RegistrationModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/RegistrationModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/models/SearchModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/SearchModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/models/TourModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/TourModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/views/MainView.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/views/MainView.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mvc/views/SearchView.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/views/SearchView.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repositories/BookingRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repositories/HotelRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repositories/TourRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repositories/TouristRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repositories/UserRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/TourCardRenderer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/auth-helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/auth-helper.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +58,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -201,31 +193,18 @@
       <workItem from="1764542302025" duration="635000" />
       <workItem from="1764591300086" duration="3092000" />
       <workItem from="1764658635360" duration="173000" />
-      <workItem from="1764788770557" duration="10795000" />
-    </task>
-    <task id="LOCAL-00001" summary="chore: initial commit">
-      <option name="closed" value="true" />
-      <created>1760377610787</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1760377610787</updated>
-    </task>
-    <task id="LOCAL-00002" summary="feat: add page loading script">
-      <option name="closed" value="true" />
-      <created>1760382989958</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1760382989958</updated>
-    </task>
-    <task id="LOCAL-00003" summary="feat: add simple banner on main page">
-      <option name="closed" value="true" />
-      <created>1760386087093</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1760386087093</updated>
+      <workItem from="1764788770557" duration="10845000" />
+      <workItem from="1764847524516" duration="5307000" />
+      <workItem from="1764872526630" duration="2950000" />
+      <workItem from="1764884175555" duration="2320000" />
+      <workItem from="1764923042333" duration="2000" />
+      <workItem from="1765104097351" duration="779000" />
+      <workItem from="1765465322707" duration="59000" />
+      <workItem from="1765471163137" duration="394000" />
+      <workItem from="1765718265241" duration="2841000" />
+      <workItem from="1765805595993" duration="3723000" />
+      <workItem from="1767301377563" duration="2645000" />
+      <workItem from="1767736827187" duration="614000" />
     </task>
     <task id="LOCAL-00004" summary="feat: add cards panel">
       <option name="closed" value="true" />
@@ -555,7 +534,71 @@
       <option name="project" value="LOCAL" />
       <updated>1764795362447</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="feat: add tours type sections">
+      <option name="closed" value="true" />
+      <created>1764802227379</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1764802227379</updated>
+    </task>
+    <task id="LOCAL-00046" summary="feat: add tours modal window">
+      <option name="closed" value="true" />
+      <created>1764851538781</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1764851538781</updated>
+    </task>
+    <task id="LOCAL-00047" summary="feat: add tour deleting handler">
+      <option name="closed" value="true" />
+      <created>1764882499267</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1764882499267</updated>
+    </task>
+    <task id="LOCAL-00048" summary="feat: add tour editing handler">
+      <option name="closed" value="true" />
+      <created>1764885095390</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1764885095390</updated>
+    </task>
+    <task id="LOCAL-00049" summary="feat: add web-urls support for tour images">
+      <option name="closed" value="true" />
+      <created>1764886474343</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1764886474343</updated>
+    </task>
+    <task id="LOCAL-00050" summary="feat: remove change account info button">
+      <option name="closed" value="true" />
+      <created>1765720507882</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1765720507882</updated>
+    </task>
+    <task id="LOCAL-00051" summary="refactor: prepare for global mvc refactoring">
+      <option name="closed" value="true" />
+      <created>1767301455217</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1767301455217</updated>
+    </task>
+    <task id="LOCAL-00052" summary="refactor: implement mvc">
+      <option name="closed" value="true" />
+      <created>1767305525347</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1767305525347</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,6 +613,11 @@
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/master" />
                 </option>
               </RecentGroup>
             </list>
@@ -606,14 +654,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: move header closer to center" />
-    <MESSAGE value="feat: set elements on account page" />
-    <MESSAGE value="feat: add hotel selection page" />
-    <MESSAGE value="fix: fix cards size" />
-    <MESSAGE value="refactor: remove css-code duplication" />
-    <MESSAGE value="fix: restore search.html" />
-    <MESSAGE value="feat: add animated slider" />
-    <MESSAGE value="feat: add less based styles" />
     <MESSAGE value="refactor: remove old css files" />
     <MESSAGE value="fix: remove duplicate code" />
     <MESSAGE value="refactor: move common code in base.less" />
@@ -631,6 +671,14 @@
     <MESSAGE value="feat: add filters logic" />
     <MESSAGE value="feat: improve filters logic" />
     <MESSAGE value="feat: add sort options logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add sort options logic" />
+    <MESSAGE value="feat: add tours type sections" />
+    <MESSAGE value="feat: add tours modal window" />
+    <MESSAGE value="feat: add tour deleting handler" />
+    <MESSAGE value="feat: add tour editing handler" />
+    <MESSAGE value="feat: add web-urls support for tour images" />
+    <MESSAGE value="feat: remove change account info button" />
+    <MESSAGE value="refactor: prepare for global mvc refactoring" />
+    <MESSAGE value="refactor: implement mvc" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: implement mvc" />
   </component>
 </project>
