@@ -2,6 +2,12 @@
 @import "main.less";
 .main-page {
   display: flex;
+  flex-direction: column;
+
+  @media (min-width: 769px) {
+    flex-direction: row;
+  }
+
   .tours-section {
     .flex-column();
     justify-content: flex-start;
@@ -13,8 +19,8 @@
 }
 .cards-panel {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 12px;
   justify-items: stretch;
 
   > * {
@@ -25,6 +31,15 @@
 
   .card {
     max-width: 100%;
+  }
+
+  @media (min-width: 481px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (min-width: 1025px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 .sorting-options {
@@ -42,11 +57,20 @@
 }
 .booking-content {
   display: flex;
+  flex-direction: column;
+
+  @media (min-width: 769px) {
+    flex-direction: row;
+  }
 }
 .booking-left-section {
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+
+  @media (min-width: 769px) {
+    width: 40%;
+  }
 }
 .booking-card {
   flex-shrink: 0;
@@ -174,11 +198,20 @@
 }
 .selection-content {
   display: flex;
+  flex-direction: column;
+
+  @media (min-width: 769px) {
+    flex-direction: row;
+  }
 }
 .hotel-left-section {
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+
+  @media (min-width: 769px) {
+    width: 40%;
+  }
 }
 .hotel-info {
   flex: 1;

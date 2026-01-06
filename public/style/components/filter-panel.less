@@ -2,10 +2,18 @@
 
 .filters {
   .card-container(@profile-gradient);
-  width: 340px;
-  padding: 28px;
+  width: 100%;
+  padding: 20px;
   border-radius: 12px;
-  min-height: 1200px;
+  min-height: auto;
+  margin-bottom: 20px;
+
+  @media (min-width: 769px) {
+    width: 340px;
+    padding: 28px;
+    min-height: 1200px;
+    margin-bottom: 0;
+  }
 }
 
 .filters-title {

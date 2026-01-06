@@ -4,8 +4,8 @@
   position: relative;
   width: 100%;
   max-width: 450px;
-  height: 240px;
-  border-radius: 16px;
+  height: 200px;
+  border-radius: 12px;
   overflow: hidden;
   background: @white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -15,11 +15,18 @@
           box-shadow 0.3s ease,
           filter 0.3s ease;
 
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow:
-            0 10px 25px rgba(0, 0, 0, 0.25),
-            0 6px 10px rgba(0, 0, 0, 0.12);
+  @media (min-width: 481px) {
+    height: 240px;
+    border-radius: 16px;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow:
+              0 10px 25px rgba(0, 0, 0, 0.25),
+              0 6px 10px rgba(0, 0, 0, 0.12);
+    }
   }
 
   &-image {
@@ -43,46 +50,73 @@
   &-top,
   &-bottom {
     position: absolute;
-    left: 16px;
-    right: 16px;
+    left: 12px;
+    right: 12px;
     .flex-center();
     justify-content: space-between;
     z-index: 10;
     color: @white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    @media (min-width: 481px) {
+      left: 16px;
+      right: 16px;
+    }
   }
 
   &-top {
-    top: 16px;
+    top: 12px;
+
+    @media (min-width: 481px) {
+      top: 16px;
+    }
     align-items: flex-start;
   }
 
   &-bottom {
-    bottom: 16px;
+    bottom: 12px;
+
+    @media (min-width: 481px) {
+      bottom: 16px;
+    }
     align-items: flex-end;
   }
 
   &-location {
     .card-country {
-      .heading-medium();
+      font-size: 20px;
+      font-weight: 600;
       color: @white;
       line-height: 1.2;
+
+      @media (min-width: 481px) {
+        .heading-medium();
+      }
     }
 
     .card-city {
-      font-size: 24px;
+      font-size: 18px;
       font-style: italic;
       opacity: 0.9;
+
+      @media (min-width: 481px) {
+        font-size: 24px;
+      }
     }
   }
 
   &-rating {
     background: rgba(0, 0, 0, 0.6);
     color: @white;
-    padding: 4px 13px;
+    padding: 4px 10px;
     border-radius: 6px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
+
+    @media (min-width: 481px) {
+      padding: 4px 13px;
+      font-size: 16px;
+    }
   }
 
   &-hotel-info {
@@ -90,14 +124,22 @@
   }
 
   .hotel-stars {
-    font-size: 24px;
+    font-size: 18px;
     color: @white;
     margin-bottom: 4px;
+
+    @media (min-width: 481px) {
+      font-size: 24px;
+    }
   }
 
   .hotel-name {
-    font-size: 16px;
+    font-size: 14px;
     opacity: 0.9;
+
+    @media (min-width: 481px) {
+      font-size: 16px;
+    }
   }
 
   &-details {
@@ -108,16 +150,29 @@
   .detail-item {
     .flex-center();
     gap: 4px;
-    font-size: 14px;
+    font-size: 12px;
+
+    @media (min-width: 481px) {
+      font-size: 14px;
+    }
 
     .icon {
-      font-size: 16px;
+      font-size: 14px;
+
+      @media (min-width: 481px) {
+        font-size: 16px;
+      }
     }
   }
 
   .card-price {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
-    margin-top: 8px;
+    margin-top: 6px;
+
+    @media (min-width: 481px) {
+      font-size: 16px;
+      margin-top: 8px;
+    }
   }
 }

@@ -7,57 +7,106 @@ body.main-page-body {
 
 .main-page {
   gap: 20px;
-  padding: 20px;
+  padding: 10px;
   min-height: 100vh;
 
+  @media (min-width: 481px) {
+    padding: 20px;
+  }
+
   .filters {
-    position: sticky;
-    top: 20px;
+    position: static;
+
+    @media (min-width: 769px) {
+      position: sticky;
+      top: 20px;
+    }
   }
 
   .tours-section {
     background: none;
     padding-top: 0;
     gap: 16px;
-    padding-left: 16px;
+    padding-left: 0;
     margin-bottom: 16px;
     width: 100%;
+
+    @media (min-width: 481px) {
+      padding-left: 8px;
+    }
+
+    @media (min-width: 769px) {
+      padding-left: 16px;
+    }
   }
 }
 
 .tours-title {
-  gap: 16px;
+  gap: 12px;
+
+  @media (min-width: 481px) {
+    gap: 16px;
+  }
 
   h2 {
     font-style: italic;
     font-weight: normal;
-    .heading-medium();
-    line-height: 55px;
+    font-size: 24px;
+    line-height: 1.2;
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     text-align: left;
+
+    @media (min-width: 481px) {
+      .heading-medium();
+      line-height: 55px;
+    }
   }
 }
 
 .tours-icon {
-  width: 56px;
-  height: 56px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+
+  @media (min-width: 481px) {
+    width: 56px;
+    height: 56px;
+  }
 
   &.discount-icon {
-    background: url('../../resources/icons/travel/discount.svg') no-repeat center / 56px 56px;
+    background: url('../../resources/icons/travel/discount.svg') no-repeat center / 40px 40px;
+
+    @media (min-width: 481px) {
+      background-size: 56px 56px;
+    }
   }
   &.beach-icon {
-    background: url('../../resources/icons/travel/beach.svg') no-repeat center / 56px 56px;
+    background: url('../../resources/icons/travel/beach.svg') no-repeat center / 40px 40px;
+
+    @media (min-width: 481px) {
+      background-size: 56px 56px;
+    }
   }
   &.map-icon {
-    background: url('../../resources/icons/travel/map.svg') no-repeat center / 56px 56px;
+    background: url('../../resources/icons/travel/map.svg') no-repeat center / 40px 40px;
+
+    @media (min-width: 481px) {
+      background-size: 56px 56px;
+    }
   }
 }
 
 .cards-panel {
-  padding: 16px;
-  gap: 16px;
-  border-radius: 24px;
+  padding: 12px;
+  gap: 12px;
+  border-radius: 16px;
   background: @profile-gradient;
+
+  @media (min-width: 481px) {
+    padding: 16px;
+    gap: 16px;
+    border-radius: 24px;
+  }
 }
 
 .more-tours-section {
@@ -78,6 +127,12 @@ body.main-page-body {
   flex-direction: column;
   gap: 16px;
   margin-bottom: 24px;
+
+  @media (min-width: 481px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .search-header .sorting-options {
@@ -118,9 +173,15 @@ body.main-page-body {
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
-  min-width: 250px;
+  min-width: 0;
+  width: 100%;
   box-sizing: border-box;
   z-index: 1;
+
+  @media (min-width: 481px) {
+    min-width: 250px;
+    width: auto;
+  }
   
   &:hover {
     border-color: @accent-color;

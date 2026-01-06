@@ -6,35 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/components/modal-add-tour.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/components/modal-add-tour.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/layout/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/layout/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/admin-actions.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/admin-actions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/booking.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/booking.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/filter-options.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/filter-options.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/filter-tours.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/filter-tours.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handlers/hotels-by-country.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/handlers/hotels-by-country.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/Model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/autoload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/controllers/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/controllers/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/models/AuthModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/AuthModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/models/BookingModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/BookingModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/models/MainModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/MainModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/models/MeModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/MeModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/models/RegistrationModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/RegistrationModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/models/SearchModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/SearchModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/models/TourModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/models/TourModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/views/MainView.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/views/MainView.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mvc/views/SearchView.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/mvc/views/SearchView.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repositories/BookingRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repositories/HotelRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repositories/TourRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repositories/TouristRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repositories/UserRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/TourCardRenderer.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/auth-helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/auth-helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/base.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/components/card.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/card.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/filter-panel.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/layout/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/auth.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/layout/layout.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/layout.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/main.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
