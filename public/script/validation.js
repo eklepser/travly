@@ -17,7 +17,6 @@ function setupGlobalEventHandlers() {
             if ($input.hasClass('invalid')) {
                 validateBookingField($input);
             }
-            // Обновляем стрелки при изменении полей
             if (typeof window.updateNavigation === 'function') {
                 setTimeout(() => {
                     window.updateNavigation();
@@ -29,18 +28,14 @@ function setupGlobalEventHandlers() {
             validateAuthField($(e.target));
         })
         .on('click', '.book-btn', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const $form = $('.booking-form');
-            if (validateForm($form)) {
-                if (typeof submitBooking === 'function') {
-                    submitBooking();
-                } else {
-                    alert('Бронирование прошло успешно!');
-                }
+            console.log('[Validation] Book button clicked via jQuery');
+            if (typeof window.submitBooking === 'function') {
+                console.log('[Validation] Calling window.submitBooking');
+                e.preventDefault();
+                e.stopPropagation();
+                window.submitBooking();
             }
         })
-        // Обработка submit для auth-форм теперь в самих формах
         .on('click', '.booking-form .clear-btn', function(e) {
             e.preventDefault();
             clearForm($(e.target).closest('.booking-form'));
@@ -56,7 +51,6 @@ function setValidationState($input, isValid, message = '') {
         $group.append(`<div class="error-message">${message}</div>`);
     }
     
-    // Обновляем стрелки навигации после валидации
     if (typeof updateNavigation === 'function') {
         setTimeout(() => {
             updateNavigation();
@@ -77,8 +71,6 @@ function validateBookingField($input) {
     let fieldType = '';
     let isRequired = false;
 
-    // Определяем, является ли это форма заказчика
-    // Форма заказчика имеет класс 'customer-form' или это первая форма (index 0)
     const $form = $input.closest('.tourist-form');
     const formIndex = $form.attr('data-form-index');
     const isCustomerForm = $form.hasClass('customer-form') || 
@@ -95,7 +87,6 @@ function validateBookingField($input) {
             isRequired = true;
         } else if (name.includes('_middlename')) {
             fieldType = 'middlename';
-            // Для заказчика отчество обязательно
             isRequired = isCustomerForm;
         } else if (name.includes('_birthdate')) {
             fieldType = 'birthdate';
@@ -108,30 +99,24 @@ function validateBookingField($input) {
             isRequired = !name.includes('birth-certificate');
         } else if (name.includes('_doc-department-code')) {
             fieldType = 'doc-department-code';
-            // Для заказчика все поля обязательны
             isRequired = isCustomerForm;
         } else if (name.includes('_doc-issue-date')) {
             fieldType = 'doc-issue-date';
-            // Для заказчика все поля обязательны
             isRequired = isCustomerForm;
         } else if (name.includes('_doc-issuing-authority')) {
             fieldType = 'doc-issuing-authority';
-            // Для заказчика все поля обязательны
             isRequired = isCustomerForm;
         } else if (name.includes('_birth-certificate')) {
             fieldType = 'child-doc-number';
             isRequired = true;
         } else if (name.includes('_phone')) {
             fieldType = 'phone';
-            // Для заказчика все поля обязательны
             isRequired = isCustomerForm;
         } else if (name.includes('_email')) {
             fieldType = 'email';
-            // Для заказчика все поля обязательны
             isRequired = isCustomerForm;
         } else if (name.includes('_address')) {
             fieldType = 'address';
-            // Для заказчика все поля обязательны
             isRequired = isCustomerForm;
         }
     }
@@ -140,13 +125,11 @@ function validateBookingField($input) {
         return true;
     }
     
-    // Если поле пустое и оно обязательное, показываем ошибку
     if (v === '' && isRequired) {
         setValidationState($input, false, 'Это поле обязательно для заполнения');
         return false;
     }
     
-    // Если поле пустое и оно необязательное, считаем валидным
     if (v === '' && !isRequired) {
         setValidationState($input, true, '');
         return true;
@@ -285,7 +268,6 @@ function validateForm($form) {
             const $input = $(el);
             const value = $input.val().trim();
             
-            // Валидируем все поля (validateBookingField сама определит, обязательное ли поле)
             if (!validateBookingField($input)) {
                 valid = false;
             }

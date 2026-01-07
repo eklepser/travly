@@ -13,4 +13,3 @@ require_once __DIR__ . '/../controllers/MeController.php';
 require_once __DIR__ . '/../controllers/AboutController.php';
 require_once __DIR__ . '/../controllers/HelpController.php';
 require_once __DIR__ . '/../controllers/AdminController.php';
-

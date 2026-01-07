@@ -21,7 +21,7 @@ function createPDO(): ?PDO
 
     } catch (PDOException $e) {
         error_log("[DB] Connection failed: " . $e->getMessage());
-        
+
         if (in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'])) {
             echo "<div style='color:red;background:#fee;padding:10px;border:1px solid #f99;'>";
             echo "<strong>DB connection error:</strong><br>";
@@ -33,4 +33,3 @@ function createPDO(): ?PDO
         return null;
     }
 }
-

@@ -89,10 +89,19 @@ class BookingController extends Controller {
             
             foreach ($tourists as $touristData) {
                 $touristData['user_id'] = $userId;
-                $touristId = $touristRepo->findOrCreate($touristData);
+                
+                $processedData = $this->processTouristData($touristData);
+                
+                if (!$processedData) {
+                    echo json_encode(['success' => false, 'message' => 'Ошибка при обработке данных туриста']);
+                    exit;
+                }
+                
+                $touristId = $touristRepo->findOrCreate($processedData);
                 
                 if (!$touristId) {
-                    echo json_encode(['success' => false, 'message' => 'Ошибка при обработке данных туриста']);
+                    error_log("[BookingController] Failed to create tourist. Data: " . json_encode($processedData));
+                    echo json_encode(['success' => false, 'message' => 'Ошибка при создании туриста']);
                     exit;
                 }
                 
@@ -100,8 +109,15 @@ class BookingController extends Controller {
             }
             
             $services = [];
-            if (isset($input['services']) && is_array($input['services'])) {
-                $services = $input['services'];
+            if (isset($input['services'])) {
+                if (is_array($input['services'])) {
+                    $services = $input['services'];
+                } else if (is_string($input['services'])) {
+                    $services = json_decode($input['services'], true);
+                    if (json_last_error() !== JSON_ERROR_NONE || !is_array($services)) {
+                        $services = [];
+                    }
+                }
             }
             
             $bookingId = $bookingRepo->create([
@@ -138,6 +154,72 @@ class BookingController extends Controller {
             echo json_encode(['success' => false, 'message' => 'Ошибка сервера']);
         }
         exit;
+    }
+    
+    private function processTouristData($data) {
+        $firstName = trim($data['first_name'] ?? '');
+        $lastName = trim($data['last_name'] ?? '');
+        
+        if (empty($firstName) || empty($lastName)) {
+            return null;
+        }
+        
+        $processed = [
+            'user_id' => $data['user_id'] ?? null,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'is_orderer' => isset($data['is_orderer']) && ($data['is_orderer'] === true || $data['is_orderer'] === 1 || $data['is_orderer'] === '1'),
+            'is_child' => isset($data['is_child']) && ($data['is_child'] === true || $data['is_child'] === 1 || $data['is_child'] === '1')
+        ];
+        
+        if (isset($data['birthdate']) && !empty($data['birthdate'])) {
+            $birthdate = trim($data['birthdate']);
+            if (preg_match('/^(\d{2})\.(\d{2})\.(\d{4})$/', $birthdate, $matches)) {
+                $processed['date_of_birth'] = $matches[3] . '-' . $matches[2] . '-' . $matches[1];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+        
+        if ($processed['is_child']) {
+            $birthCertificate = trim($data['birth_certificate'] ?? '');
+            if (empty($birthCertificate)) {
+                return null;
+            }
+            $processed['passport_number'] = $birthCertificate;
+            $processed['passport_issued_by'] = null;
+            $processed['passport_issue_date'] = null;
+        } else {
+            $docSeries = trim($data['doc_series'] ?? '');
+            $docNumber = trim($data['doc_number'] ?? '');
+            
+            if (empty($docSeries) || empty($docNumber)) {
+                return null;
+            }
+            
+            $processed['passport_number'] = $docSeries . ' ' . $docNumber;
+            
+            if (isset($data['doc_issuing_authority']) && !empty(trim($data['doc_issuing_authority']))) {
+                $processed['passport_issued_by'] = trim($data['doc_issuing_authority']);
+            } else {
+                $processed['passport_issued_by'] = null;
+            }
+            
+            if (isset($data['doc_issue_date']) && !empty(trim($data['doc_issue_date']))) {
+                $issueDate = trim($data['doc_issue_date']);
+                if (preg_match('/^(\d{2})\.(\d{2})\.(\d{4})$/', $issueDate, $matches)) {
+                    $processed['passport_issue_date'] = $matches[3] . '-' . $matches[2] . '-' . $matches[1];
+                } else {
+                    $processed['passport_issue_date'] = null;
+                }
+            } else {
+                $processed['passport_issue_date'] = null;
+            }
+        }
+        
+        return $processed;
     }
 }
 

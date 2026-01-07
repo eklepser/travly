@@ -23,6 +23,10 @@ class TouristRepository {
                 return null;
             }
             
+            if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateOfBirth)) {
+                return null;
+            }
+            
             $stmt = $this->pdo->prepare("
                 SELECT id FROM tourists 
                 WHERE LOWER(TRIM(first_name)) = LOWER(TRIM(:first_name))
@@ -66,9 +70,13 @@ class TouristRepository {
             $passportIssuedBy = isset($data['passport_issued_by']) && trim($data['passport_issued_by']) !== '' 
                 ? trim($data['passport_issued_by']) 
                 : null;
-            $passportIssueDate = isset($data['passport_issue_date']) && trim($data['passport_issue_date']) !== '' 
-                ? trim($data['passport_issue_date']) 
-                : null;
+            $passportIssueDate = null;
+            if (isset($data['passport_issue_date']) && trim($data['passport_issue_date']) !== '') {
+                $dateStr = trim($data['passport_issue_date']);
+                if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateStr)) {
+                    $passportIssueDate = $dateStr;
+                }
+            }
             $userId = isset($data['user_id']) ? (int)$data['user_id'] : null;
             
             $isOrderer = false;

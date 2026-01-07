@@ -54,7 +54,6 @@
         renderForms();
         updateNavigation();
         
-        // Делаем функцию доступной глобально для validation.js
         window.updateNavigation = updateNavigation;
         
         if (typeof setupGlobalEventHandlers === 'function') {
@@ -246,13 +245,11 @@
             return true;
         }
         
-        // Проверяем, есть ли поля с ошибками
         const invalidInputs = formElement.querySelectorAll('input.invalid');
         if (invalidInputs.length > 0) {
             return false;
         }
         
-        // Проверяем, заполнены ли все обязательные поля
         const inputs = formElement.querySelectorAll('input');
         let hasEmptyRequired = false;
         
@@ -260,14 +257,12 @@
             const name = input.getAttribute('name') || '';
             const value = input.value.trim();
             
-            // Определяем, является ли поле обязательным
             const isRequired = name.includes('_lastname') || 
                              name.includes('_firstname') || 
                              name.includes('_birthdate') ||
                              (name.includes('_doc-series') && !name.includes('birth-certificate')) ||
                              (name.includes('_doc-number') && !name.includes('birth-certificate')) ||
                              name.includes('_birth-certificate') ||
-                             // Для заказчика все поля обязательны
                              (forms[formIndex] && forms[formIndex].isCustomer && (
                                  name.includes('_middlename') ||
                                  name.includes('_doc-department-code') ||
@@ -295,7 +290,6 @@
             const hasPrev = currentFormIndex > 0;
             prevBtn.style.display = hasPrev ? 'flex' : 'none';
             
-            // Проверяем валидность предыдущей формы
             if (hasPrev) {
                 const prevFormValid = isFormValid(currentFormIndex - 1);
                 if (prevFormValid) {
@@ -310,7 +304,6 @@
             const hasNext = currentFormIndex < forms.length - 1;
             nextBtn.style.display = hasNext ? 'flex' : 'none';
             
-            // Проверяем валидность следующей формы
             if (hasNext) {
                 const nextFormValid = isFormValid(currentFormIndex + 1);
                 if (nextFormValid) {
@@ -431,7 +424,6 @@
     }
 
     function getTourId() {
-        // Используем данные из window.bookingData, если доступны
         if (window.bookingData && window.bookingData.tourId) {
             return window.bookingData.tourId;
         }
@@ -441,7 +433,6 @@
     }
 
     function getTotalPrice() {
-        // Используем данные из window.bookingData, если доступны
         if (window.bookingData && window.bookingData.totalPrice) {
             return window.bookingData.totalPrice;
         }
@@ -498,7 +489,6 @@
                 }
             });
             
-            // Проверяем обязательные поля
             if (!touristData.first_name) {
                 errors.push(`Турист ${index + 1}: не указано имя`);
                 allValid = false;
@@ -537,10 +527,13 @@
     }
 
     function submitBooking() {
-        // Валидируем все формы туристов
+        console.log('[Booking] submitBooking called');
         if (!validateAllTouristForms()) {
+            console.log('[Booking] Validation failed');
+            alert('Пожалуйста, заполните все обязательные поля для всех туристов.');
             return;
         }
+        console.log('[Booking] Validation passed');
         
         if (typeof validateForm === 'function') {
             const $bookingForm = $('.booking-form');
@@ -549,7 +542,6 @@
                 return;
             }
             
-            // Дополнительная валидация через существующую функцию
             if (!validateForm($bookingForm)) {
                 console.error('[Booking] Form validation failed');
                 return;
@@ -562,16 +554,19 @@
         
         if (tourId <= 0) {
             console.error('[Booking] Invalid tour ID:', tourId);
+            alert('Ошибка: неверный идентификатор тура. Обновите страницу и попробуйте снова.');
             return;
         }
         
         if (totalPrice <= 0) {
             console.error('[Booking] Invalid total price:', totalPrice);
+            alert('Ошибка: неверная стоимость тура. Обновите страницу и попробуйте снова.');
             return;
         }
         
         if (tourists.length === 0) {
             console.error('[Booking] No tourists data');
+            alert('Ошибка: данные туристов не найдены. Пожалуйста, заполните формы туристов.');
             return;
         }
         
@@ -580,6 +575,7 @@
             for (let field of requiredFields) {
                 if (!tourist[field] || tourist[field].trim() === '') {
                     console.error(`[Booking] Missing required field for tourist:`, field);
+                    alert(`Ошибка: не заполнено обязательное поле "${field}" для одного из туристов.`);
                     return;
                 }
             }
@@ -587,11 +583,13 @@
             if (!tourist.is_child) {
                 if (!tourist.doc_series || !tourist.doc_number) {
                     console.error('[Booking] Missing document for adult tourist');
+                    alert('Ошибка: не указаны данные документа для взрослого туриста.');
                     return;
                 }
             } else {
                 if (!tourist.birth_certificate) {
                     console.error('[Booking] Missing birth certificate for child');
+                    alert('Ошибка: не указано свидетельство о рождении для ребенка.');
                     return;
                 }
             }
@@ -603,10 +601,8 @@
             bookBtn.textContent = 'Оформление...';
         }
         
-        // Получаем выбранные услуги из сессии (они должны быть сохранены на странице выбора услуг)
         const selectedServices = window.bookingData?.services || [];
         
-        // Логируем данные перед отправкой
         console.log('[Booking] Tour ID:', tourId);
         console.log('[Booking] Total Price:', totalPrice);
         console.log('[Booking] Tourists count:', tourists.length);
@@ -619,7 +615,6 @@
         formData.append('tourists', JSON.stringify(tourists));
         formData.append('services', JSON.stringify(selectedServices));
         
-        // Логируем FormData
         console.log('[Booking] FormData contents:');
         for (let pair of formData.entries()) {
             console.log('[Booking]', pair[0] + ':', pair[1]);
@@ -651,6 +646,7 @@
                 window.location.href = '?page=me';
             } else {
                 console.error('[Booking] Booking failed:', res.message || 'Unknown error');
+                alert('Ошибка при бронировании: ' + (res.message || 'Неизвестная ошибка'));
                 if (bookBtn) {
                     bookBtn.disabled = false;
                     bookBtn.textContent = 'Забронировать тур';
@@ -659,6 +655,7 @@
         })
         .catch(err => {
             console.error('[Booking] Network error:', err);
+            alert('Ошибка сети при отправке данных. Проверьте подключение к интернету и попробуйте снова.');
             if (bookBtn) {
                 bookBtn.disabled = false;
                 bookBtn.textContent = 'Забронировать тур';
@@ -677,7 +674,9 @@
         const prevBtn = document.getElementById('prevFormBtn');
         const nextBtn = document.getElementById('nextFormBtn');
         const clearBtn = document.getElementById('clearCurrentFormBtn');
-        const bookBtn = document.querySelector('.book-btn');
+        const bookBtn = document.querySelector('.book-btn') || document.getElementById('bookTourBtn');
+        
+        console.log('[Booking] DOMContentLoaded - bookBtn:', bookBtn);
 
         if (prevBtn) {
             prevBtn.addEventListener('click', showPrevForm);
@@ -692,10 +691,15 @@
         }
 
         if (bookBtn) {
+            console.log('[Booking] Book button found, adding event listener');
             bookBtn.addEventListener('click', function(e) {
+                console.log('[Booking] Book button clicked');
                 e.preventDefault();
+                e.stopPropagation();
                 submitBooking();
             });
+        } else {
+            console.error('[Booking] Book button not found!');
         }
         
         setTimeout(() => {
@@ -704,5 +708,7 @@
             }
         }, 300);
     });
+
+    window.submitBooking = submitBooking;
 })();
 

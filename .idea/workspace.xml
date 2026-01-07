@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/base.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/components/card.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/card.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/components/filter-panel.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/components/filter-panel.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/layout/auth.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/auth.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/layout/layout.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/layout.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/layout/main.less" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/layout/main.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/styles.css" afterDir="false" />
-    </list>
+    <list default="true" id="732d9c54-1cde-4873-93e2-ea85ab9c1c06" name="Changes" comment="feat: add mobile-adaptive design" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -183,14 +174,6 @@
       <workItem from="1765805595993" duration="3723000" />
       <workItem from="1767301377563" duration="2645000" />
       <workItem from="1767736827187" duration="614000" />
-    </task>
-    <task id="LOCAL-00004" summary="feat: add cards panel">
-      <option name="closed" value="true" />
-      <created>1760464021868</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1760464021868</updated>
     </task>
     <task id="LOCAL-00005" summary="feat: add about page prototype">
       <option name="closed" value="true" />
@@ -576,7 +559,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767305525347</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="feat: add mobile-adaptive design">
+      <option name="closed" value="true" />
+      <created>1767740091727</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1767740091727</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -632,7 +623,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor: remove old css files" />
     <MESSAGE value="fix: remove duplicate code" />
     <MESSAGE value="refactor: move common code in base.less" />
     <MESSAGE value="refactor: remove variables for font and spacing" />
@@ -657,6 +647,7 @@
     <MESSAGE value="feat: remove change account info button" />
     <MESSAGE value="refactor: prepare for global mvc refactoring" />
     <MESSAGE value="refactor: implement mvc" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: implement mvc" />
+    <MESSAGE value="feat: add mobile-adaptive design" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add mobile-adaptive design" />
   </component>
 </project>

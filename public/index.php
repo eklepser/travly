@@ -52,9 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'create-booking') {
-    require_once '../src/core/database.php';
-    require_once '../src/handlers/booking.php';
-    handleCreateBooking();
+    require_once '../src/core/autoload.php';
+    $controller = new BookingController();
+    $controller->handle();
     exit;
 }
 if (isset($_GET['action']) && $_GET['action'] === 'cancel-booking') {
